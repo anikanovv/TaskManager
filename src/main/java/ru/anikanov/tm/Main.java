@@ -45,7 +45,7 @@ public class Main {
     }
     static void readProject(String name){
         for(String task:references.get(name).tasks){
-            
+
         };
     }
     static void updateProject(String name){}
