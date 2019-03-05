@@ -1,5 +1,5 @@
 # TaskManager
-ТРЕБОВАНИЯ К SOFTWARE:\\n
+ТРЕБОВАНИЯ К SOFTWARE:
 IntelliJ IDEA Community version
 Java 8
 ОПИСАНИЕ СТЕКА ТЕХНОЛОГИЙ:
