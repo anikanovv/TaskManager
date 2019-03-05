@@ -1,18 +1,30 @@
 package ru.anikanov.tm;
 //package ru.anikanov.tm;
 
-import ru.anikanov.tm.*;
+import ru.anikanov.tm.entity.Project;
+import ru.anikanov.tm.entity.Task;
 
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.text.ParseException;
 import java.util.*;
 
 public class App {
-    private static List<Project> projects = new ArrayList<>();
-     private static  Map<String, Integer> references = new HashMap<>();
+    private static List<Project> projects = new ArrayList<>();//не нужно
+    private static Map<String, Project> referencesProjects = new HashMap<>();
+    private static final String CREATE = "create";
+    private static final String READALL = "readall";
+    private static final String READ = "read";
+    private static final String UPDATE = "update";
+    private static final String DELETE = "delete";
+    private static final String HELP = "help";
+    private static final String INSERT = "insert";
+    private static final String REMOVE = "remove";
+    private static final String CHANGE = "change";
+    private static final String EXIT = "exit";
 
-    public static void main(String[] args) throws IOException {
+    public static void main(String[] args) throws IOException, ParseException {
         BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
         String command;
 
@@ -27,26 +39,26 @@ public class App {
             String projectname = new String();
             if (strings.length > 1) projectname = strings[1];
             switch (opperationname) {
-                case "create":
+                case CREATE:
                     createProject(projectname);
                     break;
-                case "read":
+                case READALL:
                     read();
                     break;
-                case "readName":
+                case READ:
                     readProject(projectname);
                     break;
-                case "update":
+                case UPDATE:
                     updateProject(projectname);
                     break;
 
-                case "delete":
+                case DELETE:
                     deleteProject(projectname);
                     break;
-                case "help":
+                case HELP:
                     System.out.println("create для создания проекта\n" + "read для чтения проекта\n" + "update для изменения проекта\n" + "delete для удаления проекта\n");
                     break;
-                case "end":
+                case EXIT:
                     return;
                 default:
                     System.out.println("Ошибка при вводе выражения\n");
@@ -57,58 +69,67 @@ public class App {
 
     private static void read() {
         for (Project project : projects) {
-            System.out.println(project.getName() + ":");
-            for (Task task : project.tasks) {
-                System.out.println(task.getid() + " " + task.task);
-            }
-            System.out.println();
+            readProject(project.getName());
         }
     }
 
-     private static void createProject(String name) {
-        Project newproject = new Project(name);
+    private static void createProject(String name) throws ParseException, IOException {
+
+        BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
+        System.out.println("Введите описание проекта");
+        String description = reader.readLine();
+        if (description.isEmpty()) {
+            System.out.println("Введена пустая строка, повторите ввод");
+            description = reader.readLine();
+        }
+        System.out.println("Введите дату начала проекта");
+        String startdate = reader.readLine();
+        System.out.println("Введите дату окончания проекта");
+        String enddate = reader.readLine();
+        Project newproject = new Project(name, description, startdate, enddate);
         projects.add(newproject);
-        int projid = projects.size() - 1;
-        references.put(name, projid);
+        projectID(newproject);
+        referencesProjects.put(name, newproject);
+
     }
 
      private static void readProject(String name) {
-        boolean mapContainsName = references.containsKey(name);
-        int projid = references.get(name);
-        boolean projTasksIsNotEmpty = projects.get(projid).tasks.size() > 0;
-        if ((mapContainsName) && (projTasksIsNotEmpty)) {
-            System.out.println(name + ":");
-            for (Task task : projects.get(references.get(name)).tasks) {
-                System.out.println(task.getid() + " " + task.task);
+         boolean mapContainsName = referencesProjects.containsKey(name);
+         if (mapContainsName) {
+             Project project = referencesProjects.get(name);
+             System.out.println(project.getName() + " " + project.getDescription() + ":");
+             for (Task task : project.tasks) {
+                 System.out.println(task.getTaskName() + " " + task.getTaskDescription());
             }
         } else System.out.println("Такого проекта не существует или список его задач пуст");
         System.out.println();
+
 
     }
 
      private static void updateProject(String name) throws IOException {
         BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
-        boolean mapContainsName = references.containsKey(name);
-        boolean projSizeBigger = projects.size() > references.get(name);
-        if (mapContainsName && (projSizeBigger)) {
-            System.out.println("Введите через пробел название операции + задачу (help для справки)");
-            Project project = projects.get(references.get(name));
-            String task = reader.readLine();
-            String[] strings = task.split("( )+");
-            String[] variables = Arrays.copyOfRange(strings, 1, strings.length);
-            String opperation = strings[0].toLowerCase();
+         boolean mapContainsName = referencesProjects.containsKey(name);
+         if (mapContainsName) {
+             Project project = referencesProjects.get(name);
+             System.out.println("Введите через пробел название операции (help для справки)");
+//            Project project = projects.get(references.get(name));
+             String opperation = reader.readLine();
+//            String[] strings = task.split("( )+");
+//            String[] variables = Arrays.copyOfRange(strings, 1, strings.length);
+//            String opperation = strings[0].toLowerCase();
 
             switch (opperation) {
-                case "insert":
-                    insertTask(project, variables);
+                case INSERT:
+                    insertTask(project);
                     return;
-                case "update":
-                    updateTask(project, variables);
+                case CHANGE:
+                    updateTask(project);
                     return;
-                case "remove":
-                    removeTask(project, variables);
+                case REMOVE:
+                    removeTask(project);
                     return;
-                case "help":
+                case HELP:
                     System.out.println("insert + задача для создания задания\n" + "update + idзадачи для изменения задания\n" + "delete + idзадачи для удаления проекта");
                     break;
                 default:
@@ -121,8 +142,11 @@ public class App {
         }
 
     }
+//*
 
-     private static void deleteProject(String name) {
+    //    ВЫ ЗДЕСЬ!!!!!!!!!!!!!!
+//    /*/
+    private static void deleteProject(String name) {
         boolean mapContainsName = references.containsKey(name);
         boolean projSizeBigger = projects.size() > references.get(name);
         if (mapContainsName && projSizeBigger) {
@@ -179,5 +203,9 @@ public class App {
         for (int i = 0; i < project.tasks.size(); i++) {
             project.tasks.get(i).setid(i);
         }
+    }
+
+    static String projectID(Project project) {
+
     }
 }
