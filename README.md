@@ -11,4 +11,4 @@ mail: anikanov.vlad@gmail.com
 $ mvn package
 КОМАНДЫ ДЛЯ ЗАПУСКА ПРИЛОЖЕНИЯ
 cd target
-java -jar ./tm.jar
+java -jar tm.jar
