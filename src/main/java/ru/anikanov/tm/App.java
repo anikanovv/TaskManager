@@ -142,34 +142,33 @@ public class App {
         }
 
     }
-//*
 
-    //    ВЫ ЗДЕСЬ!!!!!!!!!!!!!!
-//    /*/
     private static void deleteProject(String name) {
-        boolean mapContainsName = references.containsKey(name);
-        boolean projSizeBigger = projects.size() > references.get(name);
-        if (mapContainsName && projSizeBigger) {
-            int id = references.get(name);
-            projects.remove(id);
-            references.remove(name);
-            for (int i = id; i < projects.size(); i++) {
-                String projName = projects.get(i).getName();
-                references.put(projName, i);
-            }
+        boolean mapContainsName = referencesProjects.containsKey(name);
+        if (mapContainsName) {
+            Project project = referencesProjects.get(name);
+            referencesProjects.remove(name);
         } else System.out.println("Такого проекта не существует\n");
     }
 
-     private static void insertTask(Project project, String... task) {
-        for (String taskName:task) {
-            Task newtask = new Task(taskName);
-            project.tasks.add(newtask);
-            int taskid = project.tasks.size() - 1;
-            project.map.put(taskName, taskid);
-            newtask.setid(taskid);
-        }
+    private static void insertTask(Project project) throws IOException, ParseException {
+        BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
+        System.out.println("Введите название задачи");
+        String taskName = reader.readLine();
+        System.out.println("Введите описание задачи");
+        String taskDescription = reader.readLine();
+        System.out.println("Введите дату начала проекта");
+        String startdate = reader.readLine();
+        System.out.println("Введите дату окончания проекта");
+        String enddate = reader.readLine();
+        String projID = project.getID();
+        Task newtask = new Task(taskName, taskDescription, startdate, enddate, projID);
 
     }
+    //*
+
+    //    ВЫ ЗДЕСЬ!!!!!!!!!!!!!!
+//    /*/
 
      //
      static void readTask(Project project, String... id) {

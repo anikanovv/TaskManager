@@ -11,14 +11,15 @@ public class Task {
     private String description;
     Date start;
     Date end;
-    private int projectID;
+    private String projectID;
 
-    public Task(String name, String description, String startDate, String endDate) throws ParseException {
+    public Task(String name, String description, String startDate, String endDate, String projID) throws ParseException {
         this.name = name;
         this.description = description;
         SimpleDateFormat format = new SimpleDateFormat("dd.MM.yyyy", Locale.US);
         start = format.parse(startDate);
         end = format.parse(endDate);
+        projectID = projID;
     }
      void setid(int i){
         id=i;
