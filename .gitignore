@@ -1,5 +1,5 @@
-*.idea
-*.iml
-*.bin
-*.out
-*.targer
+*.idea/
+*.iml/
+*.bin/
+*.out/
+*.targer/
