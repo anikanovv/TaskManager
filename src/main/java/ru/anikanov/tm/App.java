@@ -1,12 +1,15 @@
 package ru.anikanov.tm;
+//package ru.anikanov.tm;
+
+import ru.anikanov.tm.*;
 
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.util.*;
 
- class App {
-     private static  List<Project> projects = new ArrayList<>();
+public class App {
+    private static List<Project> projects = new ArrayList<>();
      private static  Map<String, Integer> references = new HashMap<>();
 
     public static void main(String[] args) throws IOException {
@@ -21,12 +24,16 @@ import java.util.*;
             }
             String[] strings = command.split("( )+");
             String opperationname = strings[0].toLowerCase();
-            String projectname = strings[1];
+            String projectname = new String();
+            if (strings.length > 1) projectname = strings[1];
             switch (opperationname) {
                 case "create":
                     createProject(projectname);
                     break;
                 case "read":
+                    read();
+                    break;
+                case "readName":
                     readProject(projectname);
                     break;
                 case "update":
@@ -46,6 +53,16 @@ import java.util.*;
             }
 
         } while (!command.equals("end"));
+    }
+
+    private static void read() {
+        for (Project project : projects) {
+            System.out.println(project.getName() + ":");
+            for (Task task : project.tasks) {
+                System.out.println(task.getid() + " " + task.task);
+            }
+            System.out.println();
+        }
     }
 
      private static void createProject(String name) {

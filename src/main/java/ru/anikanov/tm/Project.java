@@ -8,7 +8,7 @@ import java.util.LinkedHashMap;
 import java.util.LinkedList;
 import java.util.Map;
 
- class Project {
+public class Project {
     private String name;
     LinkedList<Task> tasks;
     HashMap<String,Integer> map;

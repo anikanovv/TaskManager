@@ -1,5 +1,6 @@
 package ru.anikanov.tm;
-  class Task {
+
+public class Task {
     String task;
     private int id;
     Task(String task){
