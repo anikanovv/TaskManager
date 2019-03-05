@@ -1,6 +1,5 @@
 package ru.anikanov.tm;
-
-public class Task {
+  class Task {
     String task;
     private int id;
     Task(String task){
@@ -11,5 +10,11 @@ public class Task {
     }
     int getid(){
         return id;
+    }
+    String getTask(){
+        return task;
+    }
+    void setTask(String newtask){
+        task=newtask;
     }
 }
