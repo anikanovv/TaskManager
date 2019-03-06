@@ -1,19 +1,23 @@
-package ru.anikanov.tm.repository;
+package ru.anikanov.tm.service;
 
-import ru.anikanov.tm.App;
 import ru.anikanov.tm.entity.Task;
+import ru.anikanov.tm.repository.TaskRepository;
 
 import java.text.ParseException;
 import java.util.ArrayList;
-import java.util.LinkedHashMap;
 import java.util.List;
-import java.util.Map;
 
-public class TaskRepository {
-    App app = new App();
-    private Map<String, Task> taskMap = new LinkedHashMap<>();
+public class TaskService {
+    TaskRepository taskRepository = new TaskRepository();
+
+    public Task findOne(String taskName) {
+        if (taskName.isEmpty() || (taskName == null)) return null;
+        return taskRepository.findOne(taskName);
+    }
 
     public Task persist(String projectId, String taskName, String description, String dateStart, String dateFinish) throws ParseException {
+        if (taskName.isEmpty() || (taskName == null)) return null;
+        Task task = taskRepository.findOne(taskName);
         Task task = new Task(projectId, taskName, description, dateStart, dateFinish);
         if (!taskMap.containsValue(task)) {
             taskMap.put(task.getId(), task);
@@ -37,10 +41,6 @@ public class TaskRepository {
 
     public void removeAll() {
         taskMap.clear();
-    }
-
-    public Task findOne(String taskName) {
-        return taskMap.get(taskName);
     }
 
     public List<Task> findAll() {

@@ -5,20 +5,17 @@ import ru.anikanov.tm.entity.Project;
 
 import java.text.ParseException;
 import java.util.ArrayList;
+import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 
 public class ProjectRepository {
-    App app = new App();
-    private Map<String, Project> projectMap = app.getReferencesProjects();
+    private Map<String, Project> projectMap = new LinkedHashMap<>();
 
     public Project persist(String projectName, String description, String dateStart, String dateFinish) throws ParseException {
         Project project = new Project(projectName, description, dateStart, dateFinish);
-        if (!projectMap.containsValue(project)) {
-            projectMap.put(project.getId(), project);
-            return project;
-        }
-        return null;
+        projectMap.put(project.getId(), project);
+        return project;
     }
 
     public void merge(String projectId, String projectName, String description, String dateStart, String dateFinish) throws ParseException {
