@@ -11,9 +11,9 @@ import java.text.ParseException;
 import java.util.*;
 
 public class App {
-    private static Map<String, Project> referencesProjects = new HashMap<>();
-    private static Map<String, String> projIDref = new HashMap<>();
-    private static Map<String, Task> referencesTask = new HashMap<>();
+    private Map<String, Project> referencesProjects = new HashMap<>();
+    private Map<String, String> projIDref = new HashMap<>();
+    private Map<String, Task> referencesTask = new HashMap<>();
 //    static HashSet<String> uuids = new HashSet<>();
 
     private static final String CREATE = "create";
@@ -29,6 +29,7 @@ public class App {
     private static final String READTASK = "readtask";
 
     public static void main(String[] args) throws IOException, ParseException {
+        App app = new App();
         BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
         String command;
 
@@ -44,32 +45,32 @@ public class App {
             if (strings.length > 1) name = strings[1];
             switch (opperationname) {
                 case CREATE:
-                    createProject(name);
+                    app.createProject(name);
                     break;
                 case READALL:
-                    read();
+                    app.read();
                     break;
                 case READ:
-                    readProject(name);
+                    app.readProject(name);
                     break;
                 case UPDATE:
-                    updateProject(name);
+                    app.updateProject(name);
                     break;
                 case READTASK:
-                    readTask(name);
+                    app.readTask(name);
                     break;
 
                 case DELETE:
-                    deleteProject(name);
+                    app.deleteProject(name);
                     break;
                 case INSERT:
-                    insertTask(name);
+                    app.insertTask(name);
                     break;
                 case CHANGE:
-                    updateTask(name);
+                    app.updateTask(name);
                     break;
                 case REMOVE:
-                    removeTask(name);
+                    app.removeTask(name);
                     break;
                 case HELP:
                     System.out.println("create + имя для создания проекта\n" + "read + имя для чтения проекта\n" + "readall для чтения всех проектов\n" + "update + имя для изменения проекта\n" + "delete + имя для удаления проекта");
@@ -85,14 +86,14 @@ public class App {
         } while (!command.equals(EXIT));
     }
 
-    private static void read() {
+    private void read() {
         for (Map.Entry<String, Project> entry : referencesProjects.entrySet()) {
             Project project = entry.getValue();
             System.out.println(project);
         }
     }
 
-    private static void createProject(String name) throws ParseException, IOException {
+    private void createProject(String name) throws ParseException, IOException {
 
         BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
         System.out.println("Введите описание проекта");
@@ -113,7 +114,7 @@ public class App {
 
     }
 
-     private static void readProject(String name) {
+    private void readProject(String name) {
          boolean mapContainsName = referencesProjects.containsKey(name);
          if (mapContainsName) {
              Project project = referencesProjects.get(name);
@@ -127,7 +128,7 @@ public class App {
 
     }
 
-    private static void updateProject(String name) throws IOException, ParseException {
+    private void updateProject(String name) throws IOException, ParseException {
         BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
          boolean mapContainsName = referencesProjects.containsKey(name);
          if (mapContainsName) {
@@ -150,7 +151,7 @@ public class App {
 
     }
 
-    private static void deleteProject(String name) {
+    private void deleteProject(String name) {
         boolean mapContainsName = referencesProjects.containsKey(name);
         if (mapContainsName) {
             Project project = referencesProjects.get(name);
@@ -161,7 +162,7 @@ public class App {
         } else System.out.println("Такого проекта не существует\n");
     }
 
-    private static void insertTask(String taskName) throws IOException, ParseException {
+    private void insertTask(String taskName) throws IOException, ParseException {
         BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
         System.out.println("Введите название проекта");
         String projName = reader.readLine();
@@ -178,13 +179,13 @@ public class App {
         project.tasks.add(newtask);
     }
 
-    static void readTask(String taskname) {
+    void readTask(String taskname) {
         Task task = referencesTask.get(taskname);
         System.out.println(task.getTaskName() + " - " + task.getTaskDescription());
     }
 
      //
-     private static void updateTask(String taskname) throws IOException {
+     private void updateTask(String taskname) throws IOException {
 
             BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
          System.out.println("Введите новое описание задачи");
@@ -193,7 +194,7 @@ public class App {
 
     }
 
-    private static void removeTask(String taskname) {
+    private void removeTask(String taskname) {
         Task task = referencesTask.get(taskname);
         referencesTask.remove(taskname);
         String projName = projIDref.get(task.getProjectID());
