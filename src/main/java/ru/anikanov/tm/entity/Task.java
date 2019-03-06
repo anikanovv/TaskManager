@@ -41,7 +41,20 @@ public class Task {
         return description;
     }
 
+    public void setDescription(String newdescrip) {
+        description = newdescrip;
+    }
+
     void setTaskDescription(String newtask) {
         description = newtask;
+    }
+
+    public String getProjectID() {
+        return projectID;
+    }
+
+    @Override
+    public String toString() {
+        return (name + " - " + description + "\n" + "start: " + start + " end: " + end);
     }
 }
