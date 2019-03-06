@@ -11,6 +11,7 @@ public class Project {
     Date start;
     Date end;
     public LinkedList<Task> tasks;
+    static SimpleDateFormat format = new SimpleDateFormat("dd.MM.yyyy", Locale.US);
 
     //    HashMap<String,Integer> map;
     public Project(String name, String description, String startDate, String endDate) throws ParseException {
@@ -44,12 +45,12 @@ public class Project {
     }
 
     public void setStart(String startString) throws ParseException {
-        SimpleDateFormat format = new SimpleDateFormat("dd.MM.yyyy", Locale.US);
+//        SimpleDateFormat format = new SimpleDateFormat("dd.MM.yyyy", Locale.US);
         start = format.parse(startString);
     }
 
     public void setEnd(String endString) throws ParseException {
-        SimpleDateFormat format = new SimpleDateFormat("dd.MM.yyyy", Locale.US);
+
         end = format.parse(endString);
     }
 
@@ -63,7 +64,7 @@ public class Project {
 
     @Override
     public String toString() {
-        StringBuilder builder = new StringBuilder("Проект " + name + " - " + description + "\n" + "Start: " + start + " end: " + end + "\n" + "Задания :\n");
+        StringBuilder builder = new StringBuilder("Проект " + name + " - " + description + " " + id + "\n" + "Start: " + format.format(start) + " end: " + format.format(end) + "\n" + "Задания :\n");
         for (Task task : tasks) {
             builder.append(task).append("\n");
         }

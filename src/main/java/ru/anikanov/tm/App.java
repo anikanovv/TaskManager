@@ -11,11 +11,10 @@ import java.text.ParseException;
 import java.util.*;
 
 public class App {
-    //    private static List<Project> projects = new ArrayList<>();//не нужно
     private static Map<String, Project> referencesProjects = new HashMap<>();
     private static Map<String, String> projIDref = new HashMap<>();
     private static Map<String, Task> referencesTask = new HashMap<>();
-    static HashSet<String> uuids = new HashSet<>();
+//    static HashSet<String> uuids = new HashSet<>();
 
     private static final String CREATE = "create";
     private static final String READALL = "readall";
@@ -27,6 +26,7 @@ public class App {
     private static final String REMOVE = "remove";
     private static final String CHANGE = "change";
     private static final String EXIT = "exit";
+    private static final String READTASK = "readtask";
 
     public static void main(String[] args) throws IOException, ParseException {
         BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
@@ -55,6 +55,9 @@ public class App {
                 case UPDATE:
                     updateProject(name);
                     break;
+                case READTASK:
+                    readTask(name);
+                    break;
 
                 case DELETE:
                     deleteProject(name);
@@ -70,7 +73,7 @@ public class App {
                     break;
                 case HELP:
                     System.out.println("create + имя для создания проекта\n" + "read + имя для чтения проекта\n" + "readall для чтения всех проектов\n" + "update + имя для изменения проекта\n" + "delete + имя для удаления проекта");
-                    System.out.println("insert + имя задачи для создания задачи\n" + "change + имя задачи для изменения задачи\n" + "readTask + имя для чтения задачи\n" + "remove + имя задачи для удаления задачи");
+                    System.out.println("insert + имя задачи для создания задачи\n" + "change + имя задачи для изменения задачи\n" + "readtask + имя для чтения задачи\n" + "remove + имя задачи для удаления задачи");
                     System.out.println("exit + для выхода");
                     break;
                 case EXIT:
@@ -200,11 +203,11 @@ public class App {
 
     static String projectID(Project project) {
         String uuid = UUID.randomUUID().toString().replaceAll("-", "");
-        boolean loop = uuids.contains(uuid);
+        /*boolean loop = uuids.contains(uuid);
         while (loop) {
             uuid = UUID.randomUUID().toString().replaceAll("-", "");
             loop = uuids.contains(uuid);
-        }
+        }*/
         project.setId(uuid);
         return (uuid);
     }
