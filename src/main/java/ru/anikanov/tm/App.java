@@ -1,5 +1,4 @@
 package ru.anikanov.tm;
-//package ru.anikanov.tm;
 
 import ru.anikanov.tm.entity.Project;
 import ru.anikanov.tm.entity.Task;
@@ -11,10 +10,9 @@ import java.text.ParseException;
 import java.util.*;
 
 public class App {
-    private Map<String, Project> referencesProjects = new HashMap<>();
-    private Map<String, String> projIDref = new HashMap<>();
-    private Map<String, Task> referencesTask = new HashMap<>();
-//    static HashSet<String> uuids = new HashSet<>();
+    private Map<String, Project> projectMap = new HashMap<>();
+    private Map<String, String> projectIdReferences = new HashMap<>();
+    private Map<String, Task> taskMap = new HashMap<>();
 
     private static final String CREATE = "create";
     private static final String READALL = "readall";
@@ -87,7 +85,7 @@ public class App {
     }
 
     private void read() {
-        for (Map.Entry<String, Project> entry : referencesProjects.entrySet()) {
+        for (Map.Entry<String, Project> entry : projectMap.entrySet()) {
             Project project = entry.getValue();
             System.out.println(project);
         }
@@ -107,43 +105,40 @@ public class App {
         System.out.println("Введите дату окончания проекта");
         String enddate = reader.readLine();
         Project newproject = new Project(name, description, startdate, enddate);
-//        projects.add(newproject);
         String newprojID = projectID(newproject);
-        referencesProjects.put(name, newproject);
-        projIDref.put(newprojID, name);
+        projectMap.put(name, newproject);
+        projectIdReferences.put(newprojID, name);
 
     }
 
     private void readProject(String name) {
-         boolean mapContainsName = referencesProjects.containsKey(name);
-         if (mapContainsName) {
-             Project project = referencesProjects.get(name);
-             System.out.println(project.getName() + " " + project.getDescription() + " : ");
-             for (Task task : project.tasks) {
-                 readTask(task.getTaskName());
+        boolean mapContainsName = projectMap.containsKey(name);
+        if (mapContainsName) {
+            Project project = projectMap.get(name);
+            System.out.println(project.getName() + " " + project.getDescription() + " : ");
+            for (Task task : project.tasks) {
+                readTask(task.getTaskName());
             }
         } else System.out.println("Такого проекта не существует или список его задач пуст");
         System.out.println();
-
-
     }
 
     private void updateProject(String name) throws IOException, ParseException {
         BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
-         boolean mapContainsName = referencesProjects.containsKey(name);
-         if (mapContainsName) {
-             Project project = referencesProjects.get(name);
-             System.out.println("Введите новое описание проекта");
-             String newdescrip = reader.readLine();
-             if (!newdescrip.isEmpty()) {
-                 project.setDescription(newdescrip);
-             }
-             System.out.println("Введите новую дату начала проекта");
-             String newStartDate = reader.readLine();
-             if (!newStartDate.isEmpty()) project.setStart(newStartDate);
-             System.out.println("Введите новую дату окончания проекта");
-             String newEndDate = reader.readLine();
-             if (!newEndDate.isEmpty()) project.setEnd(newEndDate);
+        boolean mapContainsName = projectMap.containsKey(name);
+        if (mapContainsName) {
+            Project project = projectMap.get(name);
+            System.out.println("Введите новое описание проекта");
+            String newdescrip = reader.readLine();
+            if (!newdescrip.isEmpty()) {
+                project.setDescription(newdescrip);
+            }
+            System.out.println("Введите новую дату начала проекта");
+            String newStartDate = reader.readLine();
+            if (!newStartDate.isEmpty()) project.setStart(newStartDate);
+            System.out.println("Введите новую дату окончания проекта");
+            String newEndDate = reader.readLine();
+            if (!newEndDate.isEmpty()) project.setEnd(newEndDate);
 
         } else {
             System.out.println("Такого проекта не существует\n");
@@ -152,13 +147,13 @@ public class App {
     }
 
     private void deleteProject(String name) {
-        boolean mapContainsName = referencesProjects.containsKey(name);
+        boolean mapContainsName = projectMap.containsKey(name);
         if (mapContainsName) {
-            Project project = referencesProjects.get(name);
+            Project project = projectMap.get(name);
             for (Task task : project.tasks) {
                 removeTask(task.getTaskName());
             }
-            referencesProjects.remove(name);
+            projectMap.remove(name);
         } else System.out.println("Такого проекта не существует\n");
     }
 
@@ -172,44 +167,49 @@ public class App {
         String startdate = reader.readLine();
         System.out.println("Введите дату окончания проекта");
         String enddate = reader.readLine();
-        Project project = referencesProjects.get(projName);
+        Project project = projectMap.get(projName);
         String projID = project.getId();
         Task newtask = new Task(taskName, taskDescription, startdate, enddate, projID);
-        referencesTask.put(taskName, newtask);
+        taskMap.put(taskName, newtask);
         project.tasks.add(newtask);
     }
 
-    void readTask(String taskname) {
-        Task task = referencesTask.get(taskname);
+    private void readTask(String taskname) {
+        Task task = taskMap.get(taskname);
         System.out.println(task.getTaskName() + " - " + task.getTaskDescription());
     }
 
-     //
-     private void updateTask(String taskname) throws IOException {
-
-            BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
-         System.out.println("Введите новое описание задачи");
-         Task task = referencesTask.get(taskname);
-         task.setDescription(reader.readLine());
+    private void updateTask(String taskname) throws IOException {
+        BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
+        System.out.println("Введите новое описание задачи");
+        Task task = taskMap.get(taskname);
+        task.setDescription(reader.readLine());
 
     }
 
     private void removeTask(String taskname) {
-        Task task = referencesTask.get(taskname);
-        referencesTask.remove(taskname);
-        String projName = projIDref.get(task.getProjectID());
-        Project project = referencesProjects.get(projName);
+        Task task = taskMap.get(taskname);
+        taskMap.remove(taskname);
+        String projName = projectIdReferences.get(task.getProjectId());
+        Project project = projectMap.get(projName);
         project.tasks.remove(task);
     }
 
-    static String projectID(Project project) {
+    private String projectID(Project project) {
         String uuid = UUID.randomUUID().toString().replaceAll("-", "");
-        /*boolean loop = uuids.contains(uuid);
-        while (loop) {
-            uuid = UUID.randomUUID().toString().replaceAll("-", "");
-            loop = uuids.contains(uuid);
-        }*/
         project.setId(uuid);
         return (uuid);
+    }
+
+    public Map<String, Project> getReferencesProjects() {
+        return projectMap;
+    }
+
+    public Map<String, String> getProjectIdReferences() {
+        return projectIdReferences;
+    }
+
+    public Map<String, Task> getTaskMap() {
+        return taskMap;
     }
 }

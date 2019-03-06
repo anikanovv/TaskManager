@@ -7,33 +7,35 @@ import java.util.Locale;
 
 public class Task {
     private String name;
-    private int id;
+    private String id;
     private String description;
-    Date start;
-    Date end;
-    private String projectID;
+    private Date start;
+    private Date end;
+    private String projectId;
+    private SimpleDateFormat format = new SimpleDateFormat("dd.MM.yyyy", Locale.US);
 
-    public Task(String name, String description, String startDate, String endDate, String projID) throws ParseException {
+    public Task(String projectId, String name, String description, String startDate, String endDate) throws ParseException {
         this.name = name;
         this.description = description;
-        SimpleDateFormat format = new SimpleDateFormat("dd.MM.yyyy", Locale.US);
+
         start = format.parse(startDate);
         end = format.parse(endDate);
-        projectID = projID;
-    }
-     void setid(int i){
-        id=i;
+        this.projectId = projectId;
     }
 
-    public int getid() {
+    public String getId() {
         return id;
+    }
+
+    public void setId(String i) {
+        id = i;
     }
 
     public String getTaskName() {
         return name;
     }
 
-    void setTaskName(String newtask) {
+    public void setTaskName(String newtask) {
         name = newtask;
     }
 
@@ -45,12 +47,24 @@ public class Task {
         description = newdescrip;
     }
 
-    void setTaskDescription(String newtask) {
-        description = newtask;
+    public String getProjectId() {
+        return projectId;
     }
 
-    public String getProjectID() {
-        return projectID;
+    public Date getStartDate() {
+        return start;
+    }
+
+    public void setStart(String start) throws ParseException {
+        this.start = format.parse(start);
+    }
+
+    public Date getEnd() {
+        return end;
+    }
+
+    public void setEnd(String end) throws ParseException {
+        this.end = format.parse(end);
     }
 
     @Override
