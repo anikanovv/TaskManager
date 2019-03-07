@@ -14,14 +14,13 @@ public class TaskReadCommand extends AbstractCommand {
 
     @Override
     public String getName() {
-        return null;
+        return "read task";
     }
 
     @Override
     public String getDescription() {
-        return null;
+        return "command to read task";
     }
-
     @Override
     public void execute(String name) throws ParseException {
         System.out.println(bootstrap.taskService.findOne(name));

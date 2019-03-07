@@ -14,14 +14,13 @@ public class TaskRemoveAllCommand extends AbstractCommand {
 
     @Override
     public String getName() {
-        return null;
+        return "removeall tasks";
     }
 
     @Override
     public String getDescription() {
-        return null;
+        return "command to remove all tasks";
     }
-
     @Override
     public void execute(String name) throws ParseException {
         bootstrap.taskService.removeAll();

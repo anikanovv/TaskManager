@@ -14,12 +14,12 @@ public class TaskDeleteCommand extends AbstractCommand {
 
     @Override
     public String getName() {
-        return null;
+        return "delete task";
     }
 
     @Override
     public String getDescription() {
-        return null;
+        return "command to delete task";
     }
 
     @Override

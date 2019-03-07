@@ -15,14 +15,13 @@ public class ProjectRemoveAllCommand extends AbstractCommand {
 
     @Override
     public String getName() {
-        return null;
+        return "removeall projects";
     }
 
     @Override
     public String getDescription() {
-        return null;
+        return "command to remove all projects";
     }
-
     @Override
     public void execute(String name) throws ParseException {
         bootstrap.projectService.removeAll();

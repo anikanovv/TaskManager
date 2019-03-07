@@ -14,14 +14,13 @@ public class ProjectReadCommand extends AbstractCommand {
 
     @Override
     public String getName() {
-        return null;
+        return "read project";
     }
 
     @Override
     public String getDescription() {
-        return null;
+        return "command to read project";
     }
-
     @Override
     public void execute(String name) throws ParseException {
         System.out.println(bootstrap.taskService.findOne(name));

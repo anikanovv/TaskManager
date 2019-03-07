@@ -14,14 +14,13 @@ public class ProjectUpdateCommand extends AbstractCommand {
 
     @Override
     public String getName() {
-        return null;
+        return "update project";
     }
 
     @Override
     public String getDescription() {
-        return null;
+        return "command to update project";
     }
-
     @Override
     public void execute(String name) throws ParseException {
         System.out.println("Введите через знак ; описание проекта, дату начала проекта, дату окончания проекта");

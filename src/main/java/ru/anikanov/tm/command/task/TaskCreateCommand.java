@@ -14,12 +14,12 @@ public class TaskCreateCommand extends AbstractCommand {
 
     @Override
     public String getName() {
-        return null;
+        return "create task";
     }
 
     @Override
     public String getDescription() {
-        return null;
+        return "command to create task";
     }
 
     @Override

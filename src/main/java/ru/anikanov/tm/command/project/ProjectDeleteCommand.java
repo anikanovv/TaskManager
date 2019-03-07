@@ -14,14 +14,13 @@ public class ProjectDeleteCommand extends AbstractCommand {
 
     @Override
     public String getName() {
-        return null;
+        return "delete project";
     }
 
     @Override
     public String getDescription() {
-        return null;
+        return "command to delete project";
     }
-
     @Override
     public void execute(String name) throws ParseException {
         bootstrap.projectService.remove(name);

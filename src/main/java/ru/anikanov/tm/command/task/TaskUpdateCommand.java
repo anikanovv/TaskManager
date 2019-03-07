@@ -14,14 +14,13 @@ public class TaskUpdateCommand extends AbstractCommand {
 
     @Override
     public String getName() {
-        return null;
+        return "update task";
     }
 
     @Override
     public String getDescription() {
-        return null;
+        return "command to update task";
     }
-
     @Override
     public void execute(String name) throws ParseException {
         System.out.println("Введите через знак ; описание задачи, дату начала задачи, дату окончания задачи");

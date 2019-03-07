@@ -15,12 +15,12 @@ public class ProjectCreateCommand extends AbstractCommand {
 
     @Override
     public String getName() {
-        return "Create";
+        return "create project";
     }
 
     @Override
     public String getDescription() {
-        return null;
+        return "command to create project";
     }
 
     @Override
