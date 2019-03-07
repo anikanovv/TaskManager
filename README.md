@@ -1,13 +1,19 @@
 # TaskManager
-ТРЕБОВАНИЯ К SOFTWARE:
+| ТРЕБОВАНИЯ К SOFTWARE: |
+| -------------------------- |
+| IntelliJ IDEA Community version  | Java 8 |
+| ТРЕБОВАНИЯ К SOFTWARE: |
+| -------------------------- |
+| Java SE  |
 
-IntelliJ IDEA Community version
 
-Java 8
+
+
+
 
 ОПИСАНИЕ СТЕКА ТЕХНОЛОГИЙ:
 
-Java SE
+
 
 ИМЯ РАЗРАБОТЧИКА И КОНТАКТЫ:
 
