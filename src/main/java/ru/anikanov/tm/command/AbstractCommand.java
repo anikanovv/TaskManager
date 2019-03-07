@@ -21,5 +21,5 @@ public abstract class AbstractCommand {
 
     public abstract String getDescription();
 
-    public abstract void execute(String name) throws ParseException;
+    public abstract void execute() throws ParseException;
 }

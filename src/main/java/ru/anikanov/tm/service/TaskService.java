@@ -16,9 +16,10 @@ public class TaskService {
         projectRepository = pr;
         taskRepository = tr;
     }
-    public Task findOne(String taskName) {
-        if (taskName.isEmpty() || (taskName == null)) return null;
-        return taskRepository.findOne(taskName);
+
+    public Task findOne(String taskId) {
+        if (taskId.isEmpty() || (taskId == null)) return null;
+        return taskRepository.findOne(taskId);
     }
 
     public Task persist(String projectId, String taskName, String description, String dateStart, String dateFinish) throws ParseException {
@@ -33,21 +34,22 @@ public class TaskService {
         return taskRepository.persist(projectId, taskName, description, dateStart, dateFinish);
     }
 
-    public void merge(String taskName, String description, String dateStart, String dateFinish) throws ParseException {
-        if (taskName.isEmpty() || (taskName == null)) return;
-        Task task = taskRepository.findOne(taskName);
+    public void merge(String taskId, String taskName, String description, String dateStart, String dateFinish) throws ParseException {
+        if (taskId.isEmpty() || (taskId == null)) return;
+        Task task = taskRepository.findOne(taskId);
         if (task != null) {
+            if (taskName.isEmpty() || (taskName == null)) return;
             if (description.isEmpty() || (description == null)) return;
             if (dateStart.isEmpty() || (dateStart == null)) return;
             if (dateFinish.isEmpty() || (dateFinish == null)) return;
         }
-        taskRepository.merge(taskName, description, dateStart, dateFinish);
+        taskRepository.merge(taskId, taskName, description, dateStart, dateFinish);
 
     }
 
-    public Task remove(String taskName) {
-        if (taskName.isEmpty() || (taskName == null)) return null;
-        return taskRepository.remove(taskName);
+    public Task remove(String taskId) {
+        if (taskId.isEmpty() || (taskId == null)) return null;
+        return taskRepository.remove(taskId);
     }
 
     public void removeAll() {

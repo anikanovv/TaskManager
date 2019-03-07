@@ -1,19 +1,22 @@
 package ru.anikanov.tm.entity;
 
-import ru.anikanov.tm.Role;
+import ru.anikanov.tm.command.project.Enum.Role;
 
+import java.io.UnsupportedEncodingException;
+import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
 import java.util.UUID;
 
 public class User {
     private String id = UUID.randomUUID().toString();
     private String login;
-    private int hashPassword;
+    private String hashPassword;
     private Role role;
     private boolean isAuth;
 
     public User(String login, String password, Role role) {
         this.login = login;
-        this.hashPassword = password.hashCode();
+        this.hashPassword = password;
         this.role = role;
     }
 
@@ -25,7 +28,7 @@ public class User {
         return login;
     }
 
-    public int getHashPassword() {
+    public String getHashPassword() {
         return hashPassword;
     }
 
@@ -42,7 +45,7 @@ public class User {
     }
 
     public void setHashPassword(String newpassword) {
-        this.hashPassword = newpassword.hashCode();
+        this.hashPassword = newpassword;
     }
 
     public void setRole(Role role) {
@@ -52,4 +55,5 @@ public class User {
     public void setAuth(boolean auth) {
         isAuth = auth;
     }
+
 }

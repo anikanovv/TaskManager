@@ -4,31 +4,27 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Locale;
+import java.util.UUID;
 
 public class Task {
+    private String id = UUID.randomUUID().toString();
     private String name;
-    private String id;
     private String description;
     private Date start;
     private Date end;
     private String projectId;
-    private SimpleDateFormat format = new SimpleDateFormat("dd.MM.yyyy", Locale.US);
+    private final SimpleDateFormat format = new SimpleDateFormat("dd.MM.yyyy", Locale.US);
 
     public Task(String projectId, String name, String description, String startDate, String endDate) throws ParseException {
+        this.projectId = projectId;
         this.name = name;
         this.description = description;
-
         start = format.parse(startDate);
         end = format.parse(endDate);
-        this.projectId = projectId;
     }
 
     public String getId() {
         return id;
-    }
-
-    public void setId(String i) {
-        id = i;
     }
 
     public String getTaskName() {

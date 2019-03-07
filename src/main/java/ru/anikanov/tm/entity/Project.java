@@ -7,14 +7,13 @@ import java.util.*;
 public class Project {
     private String name;
     private String description;
-    private String id;
+    private String id = UUID.randomUUID().toString();
     private Date start;
     private Date end;
-    public List<Task> tasks = new LinkedList<>();
-    private SimpleDateFormat format = new SimpleDateFormat("dd.MM.yyyy", Locale.US);
+    //    public List<Task> tasks = new LinkedList<>();
+    private final SimpleDateFormat format = new SimpleDateFormat("dd.MM.yyyy", Locale.US);
 
-    public Project(String id, String name, String description, String startDate, String endDate) throws ParseException {
-        this.id = id;
+    public Project(String name, String description, String startDate, String endDate) throws ParseException {
         this.name=name;
         this.description = description;
         setStart(startDate);
@@ -56,9 +55,9 @@ public class Project {
     @Override
     public String toString() {
         StringBuilder builder = new StringBuilder("Проект " + name + " - " + description + " " + id + "\n" + "Start: " + format.format(start) + " end: " + format.format(end) + "\n" + "Задания :\n");
-        for (Task task : tasks) {
+       /* for (Task task : tasks) {
             builder.append(task).append("\n");
-        }
+        }*/
         return builder.toString();
     }
 }
