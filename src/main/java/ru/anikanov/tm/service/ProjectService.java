@@ -9,21 +9,27 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class ProjectService {
-    ProjectRepository projectRepository = new ProjectRepository();
+    private ProjectRepository projectRepository;
+    private TaskRepository taskRepository;
 
-    public Project persist(String projectName, String description, String dateStart, String dateFinish) throws ParseException {
+    public ProjectService(ProjectRepository pr, TaskRepository tr) {
+        projectRepository = pr;
+        taskRepository = tr;
+    }
+
+    public Project persist(String projectId, String projectName, String description, String dateStart, String dateFinish) throws ParseException {
         if (projectName.isEmpty() || (projectName == null)) return null;
         Project project = projectRepository.findOne(projectName);
         if (project == null) {
             if (description.isEmpty() || (description == null)) return null;
             if (dateStart.isEmpty() || (dateStart == null)) return null;
             if (dateFinish.isEmpty() || (dateFinish == null)) return null;
-            return (projectRepository.persist(projectName, description, dateStart, dateFinish));
+            return (projectRepository.persist(projectId, projectName, description, dateStart, dateFinish));
         }
         return null;
     }
 
-    public void merge(String projectId, String projectName, String description, String dateStart, String dateFinish) throws ParseException {
+    public void merge(String projectName, String description, String dateStart, String dateFinish) throws ParseException {
         if (projectName.isEmpty() || (projectName == null)) return;
         Project project = projectRepository.findOne(projectName);
         if (project != null) {
@@ -31,18 +37,22 @@ public class ProjectService {
             if (dateStart.isEmpty() || (dateStart == null)) return;
             if (dateFinish.isEmpty() || (dateFinish == null)) return;
         }
-        projectRepository.merge(projectId, projectName, description, dateStart, dateFinish);
+        projectRepository.merge(projectName, description, dateStart, dateFinish);
     }
-
 
     public void remove(String projectName) {
         if (projectName.isEmpty() || (projectName == null)) return;
         Project project = projectRepository.findOne(projectName);
-        if (project != null) projectRepository.remove(projectName);
+        if (project != null) {
+            String projectId = project.getId();
+            projectRepository.remove(projectName);
+            taskRepository.removeWholeProject(projectId);
+        }
     }
 
     public void removeAll() {
         projectRepository.removeAll();
+        taskRepository.removeAll();
     }
 
     public List<Project> findAll() {

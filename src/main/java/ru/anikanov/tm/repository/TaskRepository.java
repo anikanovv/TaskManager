@@ -10,7 +10,6 @@ import java.util.List;
 import java.util.Map;
 
 public class TaskRepository {
-    App app = new App();
     private Map<String, Task> taskMap = new LinkedHashMap<>();
 
     public Task persist(String projectId, String taskName, String description, String dateStart, String dateFinish) throws ParseException {
@@ -23,12 +22,10 @@ public class TaskRepository {
     }
 
     public void merge(String taskName, String description, String dateStart, String dateFinish) throws ParseException {
-        if (taskMap.containsKey(taskName)) {
             Task task = taskMap.get(taskName);
             task.setDescription(description);
             task.setStart(dateStart);
             task.setEnd(dateFinish);
-        }
     }
 
     public Task remove(String taskName) {
@@ -39,15 +36,21 @@ public class TaskRepository {
         taskMap.clear();
     }
 
+    public void removeWholeProject(String projectId) {
+        taskMap.forEach((k, v) -> {
+            if (k.equals(projectId)) taskMap.remove(k);
+        });
+    }
+
     public Task findOne(String taskName) {
         return taskMap.get(taskName);
     }
 
     public List<Task> findAll() {
         List<Task> tasks = new ArrayList<>();
-        taskMap.forEach((k, v) -> {
-            tasks.add(v);
-        });
+        taskMap.forEach((k, v) ->
+                tasks.add(v)
+        );
         return tasks;
     }
 }

@@ -12,15 +12,14 @@ import java.util.Map;
 public class ProjectRepository {
     private Map<String, Project> projectMap = new LinkedHashMap<>();
 
-    public Project persist(String projectName, String description, String dateStart, String dateFinish) throws ParseException {
-        Project project = new Project(projectName, description, dateStart, dateFinish);
-        projectMap.put(project.getId(), project);
+    public Project persist(String projectId, String projectName, String description, String dateStart, String dateFinish) throws ParseException {
+        Project project = new Project(projectId, projectName, description, dateStart, dateFinish);
+        projectMap.put(projectId, project);
         return project;
     }
 
-    public void merge(String projectId, String projectName, String description, String dateStart, String dateFinish) throws ParseException {
+    public void merge(String projectName, String description, String dateStart, String dateFinish) throws ParseException {
         Project project = projectMap.get(projectName);
-        project.setId(projectId);
         project.setName(projectName);
         project.setDescription(description);
         project.setStart(dateStart);

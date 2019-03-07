@@ -13,7 +13,8 @@ public class Project {
     public List<Task> tasks = new LinkedList<>();
     private SimpleDateFormat format = new SimpleDateFormat("dd.MM.yyyy", Locale.US);
 
-    public Project(String name, String description, String startDate, String endDate) throws ParseException {
+    public Project(String id, String name, String description, String startDate, String endDate) throws ParseException {
+        this.id = id;
         this.name=name;
         this.description = description;
         setStart(startDate);
