@@ -19,7 +19,7 @@ public class ProjectRepository {
     }
 
     public void merge(String projectName, String description, String dateStart, String dateFinish) throws ParseException {
-        Project project = projectMap.get(projectName);
+        Project project = findOne(projectName);
         project.setName(projectName);
         project.setDescription(description);
         project.setStart(dateStart);

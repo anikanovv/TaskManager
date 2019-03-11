@@ -21,9 +21,13 @@ public class TaskUpdateCommand extends AbstractCommand {
     public String getDescription() {
         return "command to update task";
     }
+
+    @Override
+    public boolean isSecure() {
+        return false;
+    }
     @Override
     public void execute() throws ParseException {
-        if (!isSecure()) return;
         String id = scanner.next();
         String name = scanner.next();
         System.out.println("Введите через знак ; описание задачи, дату начала задачи, дату окончания задачи");
@@ -36,6 +40,6 @@ public class TaskUpdateCommand extends AbstractCommand {
             startDate = taskInfo[1];
             endDate = taskInfo[2];
         }
-        bootstrap.taskService.merge(id, name, description, startDate, endDate);
+        bootstrap.taskService.merge(id, name, description, startDate, endDate, bootstrap.getCurrentUser());
     }
 }

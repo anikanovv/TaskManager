@@ -23,9 +23,12 @@ public class TaskCreateCommand extends AbstractCommand {
     }
 
     @Override
+    public boolean isSecure() {
+        return false;
+    }
+    @Override
     public void execute() throws ParseException {
         String userId = bootstrap.getCurrentUser();
-        if (!isSecure()) return;
         String name = scanner.next();
         System.out.println("Введите через знак ; описание задачи, дату начала задачи, дату окончания задачи");
         String[] taskInfo = scanner.next().split(";");

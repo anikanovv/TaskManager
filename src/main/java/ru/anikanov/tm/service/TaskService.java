@@ -3,6 +3,7 @@ package ru.anikanov.tm.service;
 import ru.anikanov.tm.entity.Task;
 import ru.anikanov.tm.repository.ProjectRepository;
 import ru.anikanov.tm.repository.TaskRepository;
+import ru.anikanov.tm.repository.UserRepository;
 
 import java.text.ParseException;
 import java.util.ArrayList;
@@ -11,13 +12,15 @@ import java.util.List;
 public class TaskService {
     private ProjectRepository projectRepository;
     private TaskRepository taskRepository;
+    private UserRepository userRepository;
 
-    public TaskService(ProjectRepository pr, TaskRepository tr) {
+    public TaskService(ProjectRepository pr, TaskRepository tr, UserRepository ur) {
         projectRepository = pr;
         taskRepository = tr;
+        userRepository = ur;
     }
 
-    public Task findOne(String taskId) {
+    public Task findOne(String taskId, String userId) {
         if (taskId.isEmpty() || (taskId == null)) return null;
         return taskRepository.findOne(taskId);
     }
@@ -35,9 +38,10 @@ public class TaskService {
         return taskRepository.persist(projectId, taskName, description, dateStart, dateFinish, userId);
     }
 
-    public void merge(String taskId, String taskName, String description, String dateStart, String dateFinish) throws ParseException {
+    public void merge(String taskId, String taskName, String description, String dateStart, String dateFinish, String userId) throws ParseException {
         if (taskId.isEmpty() || (taskId == null)) return;
         Task task = taskRepository.findOne(taskId);
+        if ((!userId.equals(task.getUserId())) || (!userRepository.findOne(userId).getRole().equals("admin"))) return;
         if (task != null) {
             if (taskName.isEmpty() || (taskName == null)) return;
             if (description.isEmpty() || (description == null)) return;
@@ -48,16 +52,21 @@ public class TaskService {
 
     }
 
-    public Task remove(String taskId) {
+    public Task remove(String taskId, String userId) {
         if (taskId.isEmpty() || (taskId == null)) return null;
+        Task task = taskRepository.findOne(taskId);
+        if ((!userId.equals(task.getUserId())) || (!userRepository.findOne(userId).getRole().equals("admin")))
+            return null;
         return taskRepository.remove(taskId);
     }
 
-    public void removeAll() {
+    public void removeAll(String userId) {
+        if (!userRepository.findOne(userId).getRole().equals("admin")) return;
         taskRepository.removeAll();
     }
 
-    public List<Task> findAll() {
+    public List<Task> findAll(String userId) {
+        if (!userRepository.findOne(userId).getRole().equals("admin")) return null;
         return taskRepository.findAll();
     }
 }

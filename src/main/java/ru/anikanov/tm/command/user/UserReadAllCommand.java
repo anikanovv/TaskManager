@@ -15,6 +15,10 @@ public class UserReadAllCommand extends AbstractCommand {
     }
 
     @Override
+    public boolean isSecure() {
+        return false;
+    }
+    @Override
     public String getName() {
         return "readall user";
     }
@@ -26,7 +30,6 @@ public class UserReadAllCommand extends AbstractCommand {
 
     @Override
     public void execute() throws ParseException, UnsupportedEncodingException, NoSuchAlgorithmException {
-        if (!isSecure()) return;
         List<User> users = bootstrap.userService.findAll();
         users.forEach(user -> System.out.println(user));
     }

@@ -1,7 +1,7 @@
 package ru.anikanov.tm.service;
 
-import ru.anikanov.tm.Enum.Role;
 import ru.anikanov.tm.entity.User;
+import ru.anikanov.tm.enumeration.Role;
 import ru.anikanov.tm.repository.UserRepository;
 
 import javax.jws.soap.SOAPBinding;

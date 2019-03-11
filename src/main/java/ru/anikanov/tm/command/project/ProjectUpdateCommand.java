@@ -21,9 +21,14 @@ public class ProjectUpdateCommand extends AbstractCommand {
     public String getDescription() {
         return "command to update project";
     }
+
+    @Override
+    public boolean isSecure() {
+        return false;
+    }
+
     @Override
     public void execute() throws ParseException {
-        if (!isSecure()) return;
         String name = scanner.next();
         System.out.println("Введите через знак ; описание проекта, дату начала проекта, дату окончания проекта");
         String[] projectInfo = scanner.next().split(";");
@@ -35,6 +40,6 @@ public class ProjectUpdateCommand extends AbstractCommand {
             startDate = projectInfo[1];
             endDate = projectInfo[2];
         }
-        bootstrap.projectService.merge(name, description, startDate, endDate);
+        bootstrap.projectService.merge(name, description, startDate, endDate, bootstrap.getCurrentUser());
     }
 }

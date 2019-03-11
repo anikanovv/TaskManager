@@ -12,6 +12,10 @@ public class UserAuthCommand extends AbstractCommand {
     }
 
     @Override
+    public boolean isSecure() {
+        return true;
+    }
+    @Override
     public String getName() {
         return "auth user";
     }
@@ -23,14 +27,10 @@ public class UserAuthCommand extends AbstractCommand {
 
     @Override
     public void execute() throws UnsupportedEncodingException, NoSuchAlgorithmException {
-        if (isSecure()) {
-            System.out.println("you need to end session");
-            return;
-        }
         System.out.println("login");
         String login = scanner.nextLine();
         System.out.println("pass");
-        String pass = scanner.nextLine();
+        String pass = bootstrap.passwordHash(scanner.nextLine());
         if (bootstrap.userService.auth(login, pass)) {
             bootstrap.setCurrentUser(bootstrap.userService.findOne(login).getLogin());
             System.out.println("AUTH OK!");

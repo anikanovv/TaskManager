@@ -13,6 +13,10 @@ public class UserUpdatePasswordCommand extends AbstractCommand {
     }
 
     @Override
+    public boolean isSecure() {
+        return false;
+    }
+    @Override
     public String getName() {
         return "updatepass user";
     }
@@ -25,8 +29,8 @@ public class UserUpdatePasswordCommand extends AbstractCommand {
     @Override
     public void execute() throws ParseException, UnsupportedEncodingException, NoSuchAlgorithmException {
         String login = scanner.nextLine();
-        String oldPass = scanner.nextLine();
-        String newPass = scanner.nextLine();
+        String oldPass = bootstrap.passwordHash(scanner.nextLine());
+        String newPass = bootstrap.passwordHash(scanner.nextLine());
         if (bootstrap.userService.updatePassword(login, oldPass, newPass)) System.out.println("updated");
     }
 }

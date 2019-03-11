@@ -1,8 +1,8 @@
 package ru.anikanov.tm.command.user;
 
 import ru.anikanov.tm.Bootstrap;
-import ru.anikanov.tm.Enum.Role;
 import ru.anikanov.tm.command.AbstractCommand;
+import ru.anikanov.tm.enumeration.Role;
 
 import java.io.UnsupportedEncodingException;
 import java.security.NoSuchAlgorithmException;
@@ -25,8 +25,12 @@ public class UserCreateCommand extends AbstractCommand {
     }
 
     @Override
+    public boolean isSecure() {
+        return true;
+    }
+
+    @Override
     public void execute() throws ParseException, UnsupportedEncodingException, NoSuchAlgorithmException {
-        if (!isSecure()) return;
         System.out.println("Name,pass,role");
         String userName = scanner.nextLine();
         String userPass = scanner.nextLine();
@@ -34,6 +38,6 @@ public class UserCreateCommand extends AbstractCommand {
         Role role;
         if (userRole.equals("admin")) role = Role.ADMIN;
         else role = Role.USER;
-        bootstrap.userService.persist(userName, userPass, role);
+        bootstrap.userService.persist(userName, bootstrap.passwordHash(userPass), role);
     }
 }

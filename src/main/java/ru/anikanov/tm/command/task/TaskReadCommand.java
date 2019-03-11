@@ -13,6 +13,10 @@ public class TaskReadCommand extends AbstractCommand {
     }
 
     @Override
+    public boolean isSecure() {
+        return false;
+    }
+    @Override
     public String getName() {
         return "read task";
     }
@@ -23,8 +27,7 @@ public class TaskReadCommand extends AbstractCommand {
     }
     @Override
     public void execute() throws ParseException {
-        if (!isSecure()) return;
         String name = scanner.next();
-        System.out.println(bootstrap.taskService.findOne(name));
+        System.out.println(bootstrap.taskService.findOne(name, bootstrap.getCurrentUser()));
     }
 }

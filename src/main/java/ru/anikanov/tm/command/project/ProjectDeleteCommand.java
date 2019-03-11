@@ -18,10 +18,14 @@ public class ProjectDeleteCommand extends AbstractCommand {
     public String getDescription() {
         return "command to delete project";
     }
+
+    @Override
+    public boolean isSecure() {
+        return false;
+    }
     @Override
     public void execute() throws ParseException {
-        if (!isSecure()) return;
         String name = scanner.next();
-        bootstrap.projectService.remove(name);
+        bootstrap.projectService.remove(name, bootstrap.getCurrentUser());
     }
 }

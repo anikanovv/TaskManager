@@ -1,12 +1,11 @@
 package ru.anikanov.tm;
 
-import ru.anikanov.tm.Enum.Role;
 import ru.anikanov.tm.command.AbstractCommand;
-import ru.anikanov.tm.command.HelpCommand;
+import ru.anikanov.tm.command.system.HelpCommand;
 import ru.anikanov.tm.command.project.*;
 import ru.anikanov.tm.command.task.*;
 import ru.anikanov.tm.command.user.*;
-import ru.anikanov.tm.entity.User;
+import ru.anikanov.tm.enumeration.Role;
 import ru.anikanov.tm.repository.ProjectRepository;
 import ru.anikanov.tm.repository.TaskRepository;
 import ru.anikanov.tm.repository.UserRepository;
@@ -15,6 +14,8 @@ import ru.anikanov.tm.service.TaskService;
 import ru.anikanov.tm.service.UserService;
 
 import java.io.UnsupportedEncodingException;
+import java.math.BigInteger;
+import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.text.ParseException;
 import java.util.HashMap;
@@ -22,13 +23,13 @@ import java.util.Map;
 import java.util.Scanner;
 
 public class Bootstrap {
-    private Scanner scanner = new Scanner(System.in);
+    private final Scanner scanner = new Scanner(System.in);
     private TaskRepository taskRepository = new TaskRepository();
     private ProjectRepository projectRepository = new ProjectRepository();
     private UserRepository userRepository = new UserRepository();
-    public ProjectService projectService = new ProjectService(projectRepository, taskRepository);
-    public TaskService taskService = new TaskService(projectRepository, taskRepository);
-    public UserService userService = new UserService(userRepository);
+    public final ProjectService projectService = new ProjectService(projectRepository, taskRepository, userRepository);
+    public final TaskService taskService = new TaskService(projectRepository, taskRepository, userRepository);
+    public final UserService userService = new UserService(userRepository);
     private String currentUser;
 
     public Map<String, AbstractCommand> commandMap = new HashMap<>();
@@ -41,14 +42,14 @@ public class Bootstrap {
             System.out.println("command");
             commandString = scanner.nextLine().trim();
             AbstractCommand command = commandMap.get(commandString);
-            if (command != null) command.execute();
+            if (command != null) if ((command.isSecure()) || (!currentUser.isEmpty())) command.execute();
             else System.out.println("wrong");
         } while (true);
     }
 
     public void initUsers() throws UnsupportedEncodingException, NoSuchAlgorithmException {
-        userService.persist("admin", "admin", Role.ADMIN);
-        userService.persist("user", "user", Role.USER);
+        userService.persist("admin", passwordHash("admin"), Role.ADMIN);
+        userService.persist("user", passwordHash("user"), Role.USER);
     }
 
     public String getCurrentUser() {
@@ -60,66 +61,72 @@ public class Bootstrap {
     }
 
     public void initCommands() {
-        ProjectCreateCommand projectCreateCommand = new ProjectCreateCommand(this);
-        commandMap.put(projectCreateCommand.getName(), projectCreateCommand);
+        putToMap(new ProjectCreateCommand(this));
 
-        TaskCreateCommand taskCreateCommand = new TaskCreateCommand(this);
-        commandMap.put(taskCreateCommand.getName(), taskCreateCommand);
+        putToMap(new TaskCreateCommand(this));
 
-        ProjectReadCommand projectReadCommand = new ProjectReadCommand(this);
-        commandMap.put(projectReadCommand.getName(), projectReadCommand);
+        putToMap(new ProjectReadCommand(this));
 
-        TaskReadCommand taskReadCommand = new TaskReadCommand(this);
-        commandMap.put(taskReadCommand.getName(), taskReadCommand);
+        putToMap(new TaskReadCommand(this));
 
-        ProjectUpdateCommand projectUpdateCommand = new ProjectUpdateCommand(this);
-        commandMap.put(projectUpdateCommand.getName(), projectUpdateCommand);
+        putToMap(new ProjectUpdateCommand(this));
 
-        TaskUpdateCommand taskUpdateCommand = new TaskUpdateCommand(this);
-        commandMap.put(taskUpdateCommand.getName(), taskUpdateCommand);
+        putToMap(new TaskUpdateCommand(this));
 
-        ProjectDeleteCommand projectDeleteCommand = new ProjectDeleteCommand(this);
-        commandMap.put(projectDeleteCommand.getName(), projectDeleteCommand);
+        putToMap(new ProjectDeleteCommand(this));
 
-        TaskDeleteCommand taskDeleteCommand = new TaskDeleteCommand(this);
-        commandMap.put(taskDeleteCommand.getName(), taskDeleteCommand);
+        putToMap(new TaskDeleteCommand(this));
 
-        TaskRemoveAllCommand taskRemoveAllCommand = new TaskRemoveAllCommand(this);
-        commandMap.put(taskRemoveAllCommand.getName(), taskRemoveAllCommand);
+        putToMap(new TaskRemoveAllCommand(this));
 
-        ProjectRemoveAllCommand projectRemoveAllCommand = new ProjectRemoveAllCommand(this);
-        commandMap.put(projectRemoveAllCommand.getName(), projectRemoveAllCommand);
+        putToMap(new ProjectRemoveAllCommand(this));
 
-        ProjectCreateCommand projectCreateCommand1 = new ProjectCreateCommand(this);
-        commandMap.put(projectCreateCommand1.getName(), projectCreateCommand1);
+        putToMap(new ProjectCreateCommand(this));
 
-        HelpCommand helpCommand = new HelpCommand(this);
-        commandMap.put(helpCommand.getName(), helpCommand);
+        putToMap(new HelpCommand(this));
 
-        UserCreateCommand userCreateCommand = new UserCreateCommand(this);
-        commandMap.put(userCreateCommand.getName(), userCreateCommand);
+        putToMap(new UserCreateCommand(this));
 
-        UserAuthCommand userAuthCommand = new UserAuthCommand(this);
-        commandMap.put(userAuthCommand.getName(), userAuthCommand);
+        putToMap(new UserAuthCommand(this));
 
-        UserDeleteAllCommand userDeleteAllCommand = new UserDeleteAllCommand(this);
-        commandMap.put(userDeleteAllCommand.getName(), userDeleteAllCommand);
+        putToMap(new UserRemoveAllCommand(this));
 
-        UserDeleteCommand userDeleteCommand = new UserDeleteCommand(this);
-        commandMap.put(userDeleteCommand.getName(), userDeleteCommand);
+        putToMap(new UserDeleteCommand(this));
 
-        UserEndSessionCommand userEndSessionCommand = new UserEndSessionCommand(this);
-        commandMap.put(userEndSessionCommand.getName(), userEndSessionCommand);
+        putToMap(new UserEndSessionCommand(this));
 
-        UserReadAllCommand userReadAllCommand = new UserReadAllCommand(this);
-        commandMap.put(userReadAllCommand.getName(), userReadAllCommand);
+        putToMap(new UserReadAllCommand(this));
 
-        UserReadCommand userReadCommand = new UserReadCommand(this);
-        commandMap.put(userReadCommand.getName(), userReadCommand);
+        putToMap(new UserReadCommand(this));
 
-        UserUpdateCommand userUpdateCommand = new UserUpdateCommand(this);
-        commandMap.put(userUpdateCommand.getName(), userUpdateCommand);
+        putToMap(new UserUpdateCommand(this));
+    }
 
+    private void putToMap(AbstractCommand command) {
+        commandMap.put(command.getName(), command);
+    }
+
+    public String passwordHash(String string) {
+        MessageDigest messageDigest = null;
+        byte[] digest = new byte[0];
+
+        try {
+            messageDigest = MessageDigest.getInstance("MD5");
+            messageDigest.reset();
+            messageDigest.update(string.getBytes());
+            digest = messageDigest.digest();
+        } catch (NoSuchAlgorithmException e) {
+            e.printStackTrace();
+        }
+
+        BigInteger bigInt = new BigInteger(1, digest);
+        String md5Hex = bigInt.toString(16);
+
+        while (md5Hex.length() < 32) {
+            md5Hex = "0" + md5Hex;
+        }
+
+        return md5Hex;
     }
 
 }

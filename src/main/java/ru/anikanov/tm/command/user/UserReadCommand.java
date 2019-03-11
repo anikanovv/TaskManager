@@ -14,6 +14,10 @@ public class UserReadCommand extends AbstractCommand {
     }
 
     @Override
+    public boolean isSecure() {
+        return false;
+    }
+    @Override
     public String getName() {
         return "read user";
     }
@@ -25,7 +29,6 @@ public class UserReadCommand extends AbstractCommand {
 
     @Override
     public void execute() throws ParseException, UnsupportedEncodingException, NoSuchAlgorithmException {
-        if (!isSecure()) return;
         String login = scanner.next();
         User user = bootstrap.userService.findOne(login);
         System.out.println(user);

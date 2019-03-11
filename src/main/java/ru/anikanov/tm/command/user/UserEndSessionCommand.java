@@ -14,6 +14,10 @@ public class UserEndSessionCommand extends AbstractCommand {
     }
 
     @Override
+    public boolean isSecure() {
+        return false;
+    }
+    @Override
     public String getName() {
         return "endsession user";
     }
@@ -25,7 +29,6 @@ public class UserEndSessionCommand extends AbstractCommand {
 
     @Override
     public void execute() throws ParseException, UnsupportedEncodingException, NoSuchAlgorithmException {
-        if (!isSecure()) return;
         String login = bootstrap.getCurrentUser();
         System.out.println(login);
         bootstrap.setCurrentUser(null);

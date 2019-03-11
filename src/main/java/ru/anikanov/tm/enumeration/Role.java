@@ -1,4 +1,4 @@
-package ru.anikanov.tm.Enum;
+package ru.anikanov.tm.enumeration;
 
 public enum Role {
     USER("User"),

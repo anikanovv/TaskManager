@@ -20,10 +20,14 @@ public class ProjectReadCommand extends AbstractCommand {
     public String getDescription() {
         return "command to read project";
     }
+
+    @Override
+    public boolean isSecure() {
+        return false;
+    }
     @Override
     public void execute() throws ParseException {
-        if (!isSecure()) return;
         String name = scanner.next();
-        System.out.println(bootstrap.taskService.findOne(name));
+        System.out.println(bootstrap.taskService.findOne(name, bootstrap.getCurrentUser()));
     }
 }

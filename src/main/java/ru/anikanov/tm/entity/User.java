@@ -1,6 +1,6 @@
 package ru.anikanov.tm.entity;
 
-import ru.anikanov.tm.Enum.Role;
+import ru.anikanov.tm.enumeration.Role;
 
 import java.util.UUID;
 

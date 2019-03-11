@@ -13,6 +13,10 @@ public class UserDeleteCommand extends AbstractCommand {
     }
 
     @Override
+    public boolean isSecure() {
+        return false;
+    }
+    @Override
     public String getName() {
         return "delete user";
     }
@@ -24,7 +28,6 @@ public class UserDeleteCommand extends AbstractCommand {
 
     @Override
     public void execute() throws ParseException, UnsupportedEncodingException, NoSuchAlgorithmException {
-        if (!isSecure()) return;
         String login = scanner.next();
         bootstrap.userService.remove(login);
     }

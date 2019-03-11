@@ -9,7 +9,7 @@ import java.util.Scanner;
 
 public abstract class AbstractCommand {
     protected Bootstrap bootstrap;
-    protected Scanner scanner = new Scanner(System.in);
+    protected final Scanner scanner = new Scanner(System.in);
 
     public AbstractCommand(Bootstrap bootstrap) {
         this.bootstrap = bootstrap;
@@ -19,12 +19,7 @@ public abstract class AbstractCommand {
 
     public abstract String getDescription();
 
-    public boolean isSecure() {
-        if (bootstrap.getCurrentUser() == null) {
-            System.out.println("not allowed");
-            return false;
-        } else return true;
-    }
+    public abstract boolean isSecure();
 
     public abstract void execute() throws ParseException, UnsupportedEncodingException, NoSuchAlgorithmException;
 }

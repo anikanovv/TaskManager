@@ -1,8 +1,8 @@
 package ru.anikanov.tm.command.user;
 
 import ru.anikanov.tm.Bootstrap;
-import ru.anikanov.tm.Enum.Role;
 import ru.anikanov.tm.command.AbstractCommand;
+import ru.anikanov.tm.enumeration.Role;
 
 import java.io.UnsupportedEncodingException;
 import java.security.NoSuchAlgorithmException;
@@ -13,6 +13,10 @@ public class UserUpdateCommand extends AbstractCommand {
         super(bootstrap);
     }
 
+    @Override
+    public boolean isSecure() {
+        return false;
+    }
     @Override
     public String getName() {
         return "update user";
@@ -25,9 +29,8 @@ public class UserUpdateCommand extends AbstractCommand {
 
     @Override
     public void execute() throws ParseException, UnsupportedEncodingException, NoSuchAlgorithmException {
-        if (!isSecure()) return;
         String login = scanner.next();
-        String pass = scanner.next();
+        String pass = bootstrap.passwordHash(scanner.next());
         String newRole = scanner.next();
         Role role;
         if (newRole.equals("admin")) role = Role.ADMIN;

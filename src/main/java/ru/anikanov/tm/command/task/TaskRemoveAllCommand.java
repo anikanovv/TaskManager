@@ -21,9 +21,13 @@ public class TaskRemoveAllCommand extends AbstractCommand {
     public String getDescription() {
         return "command to remove all tasks";
     }
+
+    @Override
+    public boolean isSecure() {
+        return false;
+    }
     @Override
     public void execute() throws ParseException {
-        if (!isSecure()) return;
-        bootstrap.taskService.removeAll();
+        bootstrap.taskService.removeAll(bootstrap.getCurrentUser());
     }
 }

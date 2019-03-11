@@ -1,10 +1,9 @@
 package ru.anikanov.tm.repository;
 
-import ru.anikanov.tm.Enum.Role;
 import ru.anikanov.tm.entity.User;
+import ru.anikanov.tm.enumeration.Role;
 
 import java.io.UnsupportedEncodingException;
-import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.util.ArrayList;
 import java.util.LinkedHashMap;

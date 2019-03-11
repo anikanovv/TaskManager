@@ -23,8 +23,13 @@ public class ProjectRemoveAllCommand extends AbstractCommand {
         return "command to remove all projects";
     }
     @Override
+    public boolean isSecure() {
+        return false;
+    }
+
+    @Override
+
     public void execute() throws ParseException {
-        if (!isSecure()) return;
-        bootstrap.projectService.removeAll();
+        bootstrap.projectService.removeAll(bootstrap.getCurrentUser());
     }
 }

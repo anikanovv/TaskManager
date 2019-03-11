@@ -7,11 +7,15 @@ import java.io.UnsupportedEncodingException;
 import java.security.NoSuchAlgorithmException;
 import java.text.ParseException;
 
-public class UserDeleteAllCommand extends AbstractCommand {
-    public UserDeleteAllCommand(Bootstrap bootstrap) {
+public class UserRemoveAllCommand extends AbstractCommand {
+    public UserRemoveAllCommand(Bootstrap bootstrap) {
         super(bootstrap);
     }
 
+    @Override
+    public boolean isSecure() {
+        return false;
+    }
     @Override
     public String getName() {
         return "removeall users";
@@ -24,7 +28,6 @@ public class UserDeleteAllCommand extends AbstractCommand {
 
     @Override
     public void execute() throws ParseException, UnsupportedEncodingException, NoSuchAlgorithmException {
-        if (!isSecure()) return;
         bootstrap.userService.removeAll();
     }
 }
