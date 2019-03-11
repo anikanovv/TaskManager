@@ -24,10 +24,12 @@ public class ProjectCreateCommand extends AbstractCommand {
     }
 
     @Override
-    public void execute(String name) throws ParseException {
+    public void execute() throws ParseException {
+        String userId = bootstrap.getCurrentUser();
+        if (!isSecure()) return;
+        String name = scanner.next();
         System.out.println("Введите через знак ; описание проекта, дату начала проекта, дату окончания проекта");
         String[] projectInfo = scanner.next().split(";");
-        String id = UUID.randomUUID().toString();
         String description = null;
         String startDate = null;
         String endDate = null;
@@ -36,6 +38,6 @@ public class ProjectCreateCommand extends AbstractCommand {
             startDate = projectInfo[1];
             endDate = projectInfo[2];
         }
-        bootstrap.projectService.persist(id, name, description, startDate, endDate);
+        bootstrap.projectService.persist(name, description, startDate, endDate, userId);
     }
 }

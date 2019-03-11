@@ -10,14 +10,15 @@ public class Project {
     private String id = UUID.randomUUID().toString();
     private Date start;
     private Date end;
-    //    public List<Task> tasks = new LinkedList<>();
+    private String userId;
     private final SimpleDateFormat format = new SimpleDateFormat("dd.MM.yyyy", Locale.US);
 
-    public Project(String name, String description, String startDate, String endDate) throws ParseException {
+    public Project(String name, String description, String startDate, String endDate, String userId) throws ParseException {
         this.name=name;
         this.description = description;
         setStart(startDate);
         setEnd(endDate);
+        this.userId = userId;
     }
 
     public String getName() {
@@ -52,12 +53,17 @@ public class Project {
         this.id = id;
     }
 
+    public String getUserId() {
+        return userId;
+    }
+
+    public void setUserId(String userId) {
+        this.userId = userId;
+    }
+
     @Override
     public String toString() {
         StringBuilder builder = new StringBuilder("Проект " + name + " - " + description + " " + id + "\n" + "Start: " + format.format(start) + " end: " + format.format(end) + "\n" + "Задания :\n");
-       /* for (Task task : tasks) {
-            builder.append(task).append("\n");
-        }*/
         return builder.toString();
     }
 }

@@ -22,7 +22,9 @@ public class ProjectUpdateCommand extends AbstractCommand {
         return "command to update project";
     }
     @Override
-    public void execute(String name) throws ParseException {
+    public void execute() throws ParseException {
+        if (!isSecure()) return;
+        String name = scanner.next();
         System.out.println("Введите через знак ; описание проекта, дату начала проекта, дату окончания проекта");
         String[] projectInfo = scanner.next().split(";");
         String description = null;

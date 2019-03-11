@@ -23,7 +23,9 @@ public class TaskDeleteCommand extends AbstractCommand {
     }
 
     @Override
-    public void execute(String name) throws ParseException {
+    public void execute() throws ParseException {
+        if (!isSecure()) return;
+        String name = scanner.next();
         bootstrap.taskService.remove(name);
     }
 }

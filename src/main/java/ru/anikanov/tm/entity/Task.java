@@ -13,14 +13,16 @@ public class Task {
     private Date start;
     private Date end;
     private String projectId;
+    private String userId;
     private final SimpleDateFormat format = new SimpleDateFormat("dd.MM.yyyy", Locale.US);
 
-    public Task(String projectId, String name, String description, String startDate, String endDate) throws ParseException {
+    public Task(String projectId, String name, String description, String startDate, String endDate, String userId) throws ParseException {
         this.projectId = projectId;
         this.name = name;
         this.description = description;
         start = format.parse(startDate);
         end = format.parse(endDate);
+        this.userId = userId;
     }
 
     public String getId() {
@@ -61,6 +63,14 @@ public class Task {
 
     public void setEnd(String end) throws ParseException {
         this.end = format.parse(end);
+    }
+
+    public String getUserId() {
+        return userId;
+    }
+
+    public void setUserId(String userId) {
+        this.userId = userId;
     }
 
     @Override

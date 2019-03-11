@@ -1,10 +1,9 @@
 package ru.anikanov.tm.command;
 
 import ru.anikanov.tm.Bootstrap;
-import ru.anikanov.tm.entity.Project;
-import ru.anikanov.tm.service.ProjectService;
-import ru.anikanov.tm.service.TaskService;
 
+import java.io.UnsupportedEncodingException;
+import java.security.NoSuchAlgorithmException;
 import java.text.ParseException;
 import java.util.Scanner;
 
@@ -16,10 +15,16 @@ public abstract class AbstractCommand {
         this.bootstrap = bootstrap;
     }
 
-
     public abstract String getName();
 
     public abstract String getDescription();
 
-    public abstract void execute() throws ParseException;
+    public boolean isSecure() {
+        if (bootstrap.getCurrentUser() == null) {
+            System.out.println("not allowed");
+            return false;
+        } else return true;
+    }
+
+    public abstract void execute() throws ParseException, UnsupportedEncodingException, NoSuchAlgorithmException;
 }

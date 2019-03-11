@@ -22,7 +22,7 @@ public class TaskService {
         return taskRepository.findOne(taskId);
     }
 
-    public Task persist(String projectId, String taskName, String description, String dateStart, String dateFinish) throws ParseException {
+    public Task persist(String projectId, String taskName, String description, String dateStart, String dateFinish, String userId) throws ParseException {
         if (taskName.isEmpty() || (taskName == null)) return null;
         Task task = taskRepository.findOne(taskName);
         if (task == null) {
@@ -30,8 +30,9 @@ public class TaskService {
             if (description.isEmpty() || (description == null)) return null;
             if (dateStart.isEmpty() || (dateStart == null)) return null;
             if (dateFinish.isEmpty() || (dateFinish == null)) return null;
+            if (userId.isEmpty() || (userId == null)) return null;
         }
-        return taskRepository.persist(projectId, taskName, description, dateStart, dateFinish);
+        return taskRepository.persist(projectId, taskName, description, dateStart, dateFinish, userId);
     }
 
     public void merge(String taskId, String taskName, String description, String dateStart, String dateFinish) throws ParseException {

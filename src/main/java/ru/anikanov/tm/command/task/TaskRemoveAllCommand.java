@@ -22,7 +22,8 @@ public class TaskRemoveAllCommand extends AbstractCommand {
         return "command to remove all tasks";
     }
     @Override
-    public void execute(String name) throws ParseException {
+    public void execute() throws ParseException {
+        if (!isSecure()) return;
         bootstrap.taskService.removeAll();
     }
 }

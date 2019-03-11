@@ -22,7 +22,9 @@ public class TaskReadCommand extends AbstractCommand {
         return "command to read task";
     }
     @Override
-    public void execute(String name) throws ParseException {
+    public void execute() throws ParseException {
+        if (!isSecure()) return;
+        String name = scanner.next();
         System.out.println(bootstrap.taskService.findOne(name));
     }
 }

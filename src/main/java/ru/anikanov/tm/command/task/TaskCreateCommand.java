@@ -23,7 +23,10 @@ public class TaskCreateCommand extends AbstractCommand {
     }
 
     @Override
-    public void execute(String name) throws ParseException {
+    public void execute() throws ParseException {
+        String userId = bootstrap.getCurrentUser();
+        if (!isSecure()) return;
+        String name = scanner.next();
         System.out.println("Введите через знак ; описание задачи, дату начала задачи, дату окончания задачи");
         String[] taskInfo = scanner.next().split(";");
         String projectId = null;
@@ -36,6 +39,6 @@ public class TaskCreateCommand extends AbstractCommand {
             startDate = taskInfo[2];
             endDate = taskInfo[3];
         }
-        bootstrap.taskService.persist(projectId, name, description, startDate, endDate);
+        bootstrap.taskService.persist(projectId, name, description, startDate, endDate, userId);
     }
 }

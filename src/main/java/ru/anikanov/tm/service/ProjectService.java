@@ -17,14 +17,15 @@ public class ProjectService {
         taskRepository = tr;
     }
 
-    public Project persist(String projectName, String description, String dateStart, String dateFinish) throws ParseException {
+    public Project persist(String projectName, String description, String dateStart, String dateFinish, String userId) throws ParseException {
         if (projectName.isEmpty() || (projectName == null)) return null;
         Project project = projectRepository.findOne(projectName);
         if (project == null) {
             if (description.isEmpty() || (description == null)) return null;
             if (dateStart.isEmpty() || (dateStart == null)) return null;
             if (dateFinish.isEmpty() || (dateFinish == null)) return null;
-            return (projectRepository.persist(projectName, description, dateStart, dateFinish));
+            if (userId.isEmpty() || (userId == null)) return null;
+            return (projectRepository.persist(projectName, description, dateStart, dateFinish, userId));
         }
         return null;
     }

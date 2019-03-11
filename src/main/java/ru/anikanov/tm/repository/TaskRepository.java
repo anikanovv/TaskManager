@@ -16,8 +16,8 @@ public class TaskRepository {
         return taskMap.get(taskName);
     }
 
-    public Task persist(String projectId, String taskName, String description, String dateStart, String dateFinish) throws ParseException {
-        Task task = new Task(projectId, taskName, description, dateStart, dateFinish);
+    public Task persist(String projectId, String taskName, String description, String dateStart, String dateFinish, String userId) throws ParseException {
+        Task task = new Task(projectId, taskName, description, dateStart, dateFinish, userId);
         return taskMap.put(task.getId(), task);
     }
 

@@ -12,8 +12,8 @@ import java.util.Map;
 public class ProjectRepository {
     private Map<String, Project> projectMap = new LinkedHashMap<>();
 
-    public Project persist(String projectName, String description, String dateStart, String dateFinish) throws ParseException {
-        Project project = new Project(projectName, description, dateStart, dateFinish);
+    public Project persist(String projectName, String description, String dateStart, String dateFinish, String userId) throws ParseException {
+        Project project = new Project(projectName, description, dateStart, dateFinish, userId);
         projectMap.put(project.getId(), project);
         return project;
     }

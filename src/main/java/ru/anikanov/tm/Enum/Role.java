@@ -1,8 +1,8 @@
-package ru.anikanov.tm.command.project.Enum;
+package ru.anikanov.tm.Enum;
 
 public enum Role {
-    USER("user"),
-    ADMIN("admin");
+    USER("User"),
+    ADMIN("Admin");
 
     private final String name;
 
