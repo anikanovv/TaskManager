@@ -27,7 +27,7 @@ public class UserAuthCommand extends AbstractCommand {
         String login = scanner.nextLine();
         System.out.println("pass");
         String pass = bootstrap.passwordHash(scanner.nextLine());
-        if (userService.auth(login, pass)) {
+        if (userService.logIn(login, pass)) {
             bootstrap.setCurrentUser(userService.findOne(login, login).getLogin());
             System.out.println("AUTH OK!");
             System.out.println(userService.findOne(login, login).getRole());

@@ -20,4 +20,8 @@ public interface UserServiceInterface {
 
     List<User> findAll(String userId);
 
+    boolean logIn(String login, String password);
+
+    boolean updatePassword(String login, String oldOne, String newOne);
+
 }
