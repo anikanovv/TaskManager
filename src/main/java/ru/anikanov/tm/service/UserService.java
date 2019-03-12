@@ -4,19 +4,16 @@ import ru.anikanov.tm.entity.User;
 import ru.anikanov.tm.enumeration.Role;
 import ru.anikanov.tm.repository.UserRepository;
 
-import javax.jws.soap.SOAPBinding;
-import java.io.UnsupportedEncodingException;
-import java.security.NoSuchAlgorithmException;
 import java.util.List;
 
-public class UserService {
+public class UserService implements UserServiceInterface {
     private UserRepository userRepository;
 
     public UserService(UserRepository userRepository) {
         this.userRepository = userRepository;
     }
 
-    public User persist(String login, String password, Role role) throws UnsupportedEncodingException, NoSuchAlgorithmException {
+    public User persist(String login, String password, Role role) {
         if (login.isEmpty() || (login == null)) return null;
         if (userRepository.findOne(login) == null) {
             if (password.isEmpty() || (password == null)) return null;
@@ -33,17 +30,17 @@ public class UserService {
         userRepository.merge(login, password, role);
     }
 
-    public boolean auth(String login, String password) throws UnsupportedEncodingException, NoSuchAlgorithmException {
+    public boolean logIn(String login, String password) {
         if (login.isEmpty() || (login == null)) return false;
         if (password.isEmpty() || (password == null)) return false;
-        User user = findOne(login);
+        User user = findOne(login, login);
         if (user == null) return false;
-        return userRepository.auth(login, password);
+        return userRepository.logIn(login, password);
 
     }
 
-    public boolean endSession() {
-        return userRepository.endSession();
+    public boolean logOut() {
+        return userRepository.logOut();
     }
 
     public boolean updatePassword(String login, String oldOne, String newOne) {
@@ -52,21 +49,21 @@ public class UserService {
         return userRepository.updatePassword(login, oldOne, newOne);
     }
 
-    public User findOne(String login) {
+    public User findOne(String login, String userId) {
         if (login.isEmpty() || (login == null)) return null;
         return userRepository.findOne(login);
     }
 
-    public List<User> findAll() {
+    public List<User> findAll(String userId) {
         return userRepository.findAll();
     }
 
-    public User remove(String login) {
-        if (login.isEmpty() || (login == null)) return null;
-        return userRepository.remove(login);
+    public void remove(String login, String userId) {
+        if (login.isEmpty() || (login == null)) return;
+        userRepository.remove(login);
     }
 
-    public void removeAll() {
+    public void removeAll(String userId) {
         userRepository.removeAll();
     }
 }

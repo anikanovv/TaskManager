@@ -1,16 +1,9 @@
 package ru.anikanov.tm.command.task;
 
-import ru.anikanov.tm.Bootstrap;
 import ru.anikanov.tm.command.AbstractCommand;
-import ru.anikanov.tm.service.ProjectService;
-import ru.anikanov.tm.service.TaskService;
-
-import java.text.ParseException;
+import ru.anikanov.tm.service.TaskServiceInterface;
 
 public class TaskUpdateCommand extends AbstractCommand {
-    public TaskUpdateCommand(Bootstrap bootstrap) {
-        super(bootstrap);
-    }
 
     @Override
     public String getName() {
@@ -27,11 +20,12 @@ public class TaskUpdateCommand extends AbstractCommand {
         return false;
     }
     @Override
-    public void execute() throws ParseException {
-        String id = scanner.next();
-        String name = scanner.next();
+    public void execute() {
+        TaskServiceInterface taskService = bootstrap.getTaskService();
+        String id = scanner.nextLine();
+        String name = scanner.nextLine();
         System.out.println("Введите через знак ; описание задачи, дату начала задачи, дату окончания задачи");
-        String[] taskInfo = scanner.next().split(";");
+        String[] taskInfo = scanner.nextLine().split(";");
         String description = null;
         String startDate = null;
         String endDate = null;
@@ -40,6 +34,6 @@ public class TaskUpdateCommand extends AbstractCommand {
             startDate = taskInfo[1];
             endDate = taskInfo[2];
         }
-        bootstrap.taskService.merge(id, name, description, startDate, endDate, bootstrap.getCurrentUser());
+        taskService.merge(id, name, description, startDate, endDate, bootstrap.getCurrentUser());
     }
 }

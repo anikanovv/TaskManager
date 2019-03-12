@@ -1,16 +1,10 @@
 package ru.anikanov.tm.command.task;
 
-import ru.anikanov.tm.Bootstrap;
 import ru.anikanov.tm.command.AbstractCommand;
-import ru.anikanov.tm.service.ProjectService;
-import ru.anikanov.tm.service.TaskService;
+import ru.anikanov.tm.service.TaskServiceInterface;
 
-import java.text.ParseException;
 
 public class TaskRemoveAllCommand extends AbstractCommand {
-    public TaskRemoveAllCommand(Bootstrap bootstrap) {
-        super(bootstrap);
-    }
 
     @Override
     public String getName() {
@@ -27,7 +21,8 @@ public class TaskRemoveAllCommand extends AbstractCommand {
         return false;
     }
     @Override
-    public void execute() throws ParseException {
-        bootstrap.taskService.removeAll(bootstrap.getCurrentUser());
+    public void execute() {
+        TaskServiceInterface taskService = bootstrap.getTaskService();
+        taskService.removeAll(bootstrap.getCurrentUser());
     }
 }

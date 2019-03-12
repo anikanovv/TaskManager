@@ -1,17 +1,10 @@
 package ru.anikanov.tm.command.user;
 
-import ru.anikanov.tm.Bootstrap;
 import ru.anikanov.tm.command.AbstractCommand;
 import ru.anikanov.tm.entity.User;
-
-import java.io.UnsupportedEncodingException;
-import java.security.NoSuchAlgorithmException;
-import java.text.ParseException;
+import ru.anikanov.tm.service.UserServiceInterface;
 
 public class UserReadCommand extends AbstractCommand {
-    public UserReadCommand(Bootstrap bootstrap) {
-        super(bootstrap);
-    }
 
     @Override
     public boolean isSecure() {
@@ -28,9 +21,10 @@ public class UserReadCommand extends AbstractCommand {
     }
 
     @Override
-    public void execute() throws ParseException, UnsupportedEncodingException, NoSuchAlgorithmException {
-        String login = scanner.next();
-        User user = bootstrap.userService.findOne(login);
+    public void execute() {
+        UserServiceInterface userService = bootstrap.getUserService();
+        String login = scanner.nextLine();
+        User user = userService.findOne(login, bootstrap.getCurrentUser());
         System.out.println(user);
     }
 }

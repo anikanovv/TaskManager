@@ -9,9 +9,7 @@ import ru.anikanov.tm.enumeration.Role;
 import ru.anikanov.tm.repository.ProjectRepository;
 import ru.anikanov.tm.repository.TaskRepository;
 import ru.anikanov.tm.repository.UserRepository;
-import ru.anikanov.tm.service.ProjectService;
-import ru.anikanov.tm.service.TaskService;
-import ru.anikanov.tm.service.UserService;
+import ru.anikanov.tm.service.*;
 
 import java.io.UnsupportedEncodingException;
 import java.math.BigInteger;
@@ -22,17 +20,17 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.Scanner;
 
-public class Bootstrap {
-    private final Scanner scanner = new Scanner(System.in);
+public class Bootstrap implements ServiceLocator {
+    private String currentUser;
     private TaskRepository taskRepository = new TaskRepository();
     private ProjectRepository projectRepository = new ProjectRepository();
     private UserRepository userRepository = new UserRepository();
-    public final ProjectService projectService = new ProjectService(projectRepository, taskRepository, userRepository);
-    public final TaskService taskService = new TaskService(projectRepository, taskRepository, userRepository);
-    public final UserService userService = new UserService(userRepository);
-    private String currentUser;
+    private final ProjectServiceInterface projectService = new ProjectService(projectRepository, taskRepository, userRepository);
+    private final TaskServiceInterface taskService = new TaskService(projectRepository, taskRepository, userRepository);
+    private final UserServiceInterface userService = new UserService(userRepository);
+    private final Scanner scanner = new Scanner(System.in);
 
-    public Map<String, AbstractCommand> commandMap = new HashMap<>();
+    private final Map<String, AbstractCommand> commandMap = initCommands();
 
     public void init() throws ParseException, UnsupportedEncodingException, NoSuchAlgorithmException {
         initCommands();
@@ -47,7 +45,7 @@ public class Bootstrap {
         } while (true);
     }
 
-    public void initUsers() throws UnsupportedEncodingException, NoSuchAlgorithmException {
+    private void initUsers() {
         userService.persist("admin", passwordHash("admin"), Role.ADMIN);
         userService.persist("user", passwordHash("user"), Role.USER);
     }
@@ -60,50 +58,54 @@ public class Bootstrap {
         this.currentUser = currentUser;
     }
 
-    public void initCommands() {
-        putToMap(new ProjectCreateCommand(this));
-
-        putToMap(new TaskCreateCommand(this));
-
-        putToMap(new ProjectReadCommand(this));
-
-        putToMap(new TaskReadCommand(this));
-
-        putToMap(new ProjectUpdateCommand(this));
-
-        putToMap(new TaskUpdateCommand(this));
-
-        putToMap(new ProjectDeleteCommand(this));
-
-        putToMap(new TaskDeleteCommand(this));
-
-        putToMap(new TaskRemoveAllCommand(this));
-
-        putToMap(new ProjectRemoveAllCommand(this));
-
-        putToMap(new ProjectCreateCommand(this));
-
-        putToMap(new HelpCommand(this));
-
-        putToMap(new UserCreateCommand(this));
-
-        putToMap(new UserAuthCommand(this));
-
-        putToMap(new UserRemoveAllCommand(this));
-
-        putToMap(new UserDeleteCommand(this));
-
-        putToMap(new UserEndSessionCommand(this));
-
-        putToMap(new UserReadAllCommand(this));
-
-        putToMap(new UserReadCommand(this));
-
-        putToMap(new UserUpdateCommand(this));
+    public Map<String, AbstractCommand> initCommands() {
+        Map<String, AbstractCommand> map = new HashMap<>();
+        AbstractCommand[] commands = {
+                (new ProjectCreateCommand()),
+                (new TaskCreateCommand()),
+                (new ProjectReadCommand()),
+                (new TaskReadCommand()),
+                (new ProjectUpdateCommand()),
+                (new TaskUpdateCommand()),
+                (new ProjectDeleteCommand()),
+                (new TaskDeleteCommand()),
+                (new TaskRemoveAllCommand()),
+                (new ProjectRemoveAllCommand()),
+                (new ProjectCreateCommand()),
+                (new HelpCommand()),
+                (new UserCreateCommand()),
+                (new UserAuthCommand()),
+                (new UserRemoveAllCommand()),
+                (new UserDeleteCommand()),
+                (new UserEndSessionCommand()),
+                (new UserReadAllCommand()),
+                (new UserReadCommand()),
+                (new UserUpdateCommand())
+        };
+        putToMap(commands, map);
+        return map;
     }
 
-    private void putToMap(AbstractCommand command) {
-        commandMap.put(command.getName(), command);
+    private void putToMap(AbstractCommand[] commands, Map<String, AbstractCommand> map) {
+        for (AbstractCommand command : commands) {
+            map.put(command.getName(), command);
+        }
+    }
+
+    public Scanner getScanner() {
+        return scanner;
+    }
+
+    public ProjectServiceInterface getProjectService() {
+        return projectService;
+    }
+
+    public TaskServiceInterface getTaskService() {
+        return taskService;
+    }
+
+    public UserServiceInterface getUserService() {
+        return userService;
     }
 
     public String passwordHash(String string) {

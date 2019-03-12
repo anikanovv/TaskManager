@@ -1,16 +1,9 @@
 package ru.anikanov.tm.command.user;
 
-import ru.anikanov.tm.Bootstrap;
 import ru.anikanov.tm.command.AbstractCommand;
-
-import java.io.UnsupportedEncodingException;
-import java.security.NoSuchAlgorithmException;
-import java.text.ParseException;
+import ru.anikanov.tm.service.UserServiceInterface;
 
 public class UserRemoveAllCommand extends AbstractCommand {
-    public UserRemoveAllCommand(Bootstrap bootstrap) {
-        super(bootstrap);
-    }
 
     @Override
     public boolean isSecure() {
@@ -27,7 +20,8 @@ public class UserRemoveAllCommand extends AbstractCommand {
     }
 
     @Override
-    public void execute() throws ParseException, UnsupportedEncodingException, NoSuchAlgorithmException {
-        bootstrap.userService.removeAll();
+    public void execute() {
+        UserServiceInterface userService = bootstrap.getUserService();
+        userService.removeAll(bootstrap.getCurrentUser());
     }
 }

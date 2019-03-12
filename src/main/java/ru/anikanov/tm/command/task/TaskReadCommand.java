@@ -1,16 +1,9 @@
 package ru.anikanov.tm.command.task;
 
-import ru.anikanov.tm.Bootstrap;
 import ru.anikanov.tm.command.AbstractCommand;
-import ru.anikanov.tm.service.ProjectService;
-import ru.anikanov.tm.service.TaskService;
-
-import java.text.ParseException;
+import ru.anikanov.tm.service.TaskServiceInterface;
 
 public class TaskReadCommand extends AbstractCommand {
-    public TaskReadCommand(Bootstrap bootstrap) {
-        super(bootstrap);
-    }
 
     @Override
     public boolean isSecure() {
@@ -26,8 +19,9 @@ public class TaskReadCommand extends AbstractCommand {
         return "command to read task";
     }
     @Override
-    public void execute() throws ParseException {
-        String name = scanner.next();
-        System.out.println(bootstrap.taskService.findOne(name, bootstrap.getCurrentUser()));
+    public void execute() {
+        TaskServiceInterface taskService = bootstrap.getTaskService();
+        String name = scanner.nextLine();
+        System.out.println(taskService.findOne(name, bootstrap.getCurrentUser()));
     }
 }

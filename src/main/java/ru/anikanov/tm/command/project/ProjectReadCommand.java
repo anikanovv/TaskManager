@@ -2,14 +2,12 @@ package ru.anikanov.tm.command.project;
 
 import ru.anikanov.tm.Bootstrap;
 import ru.anikanov.tm.command.AbstractCommand;
+import ru.anikanov.tm.service.ProjectServiceInterface;
 
 
 import java.text.ParseException;
 
 public class ProjectReadCommand extends AbstractCommand {
-    public ProjectReadCommand(Bootstrap bootstrap) {
-        super(bootstrap);
-    }
 
     @Override
     public String getName() {
@@ -26,8 +24,9 @@ public class ProjectReadCommand extends AbstractCommand {
         return false;
     }
     @Override
-    public void execute() throws ParseException {
-        String name = scanner.next();
-        System.out.println(bootstrap.taskService.findOne(name, bootstrap.getCurrentUser()));
+    public void execute() {
+        ProjectServiceInterface projectService = bootstrap.getProjectService();
+        String name = scanner.nextLine();
+        System.out.println(projectService.findOne(name, bootstrap.getCurrentUser()));
     }
 }

@@ -9,7 +9,7 @@ import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.List;
 
-public class ProjectService {
+public class ProjectService implements ProjectServiceInterface {
     private ProjectRepository projectRepository;
     private TaskRepository taskRepository;
     private UserRepository userRepository;
@@ -20,7 +20,7 @@ public class ProjectService {
         userRepository = ur;
     }
 
-    public Project persist(String projectName, String description, String dateStart, String dateFinish, String userId) throws ParseException {
+    public Project persist(String projectName, String description, String dateStart, String dateFinish, String userId) {
         if (projectName.isEmpty() || (projectName == null)) return null;
         Project project = projectRepository.findOne(projectName);
         if (project == null) {
@@ -28,12 +28,16 @@ public class ProjectService {
             if (dateStart.isEmpty() || (dateStart == null)) return null;
             if (dateFinish.isEmpty() || (dateFinish == null)) return null;
             if (userId.isEmpty() || (userId == null)) return null;
-            return (projectRepository.persist(projectName, description, dateStart, dateFinish, userId));
+            try {
+                return (projectRepository.persist(projectName, description, dateStart, dateFinish, userId));
+            } catch (ParseException e) {
+                e.printStackTrace();
+            }
         }
         return null;
     }
 
-    public void merge(String projectName, String description, String dateStart, String dateFinish, String userId) throws ParseException {
+    public void merge(String projectName, String description, String dateStart, String dateFinish, String userId) {
         if (projectName.isEmpty() || (projectName == null)) return;
         Project project = projectRepository.findOne(projectName);
         if ((!userId.equals(project.getUserId())) || (!userRepository.findOne(userId).getRole().equals("admin")))
@@ -43,7 +47,11 @@ public class ProjectService {
             if (dateStart.isEmpty() || (dateStart == null)) return;
             if (dateFinish.isEmpty() || (dateFinish == null)) return;
         }
-        projectRepository.merge(projectName, description, dateStart, dateFinish);
+        try {
+            projectRepository.merge(projectName, description, dateStart, dateFinish);
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
     }
 
     public void remove(String projectName, String userId) {

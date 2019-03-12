@@ -1,21 +1,15 @@
 package ru.anikanov.tm.command.user;
 
-import ru.anikanov.tm.Bootstrap;
 import ru.anikanov.tm.command.AbstractCommand;
-
-import java.io.UnsupportedEncodingException;
-import java.security.NoSuchAlgorithmException;
-import java.text.ParseException;
+import ru.anikanov.tm.service.UserServiceInterface;
 
 public class UserUpdatePasswordCommand extends AbstractCommand {
-    public UserUpdatePasswordCommand(Bootstrap bootstrap) {
-        super(bootstrap);
-    }
 
     @Override
     public boolean isSecure() {
         return false;
     }
+
     @Override
     public String getName() {
         return "updatepass user";
@@ -27,10 +21,11 @@ public class UserUpdatePasswordCommand extends AbstractCommand {
     }
 
     @Override
-    public void execute() throws ParseException, UnsupportedEncodingException, NoSuchAlgorithmException {
+    public void execute() {
+        UserServiceInterface userService = bootstrap.getUserService();
         String login = scanner.nextLine();
         String oldPass = bootstrap.passwordHash(scanner.nextLine());
         String newPass = bootstrap.passwordHash(scanner.nextLine());
-        if (bootstrap.userService.updatePassword(login, oldPass, newPass)) System.out.println("updated");
+        if (userService.updatePassword(login, oldPass, newPass)) System.out.println("updated");
     }
 }

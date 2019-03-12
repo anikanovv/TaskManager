@@ -2,12 +2,11 @@ package ru.anikanov.tm.command.project;
 
 import ru.anikanov.tm.Bootstrap;
 import ru.anikanov.tm.command.AbstractCommand;
+import ru.anikanov.tm.service.ProjectServiceInterface;
+
 import java.text.ParseException;
 
 public class ProjectDeleteCommand extends AbstractCommand {
-    public ProjectDeleteCommand(Bootstrap bootstrap) {
-        super(bootstrap);
-    }
 
     @Override
     public String getName() {
@@ -25,7 +24,8 @@ public class ProjectDeleteCommand extends AbstractCommand {
     }
     @Override
     public void execute() throws ParseException {
-        String name = scanner.next();
-        bootstrap.projectService.remove(name, bootstrap.getCurrentUser());
+        ProjectServiceInterface projectService = bootstrap.getProjectService();
+        String name = scanner.nextLine();
+        projectService.remove(name, bootstrap.getCurrentUser());
     }
 }

@@ -4,13 +4,9 @@ import ru.anikanov.tm.Bootstrap;
 import ru.anikanov.tm.command.AbstractCommand;
 import ru.anikanov.tm.service.ProjectService;
 import ru.anikanov.tm.service.TaskService;
-
-import java.text.ParseException;
+import ru.anikanov.tm.service.TaskServiceInterface;
 
 public class TaskDeleteCommand extends AbstractCommand {
-    public TaskDeleteCommand(Bootstrap bootstrap) {
-        super(bootstrap);
-    }
 
     @Override
     public String getName() {
@@ -27,8 +23,9 @@ public class TaskDeleteCommand extends AbstractCommand {
         return false;
     }
     @Override
-    public void execute() throws ParseException {
-        String name = scanner.next();
-        bootstrap.taskService.remove(name, bootstrap.getCurrentUser());
+    public void execute() {
+        TaskServiceInterface taskService = bootstrap.getTaskService();
+        String name = scanner.nextLine();
+        taskService.remove(name, bootstrap.getCurrentUser());
     }
 }

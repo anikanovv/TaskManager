@@ -1,17 +1,8 @@
 package ru.anikanov.tm.command.user;
 
-import ru.anikanov.tm.Bootstrap;
 import ru.anikanov.tm.command.AbstractCommand;
 
-import java.io.UnsupportedEncodingException;
-import java.security.NoSuchAlgorithmException;
-import java.text.ParseException;
-
 public class UserEndSessionCommand extends AbstractCommand {
-
-    public UserEndSessionCommand(Bootstrap bootstrap) {
-        super(bootstrap);
-    }
 
     @Override
     public boolean isSecure() {
@@ -28,7 +19,7 @@ public class UserEndSessionCommand extends AbstractCommand {
     }
 
     @Override
-    public void execute() throws ParseException, UnsupportedEncodingException, NoSuchAlgorithmException {
+    public void execute() {
         String login = bootstrap.getCurrentUser();
         System.out.println(login);
         bootstrap.setCurrentUser(null);

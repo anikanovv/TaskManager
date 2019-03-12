@@ -3,16 +3,13 @@ package ru.anikanov.tm.command.project;
 import ru.anikanov.tm.Bootstrap;
 import ru.anikanov.tm.command.AbstractCommand;
 import ru.anikanov.tm.service.ProjectService;
+import ru.anikanov.tm.service.ProjectServiceInterface;
 import ru.anikanov.tm.service.TaskService;
 
 import java.text.ParseException;
 import java.util.UUID;
 
 public class ProjectCreateCommand extends AbstractCommand {
-    public ProjectCreateCommand(Bootstrap bootstrap) {
-        super(bootstrap);
-    }
-
     @Override
     public String getName() {
         return "create project";
@@ -30,9 +27,10 @@ public class ProjectCreateCommand extends AbstractCommand {
     @Override
     public void execute() throws ParseException {
         String userId = bootstrap.getCurrentUser();
-        String name = scanner.next();
+        String name = scanner.nextLine();
+        ProjectServiceInterface projectService = bootstrap.getProjectService();
         System.out.println("Введите через знак ; описание проекта, дату начала проекта, дату окончания проекта");
-        String[] projectInfo = scanner.next().split(";");
+        String[] projectInfo = scanner.nextLine().split(";");
         String description = null;
         String startDate = null;
         String endDate = null;
@@ -41,6 +39,6 @@ public class ProjectCreateCommand extends AbstractCommand {
             startDate = projectInfo[1];
             endDate = projectInfo[2];
         }
-        bootstrap.projectService.persist(name, description, startDate, endDate, userId);
+        projectService.persist(name, description, startDate, endDate, userId);
     }
 }

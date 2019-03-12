@@ -9,7 +9,7 @@ import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.List;
 
-public class TaskService {
+public class TaskService implements TaskServiceInterface {
     private ProjectRepository projectRepository;
     private TaskRepository taskRepository;
     private UserRepository userRepository;
@@ -25,7 +25,7 @@ public class TaskService {
         return taskRepository.findOne(taskId);
     }
 
-    public Task persist(String projectId, String taskName, String description, String dateStart, String dateFinish, String userId) throws ParseException {
+    public Task persist(String projectId, String taskName, String description, String dateStart, String dateFinish, String userId) {
         if (taskName.isEmpty() || (taskName == null)) return null;
         Task task = taskRepository.findOne(taskName);
         if (task == null) {
@@ -35,10 +35,15 @@ public class TaskService {
             if (dateFinish.isEmpty() || (dateFinish == null)) return null;
             if (userId.isEmpty() || (userId == null)) return null;
         }
-        return taskRepository.persist(projectId, taskName, description, dateStart, dateFinish, userId);
+        try {
+            return taskRepository.persist(projectId, taskName, description, dateStart, dateFinish, userId);
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+        return null;
     }
 
-    public void merge(String taskId, String taskName, String description, String dateStart, String dateFinish, String userId) throws ParseException {
+    public void merge(String taskId, String taskName, String description, String dateStart, String dateFinish, String userId) {
         if (taskId.isEmpty() || (taskId == null)) return;
         Task task = taskRepository.findOne(taskId);
         if ((!userId.equals(task.getUserId())) || (!userRepository.findOne(userId).getRole().equals("admin"))) return;
@@ -48,7 +53,11 @@ public class TaskService {
             if (dateStart.isEmpty() || (dateStart == null)) return;
             if (dateFinish.isEmpty() || (dateFinish == null)) return;
         }
-        taskRepository.merge(taskId, taskName, description, dateStart, dateFinish);
+        try {
+            taskRepository.merge(taskId, taskName, description, dateStart, dateFinish);
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
 
     }
 

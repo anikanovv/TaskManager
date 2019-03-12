@@ -3,8 +3,6 @@ package ru.anikanov.tm.repository;
 import ru.anikanov.tm.entity.User;
 import ru.anikanov.tm.enumeration.Role;
 
-import java.io.UnsupportedEncodingException;
-import java.security.NoSuchAlgorithmException;
 import java.util.ArrayList;
 import java.util.LinkedHashMap;
 import java.util.List;
@@ -13,8 +11,8 @@ import java.util.Map;
 public class UserRepository {
     Map<String, User> userMap = new LinkedHashMap<>();
 
-    public User persist(String login, String password, Role role) throws UnsupportedEncodingException, NoSuchAlgorithmException {
-        User user = new User(login, getHash(password), role);
+    public User persist(String login, String password, Role role) {
+        User user = new User(login, password, role);
         return userMap.put(login, user);
     }
 
@@ -24,14 +22,14 @@ public class UserRepository {
         user.setRole(role);
     }
 
-    public boolean auth(String login, String password) throws UnsupportedEncodingException, NoSuchAlgorithmException {
+    public boolean logIn(String login, String password) {
         User user = findOne(login);
-        if (user.getHashPassword().equals(getHash(password))) {
+        if (user.getHashPassword().equals(password)) {
             return true;
         } else return false;
     }
 
-    public boolean endSession() {
+    public boolean logOut() {
         return true;
     }
 
@@ -59,12 +57,4 @@ public class UserRepository {
         userMap.clear();
     }
 
-    public String getHash(String password) throws NoSuchAlgorithmException, UnsupportedEncodingException {
-  /*      MessageDigest md = MessageDigest.getInstance("MD5");
-        md.reset();
-        md.update(password.getBytes("utf-8"));
-        String string = md.digest().toString();*/
-        String string = password;
-        return string;
-    }
 }

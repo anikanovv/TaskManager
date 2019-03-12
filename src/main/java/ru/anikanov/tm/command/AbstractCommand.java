@@ -1,6 +1,7 @@
 package ru.anikanov.tm.command;
 
 import ru.anikanov.tm.Bootstrap;
+import ru.anikanov.tm.ServiceLocator;
 
 import java.io.UnsupportedEncodingException;
 import java.security.NoSuchAlgorithmException;
@@ -8,12 +9,8 @@ import java.text.ParseException;
 import java.util.Scanner;
 
 public abstract class AbstractCommand {
-    protected Bootstrap bootstrap;
+    protected ServiceLocator bootstrap = new Bootstrap();
     protected final Scanner scanner = new Scanner(System.in);
-
-    public AbstractCommand(Bootstrap bootstrap) {
-        this.bootstrap = bootstrap;
-    }
 
     public abstract String getName();
 
