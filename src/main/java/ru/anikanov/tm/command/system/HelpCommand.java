@@ -21,6 +21,6 @@ public class HelpCommand extends AbstractCommand {
     }
     @Override
     public void execute() {
-        bootstrap.initCommands().forEach((k, v) -> System.out.println(v.getName() + " - " + v.getDescription()));
+        bootstrap.getCommandMap().forEach((k, v) -> System.out.println(v.getName() + " - " + v.getDescription()));
     }
 }

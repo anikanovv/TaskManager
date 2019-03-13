@@ -1,11 +1,7 @@
 package ru.anikanov.tm.command.project;
 
-import ru.anikanov.tm.Bootstrap;
+import ru.anikanov.tm.api.service.IProjectService;
 import ru.anikanov.tm.command.AbstractCommand;
-import ru.anikanov.tm.service.ProjectServiceInterface;
-
-
-import java.text.ParseException;
 
 public class ProjectReadCommand extends AbstractCommand {
 
@@ -25,7 +21,7 @@ public class ProjectReadCommand extends AbstractCommand {
     }
     @Override
     public void execute() {
-        ProjectServiceInterface projectService = bootstrap.getProjectService();
+        IProjectService projectService = bootstrap.getProjectService();
         String name = scanner.nextLine();
         System.out.println(projectService.findOne(name, bootstrap.getCurrentUser()));
     }

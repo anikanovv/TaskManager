@@ -4,14 +4,13 @@ import ru.anikanov.tm.enumeration.Role;
 
 import java.util.UUID;
 
-public class User {
-    private String id = UUID.randomUUID().toString();
-    private String login;
+public class User extends AbstractEntity {
+    private String name;
     private String hashPassword;
     private Role role;
 
     public User(String login, String password, Role role) {
-        this.login = login;
+        this.name = login;
         this.hashPassword = password;
         this.role = role;
     }
@@ -21,19 +20,23 @@ public class User {
     }
 
     public String getLogin() {
-        return login;
+        return name;
     }
 
     public String getHashPassword() {
         return hashPassword;
     }
 
-    public String getRole() {
+    public String getRoleName() {
         return role.displayName();
     }
 
+    public Role getRole() {
+        return role;
+    }
+
     public void setLogin(String login) {
-        this.login = login;
+        this.name = login;
     }
 
     public void setHashPassword(String newpassword) {

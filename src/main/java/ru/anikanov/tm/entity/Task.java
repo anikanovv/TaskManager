@@ -6,8 +6,7 @@ import java.util.Date;
 import java.util.Locale;
 import java.util.UUID;
 
-public class Task {
-    private String id = UUID.randomUUID().toString();
+public class Task extends AbstractEntity {
     private String name;
     private String description;
     private Date start;
@@ -49,16 +48,16 @@ public class Task {
         return projectId;
     }
 
-    public Date getStartDate() {
-        return start;
+    public String getStartDate() {
+        return format.format(start);
     }
 
     public void setStart(String start) throws ParseException {
         this.start = format.parse(start);
     }
 
-    public Date getEnd() {
-        return end;
+    public String getEnd() {
+        return format.format(end);
     }
 
     public void setEnd(String end) throws ParseException {

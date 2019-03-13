@@ -1,8 +1,8 @@
 package ru.anikanov.tm.command.user;
 
+import ru.anikanov.tm.api.service.IUserService;
 import ru.anikanov.tm.command.AbstractCommand;
 import ru.anikanov.tm.enumeration.Role;
-import ru.anikanov.tm.service.UserServiceInterface;
 
 public class UserCreateCommand extends AbstractCommand {
 
@@ -23,7 +23,7 @@ public class UserCreateCommand extends AbstractCommand {
 
     @Override
     public void execute() {
-        UserServiceInterface userService = bootstrap.getUserService();
+        IUserService userService = bootstrap.getUserService();
         System.out.println("Name,pass,role");
         String userName = scanner.nextLine();
         String userPass = scanner.nextLine();

@@ -1,9 +1,9 @@
-package ru.anikanov.tm;
+package ru.anikanov.tm.api;
 
+import ru.anikanov.tm.api.service.IProjectService;
+import ru.anikanov.tm.api.service.ITaskService;
+import ru.anikanov.tm.api.service.IUserService;
 import ru.anikanov.tm.command.AbstractCommand;
-import ru.anikanov.tm.service.ProjectServiceInterface;
-import ru.anikanov.tm.service.TaskServiceInterface;
-import ru.anikanov.tm.service.UserServiceInterface;
 
 import java.io.UnsupportedEncodingException;
 import java.security.NoSuchAlgorithmException;
@@ -18,13 +18,15 @@ public interface ServiceLocator {
 
     void setCurrentUser(String currentUser);
 
-    ProjectServiceInterface getProjectService();
+    IProjectService getProjectService();
 
-    TaskServiceInterface getTaskService();
+    ITaskService getTaskService();
 
-    UserServiceInterface getUserService();
+    Map<String, AbstractCommand> getCommandMap();
 
-    Map<String, AbstractCommand> initCommands();
+    IUserService getUserService();
+
+    void initCommands();
 
     String passwordHash(String string);
 

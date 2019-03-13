@@ -1,14 +1,15 @@
-package ru.anikanov.tm.service;
+package ru.anikanov.tm.api.service;
 
 
+import ru.anikanov.tm.entity.AbstractEntity;
 import ru.anikanov.tm.entity.User;
 import ru.anikanov.tm.enumeration.Role;
 
 import java.util.List;
 
-public interface UserServiceInterface {
+public interface IUserService {
 
-    User persist(String login, String password, Role role);
+    AbstractEntity persist(String login, String password, Role role);
 
     void merge(String login, String password, Role role);
 
@@ -16,11 +17,13 @@ public interface UserServiceInterface {
 
     void removeAll(String userId);
 
-    User findOne(String login, String userId);
+    AbstractEntity findOne(String login, String userId);
 
-    List<User> findAll(String userId);
+    List<AbstractEntity> findAll(String userId);
 
     boolean logIn(String login, String password);
+
+    boolean logOut();
 
     boolean updatePassword(String login, String oldOne, String newOne);
 

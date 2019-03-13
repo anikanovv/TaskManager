@@ -1,7 +1,7 @@
 package ru.anikanov.tm.command.task;
 
+import ru.anikanov.tm.api.service.ITaskService;
 import ru.anikanov.tm.command.AbstractCommand;
-import ru.anikanov.tm.service.TaskServiceInterface;
 
 public class TaskReadCommand extends AbstractCommand {
 
@@ -20,7 +20,7 @@ public class TaskReadCommand extends AbstractCommand {
     }
     @Override
     public void execute() {
-        TaskServiceInterface taskService = bootstrap.getTaskService();
+        ITaskService taskService = bootstrap.getTaskService();
         String name = scanner.nextLine();
         System.out.println(taskService.findOne(name, bootstrap.getCurrentUser()));
     }

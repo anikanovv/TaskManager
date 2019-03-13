@@ -1,8 +1,8 @@
 package ru.anikanov.tm.command.user;
 
+import ru.anikanov.tm.api.service.IUserService;
 import ru.anikanov.tm.command.AbstractCommand;
-import ru.anikanov.tm.entity.User;
-import ru.anikanov.tm.service.UserServiceInterface;
+import ru.anikanov.tm.entity.AbstractEntity;
 import java.util.List;
 
 public class UserReadAllCommand extends AbstractCommand {
@@ -23,8 +23,8 @@ public class UserReadAllCommand extends AbstractCommand {
 
     @Override
     public void execute() {
-        UserServiceInterface userService = bootstrap.getUserService();
-        List<User> users = userService.findAll(bootstrap.getCurrentUser());
+        IUserService userService = bootstrap.getUserService();
+        List<AbstractEntity> users = userService.findAll(bootstrap.getCurrentUser());
         users.forEach(user -> System.out.println(user));
     }
 }

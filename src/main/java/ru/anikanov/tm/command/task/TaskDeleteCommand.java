@@ -1,10 +1,7 @@
 package ru.anikanov.tm.command.task;
 
-import ru.anikanov.tm.Bootstrap;
+import ru.anikanov.tm.api.service.ITaskService;
 import ru.anikanov.tm.command.AbstractCommand;
-import ru.anikanov.tm.service.ProjectService;
-import ru.anikanov.tm.service.TaskService;
-import ru.anikanov.tm.service.TaskServiceInterface;
 
 public class TaskDeleteCommand extends AbstractCommand {
 
@@ -24,7 +21,7 @@ public class TaskDeleteCommand extends AbstractCommand {
     }
     @Override
     public void execute() {
-        TaskServiceInterface taskService = bootstrap.getTaskService();
+        ITaskService taskService = bootstrap.getTaskService();
         String name = scanner.nextLine();
         taskService.remove(name, bootstrap.getCurrentUser());
     }

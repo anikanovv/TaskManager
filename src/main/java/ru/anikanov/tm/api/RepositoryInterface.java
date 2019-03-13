@@ -1,4 +1,4 @@
-package ru.anikanov.tm.repository;
+package ru.anikanov.tm.api;
 
 import ru.anikanov.tm.entity.User;
 

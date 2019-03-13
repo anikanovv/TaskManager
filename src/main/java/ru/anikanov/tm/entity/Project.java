@@ -1,13 +1,14 @@
 package ru.anikanov.tm.entity;
 
+import ru.anikanov.tm.command.AbstractCommand;
+
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.*;
 
-public class Project {
+public class Project extends AbstractEntity {
     private String name;
     private String description;
-    private String id = UUID.randomUUID().toString();
     private Date start;
     private Date end;
     private String userId;
@@ -35,6 +36,14 @@ public class Project {
 
     public void setDescription(String description) {
         this.description = description;
+    }
+
+    public String getEnd() {
+        return format.format(end);
+    }
+
+    public String getStart() {
+        return format.format(start);
     }
 
     public void setStart(String startString) throws ParseException {

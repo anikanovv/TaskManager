@@ -1,12 +1,7 @@
 package ru.anikanov.tm.command.project;
 
-import ru.anikanov.tm.Bootstrap;
+import ru.anikanov.tm.api.service.IProjectService;
 import ru.anikanov.tm.command.AbstractCommand;
-import ru.anikanov.tm.service.ProjectService;
-import ru.anikanov.tm.service.ProjectServiceInterface;
-import ru.anikanov.tm.service.TaskService;
-
-import java.text.ParseException;
 
 public class ProjectUpdateCommand extends AbstractCommand {
 
@@ -27,7 +22,7 @@ public class ProjectUpdateCommand extends AbstractCommand {
 
     @Override
     public void execute() {
-        ProjectServiceInterface projectService = bootstrap.getProjectService();
+        IProjectService projectService = bootstrap.getProjectService();
         String name = scanner.nextLine();
         System.out.println("Введите через знак ; описание проекта, дату начала проекта, дату окончания проекта");
         String[] projectInfo = scanner.nextLine().split(";");

@@ -1,7 +1,7 @@
 package ru.anikanov.tm.command.task;
 
+import ru.anikanov.tm.api.service.ITaskService;
 import ru.anikanov.tm.command.AbstractCommand;
-import ru.anikanov.tm.service.TaskServiceInterface;
 
 public class TaskUpdateCommand extends AbstractCommand {
 
@@ -21,7 +21,7 @@ public class TaskUpdateCommand extends AbstractCommand {
     }
     @Override
     public void execute() {
-        TaskServiceInterface taskService = bootstrap.getTaskService();
+        ITaskService taskService = bootstrap.getTaskService();
         String id = scanner.nextLine();
         String name = scanner.nextLine();
         System.out.println("Введите через знак ; описание задачи, дату начала задачи, дату окончания задачи");

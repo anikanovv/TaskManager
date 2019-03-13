@@ -1,7 +1,7 @@
 package ru.anikanov.tm.command;
 
 import ru.anikanov.tm.Bootstrap;
-import ru.anikanov.tm.ServiceLocator;
+import ru.anikanov.tm.api.ServiceLocator;
 
 import java.io.UnsupportedEncodingException;
 import java.security.NoSuchAlgorithmException;

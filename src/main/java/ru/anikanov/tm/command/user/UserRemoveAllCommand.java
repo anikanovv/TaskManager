@@ -1,7 +1,7 @@
 package ru.anikanov.tm.command.user;
 
+import ru.anikanov.tm.api.service.IUserService;
 import ru.anikanov.tm.command.AbstractCommand;
-import ru.anikanov.tm.service.UserServiceInterface;
 
 public class UserRemoveAllCommand extends AbstractCommand {
 
@@ -21,7 +21,7 @@ public class UserRemoveAllCommand extends AbstractCommand {
 
     @Override
     public void execute() {
-        UserServiceInterface userService = bootstrap.getUserService();
+        IUserService userService = bootstrap.getUserService();
         userService.removeAll(bootstrap.getCurrentUser());
     }
 }

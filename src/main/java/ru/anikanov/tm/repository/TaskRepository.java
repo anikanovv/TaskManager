@@ -1,6 +1,7 @@
 package ru.anikanov.tm.repository;
 
-import ru.anikanov.tm.App;
+import ru.anikanov.tm.api.repository.ITaskRepository;
+import ru.anikanov.tm.entity.AbstractEntity;
 import ru.anikanov.tm.entity.Task;
 
 import java.text.ParseException;
@@ -9,28 +10,28 @@ import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 
-public class TaskRepository {
+public class TaskRepository extends AbstractRepository implements ITaskRepository {
     private Map<String, Task> taskMap = new LinkedHashMap<>();
 
-    public Task findOne(String taskName) {
+    public AbstractEntity findOne(String taskName) {
         return taskMap.get(taskName);
     }
 
-    public Task persist(String projectId, String taskName, String description, String dateStart, String dateFinish, String userId) throws ParseException {
-        Task task = new Task(projectId, taskName, description, dateStart, dateFinish, userId);
+    public AbstractEntity persist(AbstractEntity entity) {
+        Task task = (Task) entity;
         return taskMap.put(task.getId(), task);
     }
 
-    public void merge(String taskId, String taskName, String description, String dateStart, String dateFinish) throws ParseException {
-        Task task = taskMap.get(taskId);
-        task.setTaskName(taskName);
-            task.setDescription(description);
-            task.setStart(dateStart);
-            task.setEnd(dateFinish);
+    public void merge(AbstractEntity entity) throws ParseException {
+        Task newtask = (Task) entity;
+        Task task = (Task) findOne(newtask.getTaskName());
+        task.setDescription(newtask.getTaskDescription());
+        task.setStart(newtask.getStartDate());
+        task.setEnd(newtask.getEnd());
     }
 
-    public Task remove(String taskName) {
-        return taskMap.remove(taskName);
+    public void remove(String taskName) {
+        taskMap.remove(taskName);
     }
 
     public void removeAll() {
@@ -43,8 +44,8 @@ public class TaskRepository {
         });
     }
 
-    public List<Task> findAll() {
-        List<Task> tasks = new ArrayList<>();
+    public List<AbstractEntity> findAll() {
+        List<AbstractEntity> tasks = new ArrayList<>();
         taskMap.forEach((k, v) ->
                 tasks.add(v)
         );

@@ -1,6 +1,7 @@
 package ru.anikanov.tm.repository;
 
-import ru.anikanov.tm.App;
+import ru.anikanov.tm.api.repository.IProjectRepository;
+import ru.anikanov.tm.entity.AbstractEntity;
 import ru.anikanov.tm.entity.Project;
 
 import java.text.ParseException;
@@ -9,21 +10,24 @@ import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 
-public class ProjectRepository {
+public class ProjectRepository extends AbstractRepository implements IProjectRepository {
+
     private Map<String, Project> projectMap = new LinkedHashMap<>();
 
-    public Project persist(String projectName, String description, String dateStart, String dateFinish, String userId) throws ParseException {
-        Project project = new Project(projectName, description, dateStart, dateFinish, userId);
+    @Override
+    public AbstractEntity persist(AbstractEntity abstractEntity) {
+        Project project = (Project) abstractEntity;
         projectMap.put(project.getId(), project);
         return project;
     }
 
-    public void merge(String projectName, String description, String dateStart, String dateFinish) throws ParseException {
-        Project project = findOne(projectName);
-        project.setName(projectName);
-        project.setDescription(description);
-        project.setStart(dateStart);
-        project.setEnd(dateFinish);
+    @Override
+    public void merge(AbstractEntity abstractEntity) throws ParseException {
+        Project p = (Project) abstractEntity;
+        Project project = (Project) findOne(p.getName());
+        project.setDescription(p.getDescription());
+        project.setStart(p.getStart());
+        project.setEnd(p.getEnd());
     }
 
     public void remove(String projectName) {
@@ -34,15 +38,15 @@ public class ProjectRepository {
         projectMap.clear();
     }
 
-    public List<Project> findAll() {
-        List<Project> list = new ArrayList<>();
+    public List<AbstractEntity> findAll() {
+        List<AbstractEntity> list = new ArrayList<>();
         projectMap.forEach((k, v) -> list.add(v));
         return list;
     }
 
-    public Project findOne(String projectName) {
-        Project project = projectMap.get(projectName);
-        return project;
+    public AbstractEntity findOne(String projectName) {
+        AbstractEntity abstractEntity = projectMap.get(projectName);
+        return abstractEntity;
     }
 
 

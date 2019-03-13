@@ -1,5 +1,12 @@
 package ru.anikanov.tm;
 
+import ru.anikanov.tm.api.repository.IProjectRepository;
+import ru.anikanov.tm.api.repository.ITaskRepository;
+import ru.anikanov.tm.api.repository.IUserRepository;
+import ru.anikanov.tm.api.service.IProjectService;
+import ru.anikanov.tm.api.service.ITaskService;
+import ru.anikanov.tm.api.service.IUserService;
+import ru.anikanov.tm.api.ServiceLocator;
 import ru.anikanov.tm.command.AbstractCommand;
 import ru.anikanov.tm.command.system.HelpCommand;
 import ru.anikanov.tm.command.project.*;
@@ -10,7 +17,6 @@ import ru.anikanov.tm.repository.ProjectRepository;
 import ru.anikanov.tm.repository.TaskRepository;
 import ru.anikanov.tm.repository.UserRepository;
 import ru.anikanov.tm.service.*;
-
 import java.io.UnsupportedEncodingException;
 import java.math.BigInteger;
 import java.security.MessageDigest;
@@ -22,15 +28,15 @@ import java.util.Scanner;
 
 public class Bootstrap implements ServiceLocator {
     private String currentUser;
-    private TaskRepository taskRepository = new TaskRepository();
-    private ProjectRepository projectRepository = new ProjectRepository();
-    private UserRepository userRepository = new UserRepository();
-    private final ProjectServiceInterface projectService = new ProjectService(projectRepository, taskRepository, userRepository);
-    private final TaskServiceInterface taskService = new TaskService(projectRepository, taskRepository, userRepository);
-    private final UserServiceInterface userService = new UserService(userRepository);
+    private ITaskRepository taskRepository = new TaskRepository();
+    private IProjectRepository projectRepository = new ProjectRepository();
+    private IUserRepository userRepository = new UserRepository();
+    private final IProjectService projectService = new ProjectService(projectRepository, taskRepository, userRepository);
+    private final ITaskService taskService = new TaskService(projectRepository, taskRepository, userRepository);
+    private final IUserService userService = new UserService(userRepository);
     private final Scanner scanner = new Scanner(System.in);
 
-    private final Map<String, AbstractCommand> commandMap = initCommands();
+    private Map<String, AbstractCommand> commandMap = new HashMap<>();
 
     public void init() throws ParseException, UnsupportedEncodingException, NoSuchAlgorithmException {
         initCommands();
@@ -58,8 +64,7 @@ public class Bootstrap implements ServiceLocator {
         this.currentUser = currentUser;
     }
 
-    public Map<String, AbstractCommand> initCommands() {
-        Map<String, AbstractCommand> map = new HashMap<>();
+    public void initCommands() {
         AbstractCommand[] commands = {
                 (new ProjectCreateCommand()),
                 (new TaskCreateCommand()),
@@ -82,8 +87,7 @@ public class Bootstrap implements ServiceLocator {
                 (new UserReadCommand()),
                 (new UserUpdateCommand())
         };
-        putToMap(commands, map);
-        return map;
+        putToMap(commands, commandMap);
     }
 
     private void putToMap(AbstractCommand[] commands, Map<String, AbstractCommand> map) {
@@ -96,16 +100,20 @@ public class Bootstrap implements ServiceLocator {
         return scanner;
     }
 
-    public ProjectServiceInterface getProjectService() {
+    public IProjectService getProjectService() {
         return projectService;
     }
 
-    public TaskServiceInterface getTaskService() {
+    public ITaskService getTaskService() {
         return taskService;
     }
 
-    public UserServiceInterface getUserService() {
+    public IUserService getUserService() {
         return userService;
+    }
+
+    public Map<String, AbstractCommand> getCommandMap() {
+        return commandMap;
     }
 
     public String passwordHash(String string) {
