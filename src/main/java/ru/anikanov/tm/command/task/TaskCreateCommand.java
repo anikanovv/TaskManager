@@ -1,9 +1,14 @@
 package ru.anikanov.tm.command.task;
 
+import ru.anikanov.tm.api.ServiceLocator;
 import ru.anikanov.tm.api.service.ITaskService;
 import ru.anikanov.tm.command.AbstractCommand;
 
 public class TaskCreateCommand extends AbstractCommand {
+
+    public TaskCreateCommand(ServiceLocator serviceLocator) {
+        super(serviceLocator);
+    }
 
     @Override
     public String getName() {
@@ -21,21 +26,15 @@ public class TaskCreateCommand extends AbstractCommand {
     }
     @Override
     public void execute() {
-        ITaskService taskService = bootstrap.getTaskService();
-        String userId = bootstrap.getCurrentUser();
-        String name = scanner.nextLine();
+        final ITaskService taskService = bootstrap.getTaskService();
+        final String userId = bootstrap.getCurrentUser();
+        final String name = bootstrap.getTerminlService().nextLine();
         System.out.println("Введите через знак ; описание задачи, дату начала задачи, дату окончания задачи");
-        String[] taskInfo = scanner.next().split(";");
-        String projectId = null;
-        String description = null;
-        String startDate = null;
-        String endDate = null;
-        if (taskInfo.length > 3) {
-            projectId = taskInfo[0];
-            description = taskInfo[1];
-            startDate = taskInfo[2];
-            endDate = taskInfo[3];
-        }
+        final String projectId = bootstrap.getTerminlService().nextLine();
+        final String description = bootstrap.getTerminlService().nextLine();
+        final String startDate = bootstrap.getTerminlService().nextLine();
+        final String endDate = bootstrap.getTerminlService().nextLine();
+
         taskService.persist(projectId, name, description, startDate, endDate, userId);
     }
 }

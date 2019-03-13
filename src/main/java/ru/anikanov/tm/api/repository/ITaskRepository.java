@@ -3,21 +3,20 @@ package ru.anikanov.tm.api.repository;
 import ru.anikanov.tm.entity.AbstractEntity;
 import ru.anikanov.tm.entity.Task;
 
-import java.text.ParseException;
 import java.util.List;
 
-public interface ITaskRepository {
-    AbstractEntity persist(AbstractEntity task);
+public interface ITaskRepository extends IRepository {
+    Task persist(Task task);
 
-    void merge(AbstractEntity task) throws ParseException;
+    void merge(Task task) throws Exception;
 
     void remove(String name);
 
     void removeAll();
 
-    AbstractEntity findOne(String name);
+    Task findOne(String name);
 
-    List<AbstractEntity> findAll();
+    List<Task> findAll();
 
     void removeWholeProject(String projectId);
 }

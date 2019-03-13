@@ -15,7 +15,7 @@ public class UserService extends AbstractService implements IUserService {
         this.userRepository = userRepository;
     }
 
-    public AbstractEntity persist(String login, String password, Role role) {
+    public User persist(String login, String password, Role role) {
         if (login.isEmpty() || (login == null)) return null;
         if (userRepository.findOne(login) == null) {
             if (password.isEmpty() || (password == null)) return null;
@@ -51,12 +51,12 @@ public class UserService extends AbstractService implements IUserService {
         return userRepository.updatePassword(login, oldOne, newOne);
     }
 
-    public AbstractEntity findOne(String login, String userId) {
+    public User findOne(String login, String userId) {
         if (login.isEmpty() || (login == null)) return null;
         return userRepository.findOne(login);
     }
 
-    public List<AbstractEntity> findAll(String userId) {
+    public List<User> findAll(String userId) {
         return userRepository.findAll();
     }
 

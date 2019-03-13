@@ -1,10 +1,15 @@
 package ru.anikanov.tm.command.user;
 
+import ru.anikanov.tm.api.ServiceLocator;
 import ru.anikanov.tm.api.service.IUserService;
 import ru.anikanov.tm.command.AbstractCommand;
 import ru.anikanov.tm.entity.User;
 
 public class UserReadCommand extends AbstractCommand {
+
+    public UserReadCommand(ServiceLocator serviceLocator) {
+        super(serviceLocator);
+    }
 
     @Override
     public boolean isSecure() {
@@ -22,9 +27,9 @@ public class UserReadCommand extends AbstractCommand {
 
     @Override
     public void execute() {
-        IUserService userService = bootstrap.getUserService();
-        String login = scanner.nextLine();
-        User user = (User) userService.findOne(login, bootstrap.getCurrentUser());
+        final IUserService userService = bootstrap.getUserService();
+        final String login = bootstrap.getTerminlService().nextLine();
+        final User user = userService.findOne(login, bootstrap.getCurrentUser());
         System.out.println(user);
     }
 }

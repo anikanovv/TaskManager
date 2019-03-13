@@ -1,8 +1,13 @@
 package ru.anikanov.tm.command.user;
 
+import ru.anikanov.tm.api.ServiceLocator;
 import ru.anikanov.tm.command.AbstractCommand;
 
 public class UserEndSessionCommand extends AbstractCommand {
+
+    public UserEndSessionCommand(ServiceLocator serviceLocator) {
+        super(serviceLocator);
+    }
 
     @Override
     public boolean isSecure() {
@@ -20,7 +25,7 @@ public class UserEndSessionCommand extends AbstractCommand {
 
     @Override
     public void execute() {
-        String login = bootstrap.getCurrentUser();
+        final String login = bootstrap.getCurrentUser();
         System.out.println(login);
         bootstrap.setCurrentUser(null);
         System.out.println("Session end");

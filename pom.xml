@@ -3,7 +3,6 @@
          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
-
     <groupId>ru.anikanov.tm</groupId>
     <artifactId>taskmanager</artifactId>
     <packaging>jar</packaging>
@@ -52,38 +51,32 @@
                 </configuration>
             </plugin>
             <plugin>
-
                 <groupId>org.apache.maven.plugins</groupId>
-
                 <artifactId>maven-jar-plugin</artifactId>
-
                 <version>2.6</version>
-
                 <configuration>
-
                     <archive>
-
                         <manifest>
-
                             <mainClass>ru.anikanov.tm.App</mainClass>
                             <addDefaultImplementationEntries>true</addDefaultImplementationEntries>
                             <addDefaultSpecificationEntries>true</addDefaultSpecificationEntries>
-
                         </manifest>
-
                         <manifestEntries>
                             <Implementation-Version>${project.version}-${buildNumber}</Implementation-Version>
                             <Implementation-Build>${scmBranch}</Implementation-Build>
                             <Main-Class>ru.anikanov.tm.App</Main-Class>
                         </manifestEntries>
-
                     </archive>
-
                 </configuration>
-
             </plugin>
         </plugins>
     </build>
-
-
+    <developers>
+        <developer>
+            <id>anikanov</id>
+            <name>Vladislav Anikanov</name>
+            <email>anikanov.vlad@gmail.com</email>
+            <url>https://github.com/anikanovv</url>
+        </developer>
+    </developers>
 </project>

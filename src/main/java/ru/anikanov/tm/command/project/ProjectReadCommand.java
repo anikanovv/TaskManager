@@ -1,9 +1,14 @@
 package ru.anikanov.tm.command.project;
 
+import ru.anikanov.tm.api.ServiceLocator;
 import ru.anikanov.tm.api.service.IProjectService;
 import ru.anikanov.tm.command.AbstractCommand;
 
 public class ProjectReadCommand extends AbstractCommand {
+
+    public ProjectReadCommand(ServiceLocator serviceLocator) {
+        super(serviceLocator);
+    }
 
     @Override
     public String getName() {
@@ -21,8 +26,8 @@ public class ProjectReadCommand extends AbstractCommand {
     }
     @Override
     public void execute() {
-        IProjectService projectService = bootstrap.getProjectService();
-        String name = scanner.nextLine();
+        final IProjectService projectService = bootstrap.getProjectService();
+        final String name = bootstrap.getTerminlService().nextLine();
         System.out.println(projectService.findOne(name, bootstrap.getCurrentUser()));
     }
 }

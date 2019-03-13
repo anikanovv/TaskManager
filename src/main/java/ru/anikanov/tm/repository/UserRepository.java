@@ -1,10 +1,7 @@
 package ru.anikanov.tm.repository;
 
 import ru.anikanov.tm.api.repository.IUserRepository;
-import ru.anikanov.tm.entity.AbstractEntity;
 import ru.anikanov.tm.entity.User;
-
-import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.LinkedHashMap;
 import java.util.List;
@@ -13,13 +10,11 @@ import java.util.Map;
 public class UserRepository extends AbstractRepository implements IUserRepository {
     Map<String, User> userMap = new LinkedHashMap<>();
 
-    public AbstractEntity persist(AbstractEntity u) {
-        User user = (User) u;
+    public User persist(User user) {
         return userMap.put(user.getLogin(), user);
     }
 
-    public void merge(AbstractEntity entity) {
-        User u = (User) entity;
+    public void merge(User u) {
         User user = userMap.get(u.getLogin());
         user.setHashPassword(u.getHashPassword());
         user.setRole(u.getRole());
@@ -49,8 +44,8 @@ public class UserRepository extends AbstractRepository implements IUserRepositor
         return userMap.get(login);
     }
 
-    public List<AbstractEntity> findAll() {
-        List<AbstractEntity> users = new ArrayList<>();
+    public List<User> findAll() {
+        List<User> users = new ArrayList<>();
         userMap.forEach((k, v) -> users.add(v));
         return users;
     }

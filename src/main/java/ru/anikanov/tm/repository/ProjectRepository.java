@@ -15,16 +15,15 @@ public class ProjectRepository extends AbstractRepository implements IProjectRep
     private Map<String, Project> projectMap = new LinkedHashMap<>();
 
     @Override
-    public AbstractEntity persist(AbstractEntity abstractEntity) {
-        Project project = (Project) abstractEntity;
+    public Project persist(Project project) {
+//        Project project = (Project) abstractEntity;
         projectMap.put(project.getId(), project);
         return project;
     }
 
     @Override
-    public void merge(AbstractEntity abstractEntity) throws ParseException {
-        Project p = (Project) abstractEntity;
-        Project project = (Project) findOne(p.getName());
+    public void merge(Project p) throws Exception {
+        Project project = findOne(p.getName());
         project.setDescription(p.getDescription());
         project.setStart(p.getStart());
         project.setEnd(p.getEnd());
@@ -38,15 +37,15 @@ public class ProjectRepository extends AbstractRepository implements IProjectRep
         projectMap.clear();
     }
 
-    public List<AbstractEntity> findAll() {
-        List<AbstractEntity> list = new ArrayList<>();
+    public List<Project> findAll() {
+        List<Project> list = new ArrayList<>();
         projectMap.forEach((k, v) -> list.add(v));
         return list;
     }
 
-    public AbstractEntity findOne(String projectName) {
-        AbstractEntity abstractEntity = projectMap.get(projectName);
-        return abstractEntity;
+    public Project findOne(String projectName) {
+        Project project = projectMap.get(projectName);
+        return project;
     }
 
 

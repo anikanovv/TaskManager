@@ -4,7 +4,6 @@ import ru.anikanov.tm.api.repository.IProjectRepository;
 import ru.anikanov.tm.api.service.IProjectService;
 import ru.anikanov.tm.api.repository.ITaskRepository;
 import ru.anikanov.tm.api.repository.IUserRepository;
-import ru.anikanov.tm.entity.AbstractEntity;
 import ru.anikanov.tm.entity.Project;
 import ru.anikanov.tm.entity.User;
 
@@ -22,9 +21,9 @@ public class ProjectService extends AbstractService implements IProjectService {
         userRepository = ur;
     }
 
-    public AbstractEntity persist(String projectName, String description, String dateStart, String dateFinish, String userId) {
+    public Project persist(String projectName, String description, String dateStart, String dateFinish, String userId) {
         if (projectName.isEmpty() || (projectName == null)) return null;
-        Project project = (Project) projectRepository.findOne(projectName);
+        Project project = projectRepository.findOne(projectName);
         if (project == null) {
             if (description.isEmpty() || (description == null)) return null;
             if (dateStart.isEmpty() || (dateStart == null)) return null;
@@ -32,7 +31,7 @@ public class ProjectService extends AbstractService implements IProjectService {
             if (userId.isEmpty() || (userId == null)) return null;
             try {
                 Project newproject = new Project(projectName, description, dateStart, dateFinish, userId);
-                return ((Project) projectRepository.persist(newproject));
+                return projectRepository.persist(newproject);
             } catch (ParseException e) {
                 e.printStackTrace();
             }
@@ -42,8 +41,8 @@ public class ProjectService extends AbstractService implements IProjectService {
 
     public void merge(String projectName, String description, String dateStart, String dateFinish, String userId) {
         if (projectName.isEmpty() || (projectName == null)) return;
-        Project project = (Project) projectRepository.findOne(projectName);
-        User user = (User) userRepository.findOne(userId);
+        Project project = projectRepository.findOne(projectName);
+        User user = userRepository.findOne(userId);
         if ((!userId.equals(project.getUserId())) || (!user.getRole().equals("admin")))
             return;
         if (project != null) {
@@ -54,15 +53,15 @@ public class ProjectService extends AbstractService implements IProjectService {
         try {
             Project p = new Project(projectName, description, dateStart, dateFinish, userId);
             projectRepository.merge(p);
-        } catch (ParseException e) {
+        } catch (Exception e) {
             e.printStackTrace();
         }
     }
 
     public void remove(String projectName, String userId) {
         if (projectName.isEmpty() || (projectName == null)) return;
-        Project project = (Project) projectRepository.findOne(projectName);
-        User user = (User) userRepository.findOne(userId);
+        Project project = projectRepository.findOne(projectName);
+        User user = userRepository.findOne(userId);
         if ((!userId.equals(project.getUserId())) || (!user.equals("admin")))
             return;
         if (project != null) {
@@ -73,19 +72,19 @@ public class ProjectService extends AbstractService implements IProjectService {
     }
 
     public void removeAll(String userId) {
-        User user = (User) userRepository.findOne(userId);
+        User user = userRepository.findOne(userId);
         if (!user.getRole().equals("admin")) return;
         projectRepository.removeAll();
         taskRepository.removeAll();
     }
 
-    public List<AbstractEntity> findAll(String userId) {
+    public List<Project> findAll(String userId) {
         User user = (User) userRepository.findOne(userId);
         if (!user.equals("admin")) return null;
         return projectRepository.findAll();
     }
 
-    public AbstractEntity findOne(String projectName, String userId) {
+    public Project findOne(String projectName, String userId) {
         if (projectName.isEmpty() || (projectName == null)) return null;
         return projectRepository.findOne(projectName);
     }

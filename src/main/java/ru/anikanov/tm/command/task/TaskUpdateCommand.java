@@ -1,9 +1,14 @@
 package ru.anikanov.tm.command.task;
 
+import ru.anikanov.tm.api.ServiceLocator;
 import ru.anikanov.tm.api.service.ITaskService;
 import ru.anikanov.tm.command.AbstractCommand;
 
 public class TaskUpdateCommand extends AbstractCommand {
+
+    public TaskUpdateCommand(ServiceLocator serviceLocator) {
+        super(serviceLocator);
+    }
 
     @Override
     public String getName() {
@@ -21,19 +26,13 @@ public class TaskUpdateCommand extends AbstractCommand {
     }
     @Override
     public void execute() {
-        ITaskService taskService = bootstrap.getTaskService();
-        String id = scanner.nextLine();
-        String name = scanner.nextLine();
+        final ITaskService taskService = bootstrap.getTaskService();
+        final String id = bootstrap.getTerminlService().nextLine();
+        final String name = bootstrap.getTerminlService().nextLine();
         System.out.println("Введите через знак ; описание задачи, дату начала задачи, дату окончания задачи");
-        String[] taskInfo = scanner.nextLine().split(";");
-        String description = null;
-        String startDate = null;
-        String endDate = null;
-        if (taskInfo.length > 2) {
-            description = taskInfo[0];
-            startDate = taskInfo[1];
-            endDate = taskInfo[2];
-        }
+        final String description = bootstrap.getTerminlService().nextLine();
+        final String startDate = bootstrap.getTerminlService().nextLine();
+        final String endDate = bootstrap.getTerminlService().nextLine();
         taskService.merge(id, name, description, startDate, endDate, bootstrap.getCurrentUser());
     }
 }

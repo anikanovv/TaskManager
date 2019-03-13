@@ -13,18 +13,17 @@ import java.util.Map;
 public class TaskRepository extends AbstractRepository implements ITaskRepository {
     private Map<String, Task> taskMap = new LinkedHashMap<>();
 
-    public AbstractEntity findOne(String taskName) {
+    public Task findOne(String taskName) {
         return taskMap.get(taskName);
     }
 
-    public AbstractEntity persist(AbstractEntity entity) {
-        Task task = (Task) entity;
+    public Task persist(Task entity) {
+        Task task = entity;
         return taskMap.put(task.getId(), task);
     }
 
-    public void merge(AbstractEntity entity) throws ParseException {
-        Task newtask = (Task) entity;
-        Task task = (Task) findOne(newtask.getTaskName());
+    public void merge(Task newtask) throws Exception {
+        Task task = findOne(newtask.getTaskName());
         task.setDescription(newtask.getTaskDescription());
         task.setStart(newtask.getStartDate());
         task.setEnd(newtask.getEnd());
@@ -44,8 +43,8 @@ public class TaskRepository extends AbstractRepository implements ITaskRepositor
         });
     }
 
-    public List<AbstractEntity> findAll() {
-        List<AbstractEntity> tasks = new ArrayList<>();
+    public List<Task> findAll() {
+        List<Task> tasks = new ArrayList<>();
         taskMap.forEach((k, v) ->
                 tasks.add(v)
         );

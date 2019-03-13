@@ -1,11 +1,17 @@
 package ru.anikanov.tm.command.user;
 
+import ru.anikanov.tm.api.ServiceLocator;
 import ru.anikanov.tm.api.service.IUserService;
 import ru.anikanov.tm.command.AbstractCommand;
-import ru.anikanov.tm.entity.AbstractEntity;
+import ru.anikanov.tm.entity.User;
+
 import java.util.List;
 
 public class UserReadAllCommand extends AbstractCommand {
+
+    public UserReadAllCommand(ServiceLocator serviceLocator) {
+        super(serviceLocator);
+    }
 
     @Override
     public boolean isSecure() {
@@ -23,8 +29,8 @@ public class UserReadAllCommand extends AbstractCommand {
 
     @Override
     public void execute() {
-        IUserService userService = bootstrap.getUserService();
-        List<AbstractEntity> users = userService.findAll(bootstrap.getCurrentUser());
+        final IUserService userService = bootstrap.getUserService();
+        final List<User> users = userService.findAll(bootstrap.getCurrentUser());
         users.forEach(user -> System.out.println(user));
     }
 }

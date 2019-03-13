@@ -1,11 +1,17 @@
 package ru.anikanov.tm.command.user;
 
 
+import ru.anikanov.tm.api.ServiceLocator;
 import ru.anikanov.tm.api.service.IUserService;
 import ru.anikanov.tm.command.AbstractCommand;
 import ru.anikanov.tm.entity.User;
+import ru.anikanov.tm.utils.PasswordHash;
 
 public class UserAuthCommand extends AbstractCommand {
+
+    public UserAuthCommand(ServiceLocator serviceLocator) {
+        super(serviceLocator);
+    }
 
     @Override
     public boolean isSecure() {
@@ -23,13 +29,13 @@ public class UserAuthCommand extends AbstractCommand {
 
     @Override
     public void execute() {
-        IUserService userService = bootstrap.getUserService();
+        final IUserService userService = bootstrap.getUserService();
         System.out.println("login");
-        String login = scanner.nextLine();
+        final String login = bootstrap.getTerminlService().nextLine();
         System.out.println("pass");
-        String pass = bootstrap.passwordHash(scanner.nextLine());
+        final String pass = PasswordHash.makehash(bootstrap.getTerminlService().nextLine());
         if (userService.logIn(login, pass)) {
-            User user = (User) userService.findOne(login, login);
+            User user = userService.findOne(login, login);
             bootstrap.setCurrentUser(user.getLogin());
             System.out.println("AUTH OK!");
             System.out.println(user.getRole());

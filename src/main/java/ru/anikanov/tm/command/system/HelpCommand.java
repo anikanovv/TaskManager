@@ -1,9 +1,13 @@
 package ru.anikanov.tm.command.system;
 
-import ru.anikanov.tm.Bootstrap;
+import ru.anikanov.tm.api.ServiceLocator;
 import ru.anikanov.tm.command.AbstractCommand;
 
 public class HelpCommand extends AbstractCommand {
+
+    public HelpCommand(ServiceLocator serviceLocator) {
+        super(serviceLocator);
+    }
 
     @Override
     public String getName() {

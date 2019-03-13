@@ -1,11 +1,14 @@
 package ru.anikanov.tm.command.project;
 
+import ru.anikanov.tm.api.ServiceLocator;
 import ru.anikanov.tm.api.service.IProjectService;
 import ru.anikanov.tm.command.AbstractCommand;
 
-import java.text.ParseException;
-
 public class ProjectCreateCommand extends AbstractCommand {
+    public ProjectCreateCommand(ServiceLocator serviceLocator) {
+        super(serviceLocator);
+    }
+
     @Override
     public String getName() {
         return "create project";
@@ -22,19 +25,13 @@ public class ProjectCreateCommand extends AbstractCommand {
     }
     @Override
     public void execute() {
-        String userId = bootstrap.getCurrentUser();
-        String name = scanner.nextLine();
-        IProjectService projectService = bootstrap.getProjectService();
+        final String userId = bootstrap.getCurrentUser();
+        final String name = bootstrap.getTerminlService().nextLine();
+        final IProjectService projectService = bootstrap.getProjectService();
         System.out.println("Введите через знак ; описание проекта, дату начала проекта, дату окончания проекта");
-        String[] projectInfo = scanner.nextLine().split(";");
-        String description = null;
-        String startDate = null;
-        String endDate = null;
-        if (projectInfo.length > 2) {
-            description = projectInfo[0];
-            startDate = projectInfo[1];
-            endDate = projectInfo[2];
-        }
+        final String description = bootstrap.getTerminlService().nextLine();
+        final String startDate = bootstrap.getTerminlService().nextLine();
+        final String endDate = bootstrap.getTerminlService().nextLine();
         projectService.persist(name, description, startDate, endDate, userId);
     }
 }

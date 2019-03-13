@@ -5,19 +5,19 @@ import ru.anikanov.tm.entity.User;
 
 import java.util.List;
 
-public interface IUserRepository {
+public interface IUserRepository extends IRepository {
 
-    AbstractEntity persist(AbstractEntity user);
+    User persist(User user);
 
-    void merge(AbstractEntity user);
+    void merge(User user);
 
     void remove(String login);
 
     void removeAll();
 
-    AbstractEntity findOne(String login);
+    User findOne(String login);
 
-    List<AbstractEntity> findAll();
+    List<User> findAll();
 
     boolean logIn(String login, String password);
 

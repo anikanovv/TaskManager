@@ -1,12 +1,15 @@
 package ru.anikanov.tm.command.system;
 
 import com.jcabi.manifests.Manifests;
+import ru.anikanov.tm.api.ServiceLocator;
 import ru.anikanov.tm.command.AbstractCommand;
 import com.jcabi.*;
 
-import java.util.jar.Manifest;
-
 public class AboutCommand extends AbstractCommand {
+    public AboutCommand(ServiceLocator serviceLocator) {
+        super(serviceLocator);
+    }
+
     @Override
     public String getName() {
         return "about";

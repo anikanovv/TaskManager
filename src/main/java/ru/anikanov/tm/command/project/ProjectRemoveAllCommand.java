@@ -1,8 +1,13 @@
 package ru.anikanov.tm.command.project;
 
+import ru.anikanov.tm.api.ServiceLocator;
 import ru.anikanov.tm.api.service.IProjectService;
 import ru.anikanov.tm.command.AbstractCommand;
 public class ProjectRemoveAllCommand extends AbstractCommand {
+
+    public ProjectRemoveAllCommand(ServiceLocator serviceLocator) {
+        super(serviceLocator);
+    }
 
     @Override
     public String getName() {
@@ -21,7 +26,7 @@ public class ProjectRemoveAllCommand extends AbstractCommand {
     @Override
 
     public void execute() {
-        IProjectService projectService = bootstrap.getProjectService();
+        final IProjectService projectService = bootstrap.getProjectService();
         projectService.removeAll(bootstrap.getCurrentUser());
     }
 }

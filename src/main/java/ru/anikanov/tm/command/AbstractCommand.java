@@ -1,16 +1,15 @@
 package ru.anikanov.tm.command;
 
-import ru.anikanov.tm.Bootstrap;
 import ru.anikanov.tm.api.ServiceLocator;
-
-import java.io.UnsupportedEncodingException;
-import java.security.NoSuchAlgorithmException;
-import java.text.ParseException;
 import java.util.Scanner;
 
 public abstract class AbstractCommand {
-    protected ServiceLocator bootstrap = new Bootstrap();
-    protected final Scanner scanner = new Scanner(System.in);
+    protected final ServiceLocator bootstrap;
+//    protected Scanner scanner = bootstrap.getTerminlService().getScanner();
+
+    protected AbstractCommand(ServiceLocator serviceLocator) {
+        bootstrap = serviceLocator;
+    }
 
     public abstract String getName();
 
@@ -18,5 +17,5 @@ public abstract class AbstractCommand {
 
     public abstract boolean isSecure();
 
-    public abstract void execute() throws ParseException, UnsupportedEncodingException, NoSuchAlgorithmException;
+    public abstract void execute() throws Exception;
 }
