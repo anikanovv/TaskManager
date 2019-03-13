@@ -8,6 +8,7 @@ import ru.anikanov.tm.api.service.ITaskService;
 import ru.anikanov.tm.api.service.IUserService;
 import ru.anikanov.tm.api.ServiceLocator;
 import ru.anikanov.tm.command.AbstractCommand;
+import ru.anikanov.tm.command.system.AboutCommand;
 import ru.anikanov.tm.command.system.HelpCommand;
 import ru.anikanov.tm.command.project.*;
 import ru.anikanov.tm.command.task.*;
@@ -85,7 +86,8 @@ public class Bootstrap implements ServiceLocator {
                 (new UserEndSessionCommand()),
                 (new UserReadAllCommand()),
                 (new UserReadCommand()),
-                (new UserUpdateCommand())
+                (new UserUpdateCommand()),
+                (new AboutCommand())
         };
         putToMap(commands, commandMap);
     }
