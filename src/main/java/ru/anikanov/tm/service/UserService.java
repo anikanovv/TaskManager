@@ -2,7 +2,6 @@ package ru.anikanov.tm.service;
 
 import ru.anikanov.tm.api.repository.IUserRepository;
 import ru.anikanov.tm.api.service.IUserService;
-import ru.anikanov.tm.entity.AbstractEntity;
 import ru.anikanov.tm.entity.User;
 import ru.anikanov.tm.enumeration.Role;
 
@@ -35,7 +34,7 @@ public class UserService extends AbstractService implements IUserService {
     public boolean logIn(String login, String password) {
         if (login.isEmpty() || (login == null)) return false;
         if (password.isEmpty() || (password == null)) return false;
-        User user = (User) findOne(login, login);
+        User user = findOne(login, login);
         if (user == null) return false;
         return userRepository.logIn(login, password);
 
