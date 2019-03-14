@@ -3,6 +3,8 @@ package ru.anikanov.tm.entity;
 
 import lombok.Getter;
 import lombok.Setter;
+import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -11,10 +13,15 @@ import java.util.*;
 @Getter
 @Setter
 public class Project extends AbstractEntity {
+    @Nullable
     private String name;
+    @Nullable
     private String description;
+    @NotNull
     private Date start;
+    @Nullable
     private Date end;
+    @NotNull
     private String userId;
     private final SimpleDateFormat format = new SimpleDateFormat("dd.MM.yyyy", Locale.US);
 

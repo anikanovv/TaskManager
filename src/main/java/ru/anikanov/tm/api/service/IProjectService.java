@@ -9,17 +9,17 @@ import java.util.List;
 public interface IProjectService {
 
     @Nullable
-    Project persist(@NotNull String projectName, @NotNull String description, @NotNull String dateStart, @NotNull String dateFinish, @NotNull String userId);
+    Project persist(@Nullable final String projectName, @Nullable final String description, @Nullable final String dateStart, @Nullable final String dateFinish, @NotNull final String userId);
 
-    void merge(@NotNull String projectName, @NotNull String description, @NotNull String dateStart, @NotNull String dateFinish, @NotNull String userId);
+    void merge(@Nullable final String projectName, @Nullable final String description, @Nullable final String dateStart, @Nullable final String dateFinish, @NotNull final String userId);
 
-    void remove(@NotNull String projectName, @NotNull String userId);
+    void remove(@Nullable final String projectName, @NotNull final String userId);
 
-    void removeAll(@NotNull String userId);
-
-    @Nullable
-    Project findOne(@NotNull String name, @NotNull String userId);
+    void removeAll(@NotNull final String userId);
 
     @Nullable
-    List<Project> findAll(@NotNull String userId);
+    Project findOne(@Nullable final String name, @NotNull final String userId);
+
+    @Nullable
+    List<Project> findAll(@NotNull final String userId);
 }

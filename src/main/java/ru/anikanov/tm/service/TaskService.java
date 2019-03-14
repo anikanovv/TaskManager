@@ -1,5 +1,7 @@
 package ru.anikanov.tm.service;
 
+import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
 import ru.anikanov.tm.api.repository.IProjectRepository;
 import ru.anikanov.tm.api.repository.ITaskRepository;
 import ru.anikanov.tm.api.service.ITaskService;
@@ -11,24 +13,29 @@ import java.text.ParseException;
 import java.util.List;
 
 public class TaskService extends AbstractService implements ITaskService {
+    @NotNull
     private IProjectRepository projectRepository;
+    @NotNull
     private ITaskRepository taskRepository;
+    @NotNull
     private IUserRepository userRepository;
 
-    public TaskService(IProjectRepository pr, ITaskRepository tr, IUserRepository ur) {
+    public TaskService(@NotNull IProjectRepository pr, @NotNull ITaskRepository tr, @NotNull IUserRepository ur) {
         projectRepository = pr;
         taskRepository = tr;
         userRepository = ur;
     }
 
-    public Task findOne(String taskId, String userId) {
+    @Nullable
+    public Task findOne(@Nullable final String taskId, @NotNull final String userId) {
         if (taskId.isEmpty() || (taskId == null)) return null;
         return taskRepository.findOne(taskId);
     }
 
-    public Task persist(String projectId, String taskName, String description, String dateStart, String dateFinish, String userId) {
+    @Nullable
+    public Task persist(@NotNull final String projectId, @Nullable final String taskName, @Nullable final String description, @Nullable final String dateStart, @Nullable final String dateFinish, @NotNull final String userId) {
         if (taskName.isEmpty() || (taskName == null)) return null;
-        Task task = (Task) taskRepository.findOne(taskName);
+        @Nullable final Task task = taskRepository.findOne(taskName);
         if (task == null) {
             if (projectId.isEmpty() || (projectId == null)) return null;
             if (description.isEmpty() || (description == null)) return null;
@@ -37,7 +44,7 @@ public class TaskService extends AbstractService implements ITaskService {
             if (userId.isEmpty() || (userId == null)) return null;
         }
         try {
-            Task newtask = new Task(projectId, taskName, description, dateStart, dateFinish, userId);
+            @NotNull final Task newtask = new Task(projectId, taskName, description, dateStart, dateFinish, userId);
             return taskRepository.persist(newtask);
         } catch (ParseException e) {
             e.printStackTrace();
@@ -45,10 +52,10 @@ public class TaskService extends AbstractService implements ITaskService {
         return null;
     }
 
-    public void merge(String taskId, String taskName, String description, String dateStart, String dateFinish, String userId) {
+    public void merge(@Nullable final String taskId, @Nullable final String taskName, @Nullable final String description, @Nullable final String dateStart, @Nullable final String dateFinish, @NotNull final String userId) {
         if (taskId.isEmpty() || (taskId == null)) return;
-        Task task = (Task) taskRepository.findOne(taskId);
-        User user = (User) userRepository.findOne(userId);
+        @Nullable Task task = taskRepository.findOne(taskId);
+        @Nullable final User user = userRepository.findOne(userId);
         if ((!userId.equals(task.getUserId())) || (!user.getRole().equals("admin"))) return;
         if (task != null) {
             if (taskName.isEmpty() || (taskName == null)) return;
@@ -57,7 +64,6 @@ public class TaskService extends AbstractService implements ITaskService {
             if (dateFinish.isEmpty() || (dateFinish == null)) return;
         }
         try {
-
             taskRepository.merge(new Task(task.getProjectId(), taskName, description, dateStart, dateFinish, userId));
         } catch (Exception e) {
             e.printStackTrace();
@@ -65,23 +71,23 @@ public class TaskService extends AbstractService implements ITaskService {
 
     }
 
-    public void remove(String taskId, String userId) {
+    public void remove(@Nullable final String taskId, @NotNull final String userId) {
         if (taskId.isEmpty() || (taskId == null)) return;
-        Task task = taskRepository.findOne(taskId);
-        User user = userRepository.findOne(userId);
+        @Nullable final Task task = taskRepository.findOne(taskId);
+        @Nullable final User user = userRepository.findOne(userId);
         if ((!userId.equals(task.getUserId())) || (!user.getRole().equals("admin")))
             return;
         taskRepository.remove(taskId);
     }
 
-    public void removeAll(String userId) {
-        User user = userRepository.findOne(userId);
+    public void removeAll(@NotNull final String userId) {
+        @Nullable User user = userRepository.findOne(userId);
         if (!user.getRole().equals("admin")) return;
         taskRepository.removeAll();
     }
 
-    public List<Task> findAll(String userId) {
-        User user = userRepository.findOne(userId);
+    public List<Task> findAll(@NotNull final String userId) {
+        @Nullable User user = userRepository.findOne(userId);
         if (!user.getRole().equals("admin")) return null;
         return taskRepository.findAll();
     }

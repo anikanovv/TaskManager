@@ -1,11 +1,14 @@
 package ru.anikanov.tm.utils;
 
+import org.jetbrains.annotations.NotNull;
+
 import java.math.BigInteger;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 
 public class PasswordHash {
-    public static String makehash(String string) {
+    @NotNull
+    public static String makehash(@NotNull String string) {
         MessageDigest messageDigest = null;
         byte[] digest = new byte[0];
 

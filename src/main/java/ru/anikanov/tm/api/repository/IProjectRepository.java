@@ -9,16 +9,16 @@ import java.util.List;
 public interface IProjectRepository extends IRepository {
 
     @NotNull
-    Project persist(@NotNull Project p);
+    Project persist(@NotNull final Project p);
 
     void merge(@NotNull Project p) throws Exception;
 
-    void remove(@NotNull String name);
+    void remove(@NotNull final String name);
 
     void removeAll();
 
     @Nullable
-    Project findOne(@NotNull String name);
+    Project findOne(@NotNull final String name);
 
     @Nullable
     List<Project> findAll();

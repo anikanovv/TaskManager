@@ -7,14 +7,6 @@ public abstract class AbstractCommand {
     @Setter
     public ServiceLocator bootstrap;
 
-    public void setBootstrap(ServiceLocator serviceLocator) {
-        bootstrap = serviceLocator;
-    }
-
-//    protected AbstractCommand(ServiceLocator serviceLocator) {
-//        bootstrap = serviceLocator;
-//    }
-
     public abstract String getName();
 
     public abstract String getDescription();

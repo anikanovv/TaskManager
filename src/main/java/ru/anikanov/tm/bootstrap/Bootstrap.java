@@ -2,6 +2,8 @@ package ru.anikanov.tm.bootstrap;
 
 import lombok.Getter;
 import lombok.Setter;
+import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
 import ru.anikanov.tm.api.ServiceLocator;
 import ru.anikanov.tm.api.repository.IProjectRepository;
 import ru.anikanov.tm.api.repository.ITaskRepository;
@@ -27,17 +29,26 @@ import java.util.Map;
 @Setter
 public class Bootstrap implements ServiceLocator {
 
+    @Nullable
     private String currentUser;
+    @NotNull
     private ITaskRepository taskRepository = new TaskRepository();
+    @NotNull
     private IProjectRepository projectRepository = new ProjectRepository();
+    @NotNull
     private IUserRepository userRepository = new UserRepository();
+    @NotNull
     private final IProjectService projectService = new ProjectService(projectRepository, taskRepository, userRepository);
+    @NotNull
     private final ITaskService taskService = new TaskService(projectRepository, taskRepository, userRepository);
+    @NotNull
     private final IUserService userService = new UserService(userRepository);
+    @NotNull
     private final ITerminalService terminalService = new TerminalService(this);
+    @NotNull
     private Map<String, AbstractCommand> commandMap = new HashMap<>();
 
-    public void init(Class[] classes) throws Exception {
+    public void init(@NotNull final Class[] classes) throws Exception {
         initCommands(classes);
         initUsers();
         terminalService.terminalCicle();
@@ -48,10 +59,10 @@ public class Bootstrap implements ServiceLocator {
         userService.persist("user", PasswordHash.makehash("user"), Role.USER);
     }
 
-    public void initCommands(Class[] classes) throws Exception {
-        for (Class c : classes) {
-            if (c.getSuperclass().equals(AbstractCommand.class)) {
-                AbstractCommand command = (AbstractCommand) c.newInstance();
+    private void initCommands(@NotNull final Class[] classes) throws Exception {
+        for (@Nullable Class c : classes) {
+            if ((c != null) && (c.getSuperclass().equals(AbstractCommand.class))) {
+                @NotNull AbstractCommand command = (AbstractCommand) c.newInstance();
                 command.setBootstrap(this);
                 commandMap.put(command.getName(), command);
             }

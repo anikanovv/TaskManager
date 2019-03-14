@@ -1,5 +1,6 @@
 package ru.anikanov.tm;
 
+import org.jetbrains.annotations.NotNull;
 import ru.anikanov.tm.bootstrap.Bootstrap;
 import ru.anikanov.tm.command.task.*;
 import ru.anikanov.tm.command.system.*;
@@ -8,6 +9,7 @@ import ru.anikanov.tm.command.project.*;
 
 
 public class App {
+    @NotNull
     private static final Class[] CLASSES = {HelpCommand.class, ExitCommand.class, AboutCommand.class, ProjectCreateCommand.class, ProjectDeleteCommand.class, ProjectReadCommand.class,
             ProjectRemoveAllCommand.class, ProjectUpdateCommand.class, TaskCreateCommand.class, TaskDeleteCommand.class, TaskReadCommand.class,
             TaskRemoveAllCommand.class, TaskUpdateCommand.class, UserAuthCommand.class, UserCreateCommand.class, UserDeleteCommand.class,

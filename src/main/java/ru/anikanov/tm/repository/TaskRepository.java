@@ -1,6 +1,8 @@
 package ru.anikanov.tm.repository;
 
 import lombok.Getter;
+import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
 import ru.anikanov.tm.api.repository.ITaskRepository;
 import ru.anikanov.tm.entity.Task;
 import java.util.ArrayList;
@@ -8,27 +10,30 @@ import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 
+@Getter
 public class TaskRepository extends AbstractRepository implements ITaskRepository {
-    @Getter
+
+    @NotNull
     private Map<String, Task> taskMap = new LinkedHashMap<>();
 
-    public Task findOne(String taskName) {
+    @Nullable
+    public Task findOne(@NotNull final String taskName) {
         return taskMap.get(taskName);
     }
 
-    public Task persist(Task entity) {
-        Task task = entity;
-        return taskMap.put(task.getId(), task);
+    @NotNull
+    public Task persist(@NotNull final Task entity) {
+        return taskMap.put(entity.getId(), entity);
     }
 
-    public void merge(Task newtask) throws Exception {
-        Task task = findOne(newtask.getTaskName());
+    public void merge(@NotNull final Task newtask) throws Exception {
+        @Nullable Task task = findOne(newtask.getTaskName());
         task.setTaskDescription(newtask.getTaskDescription());
         task.setStart(newtask.getStartDate());
         task.setEnd(newtask.getEnd());
     }
 
-    public void remove(String taskName) {
+    public void remove(@NotNull final String taskName) {
         taskMap.remove(taskName);
     }
 
@@ -36,12 +41,13 @@ public class TaskRepository extends AbstractRepository implements ITaskRepositor
         taskMap.clear();
     }
 
-    public void removeWholeProject(String projectId) {
+    public void removeWholeProject(@NotNull String projectId) {
         taskMap.forEach((k, v) -> {
             if (k.equals(projectId)) taskMap.remove(k);
         });
     }
 
+    @Nullable
     public List<Task> findAll() {
         List<Task> tasks = new ArrayList<>();
         taskMap.forEach((k, v) ->

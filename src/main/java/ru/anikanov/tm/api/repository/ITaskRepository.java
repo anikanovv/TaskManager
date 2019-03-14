@@ -9,19 +9,19 @@ import java.util.List;
 public interface ITaskRepository extends IRepository {
 
     @NotNull
-    Task persist(@NotNull Task task);
+    Task persist(@NotNull final Task task);
 
     void merge(@NotNull Task task) throws Exception;
 
-    void remove(@NotNull String name);
+    void remove(@NotNull final String name);
 
     void removeAll();
 
     @Nullable
-    Task findOne(@NotNull String name);
+    Task findOne(@NotNull final String name);
 
     @Nullable
     List<Task> findAll();
 
-    void removeWholeProject(@NotNull String projectId);
+    void removeWholeProject(@NotNull final String projectId);
 }
