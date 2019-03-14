@@ -1,14 +1,9 @@
 package ru.anikanov.tm.command.user;
 
-import ru.anikanov.tm.api.ServiceLocator;
 import ru.anikanov.tm.api.service.IUserService;
 import ru.anikanov.tm.command.AbstractCommand;
 
 public class UserDeleteCommand extends AbstractCommand {
-
-    public UserDeleteCommand(ServiceLocator serviceLocator) {
-        super(serviceLocator);
-    }
 
     @Override
     public boolean isSecure() {
@@ -27,7 +22,7 @@ public class UserDeleteCommand extends AbstractCommand {
     @Override
     public void execute() {
         final IUserService userService = bootstrap.getUserService();
-        final String login = bootstrap.getTerminlService().nextLine();
+        final String login = bootstrap.getTerminalService().nextLine();
         userService.remove(login, bootstrap.getCurrentUser());
     }
 }

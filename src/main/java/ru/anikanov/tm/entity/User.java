@@ -1,9 +1,11 @@
 package ru.anikanov.tm.entity;
 
+import lombok.Getter;
+import lombok.Setter;
 import ru.anikanov.tm.enumeration.Role;
 
-import java.util.UUID;
-
+@Getter
+@Setter
 public class User extends AbstractEntity {
     private String name;
     private String hashPassword;
@@ -15,36 +17,9 @@ public class User extends AbstractEntity {
         this.role = role;
     }
 
-    public String getId() {
-        return id;
-    }
-
-    public String getLogin() {
-        return name;
-    }
-
-    public String getHashPassword() {
-        return hashPassword;
-    }
-
     public String getRoleName() {
         return role.displayName();
     }
 
-    public Role getRole() {
-        return role;
-    }
-
-    public void setLogin(String login) {
-        this.name = login;
-    }
-
-    public void setHashPassword(String newpassword) {
-        this.hashPassword = newpassword;
-    }
-
-    public void setRole(Role role) {
-        this.role = role;
-    }
 
 }

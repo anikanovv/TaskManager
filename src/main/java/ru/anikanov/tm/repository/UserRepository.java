@@ -1,5 +1,6 @@
 package ru.anikanov.tm.repository;
 
+import lombok.Getter;
 import ru.anikanov.tm.api.repository.IUserRepository;
 import ru.anikanov.tm.entity.User;
 import java.util.ArrayList;
@@ -8,14 +9,15 @@ import java.util.List;
 import java.util.Map;
 
 public class UserRepository extends AbstractRepository implements IUserRepository {
-    Map<String, User> userMap = new LinkedHashMap<>();
+    @Getter
+    private Map<String, User> userMap = new LinkedHashMap<>();
 
     public User persist(User user) {
-        return userMap.put(user.getLogin(), user);
+        return userMap.put(user.getName(), user);
     }
 
     public void merge(User u) {
-        User user = userMap.get(u.getLogin());
+        User user = userMap.get(u.getName());
         user.setHashPassword(u.getHashPassword());
         user.setRole(u.getRole());
     }

@@ -1,14 +1,9 @@
 package ru.anikanov.tm.command.user;
 
-import ru.anikanov.tm.api.ServiceLocator;
 import ru.anikanov.tm.api.service.IUserService;
 import ru.anikanov.tm.command.AbstractCommand;
 
 public class UserRemoveAllCommand extends AbstractCommand {
-
-    public UserRemoveAllCommand(ServiceLocator serviceLocator) {
-        super(serviceLocator);
-    }
 
     @Override
     public boolean isSecure() {

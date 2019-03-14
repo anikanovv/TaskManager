@@ -4,7 +4,6 @@ import ru.anikanov.tm.api.repository.IProjectRepository;
 import ru.anikanov.tm.api.repository.ITaskRepository;
 import ru.anikanov.tm.api.service.ITaskService;
 import ru.anikanov.tm.api.repository.IUserRepository;
-import ru.anikanov.tm.entity.AbstractEntity;
 import ru.anikanov.tm.entity.Task;
 import ru.anikanov.tm.entity.User;
 

@@ -20,6 +20,16 @@
             <artifactId>jcabi-manifests</artifactId>
             <version>1.1</version>
         </dependency>
+        <dependency>
+            <groupId>org.projectlombok</groupId>
+            <artifactId>lombok</artifactId>
+            <version>1.16.18</version>
+        </dependency>
+        <dependency>
+            <groupId>org.jetbrains</groupId>
+            <artifactId>annotations</artifactId>
+            <version>13.0</version>
+        </dependency>
     </dependencies>
     <build>
         <finalName>tm</finalName>
@@ -55,6 +65,7 @@
                 <artifactId>maven-jar-plugin</artifactId>
                 <version>2.6</version>
                 <configuration>
+                    <outputDirectory>${project.build.directory}/release/bin</outputDirectory>>
                     <archive>
                         <manifest>
                             <mainClass>ru.anikanov.tm.App</mainClass>
@@ -68,6 +79,20 @@
                         </manifestEntries>
                     </archive>
                 </configuration>
+            </plugin>
+            <plugin>
+                <artifactId>maven-dependency-plugin</artifactId>
+                <executions>
+                    <execution>
+                        <phase>install</phase>
+                        <goals>
+                            <goal>copy-dependencies</goal>
+                        </goals>
+                        <configuration>
+                            <outputDirectory>${project.build.directory}/release/lib</outputDirectory>
+                        </configuration>
+                    </execution>
+                </executions>
             </plugin>
         </plugins>
     </build>

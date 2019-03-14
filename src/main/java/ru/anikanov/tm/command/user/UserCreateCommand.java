@@ -1,16 +1,11 @@
 package ru.anikanov.tm.command.user;
 
-import ru.anikanov.tm.api.ServiceLocator;
 import ru.anikanov.tm.api.service.IUserService;
 import ru.anikanov.tm.command.AbstractCommand;
 import ru.anikanov.tm.enumeration.Role;
 import ru.anikanov.tm.utils.PasswordHash;
 
 public class UserCreateCommand extends AbstractCommand {
-
-    public UserCreateCommand(ServiceLocator serviceLocator) {
-        super(serviceLocator);
-    }
 
     @Override
     public String getName() {
@@ -31,9 +26,9 @@ public class UserCreateCommand extends AbstractCommand {
     public void execute() {
         final IUserService userService = bootstrap.getUserService();
         System.out.println("Name,pass,role");
-        final String userName = bootstrap.getTerminlService().nextLine();
-        final String userPass = bootstrap.getTerminlService().nextLine();
-        final String userRole = bootstrap.getTerminlService().nextLine();
+        final String userName = bootstrap.getTerminalService().nextLine();
+        final String userPass = bootstrap.getTerminalService().nextLine();
+        final String userRole = bootstrap.getTerminalService().nextLine();
         Role role;
         if (userRole.equals("admin")) role = Role.ADMIN;
         else role = Role.USER;

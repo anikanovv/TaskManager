@@ -1,7 +1,6 @@
 package ru.anikanov.tm.api.service;
 
-
-import ru.anikanov.tm.api.ServiceLocator;
+import org.jetbrains.annotations.Nullable;
 import ru.anikanov.tm.entity.User;
 import ru.anikanov.tm.enumeration.Role;
 
@@ -9,6 +8,7 @@ import java.util.List;
 
 public interface IUserService {
 
+    @Nullable
     User persist(String login, String password, Role role);
 
     void merge(String login, String password, Role role);
@@ -17,8 +17,10 @@ public interface IUserService {
 
     void removeAll(String userId);
 
+    @Nullable
     User findOne(String login, String userId);
 
+    @Nullable
     List<User> findAll(String userId);
 
     boolean logIn(String login, String password);

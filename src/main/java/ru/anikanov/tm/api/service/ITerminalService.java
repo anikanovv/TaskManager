@@ -1,10 +1,11 @@
 package ru.anikanov.tm.api.service;
 
-import java.util.Scanner;
 
-public interface ITermincalService {
-    //    Scanner getScanner();
+import org.jetbrains.annotations.Nullable;
+
+public interface ITerminalService {
     void terminalCicle() throws Exception;
 
+    @Nullable
     String nextLine();
 }

@@ -79,7 +79,7 @@ public class ProjectService extends AbstractService implements IProjectService {
     }
 
     public List<Project> findAll(String userId) {
-        User user = (User) userRepository.findOne(userId);
+        User user = userRepository.findOne(userId);
         if (!user.equals("admin")) return null;
         return projectRepository.findAll();
     }

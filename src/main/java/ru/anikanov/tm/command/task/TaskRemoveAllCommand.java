@@ -1,14 +1,9 @@
 package ru.anikanov.tm.command.task;
 
-import ru.anikanov.tm.api.ServiceLocator;
 import ru.anikanov.tm.api.service.ITaskService;
 import ru.anikanov.tm.command.AbstractCommand;
 
 public class TaskRemoveAllCommand extends AbstractCommand {
-
-    public TaskRemoveAllCommand(ServiceLocator serviceLocator) {
-        super(serviceLocator);
-    }
 
     @Override
     public String getName() {

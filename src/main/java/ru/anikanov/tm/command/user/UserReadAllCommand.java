@@ -1,6 +1,5 @@
 package ru.anikanov.tm.command.user;
 
-import ru.anikanov.tm.api.ServiceLocator;
 import ru.anikanov.tm.api.service.IUserService;
 import ru.anikanov.tm.command.AbstractCommand;
 import ru.anikanov.tm.entity.User;
@@ -8,10 +7,6 @@ import ru.anikanov.tm.entity.User;
 import java.util.List;
 
 public class UserReadAllCommand extends AbstractCommand {
-
-    public UserReadAllCommand(ServiceLocator serviceLocator) {
-        super(serviceLocator);
-    }
 
     @Override
     public boolean isSecure() {

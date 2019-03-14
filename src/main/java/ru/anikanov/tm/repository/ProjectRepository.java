@@ -1,22 +1,20 @@
 package ru.anikanov.tm.repository;
 
+import lombok.Getter;
 import ru.anikanov.tm.api.repository.IProjectRepository;
-import ru.anikanov.tm.entity.AbstractEntity;
 import ru.anikanov.tm.entity.Project;
 
-import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 
 public class ProjectRepository extends AbstractRepository implements IProjectRepository {
-
+    @Getter
     private Map<String, Project> projectMap = new LinkedHashMap<>();
 
     @Override
     public Project persist(Project project) {
-//        Project project = (Project) abstractEntity;
         projectMap.put(project.getId(), project);
         return project;
     }

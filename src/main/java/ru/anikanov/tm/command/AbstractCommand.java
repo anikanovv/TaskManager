@@ -1,15 +1,19 @@
 package ru.anikanov.tm.command;
 
+import lombok.Setter;
 import ru.anikanov.tm.api.ServiceLocator;
-import java.util.Scanner;
 
 public abstract class AbstractCommand {
-    protected final ServiceLocator bootstrap;
-//    protected Scanner scanner = bootstrap.getTerminlService().getScanner();
+    @Setter
+    public ServiceLocator bootstrap;
 
-    protected AbstractCommand(ServiceLocator serviceLocator) {
+    public void setBootstrap(ServiceLocator serviceLocator) {
         bootstrap = serviceLocator;
     }
+
+//    protected AbstractCommand(ServiceLocator serviceLocator) {
+//        bootstrap = serviceLocator;
+//    }
 
     public abstract String getName();
 

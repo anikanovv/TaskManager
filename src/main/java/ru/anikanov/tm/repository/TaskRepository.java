@@ -1,16 +1,15 @@
 package ru.anikanov.tm.repository;
 
+import lombok.Getter;
 import ru.anikanov.tm.api.repository.ITaskRepository;
-import ru.anikanov.tm.entity.AbstractEntity;
 import ru.anikanov.tm.entity.Task;
-
-import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 
 public class TaskRepository extends AbstractRepository implements ITaskRepository {
+    @Getter
     private Map<String, Task> taskMap = new LinkedHashMap<>();
 
     public Task findOne(String taskName) {
@@ -24,7 +23,7 @@ public class TaskRepository extends AbstractRepository implements ITaskRepositor
 
     public void merge(Task newtask) throws Exception {
         Task task = findOne(newtask.getTaskName());
-        task.setDescription(newtask.getTaskDescription());
+        task.setTaskDescription(newtask.getTaskDescription());
         task.setStart(newtask.getStartDate());
         task.setEnd(newtask.getEnd());
     }

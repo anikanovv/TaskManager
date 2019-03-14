@@ -1,20 +1,26 @@
 package ru.anikanov.tm.api.repository;
 
+import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
 import ru.anikanov.tm.entity.Project;
+
 import java.util.List;
 
 public interface IProjectRepository extends IRepository {
 
-    Project persist(Project p);
+    @NotNull
+    Project persist(@NotNull Project p);
 
-    void merge(Project p) throws Exception;
+    void merge(@NotNull Project p) throws Exception;
 
-    void remove(String name);
+    void remove(@NotNull String name);
 
     void removeAll();
 
-    Project findOne(String name);
+    @Nullable
+    Project findOne(@NotNull String name);
 
+    @Nullable
     List<Project> findAll();
 
 }

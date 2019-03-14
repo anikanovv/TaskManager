@@ -1,22 +1,27 @@
 package ru.anikanov.tm.api.repository;
 
-import ru.anikanov.tm.entity.AbstractEntity;
+import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
 import ru.anikanov.tm.entity.Task;
 
 import java.util.List;
 
 public interface ITaskRepository extends IRepository {
-    Task persist(Task task);
 
-    void merge(Task task) throws Exception;
+    @NotNull
+    Task persist(@NotNull Task task);
 
-    void remove(String name);
+    void merge(@NotNull Task task) throws Exception;
+
+    void remove(@NotNull String name);
 
     void removeAll();
 
-    Task findOne(String name);
+    @Nullable
+    Task findOne(@NotNull String name);
 
+    @Nullable
     List<Task> findAll();
 
-    void removeWholeProject(String projectId);
+    void removeWholeProject(@NotNull String projectId);
 }

@@ -1,14 +1,9 @@
 package ru.anikanov.tm.command.task;
 
-import ru.anikanov.tm.api.ServiceLocator;
 import ru.anikanov.tm.api.service.ITaskService;
 import ru.anikanov.tm.command.AbstractCommand;
 
 public class TaskCreateCommand extends AbstractCommand {
-
-    public TaskCreateCommand(ServiceLocator serviceLocator) {
-        super(serviceLocator);
-    }
 
     @Override
     public String getName() {
@@ -28,12 +23,12 @@ public class TaskCreateCommand extends AbstractCommand {
     public void execute() {
         final ITaskService taskService = bootstrap.getTaskService();
         final String userId = bootstrap.getCurrentUser();
-        final String name = bootstrap.getTerminlService().nextLine();
+        final String name = bootstrap.getTerminalService().nextLine();
         System.out.println("Введите через знак ; описание задачи, дату начала задачи, дату окончания задачи");
-        final String projectId = bootstrap.getTerminlService().nextLine();
-        final String description = bootstrap.getTerminlService().nextLine();
-        final String startDate = bootstrap.getTerminlService().nextLine();
-        final String endDate = bootstrap.getTerminlService().nextLine();
+        final String projectId = bootstrap.getTerminalService().nextLine();
+        final String description = bootstrap.getTerminalService().nextLine();
+        final String startDate = bootstrap.getTerminalService().nextLine();
+        final String endDate = bootstrap.getTerminalService().nextLine();
 
         taskService.persist(projectId, name, description, startDate, endDate, userId);
     }

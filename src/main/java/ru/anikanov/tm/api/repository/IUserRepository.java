@@ -1,29 +1,33 @@
 package ru.anikanov.tm.api.repository;
 
-import ru.anikanov.tm.entity.AbstractEntity;
+import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
 import ru.anikanov.tm.entity.User;
 
 import java.util.List;
 
 public interface IUserRepository extends IRepository {
 
-    User persist(User user);
+    @NotNull
+    User persist(@NotNull User user);
 
-    void merge(User user);
+    void merge(@NotNull User user);
 
-    void remove(String login);
+    void remove(@NotNull String login);
 
     void removeAll();
 
-    User findOne(String login);
+    @Nullable
+    User findOne(@NotNull String login);
 
+    @NotNull
     List<User> findAll();
 
-    boolean logIn(String login, String password);
+    boolean logIn(@NotNull String login, @NotNull String password);
 
     boolean logOut();
 
-    boolean updatePassword(String login, String oldOne, String newOne);
+    boolean updatePassword(@NotNull String login, @NotNull String oldOne, @NotNull String newOne);
 
 
 }

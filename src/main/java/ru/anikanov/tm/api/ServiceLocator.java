@@ -2,11 +2,12 @@ package ru.anikanov.tm.api;
 
 import ru.anikanov.tm.api.service.IProjectService;
 import ru.anikanov.tm.api.service.ITaskService;
-import ru.anikanov.tm.api.service.ITermincalService;
+import ru.anikanov.tm.api.service.ITerminalService;
 import ru.anikanov.tm.api.service.IUserService;
 import ru.anikanov.tm.command.AbstractCommand;
 import java.util.Map;
-import java.util.Scanner;
+
+import lombok.*;
 
 public interface ServiceLocator {
 
@@ -18,7 +19,7 @@ public interface ServiceLocator {
 
     IUserService getUserService();
 
-    ITermincalService getTerminlService();
+    ITerminalService getTerminalService();
 
     String getCurrentUser();
 

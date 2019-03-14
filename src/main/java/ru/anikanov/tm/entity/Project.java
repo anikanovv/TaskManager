@@ -1,11 +1,15 @@
 package ru.anikanov.tm.entity;
 
-import ru.anikanov.tm.command.AbstractCommand;
+
+import lombok.Getter;
+import lombok.Setter;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.*;
 
+@Getter
+@Setter
 public class Project extends AbstractEntity {
     private String name;
     private String description;
@@ -22,22 +26,6 @@ public class Project extends AbstractEntity {
         this.userId = userId;
     }
 
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public String getDescription() {
-        return description;
-    }
-
-    public void setDescription(String description) {
-        this.description = description;
-    }
-
     public String getEnd() {
         return format.format(end);
     }
@@ -52,22 +40,6 @@ public class Project extends AbstractEntity {
 
     public void setEnd(String endString) throws ParseException {
         end = format.parse(endString);
-    }
-
-    public String getId() {
-        return id;
-    }
-
-    public void setId(String id) {
-        this.id = id;
-    }
-
-    public String getUserId() {
-        return userId;
-    }
-
-    public void setUserId(String userId) {
-        this.userId = userId;
     }
 
     @Override

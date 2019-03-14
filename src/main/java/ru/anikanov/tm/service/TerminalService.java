@@ -1,12 +1,14 @@
 package ru.anikanov.tm.service;
 
+import lombok.Getter;
 import ru.anikanov.tm.api.ServiceLocator;
-import ru.anikanov.tm.api.service.ITermincalService;
+import ru.anikanov.tm.api.service.ITerminalService;
 import ru.anikanov.tm.command.AbstractCommand;
 
 import java.util.Scanner;
 
-public class TerminalService implements ITermincalService {
+public class TerminalService implements ITerminalService {
+    @Getter
     private final Scanner scanner = new Scanner(System.in);
     private final ServiceLocator serviceLocator;
 
@@ -28,9 +30,5 @@ public class TerminalService implements ITermincalService {
 
     public String nextLine() {
         return scanner.nextLine();
-    }
-
-    public Scanner getScanner() {
-        return scanner;
     }
 }

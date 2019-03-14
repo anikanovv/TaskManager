@@ -1,13 +1,8 @@
 package ru.anikanov.tm.command.user;
 
-import ru.anikanov.tm.api.ServiceLocator;
 import ru.anikanov.tm.command.AbstractCommand;
 
 public class UserEndSessionCommand extends AbstractCommand {
-
-    public UserEndSessionCommand(ServiceLocator serviceLocator) {
-        super(serviceLocator);
-    }
 
     @Override
     public boolean isSecure() {
