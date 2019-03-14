@@ -6,10 +6,7 @@ import org.jetbrains.annotations.Nullable;
 import ru.anikanov.tm.api.repository.IProjectRepository;
 import ru.anikanov.tm.entity.Project;
 
-import java.util.ArrayList;
-import java.util.LinkedHashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 @Getter
 public class ProjectRepository extends AbstractRepository implements IProjectRepository {
@@ -50,5 +47,24 @@ public class ProjectRepository extends AbstractRepository implements IProjectRep
         return projectMap.get(projectName);
     }
 
+    @Nullable
+    public List<Project> sortedByStartDate() {
+        List<Project> projects = findAll();
+        projects.sort(Comparator.comparing(Project::getStartDate));
+        return projects;
+    }
 
+    @Nullable
+    public List<Project> sortedByFinishDate() {
+        List<Project> projects = findAll();
+        projects.sort(Comparator.comparing(Project::getEndDate));
+        return projects;
+    }
+
+    @Nullable
+    public List<Project> sortedByStatus() {
+        List<Project> projects = findAll();
+        projects.sort(Comparator.comparing(Project::getStatus));
+        return projects;
+    }
 }

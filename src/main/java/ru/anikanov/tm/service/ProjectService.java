@@ -10,6 +10,7 @@ import ru.anikanov.tm.entity.Project;
 import ru.anikanov.tm.entity.User;
 
 import java.text.ParseException;
+import java.util.Comparator;
 import java.util.List;
 
 public class ProjectService extends AbstractService implements IProjectService {
@@ -95,6 +96,27 @@ public class ProjectService extends AbstractService implements IProjectService {
     public Project findOne(@Nullable final String projectName, @NotNull final String userId) {
         if (projectName.isEmpty() || (projectName == null)) return null;
         return projectRepository.findOne(projectName);
+    }
+
+    @Nullable
+    public List<Project> sortedByStartDate(@NotNull final String userId) {
+        @Nullable List<Project> projects = findAll(userId);
+        if ((projects.isEmpty()) || (projects == null)) return null;
+        return projectRepository.sortedByStartDate();
+    }
+
+    @Nullable
+    public List<Project> sortedByFinishDate(@NotNull final String userId) {
+        @Nullable List<Project> projects = findAll(userId);
+        if ((projects.isEmpty()) || (projects == null)) return null;
+        return projectRepository.sortedByFinishDate();
+    }
+
+    @Nullable
+    public List<Project> sortedByStatus(@NotNull final String userId) {
+        @Nullable List<Project> projects = findAll(userId);
+        if ((projects.isEmpty()) || (projects == null)) return null;
+        return projectRepository.sortedByStatus();
     }
 
 

@@ -22,4 +22,13 @@ public interface IProjectService {
 
     @Nullable
     List<Project> findAll(@NotNull final String userId);
+
+    @Nullable
+    List<Project> sortedByStartDate(@NotNull final String userId);
+
+    @Nullable
+    List<Project> sortedByFinishDate(@NotNull final String userId);
+
+    @Nullable
+    List<Project> sortedByStatus(@NotNull final String userId);
 }

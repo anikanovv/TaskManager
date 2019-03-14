@@ -46,7 +46,7 @@ public class TaskService extends AbstractService implements ITaskService {
         try {
             @NotNull final Task newtask = new Task(projectId, taskName, description, dateStart, dateFinish, userId);
             return taskRepository.persist(newtask);
-        } catch (ParseException e) {
+        } catch (Exception e) {
             e.printStackTrace();
         }
         return null;

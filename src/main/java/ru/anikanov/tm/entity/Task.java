@@ -4,6 +4,7 @@ import lombok.Getter;
 import lombok.Setter;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
+import ru.anikanov.tm.enumeration.Status;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -25,15 +26,18 @@ public class Task extends AbstractEntity {
     private Date end;
     @NotNull
     private String userId;
+    @NotNull
+    private Status status;
     private final SimpleDateFormat format = new SimpleDateFormat("dd.MM.yyyy", Locale.US);
 
-    public Task(String projectId, String name, String description, String startDate, String endDate, String userId) throws ParseException {
+    public Task(@NotNull String projectId, @Nullable String name, @Nullable String description, @Nullable String startDate, @Nullable String endDate, @NotNull String userId) throws Exception {
         this.projectId = projectId;
         this.taskName = name;
         this.taskDescription = description;
         start = format.parse(startDate);
         end = format.parse(endDate);
         this.userId = userId;
+        status = Status.SCHEDULED;
     }
 
     public String getStartDate() {

@@ -4,6 +4,7 @@ import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 import ru.anikanov.tm.entity.Project;
 
+import java.util.Comparator;
 import java.util.List;
 
 public interface IProjectRepository extends IRepository {
@@ -23,4 +24,12 @@ public interface IProjectRepository extends IRepository {
     @Nullable
     List<Project> findAll();
 
+    @Nullable
+    List<Project> sortedByStartDate();
+
+    @Nullable
+    List<Project> sortedByFinishDate();
+
+    @Nullable
+    List<Project> sortedByStatus();
 }

@@ -5,6 +5,7 @@ import lombok.Getter;
 import lombok.Setter;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
+import ru.anikanov.tm.enumeration.Status;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -18,11 +19,13 @@ public class Project extends AbstractEntity {
     @Nullable
     private String description;
     @NotNull
-    private Date start;
+    private Date startDate;
     @Nullable
-    private Date end;
+    private Date endDate;
     @NotNull
     private String userId;
+    @NotNull
+    private Status status;
     private final SimpleDateFormat format = new SimpleDateFormat("dd.MM.yyyy", Locale.US);
 
     public Project(String name, String description, String startDate, String endDate, String userId) throws ParseException {
@@ -31,27 +34,28 @@ public class Project extends AbstractEntity {
         setStart(startDate);
         setEnd(endDate);
         this.userId = userId;
+        status = Status.SCHEDULED;
     }
 
     public String getEnd() {
-        return format.format(end);
+        return format.format(endDate);
     }
 
     public String getStart() {
-        return format.format(start);
+        return format.format(startDate);
     }
 
     public void setStart(String startString) throws ParseException {
-        start = format.parse(startString);
+        startDate = format.parse(startString);
     }
 
     public void setEnd(String endString) throws ParseException {
-        end = format.parse(endString);
+        endDate = format.parse(endString);
     }
 
     @Override
     public String toString() {
-        StringBuilder builder = new StringBuilder("Проект " + name + " - " + description + " " + id + "\n" + "Start: " + format.format(start) + " end: " + format.format(end) + "\n" + "Задания :\n");
+        StringBuilder builder = new StringBuilder("Проект " + name + " - " + description + " " + id + "\n" + "Start: " + format.format(startDate) + " end: " + format.format(endDate) + "\n" + "Задания :\n");
         return builder.toString();
     }
 }
