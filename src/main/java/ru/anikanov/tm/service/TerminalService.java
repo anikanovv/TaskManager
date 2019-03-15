@@ -20,16 +20,21 @@ public class TerminalService implements ITerminalService {
         this.serviceLocator = serviceLocator;
     }
 
-    public void terminalCicle() throws Exception {
+    public void terminalCicle() {
         while (true) {
             @Nullable String commandString;
             System.out.println("command");
-            commandString = scanner.nextLine().trim();
-            @Nullable AbstractCommand command = serviceLocator.getCommandMap().get(commandString);
-            if (command != null)
-                if ((command.isSecure()) || (!serviceLocator.getCurrentUser().isEmpty())) command.execute();
-                else System.out.println("wrong");
-            else System.out.println("wrong command");
+            try {
+                commandString = scanner.nextLine().trim();
+                @Nullable AbstractCommand command = serviceLocator.getCommandMap().get(commandString);
+                if (command != null)
+                    if ((command.isSecure()) || (!serviceLocator.getCurrentUser().isEmpty())) command.execute();
+                    else System.out.println("wrong");
+                else System.out.println("wrong command");
+            } catch (Exception e) {
+
+            }
+
         }
     }
 

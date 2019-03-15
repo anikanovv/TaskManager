@@ -24,4 +24,21 @@ public interface ITaskRepository extends IRepository {
     List<Task> findAll();
 
     void removeWholeProject(@NotNull final String projectId);
+
+    @Nullable
+    List<Task> sortedByStartDate();
+
+    @Nullable
+    List<Task> sortedByFinishDate();
+
+    @Nullable
+    List<Task> sortedByStatus();
+
+    @Nullable
+    Task findByPartOfName(@NotNull String partOfName);
+
+    @Nullable
+    Task findByPartOfDescription(@NotNull String partOfDescription);
+
+
 }

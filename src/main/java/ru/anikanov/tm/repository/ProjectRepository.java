@@ -63,8 +63,28 @@ public class ProjectRepository extends AbstractRepository implements IProjectRep
 
     @Nullable
     public List<Project> sortedByStatus() {
-        List<Project> projects = findAll();
+        @Nullable final List<Project> projects = findAll();
         projects.sort(Comparator.comparing(Project::getStatus));
         return projects;
+    }
+
+    @Nullable
+    public Project findByPartOfName(@NotNull final String partOfName) {
+        @Nullable final List<Project> projects = findAll();
+        @Nullable Project thisproject = null;
+        for (Project project : projects) {
+            if (project.getName().contains(partOfName)) thisproject = project;
+        }
+        return thisproject;
+    }
+
+    @Nullable
+    public Project findByPartOfDescription(@NotNull final String partOfDescription) {
+        @Nullable final List<Project> projects = findAll();
+        @Nullable Project thisproject = null;
+        for (Project project : projects) {
+            if (project.getDescription().contains(partOfDescription)) thisproject = project;
+        }
+        return thisproject;
     }
 }

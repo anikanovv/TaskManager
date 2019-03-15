@@ -31,4 +31,10 @@ public interface IProjectService {
 
     @Nullable
     List<Project> sortedByStatus(@NotNull final String userId);
+
+    @Nullable
+    Project findByPartOfName(@NotNull final String partOfName, @NotNull final String userId);
+
+    @Nullable
+    Project findByPartOfDescription(@NotNull final String partOfDescription, @NotNull final String userId);
 }

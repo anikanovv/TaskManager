@@ -32,4 +32,10 @@ public interface IProjectRepository extends IRepository {
 
     @Nullable
     List<Project> sortedByStatus();
+
+    @Nullable
+    Project findByPartOfName(@NotNull final String partOfName);
+
+    @Nullable
+    Project findByPartOfDescription(@NotNull final String partOfDescription);
 }

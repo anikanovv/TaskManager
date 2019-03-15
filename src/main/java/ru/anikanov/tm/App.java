@@ -15,6 +15,7 @@ public class App {
             TaskRemoveAllCommand.class, TaskUpdateCommand.class, UserAuthCommand.class, UserCreateCommand.class, UserDeleteCommand.class,
             UserEndSessionCommand.class, UserRemoveAllCommand.class, UserReadCommand.class, UserRemoveAllCommand.class, UserUpdateCommand.class,
             UserUpdatePasswordCommand.class};
+
     public static void main(String[] args) throws Exception {
         Bootstrap bootstrap = new Bootstrap();
         bootstrap.init(CLASSES);

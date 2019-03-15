@@ -21,9 +21,9 @@ public class Task extends AbstractEntity {
     @Nullable
     private String taskDescription;
     @NotNull
-    private Date start;
+    private Date startDate;
     @Nullable
-    private Date end;
+    private Date endDate;
     @NotNull
     private String userId;
     @NotNull
@@ -34,30 +34,30 @@ public class Task extends AbstractEntity {
         this.projectId = projectId;
         this.taskName = name;
         this.taskDescription = description;
-        start = format.parse(startDate);
-        end = format.parse(endDate);
+        this.startDate = format.parse(startDate);
+        this.endDate = format.parse(endDate);
         this.userId = userId;
         status = Status.SCHEDULED;
     }
 
-    public String getStartDate() {
-        return format.format(start);
+    public String getStart() {
+        return format.format(startDate);
     }
 
     public void setStart(String start) throws ParseException {
-        this.start = format.parse(start);
+        this.startDate = format.parse(start);
     }
 
     public String getEnd() {
-        return format.format(end);
+        return format.format(startDate);
     }
 
     public void setEnd(String end) throws ParseException {
-        this.end = format.parse(end);
+        this.endDate = format.parse(end);
     }
 
     @Override
     public String toString() {
-        return (taskName + " - " + taskDescription + "\n" + "start: " + start + " end: " + end);
+        return (taskName + " - " + taskDescription + "\n" + "start: " + startDate + " end: " + endDate);
     }
 }

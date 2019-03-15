@@ -5,10 +5,8 @@ import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 import ru.anikanov.tm.api.repository.ITaskRepository;
 import ru.anikanov.tm.entity.Task;
-import java.util.ArrayList;
-import java.util.LinkedHashMap;
-import java.util.List;
-import java.util.Map;
+
+import java.util.*;
 
 @Getter
 public class TaskRepository extends AbstractRepository implements ITaskRepository {
@@ -29,7 +27,7 @@ public class TaskRepository extends AbstractRepository implements ITaskRepositor
     public void merge(@NotNull final Task newtask) throws Exception {
         @Nullable Task task = findOne(newtask.getTaskName());
         task.setTaskDescription(newtask.getTaskDescription());
-        task.setStart(newtask.getStartDate());
+        task.setStart(newtask.getStart());
         task.setEnd(newtask.getEnd());
     }
 
@@ -54,5 +52,46 @@ public class TaskRepository extends AbstractRepository implements ITaskRepositor
                 tasks.add(v)
         );
         return tasks;
+    }
+
+    @Nullable
+    public List<Task> sortedByStartDate() {
+        List<Task> tasks = findAll();
+        tasks.sort(Comparator.comparing(Task::getStartDate));
+        return tasks;
+    }
+
+    @Nullable
+    public List<Task> sortedByFinishDate() {
+        List<Task> tasks = findAll();
+        tasks.sort(Comparator.comparing(Task::getEndDate));
+        return tasks;
+    }
+
+    @Nullable
+    public List<Task> sortedByStatus() {
+        List<Task> tasks = findAll();
+        tasks.sort(Comparator.comparing(Task::getStatus));
+        return tasks;
+    }
+
+    @Nullable
+    public Task findByPartOfName(@NotNull String partOfName) {
+        @Nullable final List<Task> tasks = findAll();
+        @Nullable Task thistask = null;
+        for (Task task : tasks) {
+            if (task.getTaskName().contains(partOfName)) thistask = task;
+        }
+        return thistask;
+    }
+
+    @Nullable
+    public Task findByPartOfDescription(@NotNull String partOfDescription) {
+        @Nullable final List<Task> tasks = findAll();
+        @Nullable Task thistask = null;
+        for (Task task : tasks) {
+            if (task.getTaskDescription().contains(partOfDescription)) thistask = task;
+        }
+        return thistask;
     }
 }

@@ -7,6 +7,7 @@ import ru.anikanov.tm.api.service.ITaskService;
 import ru.anikanov.tm.api.service.ITerminalService;
 import ru.anikanov.tm.api.service.IUserService;
 import ru.anikanov.tm.command.AbstractCommand;
+
 import java.util.Map;
 
 public interface ServiceLocator {

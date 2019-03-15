@@ -6,10 +6,10 @@ import ru.anikanov.tm.api.repository.IProjectRepository;
 import ru.anikanov.tm.api.repository.ITaskRepository;
 import ru.anikanov.tm.api.service.ITaskService;
 import ru.anikanov.tm.api.repository.IUserRepository;
+import ru.anikanov.tm.entity.Project;
 import ru.anikanov.tm.entity.Task;
 import ru.anikanov.tm.entity.User;
 
-import java.text.ParseException;
 import java.util.List;
 
 public class TaskService extends AbstractService implements ITaskService {
@@ -90,5 +90,38 @@ public class TaskService extends AbstractService implements ITaskService {
         @Nullable User user = userRepository.findOne(userId);
         if (!user.getRole().equals("admin")) return null;
         return taskRepository.findAll();
+    }
+
+    @Nullable
+    public List<Task> sortedByStartDate(@NotNull final String userId) {
+        @Nullable List<Task> tasks = findAll(userId);
+        if ((tasks.isEmpty()) || (tasks == null)) return null;
+        return taskRepository.sortedByStartDate();
+    }
+
+    @Nullable
+    public List<Task> sortedByFinishDate(@NotNull final String userId) {
+        @Nullable List<Task> tasks = findAll(userId);
+        if ((tasks.isEmpty()) || (tasks == null)) return null;
+        return taskRepository.sortedByFinishDate();
+    }
+
+    @Nullable
+    public List<Task> sortedByStatus(@NotNull final String userId) {
+        @Nullable List<Task> tasks = findAll(userId);
+        if ((tasks.isEmpty()) || (tasks == null)) return null;
+        return taskRepository.sortedByStatus();
+    }
+
+    @Nullable
+    public Task findByPartOfName(@NotNull final String partOfName, @NotNull final String userId) {
+        if ((partOfName.isEmpty()) || (partOfName == null)) return null;
+        return taskRepository.findByPartOfName(partOfName);
+    }
+
+    @Nullable
+    public Task findByPartOfDescription(@NotNull final String partOfDescription, @NotNull final String userId) {
+        if ((partOfDescription.isEmpty()) || (partOfDescription == null)) return null;
+        return taskRepository.findByPartOfName(partOfDescription);
     }
 }
