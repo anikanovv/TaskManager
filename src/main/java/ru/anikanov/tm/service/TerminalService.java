@@ -34,7 +34,6 @@ public class TerminalService implements ITerminalService {
             } catch (Exception e) {
 
             }
-
         }
     }
 

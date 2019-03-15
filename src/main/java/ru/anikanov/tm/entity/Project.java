@@ -1,34 +1,54 @@
 package ru.anikanov.tm.entity;
 
 
+import com.fasterxml.jackson.dataformat.xml.annotation.JacksonXmlElementWrapper;
+import com.fasterxml.jackson.dataformat.xml.annotation.JacksonXmlRootElement;
 import lombok.Getter;
 import lombok.Setter;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 import ru.anikanov.tm.enumeration.Status;
+import ru.anikanov.tm.utils.DateToString;
 
+import javax.xml.bind.annotation.*;
+import java.io.Serializable;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.*;
 
+// определяем корневой элемент
 @Getter
 @Setter
-public class Project extends AbstractEntity {
+@JacksonXmlRootElement
+@XmlRootElement(name = "Project")
+@XmlAccessorType(XmlAccessType.FIELD)
+public class Project extends AbstractEntity implements Serializable {
+    @JacksonXmlElementWrapper(useWrapping = false)
     @Nullable
+    @XmlElement
     private String name;
     @Nullable
+    @XmlElement
     private String description;
     @NotNull
+    @XmlElement
     private Date startDate;
     @Nullable
+    @XmlElement
     private Date endDate;
     @NotNull
+    @XmlElement
     private String userId;
     @NotNull
+    @XmlElement
     private Status status;
-    private final SimpleDateFormat format = new SimpleDateFormat("dd.MM.yyyy", Locale.US);
+//    private final SimpleDateFormat format = new SimpleDateFormat("dd.MM.yyyy", Locale.US);
 
-    public Project(String name, String description, String startDate, String endDate, String userId) throws ParseException {
+    public Project() {
+
+    }
+
+    public Project(String name, String description, String startDate, String endDate, String userId) throws Exception {
         this.name=name;
         this.description = description;
         setStart(startDate);
@@ -37,25 +57,27 @@ public class Project extends AbstractEntity {
         status = Status.SCHEDULED;
     }
 
+    @XmlTransient
     public String getEnd() {
-        return format.format(endDate);
+        return new DateToString().dateToString(endDate);
     }
 
+    @XmlTransient
     public String getStart() {
-        return format.format(startDate);
+        return new DateToString().dateToString(startDate);
     }
 
-    public void setStart(String startString) throws ParseException {
-        startDate = format.parse(startString);
+    public void setStart(String startString) throws Exception {
+        startDate = new DateToString().stringToDate(startString);
     }
 
-    public void setEnd(String endString) throws ParseException {
-        endDate = format.parse(endString);
+    public void setEnd(String endString) throws Exception {
+        endDate = new DateToString().stringToDate(endString);
     }
 
     @Override
     public String toString() {
-        StringBuilder builder = new StringBuilder("Проект " + name + " - " + description + " " + id + "\n" + "Start: " + format.format(startDate) + " end: " + format.format(endDate) + "\n" + "Задания :\n");
+        StringBuilder builder = new StringBuilder("Project " + name + " - " + description + " " + id + "\n" + "Start: " + (startDate) + " end: " + (endDate) + "\n" + "Tasks :\n");
         return builder.toString();
     }
 }

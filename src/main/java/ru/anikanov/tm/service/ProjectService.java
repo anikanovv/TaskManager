@@ -38,7 +38,7 @@ public class ProjectService extends AbstractService implements IProjectService {
             try {
                 @Nullable final Project newproject = new Project(projectName, description, dateStart, dateFinish, userId);
                 return projectRepository.persist(newproject);
-            } catch (ParseException e) {
+            } catch (Exception e) {
                 e.printStackTrace();
             }
         }
@@ -87,7 +87,7 @@ public class ProjectService extends AbstractService implements IProjectService {
     @Nullable
     public List<Project> findAll(@NotNull final String userId) {
         @Nullable final User user = userRepository.findOne(userId);
-        if (!user.equals("admin")) return null;
+//        if (!user.equals("admin")) return null;
         return projectRepository.findAll();
     }
 
