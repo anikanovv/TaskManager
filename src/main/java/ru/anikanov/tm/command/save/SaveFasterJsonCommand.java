@@ -1,34 +1,37 @@
 package ru.anikanov.tm.command.save;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
 import ru.anikanov.tm.command.AbstractCommand;
 import ru.anikanov.tm.entity.Project;
 
+import java.io.File;
 import java.io.FileOutputStream;
-import java.io.ObjectOutputStream;
 import java.util.List;
 
-public class StandartSerializeCommand extends AbstractCommand {
+
+public class SaveFasterJsonCommand extends AbstractCommand {
     @Override
     public String getName() {
-        return "serialize";
+        return "serialize json";
     }
 
     @Override
     public String getDescription() {
-        return "serialize all projects and tasks";
+        return "serialize all projects and tasks with json";
     }
 
     @Override
     public boolean isSecure() {
-        return false;
+        return true;
     }
 
     @Override
     public void execute() throws Exception {
-        ObjectOutputStream oos = new ObjectOutputStream(new FileOutputStream(bootstrap.getCurrentUser() + ".dat"));
+        ObjectMapper mapper = new ObjectMapper();
+        FileOutputStream fos = new FileOutputStream("fastxsml.xml");
         List<Project> projects = bootstrap.getProjectService().findAll(bootstrap.getCurrentUser());
         for (Project project : projects) {
-            oos.writeObject(project);
+            mapper.writerWithDefaultPrettyPrinter().writeValue(fos, project);
         }
     }
 }

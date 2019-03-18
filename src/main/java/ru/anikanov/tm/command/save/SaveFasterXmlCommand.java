@@ -5,8 +5,10 @@ import ru.anikanov.tm.command.AbstractCommand;
 import ru.anikanov.tm.entity.Project;
 
 import java.io.File;
+import java.io.FileOutputStream;
+import java.util.List;
 
-public class SaveFasterXmlJasonCommand extends AbstractCommand {
+public class SaveFasterXmlCommand extends AbstractCommand {
     @Override
     public String getName() {
         return "fasterxml json";
@@ -24,11 +26,11 @@ public class SaveFasterXmlJasonCommand extends AbstractCommand {
 
     @Override
     public void execute() throws Exception {
-        Project student = new Project("asd", "asd", "12.11.1111", "12.12.1111", bootstrap.getCurrentUser());
-
         XmlMapper xmlMapper = new XmlMapper();
-        xmlMapper.writerWithDefaultPrettyPrinter().writeValue(new File("fastxsml.xml"), student);
-        String xml = xmlMapper.writerWithDefaultPrettyPrinter().writeValueAsString(student);
-        System.out.println(xml);
+        FileOutputStream file = new FileOutputStream("fastxsml.xml");
+        List<Project> projects = bootstrap.getProjectService().findAll(bootstrap.getCurrentUser());
+        for (Project project : projects) {
+            xmlMapper.writerWithDefaultPrettyPrinter().writeValue(file, project);
+        }
     }
 }

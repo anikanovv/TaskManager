@@ -1,15 +1,15 @@
 package ru.anikanov.tm.command.load;
 
-import com.fasterxml.jackson.dataformat.xml.XmlMapper;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import ru.anikanov.tm.command.AbstractCommand;
 import ru.anikanov.tm.entity.Project;
 
-import java.io.*;
+import java.io.File;
 
-public class LoadFasterXmlCommand extends AbstractCommand {
+public class LoadFasterJsonCommand extends AbstractCommand {
     @Override
     public String getName() {
-        return "load fastxml";
+        return "load fasterjson";
     }
 
     @Override
@@ -24,9 +24,9 @@ public class LoadFasterXmlCommand extends AbstractCommand {
 
     @Override
     public void execute() throws Exception {
-        File file = new File("fastxsml.xml");
-        XmlMapper xmlMapper = new XmlMapper();
-        Project value = xmlMapper.readValue(file, Project.class);
+        File file = new File("faster.json");
+        ObjectMapper mapper = new ObjectMapper();
+        Project value = mapper.readValue(file, Project.class);
         System.out.println(value);
     }
 }
