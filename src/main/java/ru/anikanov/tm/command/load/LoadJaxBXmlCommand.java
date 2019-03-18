@@ -1,5 +1,7 @@
 package ru.anikanov.tm.command.load;
 
+import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
 import ru.anikanov.tm.command.AbstractCommand;
 import ru.anikanov.tm.entity.Project;
 
@@ -25,9 +27,9 @@ public class LoadJaxBXmlCommand extends AbstractCommand {
 
     @Override
     public void execute() throws Exception {
-        JAXBContext context = JAXBContext.newInstance(Project.class);
-        Unmarshaller unmarshaller = context.createUnmarshaller();
-        Project project = (Project) unmarshaller.unmarshal(new File("jaxb.xml"));
+        @NotNull final JAXBContext context = JAXBContext.newInstance(Project.class);
+        @NotNull final Unmarshaller unmarshaller = context.createUnmarshaller();
+        @Nullable final Project project = (Project) unmarshaller.unmarshal(new File(bootstrap.getCurrentUser() + ".xml"));
         System.out.println(project);
     }
 }

@@ -1,5 +1,6 @@
 package ru.anikanov.tm.command.save;
 
+import org.jetbrains.annotations.NotNull;
 import ru.anikanov.tm.command.AbstractCommand;
 import ru.anikanov.tm.entity.Project;
 
@@ -25,8 +26,8 @@ public class SaveSerializeCommand extends AbstractCommand {
 
     @Override
     public void execute() throws Exception {
-        ObjectOutputStream oos = new ObjectOutputStream(new FileOutputStream("user.dat"));
-        List<Project> projects = bootstrap.getProjectService().findAll(bootstrap.getCurrentUser());
+        @NotNull final ObjectOutputStream oos = new ObjectOutputStream(new FileOutputStream(bootstrap.getCurrentUser() + ".dat"));
+        @NotNull final List<Project> projects = bootstrap.getProjectService().findAll(bootstrap.getCurrentUser());
         for (Project project : projects) {
             oos.writeObject(project);
         }

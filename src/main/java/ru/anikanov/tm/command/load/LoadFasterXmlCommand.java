@@ -1,6 +1,8 @@
 package ru.anikanov.tm.command.load;
 
 import com.fasterxml.jackson.dataformat.xml.XmlMapper;
+import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
 import ru.anikanov.tm.command.AbstractCommand;
 import ru.anikanov.tm.entity.Project;
 
@@ -24,9 +26,9 @@ public class LoadFasterXmlCommand extends AbstractCommand {
 
     @Override
     public void execute() throws Exception {
-        File file = new File("fastxsml.xml");
-        XmlMapper xmlMapper = new XmlMapper();
-        Project value = xmlMapper.readValue(file, Project.class);
+        @NotNull final File file = new File(bootstrap.getCurrentUser() + ".xml");
+        @NotNull final XmlMapper xmlMapper = new XmlMapper();
+        @Nullable final Project value = xmlMapper.readValue(file, Project.class);
         System.out.println(value);
     }
 }

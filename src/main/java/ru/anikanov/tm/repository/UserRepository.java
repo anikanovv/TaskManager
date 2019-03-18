@@ -22,7 +22,7 @@ public class UserRepository extends AbstractRepository implements IUserRepositor
     }
 
     public void merge(@NotNull final User u) {
-        User user = userMap.get(u.getName());
+        @NotNull final User user = userMap.get(u.getName());
         user.setHashPassword(u.getHashPassword());
         user.setRole(u.getRole());
     }

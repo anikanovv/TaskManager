@@ -1,5 +1,7 @@
 package ru.anikanov.tm.command.load;
 
+import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
 import ru.anikanov.tm.command.AbstractCommand;
 import ru.anikanov.tm.entity.Project;
 
@@ -25,11 +27,11 @@ public class LoadJaxBJsonCommand extends AbstractCommand {
 
     @Override
     public void execute() throws Exception {
-        JAXBContext jaxbContext = JAXBContext.newInstance(Project.class);
-        Unmarshaller u = jaxbContext.createUnmarshaller();
+        @NotNull final JAXBContext jaxbContext = JAXBContext.newInstance(Project.class);
+        @NotNull final Unmarshaller u = jaxbContext.createUnmarshaller();
         u.setProperty("eclipselink.media-type", "application/json");
-        File file = new File("faster.json");
-        Project project = (Project) u.unmarshal(file);
+        @NotNull final File file = new File(bootstrap.getCurrentUser() + ".json");
+        @Nullable final Project project = (Project) u.unmarshal(file);
         project.getName();
         System.out.println(project);
     }

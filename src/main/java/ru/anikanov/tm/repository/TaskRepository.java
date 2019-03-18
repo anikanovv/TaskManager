@@ -25,7 +25,7 @@ public class TaskRepository extends AbstractRepository implements ITaskRepositor
     }
 
     public void merge(@NotNull final Task newtask) throws Exception {
-        @Nullable Task task = findOne(newtask.getTaskName());
+        @Nullable final Task task = findOne(newtask.getTaskName());
         task.setTaskDescription(newtask.getTaskDescription());
         task.setStart(newtask.getStart());
         task.setEnd(newtask.getEnd());
@@ -47,7 +47,7 @@ public class TaskRepository extends AbstractRepository implements ITaskRepositor
 
     @Nullable
     public List<Task> findAll() {
-        List<Task> tasks = new ArrayList<>();
+        @Nullable List<Task> tasks = new ArrayList<>();
         taskMap.forEach((k, v) ->
                 tasks.add(v)
         );
@@ -63,14 +63,14 @@ public class TaskRepository extends AbstractRepository implements ITaskRepositor
 
     @Nullable
     public List<Task> sortedByFinishDate() {
-        List<Task> tasks = findAll();
+        @Nullable List<Task> tasks = findAll();
         tasks.sort(Comparator.comparing(Task::getEndDate));
         return tasks;
     }
 
     @Nullable
     public List<Task> sortedByStatus() {
-        List<Task> tasks = findAll();
+        @Nullable List<Task> tasks = findAll();
         tasks.sort(Comparator.comparing(Task::getStatus));
         return tasks;
     }

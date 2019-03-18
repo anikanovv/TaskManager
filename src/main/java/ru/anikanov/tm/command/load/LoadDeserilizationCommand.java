@@ -1,5 +1,7 @@
 package ru.anikanov.tm.command.load;
 
+import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
 import ru.anikanov.tm.command.AbstractCommand;
 import ru.anikanov.tm.entity.Project;
 
@@ -26,8 +28,8 @@ public class LoadDeserilizationCommand extends AbstractCommand {
 
     @Override
     public void execute() throws Exception {
-        try (ObjectInputStream ois = new ObjectInputStream(new FileInputStream("user.dat"))) {
-            Project project = (Project) ois.readObject();
+        try (@NotNull final ObjectInputStream ois = new ObjectInputStream(new FileInputStream(bootstrap.getCurrentUser() + ".dat"))) {
+            @Nullable final Project project = (Project) ois.readObject();
             System.out.println(project);
         }
     }

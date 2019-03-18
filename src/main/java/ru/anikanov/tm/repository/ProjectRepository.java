@@ -21,7 +21,7 @@ public class ProjectRepository extends AbstractRepository implements IProjectRep
 
     @Override
     public void merge(@NotNull final Project p) throws Exception {
-        @Nullable Project project = findOne(p.getName());
+        @Nullable final Project project = findOne(p.getName());
         project.setDescription(p.getDescription());
         project.setStart(p.getStart());
         project.setEnd(p.getEnd());
@@ -49,14 +49,14 @@ public class ProjectRepository extends AbstractRepository implements IProjectRep
 
     @Nullable
     public List<Project> sortedByStartDate() {
-        List<Project> projects = findAll();
+        @Nullable List<Project> projects = findAll();
         projects.sort(Comparator.comparing(Project::getStartDate));
         return projects;
     }
 
     @Nullable
     public List<Project> sortedByFinishDate() {
-        List<Project> projects = findAll();
+        @Nullable List<Project> projects = findAll();
         projects.sort(Comparator.comparing(Project::getEndDate));
         return projects;
     }

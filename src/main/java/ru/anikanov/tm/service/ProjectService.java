@@ -47,7 +47,7 @@ public class ProjectService extends AbstractService implements IProjectService {
 
     public void merge(@Nullable final String projectName, @Nullable final String description, @Nullable final String dateStart, @Nullable final String dateFinish, @NotNull final String userId) {
         if (projectName.isEmpty() || (projectName == null)) return;
-        @Nullable Project project = projectRepository.findOne(projectName);
+        @Nullable final Project project = projectRepository.findOne(projectName);
         @Nullable final User user = userRepository.findOne(userId);
         if ((!userId.equals(project.getUserId())) || (!user.getRole().equals("admin")))
             return;
@@ -57,7 +57,7 @@ public class ProjectService extends AbstractService implements IProjectService {
             if (dateFinish.isEmpty() || (dateFinish == null)) return;
         }
         try {
-            @Nullable Project p = new Project(projectName, description, dateStart, dateFinish, userId);
+            @Nullable final Project p = new Project(projectName, description, dateStart, dateFinish, userId);
             projectRepository.merge(p);
         } catch (Exception e) {
             e.printStackTrace();

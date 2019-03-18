@@ -1,5 +1,6 @@
 package ru.anikanov.tm.command.save;
 
+import org.jetbrains.annotations.NotNull;
 import ru.anikanov.tm.command.AbstractCommand;
 import ru.anikanov.tm.entity.Project;
 
@@ -26,11 +27,11 @@ public class SaveJaxBXmlCommand extends AbstractCommand {
 
     @Override
     public void execute() throws Exception {
-        JAXBContext context = JAXBContext.newInstance(Project.class);
-        Marshaller marshaller = context.createMarshaller();
+        @NotNull final JAXBContext context = JAXBContext.newInstance(Project.class);
+        @NotNull final Marshaller marshaller = context.createMarshaller();
         marshaller.setProperty(Marshaller.JAXB_FORMATTED_OUTPUT, Boolean.TRUE);
-        File file = new File("fastxsml.xml");
-        List<Project> projects = bootstrap.getProjectService().findAll(bootstrap.getCurrentUser());
+        @NotNull final File file = new File(bootstrap.getCurrentUser() + ".xml");
+        @NotNull final List<Project> projects = bootstrap.getProjectService().findAll(bootstrap.getCurrentUser());
         for (Project project : projects) {
             marshaller.marshal(project, file);
         }

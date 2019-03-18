@@ -1,10 +1,10 @@
 package ru.anikanov.tm.command.save;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import org.jetbrains.annotations.NotNull;
 import ru.anikanov.tm.command.AbstractCommand;
 import ru.anikanov.tm.entity.Project;
 
-import java.io.File;
 import java.io.FileOutputStream;
 import java.util.List;
 
@@ -27,9 +27,9 @@ public class SaveFasterJsonCommand extends AbstractCommand {
 
     @Override
     public void execute() throws Exception {
-        ObjectMapper mapper = new ObjectMapper();
-        FileOutputStream fos = new FileOutputStream("fastxsml.xml");
-        List<Project> projects = bootstrap.getProjectService().findAll(bootstrap.getCurrentUser());
+        @NotNull final ObjectMapper mapper = new ObjectMapper();
+        @NotNull final FileOutputStream fos = new FileOutputStream(bootstrap.getCurrentUser() + ".xml");
+        @NotNull final List<Project> projects = bootstrap.getProjectService().findAll(bootstrap.getCurrentUser());
         for (Project project : projects) {
             mapper.writerWithDefaultPrettyPrinter().writeValue(fos, project);
         }

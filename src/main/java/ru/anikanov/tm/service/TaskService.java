@@ -6,7 +6,6 @@ import ru.anikanov.tm.api.repository.IProjectRepository;
 import ru.anikanov.tm.api.repository.ITaskRepository;
 import ru.anikanov.tm.api.service.ITaskService;
 import ru.anikanov.tm.api.repository.IUserRepository;
-import ru.anikanov.tm.entity.Project;
 import ru.anikanov.tm.entity.Task;
 import ru.anikanov.tm.entity.User;
 
@@ -54,7 +53,7 @@ public class TaskService extends AbstractService implements ITaskService {
 
     public void merge(@Nullable final String taskId, @Nullable final String taskName, @Nullable final String description, @Nullable final String dateStart, @Nullable final String dateFinish, @NotNull final String userId) {
         if (taskId.isEmpty() || (taskId == null)) return;
-        @Nullable Task task = taskRepository.findOne(taskId);
+        @Nullable final Task task = taskRepository.findOne(taskId);
         @Nullable final User user = userRepository.findOne(userId);
         if ((!userId.equals(task.getUserId())) || (!user.getRole().equals("admin"))) return;
         if (task != null) {
@@ -81,13 +80,13 @@ public class TaskService extends AbstractService implements ITaskService {
     }
 
     public void removeAll(@NotNull final String userId) {
-        @Nullable User user = userRepository.findOne(userId);
+        @Nullable final User user = userRepository.findOne(userId);
         if (!user.getRole().equals("admin")) return;
         taskRepository.removeAll();
     }
 
     public List<Task> findAll(@NotNull final String userId) {
-        @Nullable User user = userRepository.findOne(userId);
+        @Nullable final User user = userRepository.findOne(userId);
         if (!user.getRole().equals("admin")) return null;
         return taskRepository.findAll();
     }

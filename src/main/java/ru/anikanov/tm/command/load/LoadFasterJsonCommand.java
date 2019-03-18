@@ -1,6 +1,8 @@
 package ru.anikanov.tm.command.load;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
 import ru.anikanov.tm.command.AbstractCommand;
 import ru.anikanov.tm.entity.Project;
 
@@ -24,9 +26,9 @@ public class LoadFasterJsonCommand extends AbstractCommand {
 
     @Override
     public void execute() throws Exception {
-        File file = new File("faster.json");
-        ObjectMapper mapper = new ObjectMapper();
-        Project value = mapper.readValue(file, Project.class);
+        @NotNull final File file = new File(bootstrap.getCurrentUser() + ".json");
+        @NotNull final ObjectMapper mapper = new ObjectMapper();
+        @Nullable final Project value = mapper.readValue(file, Project.class);
         System.out.println(value);
     }
 }
