@@ -3,8 +3,7 @@ package ru.anikanov.tm.command.load;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 import ru.anikanov.tm.command.AbstractCommand;
-import ru.anikanov.tm.entity.Project;
-
+import ru.anikanov.tm.entity.Domain;
 import javax.xml.bind.JAXBContext;
 import javax.xml.bind.Unmarshaller;
 import java.io.File;
@@ -17,7 +16,7 @@ public class LoadJaxBXmlCommand extends AbstractCommand {
 
     @Override
     public String getDescription() {
-        return null;
+        return "deserialize all projects and tasks with jaxb";
     }
 
     @Override
@@ -27,9 +26,9 @@ public class LoadJaxBXmlCommand extends AbstractCommand {
 
     @Override
     public void execute() throws Exception {
-        @NotNull final JAXBContext context = JAXBContext.newInstance(Project.class);
+        @NotNull final JAXBContext context = JAXBContext.newInstance(Domain.class);
         @NotNull final Unmarshaller unmarshaller = context.createUnmarshaller();
-        @Nullable final Project project = (Project) unmarshaller.unmarshal(new File(bootstrap.getCurrentUser() + ".xml"));
-        System.out.println(project);
+        @Nullable final Domain domain = (Domain) unmarshaller.unmarshal(new File(bootstrap.getCurrentUser() + ".xml"));
+        System.out.println(domain);
     }
 }

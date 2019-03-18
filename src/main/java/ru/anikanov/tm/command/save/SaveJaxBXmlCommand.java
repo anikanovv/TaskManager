@@ -2,7 +2,9 @@ package ru.anikanov.tm.command.save;
 
 import org.jetbrains.annotations.NotNull;
 import ru.anikanov.tm.command.AbstractCommand;
+import ru.anikanov.tm.entity.Domain;
 import ru.anikanov.tm.entity.Project;
+import ru.anikanov.tm.entity.Task;
 
 import javax.xml.bind.JAXBContext;
 import javax.xml.bind.Marshaller;
@@ -32,8 +34,10 @@ public class SaveJaxBXmlCommand extends AbstractCommand {
         marshaller.setProperty(Marshaller.JAXB_FORMATTED_OUTPUT, Boolean.TRUE);
         @NotNull final File file = new File(bootstrap.getCurrentUser() + ".xml");
         @NotNull final List<Project> projects = bootstrap.getProjectService().findAll(bootstrap.getCurrentUser());
-        for (Project project : projects) {
-            marshaller.marshal(project, file);
-        }
+        @NotNull final List<Task> tasks = bootstrap.getTaskService().findAll(bootstrap.getCurrentUser());
+        @NotNull final Domain domain = new Domain();
+        domain.setProjects(projects);
+        domain.setTasks(tasks);
+        marshaller.marshal(domain, file);
     }
 }

@@ -12,11 +12,8 @@ import ru.anikanov.tm.utils.DateToString;
 
 import javax.xml.bind.annotation.*;
 import java.io.Serializable;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
 import java.util.*;
 
-// определяем корневой элемент
 @Getter
 @Setter
 @JacksonXmlRootElement
@@ -42,7 +39,6 @@ public class Project extends AbstractEntity implements Serializable {
     @NotNull
     @XmlElement
     private Status status;
-//    private final SimpleDateFormat format = new SimpleDateFormat("dd.MM.yyyy", Locale.US);
 
     public Project() {
 

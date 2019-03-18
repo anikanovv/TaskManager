@@ -4,8 +4,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 import ru.anikanov.tm.command.AbstractCommand;
-import ru.anikanov.tm.entity.Project;
-
+import ru.anikanov.tm.entity.Domain;
 import java.io.File;
 
 public class LoadFasterJsonCommand extends AbstractCommand {
@@ -16,7 +15,7 @@ public class LoadFasterJsonCommand extends AbstractCommand {
 
     @Override
     public String getDescription() {
-        return null;
+        return "deserialize all projects and tasks with fasterxml";
     }
 
     @Override
@@ -28,7 +27,7 @@ public class LoadFasterJsonCommand extends AbstractCommand {
     public void execute() throws Exception {
         @NotNull final File file = new File(bootstrap.getCurrentUser() + ".json");
         @NotNull final ObjectMapper mapper = new ObjectMapper();
-        @Nullable final Project value = mapper.readValue(file, Project.class);
+        @Nullable final Domain value = mapper.readValue(file, Domain.class);
         System.out.println(value);
     }
 }
