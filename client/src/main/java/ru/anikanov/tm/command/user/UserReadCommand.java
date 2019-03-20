@@ -1,8 +1,8 @@
 package ru.anikanov.tm.command.user;
 
-import ru.anikanov.tm.api.service.IUserService;
 import ru.anikanov.tm.command.AbstractCommand;
-import ru.anikanov.tm.entity.User;
+import ru.anikanov.tm.endpoint.User;
+import ru.anikanov.tm.endpoint.UserEndPoint;
 
 public class UserReadCommand extends AbstractCommand {
 
@@ -22,9 +22,9 @@ public class UserReadCommand extends AbstractCommand {
 
     @Override
     public void execute() {
-        final IUserService userService = bootstrap.getUserService();
+        final UserEndPoint endPoint=bootstrap.getUserEndPoint();
         final String login = bootstrap.getTerminalService().nextLine();
-        final User user = userService.findOne(login, bootstrap.getCurrentUser());
+        final User user = endPoint.findOneUser(login, bootstrap.getCurrentUser());
         System.out.println(user);
     }
 }

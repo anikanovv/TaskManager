@@ -2,7 +2,7 @@ package ru.anikanov.tm.command.project;
 
 import org.jetbrains.annotations.Nullable;
 import ru.anikanov.tm.command.AbstractCommand;
-import ru.anikanov.tm.entity.Project;
+import ru.anikanov.tm.endpoint.Project;
 
 public class ProjectFindByPartOfNameCommand extends AbstractCommand {
     @Override
@@ -24,7 +24,7 @@ public class ProjectFindByPartOfNameCommand extends AbstractCommand {
     public void execute() throws Exception {
         System.out.println("type name(part of name)");
         @Nullable final String partOfName = bootstrap.getTerminalService().nextLine();
-        @Nullable Project project = bootstrap.getProjectService().findByPartOfName(partOfName, bootstrap.getCurrentUser());
+        @Nullable Project project = bootstrap.getProjectEndPoint().findProjectByPartOfNameProject(partOfName, bootstrap.getCurrentUser());
         System.out.println(project);
     }
 }

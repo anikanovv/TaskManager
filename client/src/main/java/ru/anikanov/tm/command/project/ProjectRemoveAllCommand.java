@@ -1,7 +1,8 @@
 package ru.anikanov.tm.command.project;
 
-import ru.anikanov.tm.api.service.IProjectService;
 import ru.anikanov.tm.command.AbstractCommand;
+import ru.anikanov.tm.endpoint.ProjectEndPoint;
+
 public class ProjectRemoveAllCommand extends AbstractCommand {
 
     @Override
@@ -21,7 +22,7 @@ public class ProjectRemoveAllCommand extends AbstractCommand {
     @Override
 
     public void execute() {
-        final IProjectService projectService = bootstrap.getProjectService();
-        projectService.removeAll(bootstrap.getCurrentUser());
+        final ProjectEndPoint projectEndPoint= bootstrap.getProjectEndPoint();
+        projectEndPoint.removeAllProject(bootstrap.getCurrentUser());
     }
 }

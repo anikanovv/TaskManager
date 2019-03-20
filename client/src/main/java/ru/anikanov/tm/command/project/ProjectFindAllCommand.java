@@ -1,6 +1,7 @@
 package ru.anikanov.tm.command.project;
 
 import ru.anikanov.tm.command.AbstractCommand;
+import ru.anikanov.tm.endpoint.ProjectEndPoint;
 
 public class ProjectFindAllCommand extends AbstractCommand {
     @Override
@@ -20,6 +21,7 @@ public class ProjectFindAllCommand extends AbstractCommand {
 
     @Override
     public void execute() throws Exception {
-        bootstrap.getProjectService().findAll(bootstrap.getCurrentUser()).forEach(project -> System.out.println(project));
+        final ProjectEndPoint projectEndPoint= bootstrap.getProjectEndPoint();
+        projectEndPoint.findAllProject(bootstrap.getCurrentUser()).forEach(project -> System.out.println(project));
     }
 }

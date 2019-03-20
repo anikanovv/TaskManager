@@ -8,13 +8,10 @@ import javax.jws.WebMethod;
 import javax.jws.WebService;
 import javax.xml.ws.Endpoint;
 import java.util.List;
-@WebService(endpointInterface = "ru.anikanov.tm.api.endpoint.ITaskEndPoint")
+@WebService
 public class TaskEndPoint implements ITaskEndPoint {
     private ServiceLocator serviceLocator;
-    TaskEndPoint(){
-
-    }
-    TaskEndPoint(ServiceLocator serviceLocator){
+    public TaskEndPoint(ServiceLocator serviceLocator){
         this.serviceLocator=serviceLocator;
     }
     @WebMethod
@@ -49,14 +46,11 @@ public class TaskEndPoint implements ITaskEndPoint {
     public List<Task> findAllTask(String userId){
         return serviceLocator.getTaskService().findAll(userId);
     }
-    public static void main(String[] args){
-        Endpoint.publish("http://localhost:8080/TaskEndpoint?wsdl",new TaskEndPoint());
-    }
-
     @WebMethod
     public Task findTaskByPartOfName(String partOfName, String userId){
         return serviceLocator.getTaskService().findByPartOfName(partOfName,userId);
     }
+
     @WebMethod
     public Task findTaskByPartOfDescription(String partOfDescription, String userId){
         return serviceLocator.getTaskService().findByPartOfDescription(partOfDescription, userId);

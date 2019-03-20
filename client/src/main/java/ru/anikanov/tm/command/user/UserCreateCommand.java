@@ -1,8 +1,8 @@
 package ru.anikanov.tm.command.user;
 
-import ru.anikanov.tm.api.service.IUserService;
 import ru.anikanov.tm.command.AbstractCommand;
-import ru.anikanov.tm.enumeration.Role;
+import ru.anikanov.tm.endpoint.Role;
+import ru.anikanov.tm.endpoint.UserEndPoint;
 import ru.anikanov.tm.utils.PasswordHash;
 
 public class UserCreateCommand extends AbstractCommand {
@@ -24,7 +24,7 @@ public class UserCreateCommand extends AbstractCommand {
 
     @Override
     public void execute() {
-        final IUserService userService = bootstrap.getUserService();
+        final UserEndPoint endPoint=bootstrap.getUserEndPoint();
         System.out.println("Name,pass,role");
         final String userName = bootstrap.getTerminalService().nextLine();
         final String userPass = bootstrap.getTerminalService().nextLine();
@@ -32,6 +32,6 @@ public class UserCreateCommand extends AbstractCommand {
         Role role;
         if (userRole.equals("admin")) role = Role.ADMIN;
         else role = Role.USER;
-        userService.persist(userName, PasswordHash.makehash(userPass), role);
+        endPoint.createUser(userName, PasswordHash.makehash(userPass), role);
     }
 }

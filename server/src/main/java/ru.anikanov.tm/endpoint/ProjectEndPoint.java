@@ -6,15 +6,11 @@ import ru.anikanov.tm.entity.Project;
 
 import javax.jws.WebMethod;
 import javax.jws.WebService;
-import javax.xml.ws.Endpoint;
 import java.util.List;
-@WebService(endpointInterface = "ru.anikanov.tm.api.endpoint.IProjectEndPoint")
+@WebService
 public class ProjectEndPoint implements IProjectEndPoint {
     private ServiceLocator serviceLocator;
-    ProjectEndPoint(){
-
-    }
-    ProjectEndPoint(ServiceLocator serviceLocator){
+    public ProjectEndPoint(ServiceLocator serviceLocator){
         this.serviceLocator=serviceLocator;
     }
     @WebMethod
@@ -56,9 +52,5 @@ public class ProjectEndPoint implements IProjectEndPoint {
     @WebMethod
     public List<Project> findAllProject(String userId){
         return serviceLocator.getProjectService().findAll(userId);
-    }
-
-    public static void main(String[] args){
-        Endpoint.publish("http://localhost:8080/ProjectEndpoint?wsdl",new ProjectEndPoint());
     }
 }

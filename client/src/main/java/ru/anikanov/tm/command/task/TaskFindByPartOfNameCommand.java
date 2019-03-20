@@ -2,7 +2,8 @@ package ru.anikanov.tm.command.task;
 
 import org.jetbrains.annotations.Nullable;
 import ru.anikanov.tm.command.AbstractCommand;
-import ru.anikanov.tm.entity.Task;
+import ru.anikanov.tm.endpoint.Task;
+import ru.anikanov.tm.endpoint.TaskEndPoint;
 
 public class TaskFindByPartOfNameCommand extends AbstractCommand {
     @Override
@@ -22,9 +23,10 @@ public class TaskFindByPartOfNameCommand extends AbstractCommand {
 
     @Override
     public void execute() throws Exception {
-        System.out.println("type name(part of description)");
-        @Nullable final String partOfDescription = bootstrap.getTerminalService().nextLine();
-        @Nullable Task task = bootstrap.getTaskService().findByPartOfName(partOfDescription, bootstrap.getCurrentUser());
+        final TaskEndPoint endPoint= bootstrap.getTaskEndPoint();
+        System.out.println("type name(part of name)");
+        @Nullable final String partOfName= bootstrap.getTerminalService().nextLine();
+        @Nullable Task task = endPoint.findTaskByPartOfName(partOfName, bootstrap.getCurrentUser());
         System.out.println(task);
     }
 }

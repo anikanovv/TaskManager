@@ -2,8 +2,8 @@ package ru.anikanov.tm.command.task;
 
 import org.jetbrains.annotations.Nullable;
 import ru.anikanov.tm.command.AbstractCommand;
-import ru.anikanov.tm.entity.Project;
-import ru.anikanov.tm.entity.Task;
+import ru.anikanov.tm.endpoint.Task;
+import ru.anikanov.tm.endpoint.TaskEndPoint;
 
 public class TaskFindByPartOfDescriptionCommand extends AbstractCommand {
     @Override
@@ -23,9 +23,11 @@ public class TaskFindByPartOfDescriptionCommand extends AbstractCommand {
 
     @Override
     public void execute() throws Exception {
+        final TaskEndPoint endPoint= bootstrap.getTaskEndPoint();
         System.out.println("type description(part of description)");
         @Nullable final String partOfDescription = bootstrap.getTerminalService().nextLine();
-        @Nullable Task task = bootstrap.getTaskService().findByPartOfDescription(partOfDescription, bootstrap.getCurrentUser());
+
+        @Nullable Task task = endPoint.findTaskByPartOfDescription(partOfDescription, bootstrap.getCurrentUser());
         System.out.println(task);
     }
 }

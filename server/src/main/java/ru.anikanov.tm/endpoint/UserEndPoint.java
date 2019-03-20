@@ -10,13 +10,10 @@ import ru.anikanov.tm.enumeration.Role;
 import javax.jws.WebService;
 import javax.xml.ws.Endpoint;
 import java.util.List;
-@WebService(endpointInterface = "ru.anikanov.tm.api.endpoint.IUserEndPoint")
+@WebService
 public class UserEndPoint implements IUserEndPoint {
     private ServiceLocator serviceLocator;
-    UserEndPoint(){
-
-    }
-    UserEndPoint(ServiceLocator serviceLocator){
+    public UserEndPoint(ServiceLocator serviceLocator){
         this.serviceLocator=serviceLocator;
     }
     public boolean logIn(@Nullable final String login, @Nullable final String password){
@@ -42,8 +39,5 @@ public class UserEndPoint implements IUserEndPoint {
     }
     public void updateUserPassword(@Nullable final String login, @Nullable final String oldOne, @Nullable final String newOne){
         serviceLocator.getUserService().updatePassword(login,oldOne,newOne);
-    }
-    public static void main(String[] args){
-        Endpoint.publish("http://localhost:8080/UserEndpoint?wsdl",new UserEndPoint());
     }
 }

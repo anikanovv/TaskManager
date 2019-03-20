@@ -1,7 +1,7 @@
 package ru.anikanov.tm.command.project;
 
-import ru.anikanov.tm.api.service.IProjectService;
 import ru.anikanov.tm.command.AbstractCommand;
+import ru.anikanov.tm.endpoint.ProjectEndPoint;
 
 public class ProjectDeleteCommand extends AbstractCommand {
 
@@ -21,8 +21,8 @@ public class ProjectDeleteCommand extends AbstractCommand {
     }
     @Override
     public void execute() {
-        final IProjectService projectService = bootstrap.getProjectService();
+        final ProjectEndPoint projectEndPoint= bootstrap.getProjectEndPoint();
         final String name = bootstrap.getTerminalService().nextLine();
-        projectService.remove(name, bootstrap.getCurrentUser());
+        projectEndPoint.removeProject(name, bootstrap.getCurrentUser());
     }
 }

@@ -1,9 +1,9 @@
 package ru.anikanov.tm.command.project;
 
 import org.jetbrains.annotations.Nullable;
-import ru.anikanov.tm.api.service.IProjectService;
 import ru.anikanov.tm.command.AbstractCommand;
-import ru.anikanov.tm.entity.Project;
+import ru.anikanov.tm.endpoint.Project;
+import ru.anikanov.tm.endpoint.ProjectEndPoint;
 
 import java.util.List;
 
@@ -25,8 +25,8 @@ public class ProjectSortByEndDateCommand extends AbstractCommand {
 
     @Override
     public void execute() throws Exception {
-        final IProjectService projectService = bootstrap.getProjectService();
-        @Nullable final List<Project> projects = projectService.sortedByFinishDate(bootstrap.getCurrentUser());
+        final ProjectEndPoint projectEndPoint= bootstrap.getProjectEndPoint();
+        @Nullable final List<Project> projects = projectEndPoint.sortProjectByFinishDate(bootstrap.getCurrentUser());
         projects.forEach(project -> System.out.println(project));
     }
 }

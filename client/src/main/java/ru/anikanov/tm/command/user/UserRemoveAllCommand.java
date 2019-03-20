@@ -1,7 +1,7 @@
 package ru.anikanov.tm.command.user;
 
-import ru.anikanov.tm.api.service.IUserService;
 import ru.anikanov.tm.command.AbstractCommand;
+import ru.anikanov.tm.endpoint.UserEndPoint;
 
 public class UserRemoveAllCommand extends AbstractCommand {
 
@@ -21,7 +21,7 @@ public class UserRemoveAllCommand extends AbstractCommand {
 
     @Override
     public void execute() {
-        final IUserService userService = bootstrap.getUserService();
-        userService.removeAll(bootstrap.getCurrentUser());
+        final UserEndPoint endPoint=bootstrap.getUserEndPoint();
+        endPoint.removeAllUser(bootstrap.getCurrentUser());
     }
 }

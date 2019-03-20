@@ -2,8 +2,6 @@ package ru.anikanov.tm;
 
 import org.jetbrains.annotations.NotNull;
 import ru.anikanov.tm.bootstrap.Bootstrap;
-import ru.anikanov.tm.command.load.*;
-import ru.anikanov.tm.command.save.*;
 import ru.anikanov.tm.command.task.*;
 import ru.anikanov.tm.command.system.*;
 import ru.anikanov.tm.command.user.*;
@@ -18,9 +16,7 @@ public class App {
             TaskSortByEndDateCommand.class, TaskSortByStartDateCommand.class, TaskSortByStatusCommand.class, TaskFindByPartOfNameCommand.class,
             TaskDeleteCommand.class, TaskReadCommand.class, TaskRemoveAllCommand.class, TaskUpdateCommand.class, TaskFindByPartOfDescriptionCommand.class, UserAuthCommand.class,
             UserCreateCommand.class, UserDeleteCommand.class, UserEndSessionCommand.class, UserRemoveAllCommand.class,
-            UserReadCommand.class, UserRemoveAllCommand.class, UserUpdateCommand.class, UserUpdatePasswordCommand.class,
-            SaveSerializeCommand.class, SaveJaxBJsonCommand.class, SaveFasterXmlCommand.class, LoadFasterXmlCommand.class, LoadDeserilizationCommand.class,
-            SaveJaxBXmlCommand.class, LoadJaxBXmlCommand.class, SaveFasterJsonCommand.class, LoadFasterJsonCommand.class, LoadJaxBJsonCommand.class};
+            UserReadCommand.class, UserRemoveAllCommand.class, UserUpdateCommand.class, UserUpdatePasswordCommand.class};
 
     public static void main(String[] args) throws Exception {
         Bootstrap bootstrap = new Bootstrap();

@@ -1,7 +1,7 @@
 package ru.anikanov.tm.command.task;
 
-import ru.anikanov.tm.api.service.ITaskService;
 import ru.anikanov.tm.command.AbstractCommand;
+import ru.anikanov.tm.endpoint.TaskEndPoint;
 
 public class TaskRemoveAllCommand extends AbstractCommand {
 
@@ -21,7 +21,7 @@ public class TaskRemoveAllCommand extends AbstractCommand {
     }
     @Override
     public void execute() {
-        final ITaskService taskService = bootstrap.getTaskService();
-        taskService.removeAll(bootstrap.getCurrentUser());
+        final TaskEndPoint endPoint= bootstrap.getTaskEndPoint();
+        endPoint.removeAllTask(bootstrap.getCurrentUser());
     }
 }

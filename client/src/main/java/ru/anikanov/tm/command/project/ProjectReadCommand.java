@@ -1,7 +1,7 @@
 package ru.anikanov.tm.command.project;
 
-import ru.anikanov.tm.api.service.IProjectService;
 import ru.anikanov.tm.command.AbstractCommand;
+import ru.anikanov.tm.endpoint.ProjectEndPoint;
 
 public class ProjectReadCommand extends AbstractCommand {
 
@@ -21,8 +21,8 @@ public class ProjectReadCommand extends AbstractCommand {
     }
     @Override
     public void execute() {
-        final IProjectService projectService = bootstrap.getProjectService();
+        final ProjectEndPoint projectEndPoint= bootstrap.getProjectEndPoint();
         final String name = bootstrap.getTerminalService().nextLine();
-        System.out.println(projectService.findOne(name, bootstrap.getCurrentUser()));
+        System.out.println(projectEndPoint.findProjectByPartOfNameProject(name, bootstrap.getCurrentUser()));
     }
 }
