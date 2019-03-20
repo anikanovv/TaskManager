@@ -13,11 +13,11 @@ import ru.anikanov.tm.api.repository.ITaskRepository;
 import ru.anikanov.tm.api.repository.IUserRepository;
 import ru.anikanov.tm.api.service.IProjectService;
 import ru.anikanov.tm.api.service.ITaskService;
-import ru.anikanov.tm.api.service.ITerminalService;
 import ru.anikanov.tm.api.service.IUserService;
 import ru.anikanov.tm.endpoint.ProjectEndPoint;
 import ru.anikanov.tm.endpoint.TaskEndPoint;
 import ru.anikanov.tm.endpoint.UserEndPoint;
+import ru.anikanov.tm.entity.Session;
 import ru.anikanov.tm.enumeration.Role;
 import ru.anikanov.tm.repository.ProjectRepository;
 import ru.anikanov.tm.repository.TaskRepository;
@@ -34,7 +34,7 @@ import javax.xml.ws.Endpoint;
 public class Bootstrap implements ServiceLocator {
 
     @Nullable
-    private String currentUser;
+    private Session currentSession;
     @NotNull
     private ITaskRepository taskRepository = new TaskRepository();
     @NotNull

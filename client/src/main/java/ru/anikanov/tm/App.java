@@ -7,7 +7,6 @@ import ru.anikanov.tm.command.system.*;
 import ru.anikanov.tm.command.user.*;
 import ru.anikanov.tm.command.project.*;
 
-
 public class App {
     @NotNull
     private static final Class[] CLASSES = {HelpCommand.class, ExitCommand.class, AboutCommand.class, ProjectCreateCommand.class, ProjectDeleteCommand.class, ProjectReadCommand.class,

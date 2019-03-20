@@ -5,6 +5,7 @@ import org.jetbrains.annotations.Nullable;
 import ru.anikanov.tm.api.service.IProjectService;
 import ru.anikanov.tm.api.service.ITaskService;
 import ru.anikanov.tm.api.service.IUserService;
+import ru.anikanov.tm.entity.Session;
 
 public interface ServiceLocator {
 
@@ -18,8 +19,8 @@ public interface ServiceLocator {
     IUserService getUserService();
 
     @Nullable
-    String getCurrentUser();
+    String getCurrentSession();
 
-    void setCurrentUser(@NotNull final String name);
+    void setCurrentSession(@NotNull final Session name);
 
 }

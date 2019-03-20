@@ -1,12 +1,13 @@
 package ru.anikanov.tm.service;
 
 import ru.anikanov.tm.entity.AbstractEntity;
+import ru.anikanov.tm.entity.Session;
 
 import java.util.List;
 
 public abstract class AbstractService<T extends AbstractEntity> {
 
-    abstract void removeAll(String userId);
+    abstract void removeAll(Session currentSession);
 
-    abstract List<T> findAll(String userId);
+    abstract List<T> findAll(Session currentSession);
 }

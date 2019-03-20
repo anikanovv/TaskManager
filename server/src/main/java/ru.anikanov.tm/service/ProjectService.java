@@ -7,6 +7,7 @@ import ru.anikanov.tm.api.service.IProjectService;
 import ru.anikanov.tm.api.repository.ITaskRepository;
 import ru.anikanov.tm.api.repository.IUserRepository;
 import ru.anikanov.tm.entity.Project;
+import ru.anikanov.tm.entity.Session;
 import ru.anikanov.tm.entity.User;
 
 import java.text.ParseException;
@@ -27,7 +28,7 @@ public class ProjectService extends AbstractService implements IProjectService {
     }
 
     @Nullable
-    public Project persist(@Nullable final String projectName, @Nullable final String description, @Nullable final String dateStart, @Nullable final String dateFinish, @NotNull final String userId) {
+    public Project persist(@Nullable final String projectName, @Nullable final String description, @Nullable final String dateStart, @Nullable final String dateFinish, @NotNull final Session session) {
         if (projectName.isEmpty() || (projectName == null)) return null;
         @Nullable final Project project = projectRepository.findOne(projectName);
         if (project == null) {
