@@ -7,37 +7,58 @@ import ru.anikanov.tm.api.endpoint.IUserEndPoint;
 import ru.anikanov.tm.entity.User;
 import ru.anikanov.tm.enumeration.Role;
 
+import javax.jws.WebMethod;
+import javax.jws.WebParam;
 import javax.jws.WebService;
 import javax.xml.ws.Endpoint;
 import java.util.List;
 @WebService
-public class UserEndPoint implements IUserEndPoint {
+public class UserEndPoint {
     private ServiceLocator serviceLocator;
     public UserEndPoint(ServiceLocator serviceLocator){
         this.serviceLocator=serviceLocator;
     }
-    public boolean logIn(@Nullable final String login, @Nullable final String password){
+
+    public UserEndPoint() {
+    }
+
+    @WebMethod
+    public boolean logIn(@WebParam @Nullable final String login, @WebParam @Nullable final String password) {
         return serviceLocator.getUserService().logIn(login,password);
     }
-    public User createUser(@Nullable final String login, @Nullable final String password, @Nullable final Role role){
+
+    @WebMethod
+    public User createUser(@WebParam @Nullable final String login, @WebParam @Nullable final String password, @WebParam @Nullable final Role role) {
         return serviceLocator.getUserService().persist(login,password,role);
     }
-    public void removeUser(@Nullable final String login, @NotNull final String userId){
+
+    @WebMethod
+    public void removeUser(@WebParam @Nullable final String login, @WebParam @NotNull final String userId) {
         serviceLocator.getUserService().remove(login,userId);
     }
-    public void removeAllUser(@NotNull final String userId){
+
+    @WebMethod
+    public void removeAllUser(@WebParam @NotNull final String userId) {
         serviceLocator.getUserService().removeAll(userId);
     }
-    public User findOneUser(@Nullable final String login, @NotNull final String userId){
+
+    @WebMethod
+    public User findOneUser(@WebParam @Nullable final String login, @WebParam @NotNull final String userId) {
         return serviceLocator.getUserService().findOne(login,userId);
     }
-    public List<User>findAllUser(@NotNull final String userId){
+
+    @WebMethod
+    public List<User> findAllUser(@WebParam @NotNull final String userId) {
         return serviceLocator.getUserService().findAll(userId);
     }
-    public void updateUser(@Nullable final String login, @Nullable final String password, @Nullable final Role role){
+
+    @WebMethod
+    public void updateUser(@WebParam @Nullable final String login, @WebParam @Nullable final String password, @WebParam @Nullable final Role role) {
         serviceLocator.getUserService().merge(login,password,role);
     }
-    public void updateUserPassword(@Nullable final String login, @Nullable final String oldOne, @Nullable final String newOne){
+
+    @WebMethod
+    public void updateUserPassword(@WebParam @Nullable final String login, @WebParam @Nullable final String oldOne, @WebParam @Nullable final String newOne) {
         serviceLocator.getUserService().updatePassword(login,oldOne,newOne);
     }
 }

@@ -4,9 +4,7 @@ import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 import ru.anikanov.tm.api.service.ITerminalService;
 import ru.anikanov.tm.command.AbstractCommand;
-import ru.anikanov.tm.endpoint.ProjectEndPoint;
-import ru.anikanov.tm.endpoint.TaskEndPoint;
-import ru.anikanov.tm.endpoint.UserEndPoint;
+import ru.anikanov.tm.endpoint.*;
 
 import java.util.Map;
 
@@ -19,6 +17,9 @@ public interface ServiceLocator {
     UserEndPoint getUserEndPoint();
 
     @NotNull
+    SessionEndPoint getSessionEndPoint();
+
+    @NotNull
     Map<String, AbstractCommand> getCommandMap();
 
     @NotNull
@@ -28,5 +29,10 @@ public interface ServiceLocator {
     String getCurrentUser();
 
     void setCurrentUser(@NotNull final String name);
+
+    @Nullable
+    Session getCurrentSession();
+
+    void setCurrentSession(@NotNull final Session session);
 
 }

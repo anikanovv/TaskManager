@@ -28,7 +28,7 @@ public class ProjectService extends AbstractService implements IProjectService {
     }
 
     @Nullable
-    public Project persist(@Nullable final String projectName, @Nullable final String description, @Nullable final String dateStart, @Nullable final String dateFinish, @NotNull final Session session) {
+    public Project persist(@Nullable final String projectName, @Nullable final String description, @Nullable final String dateStart, @Nullable final String dateFinish, @NotNull final String userId) {
         if ((projectName == null) || projectName.isEmpty()) return null;
         @Nullable final Project project = projectRepository.findOne(projectName);
         if (project == null) {

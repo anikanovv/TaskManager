@@ -1,43 +1,39 @@
 package ru.anikanov.tm.service;
 
 import org.jetbrains.annotations.NotNull;
-import ru.anikanov.tm.api.repository.IProjectRepository;
-import ru.anikanov.tm.api.repository.ISessionRepository;
-import ru.anikanov.tm.api.repository.ITaskRepository;
-import ru.anikanov.tm.api.repository.IUserRepository;
 import ru.anikanov.tm.entity.Session;
+import ru.anikanov.tm.repository.SessionRepository;
 
-import java.util.List;
+public class SessionService {
 
-public class SessionService extends AbstractService {
     @NotNull
-    private IProjectRepository projectRepository;
-    @NotNull
-    private ITaskRepository taskRepository;
-    @NotNull
-    private IUserRepository userRepository;
-    @NotNull
-    private ISessionRepository sessionRepository;
+    private SessionRepository sessionRepository;
 
-    public SessionService(@NotNull final IProjectRepository pr, @NotNull final ITaskRepository tr, @NotNull final IUserRepository ur,@NotNull final ISessionRepository sr) {
-        projectRepository = pr;
-        taskRepository = tr;
-        userRepository = ur;
+    public SessionService(@NotNull final SessionRepository sr) {
         sessionRepository=sr;
     }
-    @Override
-    void removeAll(String userId) {
 
+    public Session persist(String userId) throws Exception {
+        if (userId != null) return sessionRepository.persist(new Session(userId));
+        else throw new Exception();
     }
 
-    @Override
-    List findAll(String userId) {
-        return null;
+    public void check(Session session) throws Exception {
+        if (session == null) throw new Exception();
+        sessionRepository.check(session);
     }
 
-    public Session persist(Session session){
-        if (session.getUserId().isEmpty()) return null;
-        if (session.getId().isEmpty()) return null;
-        return sessionRepository.persist(session);
+    public void sign(Session session) throws Exception {
+        if (session == null) throw new Exception();
+        sessionRepository.sign(session);
     }
+
+    public boolean validate(Session session) throws Exception {
+        return sessionRepository.validate(session);
+    }
+
+    public void remove(Session session) throws Exception {
+        sessionRepository.remove(session);
+    }
+
 }

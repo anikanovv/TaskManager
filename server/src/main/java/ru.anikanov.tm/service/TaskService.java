@@ -95,34 +95,34 @@ public class TaskService extends AbstractService implements ITaskService {
     }
 
     @Nullable
-    public List<Task> sortedByStartDate(@NotNull final String userId) {
+    public List<Task> sortedByStartDate(@NotNull final String userId) throws Exception {
         @Nullable List<Task> tasks = findAll(userId);
         if ((tasks == null) || (tasks.isEmpty())) return null;
         return taskRepository.sortedByStartDate();
     }
 
     @Nullable
-    public List<Task> sortedByFinishDate(@NotNull final String userId) {
+    public List<Task> sortedByFinishDate(@NotNull final String userId) throws Exception {
         @Nullable List<Task> tasks = findAll(userId);
         if ((tasks == null) || (tasks.isEmpty())) return null;
         return taskRepository.sortedByFinishDate();
     }
 
     @Nullable
-    public List<Task> sortedByStatus(@NotNull final String userId) {
+    public List<Task> sortedByStatus(@NotNull final String userId) throws Exception {
         @Nullable List<Task> tasks = findAll(userId);
         if ((tasks == null) || (tasks.isEmpty())) return null;
         return taskRepository.sortedByStatus();
     }
 
     @Nullable
-    public Task findByPartOfName(@Nullable final String partOfName, @NotNull final String userId) {
+    public Task findByPartOfName(@Nullable final String partOfName, @NotNull final String userId) throws Exception {
         if ((partOfName == null) || (partOfName.isEmpty())) return null;
         return taskRepository.findByPartOfName(partOfName);
     }
 
     @Nullable
-    public Task findByPartOfDescription(@Nullable final String partOfDescription, @NotNull final String userId) {
+    public Task findByPartOfDescription(@Nullable final String partOfDescription, @NotNull final String userId) throws Exception {
         if ((partOfDescription == null) || (partOfDescription.isEmpty())) return null;
         return taskRepository.findByPartOfName(partOfDescription);
     }

@@ -1,46 +1,41 @@
 package ru.anikanov.tm.repository;
 
 import ru.anikanov.tm.entity.Session;
+import ru.anikanov.tm.utils.SignatureUtil;
 
-import java.util.ArrayList;
 import java.util.LinkedHashMap;
-import java.util.List;
 import java.util.Map;
 
 public class SessionRepository {
     private Map<String, Session> sessionMap=new LinkedHashMap<>();
     public Session persist(Session session){
+        sign(session);
+        session.setTimestamp(System.currentTimeMillis());
         return sessionMap.put(session.getId(),session);
     }
 
-    public Session merge(Session session){
-        Session oldSession=sessionMap.get(session.getId());
-        if (oldSession==null){
-            sessionMap.put(session.getId(),session);
-            return session;
-        }
-        else {
-            oldSession.setTimestamp(session.getTimestamp());
-            return oldSession;
-        }
+    public void check(Session session) {
+        session.setSignature(null);
+        sign(session);
+    }
+
+    public void sign(Session session) {
+        String signature = SignatureUtil.sign(session.getId(), "salt", 11);
+        session.setSignature(signature);
+    }
+
+    public boolean validate(Session session) throws Exception {
+        if (session == null) throw new Exception();
+        if (session.getId() == null) throw new Exception();
+        if (session.getTimestamp() == null) throw new Exception();
+        if (session.getSignature() == null) throw new Exception();
+        Session newSession = session.clone();
+        check(newSession);
+        return newSession.getSignature().equals(session.getSignature());
     }
 
     public void remove(Session session) throws Exception {
          sessionMap.remove(session.getId());
-    }
-
-    public void removeAll() {
-        sessionMap.clear();
-    }
-
-    public Session findOne(String id) {
-        return sessionMap.get(id);
-    }
-
-    public List<Session> findAll() {
-        ArrayList<Session> all=new ArrayList<>();
-        sessionMap.forEach((k,v)->all.add(v));
-        return all;
     }
 
 }

@@ -55,6 +55,11 @@
                                         http://localhost:8080/UserEndpoint?wsdl
                                     </wsdl>
                                 </wsdlOption>
+                                <wsdlOption>
+                                    <wsdl>
+                                        http://localhost:8080/SessionEndpoint?wsdl
+                                    </wsdl>
+                                </wsdlOption>
                             </wsdlOptions>
                         </configuration>
                         <goals><goal>wsdl2java</goal></goals>

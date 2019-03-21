@@ -6,6 +6,7 @@ import ru.anikanov.tm.api.service.IProjectService;
 import ru.anikanov.tm.api.service.ITaskService;
 import ru.anikanov.tm.api.service.IUserService;
 import ru.anikanov.tm.entity.Session;
+import ru.anikanov.tm.service.SessionService;
 
 public interface ServiceLocator {
 
@@ -18,9 +19,12 @@ public interface ServiceLocator {
     @NotNull
     IUserService getUserService();
 
-    @Nullable
+    @NotNull
+    SessionService getSessionService();
+
+   /* @Nullable
     String getCurrentSession();
 
-    void setCurrentSession(@NotNull final Session name);
+    void setCurrentSession(@NotNull final Session name);*/
 
 }

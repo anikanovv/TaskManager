@@ -10,6 +10,7 @@ import ru.anikanov.tm.command.AbstractCommand;
 import ru.anikanov.tm.endpoint.*;
 import ru.anikanov.tm.service.TerminalService;
 
+import java.lang.Exception;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -19,12 +20,16 @@ public class Bootstrap implements ServiceLocator {
 
     @Nullable
     private String currentUser;
+    @Nullable
+    private Session currentSession;
     @NotNull
     private ProjectEndPoint projectEndPoint=new ProjectEndPointService().getProjectEndPointPort();
     @NotNull
     private TaskEndPoint taskEndPoint=new TaskEndPointService().getTaskEndPointPort();
     @NotNull
     private UserEndPoint userEndPoint=new UserEndPointService().getUserEndPointPort();
+    @NotNull
+    private SessionEndPoint sessionEndPoint = new SessionEndPointService().getSessionEndPointPort();
     @NotNull
     private final ITerminalService terminalService = new TerminalService(this);
     @NotNull
@@ -34,7 +39,8 @@ public class Bootstrap implements ServiceLocator {
         try {
             initCommands(classes);
             terminalService.terminalCicle();
-        }catch (Exception e){}
+        } catch (Exception ignored) {
+        }
 
     }
 

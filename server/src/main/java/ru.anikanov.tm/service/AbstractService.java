@@ -7,7 +7,7 @@ import java.util.List;
 
 public abstract class AbstractService<T extends AbstractEntity> {
 
-    abstract void removeAll(Session currentSession);
+    abstract void removeAll(String currentSession);
 
-    abstract List<T> findAll(Session currentSession);
+    abstract List<T> findAll(String currentSession);
 }

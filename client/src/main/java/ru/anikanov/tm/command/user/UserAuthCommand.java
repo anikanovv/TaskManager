@@ -1,6 +1,8 @@
 package ru.anikanov.tm.command.user;
 
 import ru.anikanov.tm.command.AbstractCommand;
+import ru.anikanov.tm.endpoint.Exception_Exception;
+import ru.anikanov.tm.endpoint.Session;
 import ru.anikanov.tm.endpoint.User;
 import ru.anikanov.tm.endpoint.UserEndPoint;
 import ru.anikanov.tm.utils.PasswordHash;
@@ -11,6 +13,7 @@ public class UserAuthCommand extends AbstractCommand {
     public boolean isSecure() {
         return true;
     }
+
     @Override
     public String getName() {
         return "auth user";
@@ -22,8 +25,8 @@ public class UserAuthCommand extends AbstractCommand {
     }
 
     @Override
-    public void execute() {
-        final UserEndPoint endPoint=bootstrap.getUserEndPoint();
+    public void execute() throws Exception {
+        final UserEndPoint endPoint = bootstrap.getUserEndPoint();
         System.out.println("login");
         final String login = bootstrap.getTerminalService().nextLine();
         System.out.println("pass");
@@ -33,6 +36,10 @@ public class UserAuthCommand extends AbstractCommand {
             bootstrap.setCurrentUser(user.getName());
             System.out.println("AUTH OK!");
             System.out.println(user.getRole());
+            Session session = bootstrap.getSessionEndPoint().createSession(user.getId());
+            bootstrap.setCurrentSession(session);
+            System.out.println(bootstrap.getCurrentSession().getSignature());
+            System.out.println("LLLL!");
         }
     }
 }

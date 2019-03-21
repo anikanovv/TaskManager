@@ -31,8 +31,7 @@ public class TerminalService implements ITerminalService {
                     if ((command.isSecure()) || (!serviceLocator.getCurrentUser().isEmpty())) command.execute();
                     else System.out.println("wrong");
                 else System.out.println("wrong command");
-            } catch (Exception e) {
-
+            } catch (Exception ignored) {
             }
         }
     }

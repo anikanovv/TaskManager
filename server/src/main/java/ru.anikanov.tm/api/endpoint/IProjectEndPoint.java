@@ -18,15 +18,15 @@ public interface IProjectEndPoint {
     @WebMethod
     void removeAllProject(@NotNull final String userId);
     @WebMethod
-    Project findProjectByPartOfNameProject(final String partOfName, @NotNull final String userId);
+    Project findProjectByPartOfNameProject(final String partOfName, @NotNull final String userId) throws Exception;
     @WebMethod
-    Project findProjectByPartOfDescription(final String partOfDescription, @NotNull final String userId);
+    Project findProjectByPartOfDescription(final String partOfDescription, @NotNull final String userId) throws Exception;
     @WebMethod
-    List<Project> sortProjectByStartDate(@NotNull final String userId);
+    List<Project> sortProjectByStartDate(@NotNull final String userId) throws Exception;
     @WebMethod
-    List<Project> sortProjectByFinishDate(@NotNull final String userId);
+    List<Project> sortProjectByFinishDate(@NotNull final String userId) throws Exception;
     @WebMethod
-    List<Project> sortProjectByStatus(@NotNull final String userId);
+    List<Project> sortProjectByStatus(@NotNull final String userId) throws Exception;
     @WebMethod
     List<Project> findAllProject(@NotNull final String userId);
 }

@@ -29,21 +29,21 @@ public interface ITaskEndPoint {
 
     @WebMethod
     @Nullable
-    List<Task> sortTaskByStartDate(@NotNull final String userId);
+    List<Task> sortTaskByStartDate(@NotNull final String userId) throws Exception;
 
     @WebMethod
     @Nullable
-    List<Task> sortTaskByFinishDate(@NotNull final String userId);
+    List<Task> sortTaskByFinishDate(@NotNull final String userId) throws Exception;
 
     @WebMethod
     @Nullable
-    List<Task> sortTaskByStatus(@NotNull final String userId);
+    List<Task> sortTaskByStatus(@NotNull final String userId) throws Exception;
 
     @WebMethod
     @Nullable
-    Task findTaskByPartOfName(@NotNull final String partOfName, @NotNull final String userId);
+    Task findTaskByPartOfName(@NotNull final String partOfName, @NotNull final String userId) throws Exception;
 
     @WebMethod
     @Nullable
-    Task findTaskByPartOfDescription(@NotNull final String partOfDescription, @NotNull final String userId);
+    Task findTaskByPartOfDescription(@NotNull final String partOfDescription, @NotNull final String userId) throws Exception;
 }
