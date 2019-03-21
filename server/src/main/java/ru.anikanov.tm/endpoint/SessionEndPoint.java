@@ -20,10 +20,10 @@ public class SessionEndPoint {
 
     @WebMethod
     public Session createSession(@WebParam String userId) throws Exception {
-        return serviceLocator.getSessionService().persist(userId);
+        return serviceLocator.getSessionService().create(userId);
     }
 
-    @WebMethod
+   /* @WebMethod
     public boolean validate(@WebParam Session session) throws Exception {
         return serviceLocator.getSessionService().validate(session);
     }
@@ -31,5 +31,5 @@ public class SessionEndPoint {
     @WebMethod
     public void remove(@WebParam Session session) throws Exception {
         serviceLocator.getSessionService().remove(session);
-    }
+    }*/
 }

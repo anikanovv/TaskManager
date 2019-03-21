@@ -10,17 +10,22 @@ import java.util.UUID;
 public class Session extends AbstractEntity implements Cloneable {
     private String userId;
     private Long timestamp;
-    private String signature;
+//    private String signature;
 
-    //    private String id = UUID.randomUUID().toString();
-    public Session(String userId) {
-        this.userId=userId;
-        this.id = UUID.randomUUID().toString();
+    public Session() {
     }
-    Session(){}
 
-    @Override
+    public Session(String userId, Long timestamp) {
+        this.userId=userId;
+        this.timestamp = timestamp;
+    }
+ /*   public void setUserId(String id){
+        userId=id;
+    }*/
+
+
+ /*   @Override
     public Session clone() throws CloneNotSupportedException {
         return (Session) super.clone();
-    }
+    }*/
 }

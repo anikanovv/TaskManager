@@ -3,13 +3,8 @@ package ru.anikanov.tm.bootstrap;
 import lombok.Getter;
 import lombok.Setter;
 import org.jetbrains.annotations.NotNull;
-import org.jetbrains.annotations.Nullable;
 import ru.anikanov.tm.api.ServiceLocator;
-import ru.anikanov.tm.api.endpoint.IProjectEndPoint;
-import ru.anikanov.tm.api.endpoint.ITaskEndPoint;
-import ru.anikanov.tm.api.endpoint.IUserEndPoint;
 import ru.anikanov.tm.api.repository.IProjectRepository;
-import ru.anikanov.tm.api.repository.ISessionRepository;
 import ru.anikanov.tm.api.repository.ITaskRepository;
 import ru.anikanov.tm.api.repository.IUserRepository;
 import ru.anikanov.tm.api.service.IProjectService;
@@ -19,7 +14,6 @@ import ru.anikanov.tm.endpoint.ProjectEndPoint;
 import ru.anikanov.tm.endpoint.SessionEndPoint;
 import ru.anikanov.tm.endpoint.TaskEndPoint;
 import ru.anikanov.tm.endpoint.UserEndPoint;
-import ru.anikanov.tm.entity.Session;
 import ru.anikanov.tm.enumeration.Role;
 import ru.anikanov.tm.repository.ProjectRepository;
 import ru.anikanov.tm.repository.SessionRepository;
@@ -37,8 +31,6 @@ import javax.xml.ws.Endpoint;
 @Setter
 public class Bootstrap implements ServiceLocator {
 
-    /* @Nullable
-     private Session currentSession;*/
     @NotNull
     private ITaskRepository taskRepository = new TaskRepository();
     @NotNull

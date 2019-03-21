@@ -9,9 +9,9 @@ import javax.xml.bind.annotation.XmlType;
 
 /**
  * <p>Java class for createSessionResponse complex type.
- *
+ * 
  * <p>The following schema fragment specifies the expected content contained within this class.
- *
+ * 
  * <pre>
  * &lt;complexType name="createSessionResponse"&gt;
  *   &lt;complexContent&gt;
@@ -23,6 +23,8 @@ import javax.xml.bind.annotation.XmlType;
  *   &lt;/complexContent&gt;
  * &lt;/complexType&gt;
  * </pre>
+ *
+ * 
  */
 @XmlAccessorType(XmlAccessType.FIELD)
 @XmlType(name = "createSessionResponse", propOrder = {
@@ -36,8 +38,10 @@ public class CreateSessionResponse {
     /**
      * Gets the value of the return property.
      *
-     * @return possible object is
-     * {@link Session }
+     * @return
+     *     possible object is
+     *     {@link Session }
+     *     
      */
     public Session getReturn() {
         return _return;
@@ -46,8 +50,10 @@ public class CreateSessionResponse {
     /**
      * Sets the value of the return property.
      *
-     * @param value allowed object is
-     *              {@link Session }
+     * @param value
+     *     allowed object is
+     *     {@link Session }
+     *     
      */
     public void setReturn(Session value) {
         this._return = value;

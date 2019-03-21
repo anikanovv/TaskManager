@@ -11,5 +11,5 @@ public abstract class AbstractEntity {
     @Setter
     @NotNull
     String id = UUID.randomUUID().toString();
-    private String name;
+//    private String name;
 }

@@ -4,6 +4,8 @@ import org.jetbrains.annotations.NotNull;
 import ru.anikanov.tm.entity.Session;
 import ru.anikanov.tm.repository.SessionRepository;
 
+import java.util.UUID;
+
 public class SessionService {
 
     @NotNull
@@ -13,9 +15,16 @@ public class SessionService {
         sessionRepository=sr;
     }
 
-    public Session persist(String userId) throws Exception {
-        if (userId != null) return sessionRepository.persist(new Session(userId));
-        else throw new Exception();
+    public Session create(String userId) {
+        Session session = new Session(userId, System.currentTimeMillis());
+//        session.setUserId();
+//        session.setId(UUID.randomUUID().toString());
+//        session.setSignature(Integer.toString(session.getId().hashCode()));
+//        session.setTimestamp(System.currentTimeMillis());
+        return sessionRepository.create(session);
+    }
+   /* public Session persist(String userId) throws Exception {
+        return sessionRepository.persist(new Session(userId));
     }
 
     public void check(Session session) throws Exception {
@@ -34,6 +43,6 @@ public class SessionService {
 
     public void remove(Session session) throws Exception {
         sessionRepository.remove(session);
-    }
+    }*/
 
 }

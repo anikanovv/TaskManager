@@ -9,9 +9,9 @@ import javax.xml.bind.annotation.XmlType;
 
 /**
  * <p>Java class for validateResponse complex type.
- *
+ * 
  * <p>The following schema fragment specifies the expected content contained within this class.
- *
+ * 
  * <pre>
  * &lt;complexType name="validateResponse"&gt;
  *   &lt;complexContent&gt;
@@ -23,6 +23,8 @@ import javax.xml.bind.annotation.XmlType;
  *   &lt;/complexContent&gt;
  * &lt;/complexType&gt;
  * </pre>
+ *
+ * 
  */
 @XmlAccessorType(XmlAccessType.FIELD)
 @XmlType(name = "validateResponse", propOrder = {
@@ -35,6 +37,7 @@ public class ValidateResponse {
 
     /**
      * Gets the value of the return property.
+     * 
      */
     public boolean isReturn() {
         return _return;
@@ -42,6 +45,7 @@ public class ValidateResponse {
 
     /**
      * Sets the value of the return property.
+     * 
      */
     public void setReturn(boolean value) {
         this._return = value;
