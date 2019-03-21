@@ -25,17 +25,17 @@ public interface IProjectRepository extends IRepository {
     List<Project> findAll();
 
     @Nullable
-    List<Project> sortedByStartDate();
+    List<Project> sortedByStartDate() throws Exception;
 
     @Nullable
-    List<Project> sortedByFinishDate();
+    List<Project> sortedByFinishDate() throws Exception;
 
     @Nullable
-    List<Project> sortedByStatus();
+    List<Project> sortedByStatus() throws Exception;
 
     @Nullable
-    Project findByPartOfName(@NotNull final String partOfName);
+    Project findByPartOfName(@NotNull final String partOfName) throws Exception;
 
     @Nullable
-    Project findByPartOfDescription(@NotNull final String partOfDescription);
+    Project findByPartOfDescription(@NotNull final String partOfDescription) throws Exception;
 }

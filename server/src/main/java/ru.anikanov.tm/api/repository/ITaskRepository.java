@@ -8,7 +8,7 @@ import java.util.List;
 
 public interface ITaskRepository extends IRepository {
 
-    @NotNull
+    @Nullable
     Task persist(@NotNull final Task task);
 
     void merge(@NotNull Task task) throws Exception;
@@ -26,19 +26,19 @@ public interface ITaskRepository extends IRepository {
     void removeWholeProject(@NotNull final String projectId);
 
     @Nullable
-    List<Task> sortedByStartDate();
+    List<Task> sortedByStartDate() throws Exception;
 
     @Nullable
-    List<Task> sortedByFinishDate();
+    List<Task> sortedByFinishDate() throws Exception;
 
     @Nullable
-    List<Task> sortedByStatus();
+    List<Task> sortedByStatus() throws Exception;
 
     @Nullable
-    Task findByPartOfName(@NotNull String partOfName);
+    Task findByPartOfName(@NotNull String partOfName) throws Exception;
 
     @Nullable
-    Task findByPartOfDescription(@NotNull String partOfDescription);
+    Task findByPartOfDescription(@NotNull String partOfDescription) throws Exception;
 
 
 }

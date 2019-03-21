@@ -21,7 +21,9 @@ public class ProjectRepository extends AbstractRepository implements IProjectRep
 
     @Override
     public void merge(@NotNull final Project p) throws Exception {
+        if (p.getName() == null) throw new Exception();
         @Nullable final Project project = findOne(p.getName());
+        if (project == null) throw new Exception();
         project.setDescription(p.getDescription());
         project.setStart(p.getStart());
         project.setEnd(p.getEnd());
@@ -48,42 +50,48 @@ public class ProjectRepository extends AbstractRepository implements IProjectRep
     }
 
     @Nullable
-    public List<Project> sortedByStartDate() {
+    public List<Project> sortedByStartDate() throws Exception {
         @Nullable List<Project> projects = findAll();
+        if (projects == null) throw new Exception();
         projects.sort(Comparator.comparing(Project::getStartDate));
         return projects;
     }
 
     @Nullable
-    public List<Project> sortedByFinishDate() {
+    public List<Project> sortedByFinishDate() throws Exception {
         @Nullable List<Project> projects = findAll();
+        if (projects == null) throw new Exception();
         projects.sort(Comparator.comparing(Project::getEndDate));
         return projects;
     }
 
     @Nullable
-    public List<Project> sortedByStatus() {
+    public List<Project> sortedByStatus() throws Exception {
         @Nullable final List<Project> projects = findAll();
+        if (projects == null) throw new Exception();
         projects.sort(Comparator.comparing(Project::getStatus));
         return projects;
     }
 
     @Nullable
-    public Project findByPartOfName(@NotNull final String partOfName) {
+    public Project findByPartOfName(@NotNull final String partOfName) throws Exception {
         @Nullable final List<Project> projects = findAll();
         @Nullable Project thisproject = null;
+        if (projects == null) throw new Exception();
         for (Project project : projects) {
-            if (project.getName().contains(partOfName)) thisproject = project;
+            if ((project.getName() != null) && project.getName().contains(partOfName)) thisproject = project;
         }
         return thisproject;
     }
 
     @Nullable
-    public Project findByPartOfDescription(@NotNull final String partOfDescription) {
+    public Project findByPartOfDescription(@NotNull final String partOfDescription) throws Exception {
         @Nullable final List<Project> projects = findAll();
         @Nullable Project thisproject = null;
+        if (projects == null) throw new Exception();
         for (Project project : projects) {
-            if (project.getDescription().contains(partOfDescription)) thisproject = project;
+            if ((project.getDescription() != null) && project.getDescription().contains(partOfDescription))
+                thisproject = project;
         }
         return thisproject;
     }

@@ -9,7 +9,7 @@ public enum Role {
     @NotNull
     private final String name;
 
-    Role(String role) {
+    Role(@NotNull String role) {
         name = role;
     }
 

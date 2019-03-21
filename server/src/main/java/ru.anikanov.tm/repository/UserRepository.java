@@ -29,6 +29,7 @@ public class UserRepository extends AbstractRepository implements IUserRepositor
 
     public boolean logIn(@NotNull final String login, @NotNull final String password) {
         @Nullable final User user = findOne(login);
+        if (user == null) return false;
         return user.getHashPassword().equals(password);
     }
 
@@ -38,6 +39,7 @@ public class UserRepository extends AbstractRepository implements IUserRepositor
 
     public boolean updatePassword(@NotNull final String login, @NotNull final String oldOne, @NotNull final String newOne) {
         @Nullable User user = userMap.get(login);
+        if (user == null) return false;
         if (user.getHashPassword().equals(oldOne)) {
             user.setHashPassword(newOne);
             return true;

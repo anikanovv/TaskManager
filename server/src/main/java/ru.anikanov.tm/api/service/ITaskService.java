@@ -8,7 +8,7 @@ import java.util.List;
 
 public interface ITaskService {
     @Nullable
-    Task persist(@Nullable final String projectId, @Nullable final String taskName, @Nullable final String description, @Nullable final String dateStart, @Nullable final String dateFinish, @NotNull final String userId);
+    Task persist(@NotNull final String projectId, @Nullable final String taskName, @Nullable final String description, @Nullable final String dateStart, @Nullable final String dateFinish, @NotNull final String userId);
 
     void merge(@Nullable final String taskId, @Nullable final String taskName, @Nullable final String description, @Nullable final String dateStart, @Nullable final String dateFinish, @NotNull final String userId);
 

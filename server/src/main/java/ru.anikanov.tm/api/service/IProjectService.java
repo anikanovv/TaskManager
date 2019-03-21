@@ -24,17 +24,17 @@ public interface IProjectService {
     List<Project> findAll(@NotNull final String userId);
 
     @Nullable
-    List<Project> sortedByStartDate(@NotNull final String userId);
+    List<Project> sortedByStartDate(@NotNull final String userId) throws Exception;
 
     @Nullable
-    List<Project> sortedByFinishDate(@NotNull final String userId);
+    List<Project> sortedByFinishDate(@NotNull final String userId) throws Exception;
 
     @Nullable
-    List<Project> sortedByStatus(@NotNull final String userId);
+    List<Project> sortedByStatus(@NotNull final String userId) throws Exception;
 
     @Nullable
-    Project findByPartOfName(@NotNull final String partOfName, @NotNull final String userId);
+    Project findByPartOfName(@NotNull final String partOfName, @NotNull final String userId) throws Exception;
 
     @Nullable
-    Project findByPartOfDescription(@NotNull final String partOfDescription, @NotNull final String userId);
+    Project findByPartOfDescription(@NotNull final String partOfDescription, @NotNull final String userId) throws Exception;
 }

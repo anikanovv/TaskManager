@@ -1,5 +1,6 @@
 package ru.anikanov.tm.api.endpoint;
 
+import org.jetbrains.annotations.NotNull;
 import ru.anikanov.tm.entity.Project;
 
 import javax.jws.WebMethod;
@@ -9,23 +10,23 @@ import java.util.List;
 @WebService
 public interface IProjectEndPoint {
     @WebMethod
-    Project createProject(String name, String description, String startDate, String endDate, String userId);
+    Project createProject(final String name, final String description, final String startDate, final String endDate, @NotNull final String userId);
     @WebMethod
-    void updateProject(String name, String description, String startDate, String endDate, String userId);
+    void updateProject(final String name, final String description, final String startDate, final String endDate, @NotNull final String userId);
     @WebMethod
-    void removeProject(String name, String userId);
+    void removeProject(final String name, @NotNull final String userId);
     @WebMethod
-    void removeAllProject(String userId);
+    void removeAllProject(@NotNull final String userId);
     @WebMethod
-    Project findProjectByPartOfNameProject(String partOfName, String userId);
+    Project findProjectByPartOfNameProject(final String partOfName, @NotNull final String userId);
     @WebMethod
-    Project findProjectByPartOfDescription(String partOfDescription, String userId);
+    Project findProjectByPartOfDescription(final String partOfDescription, @NotNull final String userId);
     @WebMethod
-    List<Project> sortProjectByStartDate(String userId);
+    List<Project> sortProjectByStartDate(@NotNull final String userId);
     @WebMethod
-    List<Project> sortProjectByFinishDate(String userId);
+    List<Project> sortProjectByFinishDate(@NotNull final String userId);
     @WebMethod
-    List<Project> sortProjectByStatus(String userId);
+    List<Project> sortProjectByStatus(@NotNull final String userId);
     @WebMethod
-    List<Project> findAllProject(String userId);
+    List<Project> findAllProject(@NotNull final String userId);
 }

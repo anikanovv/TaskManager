@@ -27,16 +27,16 @@ public class Project extends AbstractEntity implements Serializable {
     @Nullable
     @XmlElement
     private String description;
-    @NotNull
+    @Nullable
     @XmlElement
     private Date startDate;
     @Nullable
     @XmlElement
     private Date endDate;
-    @NotNull
+    @Nullable
     @XmlElement
     private String userId;
-    @NotNull
+    @Nullable
     @XmlElement
     private Status status;
 
@@ -44,7 +44,7 @@ public class Project extends AbstractEntity implements Serializable {
 
     }
 
-    public Project(String name, String description, String startDate, String endDate, String userId) throws Exception {
+    public Project(@NotNull String name, @NotNull String description, @NotNull String startDate, @NotNull String endDate, @NotNull String userId) throws Exception {
         this.name=name;
         this.description = description;
         setStart(startDate);
@@ -73,7 +73,6 @@ public class Project extends AbstractEntity implements Serializable {
 
     @Override
     public String toString() {
-        StringBuilder builder = new StringBuilder("Project " + name + " - " + description + " " + id + "\n" + "Start: " + (startDate) + " end: " + (endDate) + "\n" + "Tasks :\n");
-        return builder.toString();
+        return ("Project " + name + " - " + description + " " + id + "\n" + "Start: " + (startDate) + " end: " + (endDate) + "\n" + "Tasks :\n");
     }
 }

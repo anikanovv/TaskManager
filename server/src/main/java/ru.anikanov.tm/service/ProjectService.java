@@ -29,13 +29,13 @@ public class ProjectService extends AbstractService implements IProjectService {
 
     @Nullable
     public Project persist(@Nullable final String projectName, @Nullable final String description, @Nullable final String dateStart, @Nullable final String dateFinish, @NotNull final Session session) {
-        if (projectName.isEmpty() || (projectName == null)) return null;
+        if ((projectName == null) || projectName.isEmpty()) return null;
         @Nullable final Project project = projectRepository.findOne(projectName);
         if (project == null) {
-            if (description.isEmpty() || (description == null)) return null;
-            if (dateStart.isEmpty() || (dateStart == null)) return null;
-            if (dateFinish.isEmpty() || (dateFinish == null)) return null;
-            if (userId.isEmpty() || (userId == null)) return null;
+            if ((description == null) || description.isEmpty()) return null;
+            if ((dateStart == null) || dateStart.isEmpty()) return null;
+            if ((dateFinish == null) || dateFinish.isEmpty()) return null;
+            if ((userId == null) || userId.isEmpty()) return null;
             try {
                 @Nullable final Project newproject = new Project(projectName, description, dateStart, dateFinish, userId);
                 return projectRepository.persist(newproject);
@@ -47,16 +47,16 @@ public class ProjectService extends AbstractService implements IProjectService {
     }
 
     public void merge(@Nullable final String projectName, @Nullable final String description, @Nullable final String dateStart, @Nullable final String dateFinish, @NotNull final String userId) {
-        if (projectName.isEmpty() || (projectName == null)) return;
+        if ((projectName == null) || projectName.isEmpty()) return;
         @Nullable final Project project = projectRepository.findOne(projectName);
         @Nullable final User user = userRepository.findOne(userId);
-        if ((!userId.equals(project.getUserId())) || (!user.getRole().equals("admin")))
+        if (project == null) return;
+        if (user == null) return;
+        if ((!userId.equals(project.getUserId())) || (!user.getRole().displayName().equals("admin")))
             return;
-        if (project != null) {
-            if (description.isEmpty() || (description == null)) return;
-            if (dateStart.isEmpty() || (dateStart == null)) return;
-            if (dateFinish.isEmpty() || (dateFinish == null)) return;
-        }
+        if ((description == null) || description.isEmpty()) return;
+        if ((dateStart == null) || dateStart.isEmpty()) return;
+        if ((dateFinish == null) || dateFinish.isEmpty()) return;
         try {
             @Nullable final Project p = new Project(projectName, description, dateStart, dateFinish, userId);
             projectRepository.merge(p);
@@ -65,22 +65,24 @@ public class ProjectService extends AbstractService implements IProjectService {
         }
     }
 
-    public void remove(@Nullable final String projectName, @Nullable final String userId) {
-        if (projectName.isEmpty() || (projectName == null)) return;
+    public void remove(@Nullable final String projectName, @NotNull final String userId) {
+        if ((projectName == null) || projectName.isEmpty()) return;
         @Nullable final Project project = projectRepository.findOne(projectName);
         @Nullable final User user = userRepository.findOne(userId);
-        if ((!userId.equals(project.getUserId())) || (!user.equals("admin")))
+        if (project == null) return;
+        if (user == null) return;
+        if ((!userId.equals(project.getUserId())) || (!user.getRole().displayName().equals("admin")))
             return;
-        if (project != null) {
-            @Nullable final String projectId = project.getId();
-            projectRepository.remove(projectName);
-            taskRepository.removeWholeProject(projectId);
-        }
+        @NotNull final String projectId = project.getId();
+        projectRepository.remove(projectName);
+        taskRepository.removeWholeProject(projectId);
+
     }
 
     public void removeAll(@NotNull final String userId) {
         @Nullable final User user = userRepository.findOne(userId);
-        if (!user.getRole().equals("admin")) return;
+        if (user == null) return;
+        if (!user.getRole().displayName().equals("admin")) return;
         projectRepository.removeAll();
         taskRepository.removeAll();
     }
@@ -94,40 +96,40 @@ public class ProjectService extends AbstractService implements IProjectService {
 
     @Nullable
     public Project findOne(@Nullable final String projectName, @NotNull final String userId) {
-        if (projectName.isEmpty() || (projectName == null)) return null;
+        if ((projectName == null) || projectName.isEmpty()) return null;
         return projectRepository.findOne(projectName);
     }
 
     @Nullable
-    public List<Project> sortedByStartDate(@NotNull final String userId) {
+    public List<Project> sortedByStartDate(@NotNull final String userId) throws Exception {
         @Nullable List<Project> projects = findAll(userId);
-        if ((projects.isEmpty()) || (projects == null)) return null;
+        if ((projects == null) || (projects.isEmpty())) return null;
         return projectRepository.sortedByStartDate();
     }
 
     @Nullable
-    public List<Project> sortedByFinishDate(@NotNull final String userId) {
+    public List<Project> sortedByFinishDate(@NotNull final String userId) throws Exception {
         @Nullable List<Project> projects = findAll(userId);
-        if ((projects.isEmpty()) || (projects == null)) return null;
+        if ((projects == null) || (projects.isEmpty())) return null;
         return projectRepository.sortedByFinishDate();
     }
 
     @Nullable
-    public List<Project> sortedByStatus(@NotNull final String userId) {
+    public List<Project> sortedByStatus(@NotNull final String userId) throws Exception {
         @Nullable List<Project> projects = findAll(userId);
-        if ((projects.isEmpty()) || (projects == null)) return null;
+        if ((projects == null) || (projects.isEmpty())) return null;
         return projectRepository.sortedByStatus();
     }
 
     @Nullable
-    public Project findByPartOfName(@NotNull final String partOfName, @NotNull final String userId) {
-        if ((partOfName.isEmpty()) || (partOfName == null)) return null;
+    public Project findByPartOfName(@Nullable final String partOfName, @NotNull final String userId) throws Exception {
+        if ((partOfName == null) || (partOfName.isEmpty())) return null;
         return projectRepository.findByPartOfName(partOfName);
     }
 
     @Nullable
-    public Project findByPartOfDescription(@NotNull final String partOfDescription, @NotNull final String userId) {
-        if ((partOfDescription.isEmpty()) || (partOfDescription == null)) return null;
+    public Project findByPartOfDescription(@Nullable final String partOfDescription, @NotNull final String userId) throws Exception {
+        if ((partOfDescription == null) || (partOfDescription.isEmpty())) return null;
         return projectRepository.findByPartOfName(partOfDescription);
     }
 
