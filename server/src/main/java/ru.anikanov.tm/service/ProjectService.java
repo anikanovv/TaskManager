@@ -3,15 +3,14 @@ package ru.anikanov.tm.service;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 import ru.anikanov.tm.api.repository.IProjectRepository;
-import ru.anikanov.tm.api.service.IProjectService;
 import ru.anikanov.tm.api.repository.ITaskRepository;
 import ru.anikanov.tm.api.repository.IUserRepository;
+import ru.anikanov.tm.api.service.IProjectService;
 import ru.anikanov.tm.entity.Project;
-import ru.anikanov.tm.entity.Session;
 import ru.anikanov.tm.entity.User;
 
-import java.text.ParseException;
 import java.util.List;
+import java.util.Objects;
 
 public class ProjectService extends AbstractService implements IProjectService {
     @NotNull
@@ -28,7 +27,7 @@ public class ProjectService extends AbstractService implements IProjectService {
     }
 
     @Nullable
-    public Project persist(@Nullable final String projectName, @Nullable final String description, @Nullable final String dateStart, @Nullable final String dateFinish, @NotNull final String userId) {
+    public Project persist(@Nullable final String projectName, @Nullable final String description, @Nullable final String dateStart, @Nullable final String dateFinish, @Nullable final String userId) {
         if ((projectName == null) || projectName.isEmpty()) return null;
         @Nullable final Project project = projectRepository.findOne(projectName);
         if (project == null) {
@@ -52,7 +51,7 @@ public class ProjectService extends AbstractService implements IProjectService {
         @Nullable final User user = userRepository.findOne(userId);
         if (project == null) return;
         if (user == null) return;
-        if ((!userId.equals(project.getUserId())) || (!user.getRole().displayName().equals("admin")))
+        if ((!userId.equals(project.getUserId())) || (!Objects.requireNonNull(user.getRole()).displayName().equals("admin")))
             return;
         if ((description == null) || description.isEmpty()) return;
         if ((dateStart == null) || dateStart.isEmpty()) return;
@@ -65,13 +64,14 @@ public class ProjectService extends AbstractService implements IProjectService {
         }
     }
 
-    public void remove(@Nullable final String projectName, @NotNull final String userId) {
+    public void remove(@Nullable final String projectName, @Nullable final String userId) {
         if ((projectName == null) || projectName.isEmpty()) return;
+        if ((userId == null) || userId.isEmpty()) return;
         @Nullable final Project project = projectRepository.findOne(projectName);
         @Nullable final User user = userRepository.findOne(userId);
         if (project == null) return;
         if (user == null) return;
-        if ((!userId.equals(project.getUserId())) || (!user.getRole().displayName().equals("admin")))
+        if ((!userId.equals(project.getUserId())) || (!Objects.equals(Objects.requireNonNull(user.getRole()).displayName(), "admin")))
             return;
         @NotNull final String projectId = project.getId();
         projectRepository.remove(projectName);
@@ -82,6 +82,7 @@ public class ProjectService extends AbstractService implements IProjectService {
     public void removeAll(@NotNull final String userId) {
         @Nullable final User user = userRepository.findOne(userId);
         if (user == null) return;
+        if (user.getRole() == null) return;
         if (!user.getRole().displayName().equals("admin")) return;
         projectRepository.removeAll();
         taskRepository.removeAll();

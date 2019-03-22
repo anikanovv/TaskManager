@@ -27,6 +27,7 @@ public class ProjectSortByStatusCommand extends AbstractCommand {
     public void execute() throws Exception {
         final ProjectEndPoint projectEndPoint= bootstrap.getProjectEndPoint();
         @Nullable final List<Project> projects = projectEndPoint.sortProjectByStatus(bootstrap.getCurrentUser());
-        projects.forEach(project -> System.out.println(project));
+        assert projects != null;
+        projects.forEach(System.out::println);
     }
 }

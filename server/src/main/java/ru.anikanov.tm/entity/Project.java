@@ -4,18 +4,19 @@ package ru.anikanov.tm.entity;
 import com.fasterxml.jackson.dataformat.xml.annotation.JacksonXmlElementWrapper;
 import com.fasterxml.jackson.dataformat.xml.annotation.JacksonXmlRootElement;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
-import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 import ru.anikanov.tm.enumeration.Status;
 import ru.anikanov.tm.utils.DateToString;
 
 import javax.xml.bind.annotation.*;
 import java.io.Serializable;
-import java.util.*;
+import java.util.Date;
 
 @Getter
 @Setter
+@NoArgsConstructor
 @JacksonXmlRootElement
 @XmlRootElement(name = "Project")
 @XmlAccessorType(XmlAccessType.FIELD)
@@ -40,11 +41,8 @@ public class Project extends AbstractEntity implements Serializable {
     @XmlElement
     private Status status;
 
-    public Project() {
-
-    }
-
-    public Project(@NotNull String name, @NotNull String description, @NotNull String startDate, @NotNull String endDate, @NotNull String userId) throws Exception {
+    public Project(@Nullable final String name, @Nullable final String description, @Nullable final String startDate,
+                   @Nullable final String endDate, @Nullable final String userId) throws Exception {
         this.name=name;
         this.description = description;
         setStart(startDate);
@@ -63,11 +61,11 @@ public class Project extends AbstractEntity implements Serializable {
         return new DateToString().dateToString(startDate);
     }
 
-    public void setStart(String startString) throws Exception {
+    public void setStart(@Nullable final String startString) throws Exception {
         startDate = new DateToString().stringToDate(startString);
     }
 
-    public void setEnd(String endString) throws Exception {
+    public void setEnd(@Nullable final String endString) throws Exception {
         endDate = new DateToString().stringToDate(endString);
     }
 

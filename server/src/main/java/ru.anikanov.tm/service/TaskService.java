@@ -4,12 +4,13 @@ import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 import ru.anikanov.tm.api.repository.IProjectRepository;
 import ru.anikanov.tm.api.repository.ITaskRepository;
-import ru.anikanov.tm.api.service.ITaskService;
 import ru.anikanov.tm.api.repository.IUserRepository;
+import ru.anikanov.tm.api.service.ITaskService;
 import ru.anikanov.tm.entity.Task;
 import ru.anikanov.tm.entity.User;
 
 import java.util.List;
+import java.util.Objects;
 
 public class TaskService extends AbstractService implements ITaskService {
     @NotNull
@@ -57,7 +58,8 @@ public class TaskService extends AbstractService implements ITaskService {
         @Nullable final User user = userRepository.findOne(userId);
         if (task == null) return;
         if (user == null) return;
-        if ((!userId.equals(task.getUserId())) || (!user.getRole().displayName().equals("admin"))) return;
+        if ((!userId.equals(task.getUserId())) || (!Objects.requireNonNull(user.getRole()).displayName().equals("admin")))
+            return;
         if ((taskName == null) || taskName.isEmpty()) return;
         if ((description == null) || description.isEmpty()) return;
         if ((dateStart == null) || dateStart.isEmpty()) return;
@@ -75,7 +77,7 @@ public class TaskService extends AbstractService implements ITaskService {
         @Nullable final User user = userRepository.findOne(userId);
         if (task == null) return;
         if (user == null) return;
-        if ((!userId.equals(task.getUserId())) || (!user.getRole().displayName().equals("admin")))
+        if ((!userId.equals(task.getUserId())) || (!Objects.requireNonNull(user.getRole()).displayName().equals("admin")))
             return;
         taskRepository.remove(taskId);
     }
@@ -83,14 +85,14 @@ public class TaskService extends AbstractService implements ITaskService {
     public void removeAll(@NotNull final String userId) {
         @Nullable final User user = userRepository.findOne(userId);
         if (user == null) return;
-        if (!user.getRole().displayName().equals("admin")) return;
+        if (!Objects.requireNonNull(user.getRole()).displayName().equals("admin")) return;
         taskRepository.removeAll();
     }
 
     public List<Task> findAll(@NotNull final String userId) {
         @Nullable final User user = userRepository.findOne(userId);
         if (user == null) return null;
-        if (!user.getRole().displayName().equals("admin")) return null;
+        if (!Objects.requireNonNull(user.getRole()).displayName().equals("admin")) return null;
         return taskRepository.findAll();
     }
 

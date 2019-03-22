@@ -1,31 +1,28 @@
 package ru.anikanov.tm.entity;
 
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
+import org.jetbrains.annotations.Nullable;
 
-import java.util.UUID;
-
-@Getter
 @Setter
+@Getter
+@NoArgsConstructor
 public class Session extends AbstractEntity implements Cloneable {
+    @Nullable
     private String userId;
+    @Nullable
     private Long timestamp;
-//    private String signature;
+    @Nullable
+    private String signature;
 
-    public Session() {
-    }
-
-    public Session(String userId, Long timestamp) {
+    public Session(@Nullable final String userId, @Nullable final Long timestamp) {
         this.userId=userId;
         this.timestamp = timestamp;
     }
- /*   public void setUserId(String id){
-        userId=id;
-    }*/
 
-
- /*   @Override
+    @Override
     public Session clone() throws CloneNotSupportedException {
         return (Session) super.clone();
-    }*/
+    }
 }

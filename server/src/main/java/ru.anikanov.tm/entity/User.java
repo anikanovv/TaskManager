@@ -1,19 +1,23 @@
 package ru.anikanov.tm.entity;
 
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 import ru.anikanov.tm.enumeration.Role;
 
+import java.util.Objects;
+
 @Getter
 @Setter
+@NoArgsConstructor
 public class User extends AbstractEntity {
     @Nullable
     private String name;
-    @NotNull
+    @Nullable
     private String hashPassword;
-    @NotNull
+    @Nullable
     private Role role;
 
     public User(@NotNull String login, @NotNull String password, @NotNull Role role) {
@@ -23,7 +27,7 @@ public class User extends AbstractEntity {
     }
 
     public String getRoleName() {
-        return role.displayName();
+        return Objects.requireNonNull(role).displayName();
     }
 
 

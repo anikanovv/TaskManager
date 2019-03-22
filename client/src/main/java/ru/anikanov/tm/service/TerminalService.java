@@ -7,6 +7,7 @@ import ru.anikanov.tm.api.ServiceLocator;
 import ru.anikanov.tm.api.service.ITerminalService;
 import ru.anikanov.tm.command.AbstractCommand;
 
+import java.util.Objects;
 import java.util.Scanner;
 
 public class TerminalService implements ITerminalService {
@@ -20,20 +21,18 @@ public class TerminalService implements ITerminalService {
         this.serviceLocator = serviceLocator;
     }
 
-    public void terminalCicle() {
-        while (true) {
+    public void terminalCicle() throws Exception {
+        do {
             @Nullable String commandString;
             System.out.println("command");
-            try {
                 commandString = scanner.nextLine().trim();
                 @Nullable AbstractCommand command = serviceLocator.getCommandMap().get(commandString);
                 if (command != null)
-                    if ((command.isSecure()) || (!serviceLocator.getCurrentUser().isEmpty())) command.execute();
+                    if ((command.isSecure()) || (!Objects.requireNonNull(serviceLocator.getCurrentUser()).isEmpty()))
+                        command.execute();
                     else System.out.println("wrong");
                 else System.out.println("wrong command");
-            } catch (Exception ignored) {
-            }
-        }
+        } while (true);
     }
 
     @Nullable

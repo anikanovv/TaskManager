@@ -5,6 +5,8 @@ import ru.anikanov.tm.endpoint.Role;
 import ru.anikanov.tm.endpoint.UserEndPoint;
 import ru.anikanov.tm.utils.PasswordHash;
 
+import java.util.Objects;
+
 
 public class UserUpdateCommand extends AbstractCommand {
 
@@ -26,11 +28,13 @@ public class UserUpdateCommand extends AbstractCommand {
     public void execute() {
         final UserEndPoint endPoint=bootstrap.getUserEndPoint();
         final String login = bootstrap.getTerminalService().nextLine();
-        final String pass = PasswordHash.makehash(bootstrap.getTerminalService().nextLine());
+        final String pass = PasswordHash.makehash(Objects.requireNonNull(bootstrap.getTerminalService().nextLine()));
         final String newRole = bootstrap.getTerminalService().nextLine();
-        Role role;
-        if (newRole.equals("admin")) role = Role.ADMIN;
-        else role = Role.USER;
+        Role role = null;
+        if (newRole != null) {
+            if (newRole.equals("admin")) role = Role.ADMIN;
+            else role = Role.USER;
+        }
         endPoint.updateUser(login, pass, role);
     }
 }

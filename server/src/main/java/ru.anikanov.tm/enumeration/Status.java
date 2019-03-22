@@ -1,20 +1,20 @@
 package ru.anikanov.tm.enumeration;
 
-import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
 
 public enum Status {
     SCHEDULED("scheduled"),
     INPROCESS("in the process"),
     DONE("done");
 
-    @NotNull
+    @Nullable
     private final String name;
 
-
-    Status(@NotNull String name) {
+    Status(@Nullable final String name) {
         this.name = name;
     }
 
+    @Nullable
     public String displayName() {
         return name;
     }

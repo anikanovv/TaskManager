@@ -3,6 +3,7 @@ package ru.anikanov.tm.entity;
 
 import com.fasterxml.jackson.dataformat.xml.annotation.JacksonXmlRootElement;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 import org.jetbrains.annotations.Nullable;
 
@@ -15,6 +16,7 @@ import java.util.List;
 
 @Getter
 @Setter
+@NoArgsConstructor
 @JacksonXmlRootElement
 @XmlRootElement(name = "Domain")
 @XmlAccessorType(XmlAccessType.FIELD)

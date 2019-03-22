@@ -27,6 +27,8 @@ public class ProjectSortByEndDateCommand extends AbstractCommand {
     public void execute() throws Exception {
         final ProjectEndPoint projectEndPoint= bootstrap.getProjectEndPoint();
         @Nullable final List<Project> projects = projectEndPoint.sortProjectByFinishDate(bootstrap.getCurrentUser());
-        projects.forEach(project -> System.out.println(project));
+        if (projects != null) {
+            projects.forEach(System.out::println);
+        }
     }
 }

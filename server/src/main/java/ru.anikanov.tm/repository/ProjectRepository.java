@@ -20,13 +20,14 @@ public class ProjectRepository extends AbstractRepository implements IProjectRep
     }
 
     @Override
-    public void merge(@NotNull final Project p) throws Exception {
-        if (p.getName() == null) throw new Exception();
-        @Nullable final Project project = findOne(p.getName());
-        if (project == null) throw new Exception();
-        project.setDescription(p.getDescription());
-        project.setStart(p.getStart());
-        project.setEnd(p.getEnd());
+    public Project merge(@NotNull final Project project) throws Exception {
+        if (project.getName() == null) throw new Exception();
+        @Nullable final Project newProject = findOne(project.getName());
+        if (newProject == null) throw new Exception();
+        newProject.setDescription(project.getDescription());
+        newProject.setStart(project.getStart());
+        newProject.setEnd(project.getEnd());
+        return project;
     }
 
     public void remove(@NotNull final String projectName) {

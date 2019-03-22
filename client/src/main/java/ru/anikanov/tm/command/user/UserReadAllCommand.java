@@ -26,6 +26,6 @@ public class UserReadAllCommand extends AbstractCommand {
     public void execute() {
         final UserEndPoint endPoint=bootstrap.getUserEndPoint();
         final List<User> users = endPoint.findAllUser(bootstrap.getCurrentUser());
-        users.forEach(user -> System.out.println(user));
+        users.forEach(System.out::println);
     }
 }

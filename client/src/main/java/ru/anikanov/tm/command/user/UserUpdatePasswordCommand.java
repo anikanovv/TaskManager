@@ -4,6 +4,8 @@ import ru.anikanov.tm.command.AbstractCommand;
 import ru.anikanov.tm.endpoint.UserEndPoint;
 import ru.anikanov.tm.utils.PasswordHash;
 
+import java.util.Objects;
+
 public class UserUpdatePasswordCommand extends AbstractCommand {
 
     @Override
@@ -25,8 +27,8 @@ public class UserUpdatePasswordCommand extends AbstractCommand {
     public void execute() {
         final UserEndPoint endPoint=bootstrap.getUserEndPoint();
         final String login = bootstrap.getTerminalService().nextLine();
-        final String oldPass = PasswordHash.makehash(bootstrap.getTerminalService().nextLine());
-        final String newPass = PasswordHash.makehash(bootstrap.getTerminalService().nextLine());
+        final String oldPass = PasswordHash.makehash(Objects.requireNonNull(bootstrap.getTerminalService().nextLine()));
+        final String newPass = PasswordHash.makehash(Objects.requireNonNull(bootstrap.getTerminalService().nextLine()));
 //        if (endPoint.updateUserPassword(login, oldPass, newPass)) System.out.println("updated");
     }
 }

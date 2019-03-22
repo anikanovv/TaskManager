@@ -1,8 +1,8 @@
 package ru.anikanov.tm.entity;
 
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
-import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 import ru.anikanov.tm.enumeration.Status;
 
@@ -13,24 +13,26 @@ import java.util.Locale;
 
 @Getter
 @Setter
+@NoArgsConstructor
 public class Task extends AbstractEntity {
-    @NotNull
+    @Nullable
     private String projectId;
     @Nullable
     private String taskName;
     @Nullable
     private String taskDescription;
-    @NotNull
+    @Nullable
     private Date startDate;
     @Nullable
     private Date endDate;
-    @NotNull
+    @Nullable
     private String userId;
-    @NotNull
+    @Nullable
     private Status status;
     private final SimpleDateFormat format = new SimpleDateFormat("dd.MM.yyyy", Locale.US);
 
-    public Task(@NotNull String projectId, @Nullable String name, @Nullable String description, @Nullable String startDate, @Nullable String endDate, @NotNull String userId) throws Exception {
+    public Task(@Nullable final String projectId, @Nullable final String name, @Nullable final String description,
+                @Nullable final String startDate, @Nullable final String endDate, @Nullable final String userId) throws Exception {
         this.projectId = projectId;
         this.taskName = name;
         this.taskDescription = description;
@@ -44,7 +46,7 @@ public class Task extends AbstractEntity {
         return format.format(startDate);
     }
 
-    public void setStart(String start) throws ParseException {
+    public void setStart(@Nullable final String start) throws ParseException {
         this.startDate = format.parse(start);
     }
 
@@ -52,7 +54,7 @@ public class Task extends AbstractEntity {
         return format.format(startDate);
     }
 
-    public void setEnd(String end) throws ParseException {
+    public void setEnd(@Nullable final String end) throws ParseException {
         this.endDate = format.parse(end);
     }
 

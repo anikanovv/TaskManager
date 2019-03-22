@@ -29,9 +29,13 @@ public class UserCreateCommand extends AbstractCommand {
         final String userName = bootstrap.getTerminalService().nextLine();
         final String userPass = bootstrap.getTerminalService().nextLine();
         final String userRole = bootstrap.getTerminalService().nextLine();
-        Role role;
-        if (userRole.equals("admin")) role = Role.ADMIN;
-        else role = Role.USER;
-        endPoint.createUser(userName, PasswordHash.makehash(userPass), role);
+        Role role = null;
+        if (userRole != null) {
+            if (userRole.equals("admin")) role = Role.ADMIN;
+            else role = Role.USER;
+        }
+        if (userPass != null) {
+            endPoint.createUser(userName, PasswordHash.makehash(userPass), role);
+        }
     }
 }

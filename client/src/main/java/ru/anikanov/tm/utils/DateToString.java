@@ -13,8 +13,7 @@ public class DateToString {
 
     @Nullable
     public String dateToString(@Nullable Date date) {
-        String stringDate = format.format(date);
-        return stringDate;
+        return format.format(date);
     }
 
     @Nullable
