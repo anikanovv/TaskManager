@@ -40,7 +40,7 @@ public class UserService extends AbstractService implements IUserService {
     public boolean logIn(@Nullable final String login, @Nullable final String password) {
         if ((login == null) || login.isEmpty()) return false;
         if ((password == null) || password.isEmpty()) return false;
-        @Nullable final User user = findOne(login, login);
+        @Nullable final User user = findByName(login);
         if (user == null) return false;
         return userRepository.logIn(login, password);
 
