@@ -79,7 +79,7 @@
                     <outputDirectory>${project.build.directory}/release/bin</outputDirectory>>
                     <archive>
                         <manifest>
-                            <mainClass>ru.anikanov.tm.App</mainClass>
+                            <mainClass>ru.anikanov.tm.AppServer</mainClass>
                             <addDefaultImplementationEntries>true</addDefaultImplementationEntries>
                             <addDefaultSpecificationEntries>true</addDefaultSpecificationEntries>
                         </manifest>

@@ -23,7 +23,7 @@ import javax.xml.bind.annotation.XmlType;
  *   &lt;/complexContent&gt;
  * &lt;/complexType&gt;
  * </pre>
- *
+ * 
  * 
  */
 @XmlAccessorType(XmlAccessType.FIELD)
@@ -37,7 +37,7 @@ public class CreateSessionResponse {
 
     /**
      * Gets the value of the return property.
-     *
+     * 
      * @return
      *     possible object is
      *     {@link Session }
@@ -49,7 +49,7 @@ public class CreateSessionResponse {
 
     /**
      * Sets the value of the return property.
-     *
+     * 
      * @param value
      *     allowed object is
      *     {@link Session }

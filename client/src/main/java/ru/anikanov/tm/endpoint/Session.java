@@ -23,7 +23,7 @@ import javax.xml.bind.annotation.XmlType;
  *   &lt;/complexContent&gt;
  * &lt;/complexType&gt;
  * </pre>
- *
+ * 
  * 
  */
 @XmlAccessorType(XmlAccessType.FIELD)
@@ -39,7 +39,7 @@ public class Session
 
     /**
      * Gets the value of the timestamp property.
-     *
+     * 
      * @return
      *     possible object is
      *     {@link Long }
@@ -51,7 +51,7 @@ public class Session
 
     /**
      * Sets the value of the timestamp property.
-     *
+     * 
      * @param value
      *     allowed object is
      *     {@link Long }
@@ -63,7 +63,7 @@ public class Session
 
     /**
      * Gets the value of the userId property.
-     *
+     * 
      * @return
      *     possible object is
      *     {@link String }
@@ -75,7 +75,7 @@ public class Session
 
     /**
      * Sets the value of the userId property.
-     *
+     * 
      * @param value
      *     allowed object is
      *     {@link String }

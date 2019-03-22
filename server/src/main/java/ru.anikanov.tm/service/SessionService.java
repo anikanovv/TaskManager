@@ -17,10 +17,10 @@ public class SessionService {
 
     public Session create(String userId) {
         Session session = new Session(userId, System.currentTimeMillis());
-//        session.setUserId();
-//        session.setId(UUID.randomUUID().toString());
+        session.setUserId(userId);
+        session.setId(UUID.randomUUID().toString());
 //        session.setSignature(Integer.toString(session.getId().hashCode()));
-//        session.setTimestamp(System.currentTimeMillis());
+        session.setTimestamp(System.currentTimeMillis());
         return sessionRepository.create(session);
     }
    /* public Session persist(String userId) throws Exception {
@@ -44,5 +44,6 @@ public class SessionService {
     public void remove(Session session) throws Exception {
         sessionRepository.remove(session);
     }*/
+
 
 }

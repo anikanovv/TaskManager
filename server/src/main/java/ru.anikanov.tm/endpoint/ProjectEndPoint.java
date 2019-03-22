@@ -1,5 +1,6 @@
 package ru.anikanov.tm.endpoint;
 
+import lombok.NoArgsConstructor;
 import org.jetbrains.annotations.NotNull;
 import ru.anikanov.tm.api.ServiceLocator;
 import ru.anikanov.tm.api.endpoint.IProjectEndPoint;
@@ -10,14 +11,14 @@ import javax.jws.WebParam;
 import javax.jws.WebService;
 import java.util.List;
 @WebService
-public class ProjectEndPoint {
+@NoArgsConstructor
+public class ProjectEndPoint implements IProjectEndPoint {
     private ServiceLocator serviceLocator;
-    public ProjectEndPoint(ServiceLocator serviceLocator){
+
+    public ProjectEndPoint(ServiceLocator serviceLocator) {
         this.serviceLocator=serviceLocator;
     }
 
-    public ProjectEndPoint() {
-    }
     @WebMethod
     public Project createProject(@WebParam String name, @WebParam String description, @WebParam String startDate, @WebParam String endDate, @WebParam @NotNull String userId) {
         return serviceLocator.getProjectService().persist(name, description, startDate, endDate, userId);

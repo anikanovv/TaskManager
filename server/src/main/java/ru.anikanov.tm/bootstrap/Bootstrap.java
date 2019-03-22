@@ -39,14 +39,14 @@ public class Bootstrap implements ServiceLocator {
     private IUserRepository userRepository = new UserRepository();
     @NotNull
     private SessionRepository sessionRepository = new SessionRepository();
-    @NotNull
-    private TaskEndPoint taskEndPoint = new TaskEndPoint(this);
-    @NotNull
-    private ProjectEndPoint projectEndPoint = new ProjectEndPoint(this);
-    @NotNull
-    private UserEndPoint userEndPoint = new UserEndPoint(this);
-    @NotNull
-    private SessionEndPoint sessionEndPoint = new SessionEndPoint(this);
+    /* @NotNull
+     private TaskEndPoint taskEndPoint = new TaskEndPoint(this);
+     @NotNull
+     private ProjectEndPoint projectEndPoint = new ProjectEndPoint(this);
+     @NotNull
+     private UserEndPoint userEndPoint = new UserEndPoint(this);
+     @NotNull
+     private SessionEndPoint sessionEndPoint = new SessionEndPoint(this);*/
     @NotNull
     private final IProjectService projectService = new ProjectService(projectRepository, taskRepository, userRepository);
     @NotNull
@@ -57,10 +57,10 @@ public class Bootstrap implements ServiceLocator {
 
     public void init() {
         initUsers();
-        Endpoint.publish("http://localhost:8080/ProjectEndpoint?wsdl",projectEndPoint);
-        Endpoint.publish("http://localhost:8080/TaskEndpoint?wsdl",taskEndPoint);
-        Endpoint.publish("http://localhost:8080/UserEndpoint?wsdl",userEndPoint);
-        Endpoint.publish("http://localhost:8080/SessionEndpoint?wsdl", sessionEndPoint);
+        Endpoint.publish("http://localhost:8080/ProjectEndpoint?wsdl", new ProjectEndPoint(this));
+        Endpoint.publish("http://localhost:8080/TaskEndpoint?wsdl", new TaskEndPoint(this));
+        Endpoint.publish("http://localhost:8080/UserEndpoint?wsdl", new UserEndPoint(this));
+        Endpoint.publish("http://localhost:8080/SessionEndpoint?wsdl", new SessionEndPoint(this));
     }
 
     private void initUsers() {

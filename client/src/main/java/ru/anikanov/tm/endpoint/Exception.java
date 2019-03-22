@@ -22,7 +22,7 @@ import javax.xml.bind.annotation.XmlType;
  *   &lt;/complexContent&gt;
  * &lt;/complexType&gt;
  * </pre>
- *
+ * 
  * 
  */
 @XmlAccessorType(XmlAccessType.FIELD)
@@ -35,7 +35,7 @@ public class Exception {
 
     /**
      * Gets the value of the message property.
-     *
+     * 
      * @return
      *     possible object is
      *     {@link String }
@@ -47,7 +47,7 @@ public class Exception {
 
     /**
      * Sets the value of the message property.
-     *
+     * 
      * @param value
      *     allowed object is
      *     {@link String }
