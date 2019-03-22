@@ -11,7 +11,7 @@ public interface IProjectRepository extends IRepository {
     @NotNull
     Project persist(@NotNull final Project p);
 
-    Project merge(@NotNull Project p) throws Exception;
+    Project merge(@NotNull Project p);
 
     void remove(@NotNull final String name);
 
@@ -24,17 +24,17 @@ public interface IProjectRepository extends IRepository {
     List<Project> findAll();
 
     @Nullable
-    List<Project> sortedByStartDate() throws Exception;
+    List<Project> sortedByStartDate();
 
     @Nullable
-    List<Project> sortedByFinishDate() throws Exception;
+    List<Project> sortedByFinishDate();
 
     @Nullable
-    List<Project> sortedByStatus() throws Exception;
+    List<Project> sortedByStatus();
 
     @Nullable
-    Project findByPartOfName(@NotNull final String partOfName) throws Exception;
+    Project findByPartOfName(@NotNull final String partOfName);
 
     @Nullable
-    Project findByPartOfDescription(@NotNull final String partOfDescription) throws Exception;
+    Project findByPartOfDescription(@NotNull final String partOfDescription);
 }

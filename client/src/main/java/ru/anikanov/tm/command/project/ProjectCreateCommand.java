@@ -2,6 +2,7 @@ package ru.anikanov.tm.command.project;
 
 import ru.anikanov.tm.command.AbstractCommand;
 import ru.anikanov.tm.endpoint.ProjectEndPoint;
+import ru.anikanov.tm.endpoint.Session;
 
 public class ProjectCreateCommand extends AbstractCommand {
 
@@ -21,13 +22,13 @@ public class ProjectCreateCommand extends AbstractCommand {
     }
     @Override
     public void execute() {
-        final String userId = bootstrap.getCurrentUser();
+        final Session session = bootstrap.getCurrentSession();
         final String name = bootstrap.getTerminalService().nextLine();
         final ProjectEndPoint projectEndPoint= bootstrap.getProjectEndPoint();
         System.out.println("Введите через знак ; описание проекта, дату начала проекта, дату окончания проекта");
         final String description = bootstrap.getTerminalService().nextLine();
         final String startDate = bootstrap.getTerminalService().nextLine();
         final String endDate = bootstrap.getTerminalService().nextLine();
-        projectEndPoint.createProject(name, description, startDate, endDate, userId);
+        projectEndPoint.createProject(name, description, startDate, endDate, session);
     }
 }

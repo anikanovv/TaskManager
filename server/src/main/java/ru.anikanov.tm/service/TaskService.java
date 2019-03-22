@@ -20,7 +20,7 @@ public class TaskService extends AbstractService implements ITaskService {
     @NotNull
     private IUserRepository userRepository;
 
-    public TaskService(@NotNull IProjectRepository pr, @NotNull ITaskRepository tr, @NotNull IUserRepository ur) {
+    public TaskService(@NotNull final IProjectRepository pr, @NotNull final ITaskRepository tr, @NotNull final IUserRepository ur) {
         projectRepository = pr;
         taskRepository = tr;
         userRepository = ur;
@@ -33,7 +33,8 @@ public class TaskService extends AbstractService implements ITaskService {
     }
 
     @Nullable
-    public Task persist(@NotNull final String projectId, @Nullable final String taskName, @Nullable final String description, @Nullable final String dateStart, @Nullable final String dateFinish, @NotNull final String userId) {
+    public Task persist(@NotNull final String projectId, @Nullable final String taskName, @Nullable final String description,
+                        @Nullable final String dateStart, @Nullable final String dateFinish, @NotNull final String userId) {
         if ((taskName == null) || taskName.isEmpty()) return null;
         @Nullable final Task task = taskRepository.findOne(taskName);
         if (task == null) {
@@ -52,7 +53,8 @@ public class TaskService extends AbstractService implements ITaskService {
         return null;
     }
 
-    public void merge(@Nullable final String taskId, @Nullable final String taskName, @Nullable final String description, @Nullable final String dateStart, @Nullable final String dateFinish, @NotNull final String userId) {
+    public void merge(@Nullable final String taskId, @Nullable final String taskName, @Nullable final String description,
+                      @Nullable final String dateStart, @Nullable final String dateFinish, @NotNull final String userId) {
         if ((taskId == null) || taskId.isEmpty()) return;
         @Nullable final Task task = taskRepository.findOne(taskId);
         @Nullable final User user = userRepository.findOne(userId);
@@ -97,34 +99,34 @@ public class TaskService extends AbstractService implements ITaskService {
     }
 
     @Nullable
-    public List<Task> sortedByStartDate(@NotNull final String userId) throws Exception {
+    public List<Task> sortedByStartDate(@NotNull final String userId) {
         @Nullable List<Task> tasks = findAll(userId);
         if ((tasks == null) || (tasks.isEmpty())) return null;
         return taskRepository.sortedByStartDate();
     }
 
     @Nullable
-    public List<Task> sortedByFinishDate(@NotNull final String userId) throws Exception {
+    public List<Task> sortedByFinishDate(@NotNull final String userId) {
         @Nullable List<Task> tasks = findAll(userId);
         if ((tasks == null) || (tasks.isEmpty())) return null;
         return taskRepository.sortedByFinishDate();
     }
 
     @Nullable
-    public List<Task> sortedByStatus(@NotNull final String userId) throws Exception {
+    public List<Task> sortedByStatus(@NotNull final String userId) {
         @Nullable List<Task> tasks = findAll(userId);
         if ((tasks == null) || (tasks.isEmpty())) return null;
         return taskRepository.sortedByStatus();
     }
 
     @Nullable
-    public Task findByPartOfName(@Nullable final String partOfName, @NotNull final String userId) throws Exception {
+    public Task findByPartOfName(@Nullable final String partOfName, @NotNull final String userId) {
         if ((partOfName == null) || (partOfName.isEmpty())) return null;
         return taskRepository.findByPartOfName(partOfName);
     }
 
     @Nullable
-    public Task findByPartOfDescription(@Nullable final String partOfDescription, @NotNull final String userId) throws Exception {
+    public Task findByPartOfDescription(@Nullable final String partOfDescription, @NotNull final String userId) {
         if ((partOfDescription == null) || (partOfDescription.isEmpty())) return null;
         return taskRepository.findByPartOfName(partOfDescription);
     }

@@ -20,7 +20,7 @@ import javax.xml.bind.annotation.XmlType;
  *         &lt;element name="arg1" type="{http://www.w3.org/2001/XMLSchema}string" minOccurs="0"/&gt;
  *         &lt;element name="arg2" type="{http://www.w3.org/2001/XMLSchema}string" minOccurs="0"/&gt;
  *         &lt;element name="arg3" type="{http://www.w3.org/2001/XMLSchema}string" minOccurs="0"/&gt;
- *         &lt;element name="arg4" type="{http://www.w3.org/2001/XMLSchema}string" minOccurs="0"/&gt;
+ *         &lt;element name="arg4" type="{http://endpoint.tm.anikanov.ru/}session" minOccurs="0"/&gt;
  *       &lt;/sequence&gt;
  *     &lt;/restriction&gt;
  *   &lt;/complexContent&gt;
@@ -43,7 +43,7 @@ public class UpdateProject {
     protected String arg1;
     protected String arg2;
     protected String arg3;
-    protected String arg4;
+    protected Session arg4;
 
     /**
      * Gets the value of the arg0 property.
@@ -146,10 +146,10 @@ public class UpdateProject {
      * 
      * @return
      *     possible object is
-     *     {@link String }
+     *     {@link Session }
      *     
      */
-    public String getArg4() {
+    public Session getArg4() {
         return arg4;
     }
 
@@ -158,10 +158,10 @@ public class UpdateProject {
      * 
      * @param value
      *     allowed object is
-     *     {@link String }
+     *     {@link Session }
      *     
      */
-    public void setArg4(String value) {
+    public void setArg4(Session value) {
         this.arg4 = value;
     }
 

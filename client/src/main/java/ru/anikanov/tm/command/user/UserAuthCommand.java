@@ -33,13 +33,15 @@ public class UserAuthCommand extends AbstractCommand {
         System.out.println("pass");
         final String pass = PasswordHash.makehash(Objects.requireNonNull(bootstrap.getTerminalService().nextLine()));
         if (endPoint.logIn(login, pass)) {
-            User user = endPoint.findOneUser(login, login);
+            User user = endPoint.findOneUserByName(login);
             bootstrap.setCurrentUser(user.getName());
             System.out.println("AUTH OK!");
             System.out.println(user.getRole());
             Session session = bootstrap.getSessionEndPoint().createSession(user.getId());
             bootstrap.setCurrentSession(session);
             System.out.println(Objects.requireNonNull(bootstrap.getCurrentSession()).getSignature());
+            if (bootstrap.getUserEndPoint().checkadmin(bootstrap.getCurrentSession())) System.out.println("ADMIN!!!");
+//            System.out.println(bootstrap.getUserEndPoint().findOneUser("admin",(bootstrap.getCurrentSession().getUserId())).getRole());
         }
     }
 }

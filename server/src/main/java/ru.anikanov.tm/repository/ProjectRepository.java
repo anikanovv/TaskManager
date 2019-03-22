@@ -20,10 +20,10 @@ public class ProjectRepository extends AbstractRepository implements IProjectRep
     }
 
     @Override
-    public Project merge(@NotNull final Project project) throws Exception {
-        if (project.getName() == null) throw new Exception();
+    public Project merge(@NotNull final Project project) {
+        if (project.getName() == null) return null;
         @Nullable final Project newProject = findOne(project.getName());
-        if (newProject == null) throw new Exception();
+        if (newProject == null) return null;
         newProject.setDescription(project.getDescription());
         newProject.setStart(project.getStart());
         newProject.setEnd(project.getEnd());
@@ -51,34 +51,34 @@ public class ProjectRepository extends AbstractRepository implements IProjectRep
     }
 
     @Nullable
-    public List<Project> sortedByStartDate() throws Exception {
+    public List<Project> sortedByStartDate() {
         @Nullable List<Project> projects = findAll();
-        if (projects == null) throw new Exception();
+        if (projects == null) return null;
         projects.sort(Comparator.comparing(Project::getStartDate));
         return projects;
     }
 
     @Nullable
-    public List<Project> sortedByFinishDate() throws Exception {
+    public List<Project> sortedByFinishDate() {
         @Nullable List<Project> projects = findAll();
-        if (projects == null) throw new Exception();
+        if (projects == null) return null;
         projects.sort(Comparator.comparing(Project::getEndDate));
         return projects;
     }
 
     @Nullable
-    public List<Project> sortedByStatus() throws Exception {
+    public List<Project> sortedByStatus() {
         @Nullable final List<Project> projects = findAll();
-        if (projects == null) throw new Exception();
+        if (projects == null) return null;
         projects.sort(Comparator.comparing(Project::getStatus));
         return projects;
     }
 
     @Nullable
-    public Project findByPartOfName(@NotNull final String partOfName) throws Exception {
+    public Project findByPartOfName(@NotNull final String partOfName) {
         @Nullable final List<Project> projects = findAll();
         @Nullable Project thisproject = null;
-        if (projects == null) throw new Exception();
+        if (projects == null) return null;
         for (Project project : projects) {
             if ((project.getName() != null) && project.getName().contains(partOfName)) thisproject = project;
         }
@@ -86,10 +86,10 @@ public class ProjectRepository extends AbstractRepository implements IProjectRep
     }
 
     @Nullable
-    public Project findByPartOfDescription(@NotNull final String partOfDescription) throws Exception {
+    public Project findByPartOfDescription(@NotNull final String partOfDescription) {
         @Nullable final List<Project> projects = findAll();
         @Nullable Project thisproject = null;
-        if (projects == null) throw new Exception();
+        if (projects == null) return null;
         for (Project project : projects) {
             if ((project.getDescription() != null) && project.getDescription().contains(partOfDescription))
                 thisproject = project;

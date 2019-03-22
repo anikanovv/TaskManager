@@ -2,6 +2,7 @@ package ru.anikanov.tm.api.service;
 
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
+import ru.anikanov.tm.entity.Session;
 import ru.anikanov.tm.entity.User;
 import ru.anikanov.tm.enumeration.Role;
 
@@ -29,6 +30,10 @@ public interface IUserService {
     boolean logOut();
 
     boolean updatePassword(@Nullable final String login, @Nullable final String oldOne, @Nullable final String newOne);
+
+    boolean checkadmin(@NotNull final Session session);
+
+    User findByName(@NotNull final String name);
 
 
 }

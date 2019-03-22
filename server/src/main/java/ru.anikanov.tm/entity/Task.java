@@ -46,16 +46,24 @@ public class Task extends AbstractEntity {
         return format.format(startDate);
     }
 
-    public void setStart(@Nullable final String start) throws ParseException {
-        this.startDate = format.parse(start);
+    public void setStart(@Nullable final String start) {
+        try {
+            this.startDate = format.parse(start);
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
     }
 
     public String getEnd() {
         return format.format(startDate);
     }
 
-    public void setEnd(@Nullable final String end) throws ParseException {
-        this.endDate = format.parse(end);
+    public void setEnd(@Nullable final String end) {
+        try {
+            this.endDate = format.parse(end);
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
     }
 
     @Override

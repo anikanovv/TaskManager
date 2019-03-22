@@ -42,7 +42,7 @@ public class Project extends AbstractEntity implements Serializable {
     private Status status;
 
     public Project(@Nullable final String name, @Nullable final String description, @Nullable final String startDate,
-                   @Nullable final String endDate, @Nullable final String userId) throws Exception {
+                   @Nullable final String endDate, @Nullable final String userId) {
         this.name=name;
         this.description = description;
         setStart(startDate);
@@ -61,12 +61,20 @@ public class Project extends AbstractEntity implements Serializable {
         return new DateToString().dateToString(startDate);
     }
 
-    public void setStart(@Nullable final String startString) throws Exception {
-        startDate = new DateToString().stringToDate(startString);
+    public void setStart(@Nullable final String startString) {
+        try {
+            startDate = new DateToString().stringToDate(startString);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
-    public void setEnd(@Nullable final String endString) throws Exception {
-        endDate = new DateToString().stringToDate(endString);
+    public void setEnd(@Nullable final String endString) {
+        try {
+            endDate = new DateToString().stringToDate(endString);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
     @Override

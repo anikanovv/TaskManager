@@ -23,6 +23,6 @@ public class ProjectRemoveAllCommand extends AbstractCommand {
 
     public void execute() {
         final ProjectEndPoint projectEndPoint= bootstrap.getProjectEndPoint();
-        projectEndPoint.removeAllProject(bootstrap.getCurrentUser());
+        projectEndPoint.removeAllProject(bootstrap.getCurrentSession());
     }
 }

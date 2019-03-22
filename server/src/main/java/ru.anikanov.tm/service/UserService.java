@@ -4,10 +4,12 @@ import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 import ru.anikanov.tm.api.repository.IUserRepository;
 import ru.anikanov.tm.api.service.IUserService;
+import ru.anikanov.tm.entity.Session;
 import ru.anikanov.tm.entity.User;
 import ru.anikanov.tm.enumeration.Role;
 
 import java.util.List;
+import java.util.Objects;
 
 public class UserService extends AbstractService implements IUserService {
     @NotNull
@@ -73,5 +75,14 @@ public class UserService extends AbstractService implements IUserService {
 
     public void removeAll(@NotNull final String userId) {
         userRepository.removeAll();
+    }
+
+    public boolean checkadmin(@NotNull final Session session) {
+        if (session.getUserId() == null) return false;
+        return Objects.requireNonNull(Objects.requireNonNull(findOne(session.getUserId(), session.getUserId())).getRole()).equals(Role.ADMIN);
+    }
+
+    public User findByName(@NotNull final String name) {
+        return userRepository.findByName(name);
     }
 }

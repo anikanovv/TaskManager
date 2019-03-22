@@ -24,10 +24,10 @@ public class TaskRepository extends AbstractRepository implements ITaskRepositor
         return taskMap.put(entity.getId(), entity);
     }
 
-    public void merge(@NotNull final Task newtask) throws Exception {
-        if (newtask.getTaskName() == null) throw new Exception();
+    public void merge(@NotNull final Task newtask) {
+        if (newtask.getTaskName() == null) return;
         @Nullable final Task task = findOne(newtask.getTaskName());
-        if (task == null) throw new Exception();
+        if (task == null) return;
         task.setTaskDescription(newtask.getTaskDescription());
         task.setStart(newtask.getStart());
         task.setEnd(newtask.getEnd());
@@ -57,34 +57,34 @@ public class TaskRepository extends AbstractRepository implements ITaskRepositor
     }
 
     @Nullable
-    public List<Task> sortedByStartDate() throws Exception {
+    public List<Task> sortedByStartDate() {
         List<Task> tasks = findAll();
-        if (tasks == null) throw new Exception();
+        if (tasks == null) return null;
         tasks.sort(Comparator.comparing(Task::getStartDate));
         return tasks;
     }
 
     @Nullable
-    public List<Task> sortedByFinishDate() throws Exception {
+    public List<Task> sortedByFinishDate() {
         @Nullable List<Task> tasks = findAll();
-        if (tasks == null) throw new Exception();
+        if (tasks == null) return null;
         tasks.sort(Comparator.comparing(Task::getEndDate));
         return tasks;
     }
 
     @Nullable
-    public List<Task> sortedByStatus() throws Exception {
+    public List<Task> sortedByStatus() {
         @Nullable List<Task> tasks = findAll();
-        if (tasks == null) throw new Exception();
+        if (tasks == null) return null;
         tasks.sort(Comparator.comparing(Task::getStatus));
         return tasks;
     }
 
     @Nullable
-    public Task findByPartOfName(@NotNull String partOfName) throws Exception {
+    public Task findByPartOfName(@NotNull String partOfName) {
         @Nullable final List<Task> tasks = findAll();
         @Nullable Task thistask = null;
-        if (tasks == null) throw new Exception();
+        if (tasks == null) return null;
         for (Task task : tasks) {
             if ((task.getTaskName() != null) && task.getTaskName().contains(partOfName)) thistask = task;
         }
@@ -92,10 +92,10 @@ public class TaskRepository extends AbstractRepository implements ITaskRepositor
     }
 
     @Nullable
-    public Task findByPartOfDescription(@NotNull String partOfDescription) throws Exception {
+    public Task findByPartOfDescription(@NotNull String partOfDescription) {
         @Nullable final List<Task> tasks = findAll();
         @Nullable Task thistask = null;
-        if (tasks == null) throw new Exception();
+        if (tasks == null) return null;
         for (Task task : tasks) {
             if ((task.getTaskDescription() != null) && task.getTaskDescription().contains(partOfDescription))
                 thistask = task;

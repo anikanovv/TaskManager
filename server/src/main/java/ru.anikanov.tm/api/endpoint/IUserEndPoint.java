@@ -2,10 +2,12 @@ package ru.anikanov.tm.api.endpoint;
 
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
+import ru.anikanov.tm.entity.Session;
 import ru.anikanov.tm.entity.User;
 import ru.anikanov.tm.enumeration.Role;
 
 import javax.jws.WebMethod;
+import javax.jws.WebParam;
 import javax.jws.WebService;
 import java.util.List;
 @WebService
@@ -26,4 +28,10 @@ public interface IUserEndPoint {
     @WebMethod void updateUser(@Nullable final String login, @Nullable final String password, @Nullable final Role role);
 
     @WebMethod void updateUserPassword(@Nullable final String login, @Nullable final String oldOne, @Nullable final String newOne);
+
+    @WebMethod
+    boolean checkadmin(@WebParam @NotNull final Session session);
+
+    @WebMethod
+    User findOneUserByName(@WebParam @NotNull final String login);
 }

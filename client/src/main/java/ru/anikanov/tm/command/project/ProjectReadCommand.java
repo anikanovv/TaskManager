@@ -1,7 +1,6 @@
 package ru.anikanov.tm.command.project;
 
 import ru.anikanov.tm.command.AbstractCommand;
-import ru.anikanov.tm.endpoint.Exception_Exception;
 import ru.anikanov.tm.endpoint.ProjectEndPoint;
 
 public class ProjectReadCommand extends AbstractCommand {
@@ -24,6 +23,6 @@ public class ProjectReadCommand extends AbstractCommand {
     public void execute() throws Exception {
         final ProjectEndPoint projectEndPoint= bootstrap.getProjectEndPoint();
         final String name = bootstrap.getTerminalService().nextLine();
-        System.out.println(projectEndPoint.findProjectByPartOfNameProject(name, bootstrap.getCurrentUser()));
+        System.out.println(projectEndPoint.findProjectByPartOfNameProject(name, bootstrap.getCurrentSession()));
     }
 }

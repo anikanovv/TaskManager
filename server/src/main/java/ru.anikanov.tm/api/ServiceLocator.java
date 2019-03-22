@@ -1,12 +1,10 @@
 package ru.anikanov.tm.api;
 
 import org.jetbrains.annotations.NotNull;
-import org.jetbrains.annotations.Nullable;
 import ru.anikanov.tm.api.service.IProjectService;
+import ru.anikanov.tm.api.service.ISessionService;
 import ru.anikanov.tm.api.service.ITaskService;
 import ru.anikanov.tm.api.service.IUserService;
-import ru.anikanov.tm.entity.Session;
-import ru.anikanov.tm.service.SessionService;
 
 public interface ServiceLocator {
 
@@ -20,7 +18,7 @@ public interface ServiceLocator {
     IUserService getUserService();
 
     @NotNull
-    SessionService getSessionService();
+    ISessionService getSessionService();
 
    /* @Nullable
     String getCurrentSession();

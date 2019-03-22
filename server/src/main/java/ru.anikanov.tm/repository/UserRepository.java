@@ -6,10 +6,7 @@ import org.jetbrains.annotations.Nullable;
 import ru.anikanov.tm.api.repository.IUserRepository;
 import ru.anikanov.tm.entity.User;
 
-import java.util.ArrayList;
-import java.util.LinkedHashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 public class UserRepository extends AbstractRepository implements IUserRepository {
     @Getter
@@ -17,7 +14,7 @@ public class UserRepository extends AbstractRepository implements IUserRepositor
 
     @NotNull
     public User persist(@NotNull final User user) {
-        userMap.put(user.getName(), user);
+        userMap.put(user.getId(), user);
         return user;
     }
 
@@ -28,7 +25,7 @@ public class UserRepository extends AbstractRepository implements IUserRepositor
     }
 
     public boolean logIn(@NotNull final String login, @NotNull final String password) {
-        @Nullable final User user = findOne(login);
+        @Nullable final User user = findByName(login);
         if (user == null) return false;
         return user.getHashPassword().equals(password);
     }
@@ -66,6 +63,17 @@ public class UserRepository extends AbstractRepository implements IUserRepositor
 
     public void removeAll() {
         userMap.clear();
+    }
+
+    public User findByName(@NotNull final String name) {
+        User newUser = null;
+        for (User user : findAll()) {
+            if (Objects.requireNonNull(user.getName()).equals(name)) {
+                newUser = user;
+                break;
+            }
+        }
+        return newUser;
     }
 
 }

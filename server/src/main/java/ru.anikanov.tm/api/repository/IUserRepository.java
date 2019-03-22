@@ -29,5 +29,6 @@ public interface IUserRepository extends IRepository {
 
     boolean updatePassword(@NotNull final String login, @NotNull final String oldOne, @NotNull final String newOne);
 
+    User findByName(@NotNull final String name);
 
 }

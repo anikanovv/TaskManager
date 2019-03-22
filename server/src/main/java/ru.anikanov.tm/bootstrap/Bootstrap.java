@@ -8,12 +8,14 @@ import ru.anikanov.tm.api.repository.IProjectRepository;
 import ru.anikanov.tm.api.repository.ITaskRepository;
 import ru.anikanov.tm.api.repository.IUserRepository;
 import ru.anikanov.tm.api.service.IProjectService;
+import ru.anikanov.tm.api.service.ISessionService;
 import ru.anikanov.tm.api.service.ITaskService;
 import ru.anikanov.tm.api.service.IUserService;
 import ru.anikanov.tm.endpoint.ProjectEndPoint;
 import ru.anikanov.tm.endpoint.SessionEndPoint;
 import ru.anikanov.tm.endpoint.TaskEndPoint;
 import ru.anikanov.tm.endpoint.UserEndPoint;
+import ru.anikanov.tm.entity.Session;
 import ru.anikanov.tm.entity.User;
 import ru.anikanov.tm.enumeration.Role;
 import ru.anikanov.tm.repository.ProjectRepository;
@@ -27,7 +29,6 @@ import ru.anikanov.tm.service.UserService;
 import ru.anikanov.tm.utils.PasswordHashUtil;
 
 import javax.xml.ws.Endpoint;
-import java.util.Objects;
 
 @Getter
 @Setter
@@ -48,7 +49,7 @@ public class Bootstrap implements ServiceLocator {
     @NotNull
     private final IUserService userService = new UserService(userRepository);
     @NotNull
-    private final SessionService sessionService = new SessionService(sessionRepository);
+    private final ISessionService sessionService = new SessionService(sessionRepository);
 
     public void init() {
         initUsers();
@@ -61,8 +62,12 @@ public class Bootstrap implements ServiceLocator {
     private void initUsers() {
         User admin = userService.persist("admin", PasswordHashUtil.md5("admin"), Role.ADMIN);
         User user = userService.persist("user", PasswordHashUtil.md5("user"), Role.USER);
-        projectService.persist("new1", "descr1", "12.11.1234", "12.11.1234", Objects.requireNonNull(user).getId());
-        projectService.persist("new2", "descr2", "12.11.1234", "12.11.1234", Objects.requireNonNull(admin).getId());
+        Session userses = new Session();
+        userses.setUserId(user.getId());
+        Session adminses = new Session();
+        adminses.setUserId(admin.getId());
+        projectService.persist("new1", "descr1", "12.11.1234", "12.11.1234", userses);
+        projectService.persist("new2", "descr2", "12.11.1234", "12.11.1234", adminses);
     }
 
 }

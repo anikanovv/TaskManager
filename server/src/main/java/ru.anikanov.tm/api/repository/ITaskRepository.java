@@ -26,19 +26,19 @@ public interface ITaskRepository extends IRepository {
     void removeWholeProject(@NotNull final String projectId);
 
     @Nullable
-    List<Task> sortedByStartDate() throws Exception;
+    List<Task> sortedByStartDate();
 
     @Nullable
-    List<Task> sortedByFinishDate() throws Exception;
+    List<Task> sortedByFinishDate();
 
     @Nullable
-    List<Task> sortedByStatus() throws Exception;
+    List<Task> sortedByStatus();
 
     @Nullable
-    Task findByPartOfName(@NotNull String partOfName) throws Exception;
+    Task findByPartOfName(@NotNull String partOfName);
 
     @Nullable
-    Task findByPartOfDescription(@NotNull String partOfDescription) throws Exception;
+    Task findByPartOfDescription(@NotNull String partOfDescription);
 
 
 }

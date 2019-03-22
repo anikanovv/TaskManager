@@ -26,7 +26,7 @@ public class ProjectSortByStartDateCommand extends AbstractCommand {
     @Override
     public void execute() throws Exception {
         final ProjectEndPoint projectEndPoint= bootstrap.getProjectEndPoint();
-        @Nullable final List<Project> projects = projectEndPoint.sortProjectByStartDate(bootstrap.getCurrentUser());
+        @Nullable final List<Project> projects = projectEndPoint.sortProjectByStartDate(bootstrap.getCurrentSession());
         if (projects != null) {
             projects.forEach(System.out::println);
         }

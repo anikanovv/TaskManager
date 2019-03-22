@@ -1,13 +1,15 @@
 package ru.anikanov.tm.service;
 
 import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
+import ru.anikanov.tm.api.service.ISessionService;
 import ru.anikanov.tm.entity.Session;
 import ru.anikanov.tm.repository.SessionRepository;
 import ru.anikanov.tm.utils.SignatureUtil;
 
 import java.util.UUID;
 
-public class SessionService {
+public class SessionService implements ISessionService {
 
     @NotNull
     private SessionRepository sessionRepository;
@@ -25,33 +27,22 @@ public class SessionService {
         return sessionRepository.create(session);
     }
 
-    public boolean check(Session session, String userId) throws CloneNotSupportedException {
-        Session clone = session.clone();
-        clone.setUserId(userId);
+    public boolean validate(@Nullable final Session session) {
+        if (session == null) return false;
+        if (session.getSignature() == null) return false;
+        if (session.getTimestamp() == null) return false;
+        if (session.getId() == null) return false;
+        Session clone = null;
+        try {
+            clone = session.clone();
+        } catch (CloneNotSupportedException e) {
+            e.printStackTrace();
+        }
         clone.setSignature(SignatureUtil.sign(session, "salt", 22));
         if (session.getSignature() != null) {
             return (session.getSignature().equals(clone.getSignature()));
         }
         return false;
     }
-    /*
-    public boolean validate(Session session,String userId) throws Exception {
-        if (check(session,userId))
-    }*/
-   /* public Session persist(String userId) throws Exception {
-        return sessionRepository.persist(new Session(userId));
-    }
-
-
-    public void sign(Session session) throws Exception {
-        if (session == null) throw new Exception();
-        sessionRepository.sign(session);
-    }
-
-
-    public void remove(Session session) throws Exception {
-        sessionRepository.remove(session);
-    }*/
-
 
 }

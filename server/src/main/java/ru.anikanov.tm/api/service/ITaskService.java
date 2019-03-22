@@ -23,17 +23,17 @@ public interface ITaskService {
     List<Task> findAll(@NotNull final String userId);
 
     @Nullable
-    List<Task> sortedByStartDate(@NotNull final String userId) throws Exception;
+    List<Task> sortedByStartDate(@NotNull final String userId);
 
     @Nullable
-    List<Task> sortedByFinishDate(@NotNull final String userId) throws Exception;
+    List<Task> sortedByFinishDate(@NotNull final String userId);
 
     @Nullable
-    List<Task> sortedByStatus(@NotNull final String userId) throws Exception;
+    List<Task> sortedByStatus(@NotNull final String userId);
 
     @Nullable
-    Task findByPartOfName(@NotNull final String partOfName, @NotNull final String userId) throws Exception;
+    Task findByPartOfName(@NotNull final String partOfName, @NotNull final String userId);
 
     @Nullable
-    Task findByPartOfDescription(@NotNull final String partOfDescription, @NotNull final String userId) throws Exception;
+    Task findByPartOfDescription(@NotNull final String partOfDescription, @NotNull final String userId);
 }

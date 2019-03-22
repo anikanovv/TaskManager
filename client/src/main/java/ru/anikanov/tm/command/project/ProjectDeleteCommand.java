@@ -23,6 +23,6 @@ public class ProjectDeleteCommand extends AbstractCommand {
     public void execute() {
         final ProjectEndPoint projectEndPoint= bootstrap.getProjectEndPoint();
         final String name = bootstrap.getTerminalService().nextLine();
-        projectEndPoint.removeProject(name, bootstrap.getCurrentUser());
+        projectEndPoint.removeProject(name, bootstrap.getCurrentSession());
     }
 }

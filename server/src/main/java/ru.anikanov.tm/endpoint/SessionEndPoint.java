@@ -22,6 +22,11 @@ public class SessionEndPoint {
         return serviceLocator.getSessionService().create(userId);
     }
 
+    @WebMethod
+    public boolean validate(@WebParam final Session session) {
+        return serviceLocator.getSessionService().validate(session);
+    }
+
    /* @WebMethod
     public boolean validate(@WebParam Session session) throws Exception {
         return serviceLocator.getSessionService().validate(session);

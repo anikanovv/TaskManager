@@ -4,6 +4,7 @@ import lombok.NoArgsConstructor;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 import ru.anikanov.tm.api.ServiceLocator;
+import ru.anikanov.tm.entity.Session;
 import ru.anikanov.tm.entity.User;
 import ru.anikanov.tm.enumeration.Role;
 
@@ -48,6 +49,10 @@ public class UserEndPoint {
         return serviceLocator.getUserService().findOne(login,userId);
     }
 
+    @WebMethod
+    public User findOneUserByName(@WebParam @NotNull final String login) {
+        return serviceLocator.getUserService().findByName(login);
+    }
     @Nullable
     @WebMethod
     public List<User> findAllUser(@WebParam @NotNull final String userId) {
@@ -62,5 +67,10 @@ public class UserEndPoint {
     @WebMethod
     public void updateUserPassword(@WebParam @Nullable final String login, @WebParam @Nullable final String oldOne, @WebParam @Nullable final String newOne) {
         serviceLocator.getUserService().updatePassword(login,oldOne,newOne);
+    }
+
+    @WebMethod
+    public boolean checkadmin(@WebParam @NotNull final Session session) {
+        return serviceLocator.getUserService().checkadmin(session);
     }
 }
