@@ -24,7 +24,7 @@ public class ProjectFindAllCommand extends AbstractCommand {
     public void execute() throws Exception {
         final ProjectEndPoint projectEndPoint= bootstrap.getProjectEndPoint();
         for (Project project : projectEndPoint.findAllProject(bootstrap.getCurrentSession())) {
-            System.out.println(project.toString());
+            System.out.println(project.getName());
         }
     }
 }

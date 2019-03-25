@@ -12,19 +12,19 @@ import java.util.List;
 @WebService
 public interface IProjectEndPoint {
     @WebMethod
-    Project createProject(@WebParam final String name, @WebParam final String description,
-                          @WebParam final String startDate, @WebParam final String endDate, @WebParam @NotNull final Session session);
+    Project createProject(@WebParam @NotNull final Session session, @WebParam final String name, @WebParam final String description,
+                          @WebParam final String startDate, @WebParam final String endDate);
     @WebMethod
-    void updateProject(@WebParam final String name, @WebParam final String description,
-                       @WebParam final String startDate, @WebParam final String endDate, @WebParam @NotNull final Session session);
+    void updateProject(@WebParam @NotNull final Session session, @WebParam final String name, @WebParam final String description,
+                       @WebParam final String startDate, @WebParam final String endDate);
     @WebMethod
-    void removeProject(@WebParam final String name, @WebParam @NotNull final Session session);
+    void removeProject(@WebParam @NotNull final Session session, @WebParam final String name);
     @WebMethod
     void removeAllProject(@WebParam @NotNull final Session session);
     @WebMethod
-    Project findProjectByPartOfNameProject(@WebParam final String partOfName, @WebParam @NotNull final Session session);
+    Project findProjectByPartOfNameProject(@WebParam @NotNull final Session session, @WebParam final String partOfName);
     @WebMethod
-    Project findProjectByPartOfDescription(@WebParam final String partOfDescription, @WebParam @NotNull final Session session);
+    Project findProjectByPartOfDescription(@WebParam @NotNull final Session session, @WebParam final String partOfDescription);
     @WebMethod
     List<Project> sortProjectByStartDate(@WebParam @NotNull final Session session);
     @WebMethod

@@ -23,6 +23,6 @@ public class ProjectReadCommand extends AbstractCommand {
     public void execute() throws Exception {
         final ProjectEndPoint projectEndPoint= bootstrap.getProjectEndPoint();
         final String name = bootstrap.getTerminalService().nextLine();
-        System.out.println(projectEndPoint.findProjectByPartOfNameProject(name, bootstrap.getCurrentSession()));
+        System.out.println(projectEndPoint.findProjectByPartOfNameProject(bootstrap.getCurrentSession(), name));
     }
 }

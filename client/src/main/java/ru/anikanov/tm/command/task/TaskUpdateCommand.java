@@ -28,6 +28,6 @@ public class TaskUpdateCommand extends AbstractCommand {
         final String description = bootstrap.getTerminalService().nextLine();
         final String startDate = bootstrap.getTerminalService().nextLine();
         final String endDate = bootstrap.getTerminalService().nextLine();
-        endPoint.updateTask(id, name, description, startDate, endDate, bootstrap.getCurrentUser());
+        endPoint.updateTask(bootstrap.getCurrentSession(), id, name, description, startDate, endDate);
     }
 }

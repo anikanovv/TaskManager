@@ -24,7 +24,7 @@ public class UserReadCommand extends AbstractCommand {
     public void execute() {
         final UserEndPoint endPoint=bootstrap.getUserEndPoint();
         final String login = bootstrap.getTerminalService().nextLine();
-        final User user = endPoint.findOneUser(login, bootstrap.getCurrentUser());
+        final User user = endPoint.findOneUser(bootstrap.getCurrentSession(), login);
         System.out.println(user);
     }
 }

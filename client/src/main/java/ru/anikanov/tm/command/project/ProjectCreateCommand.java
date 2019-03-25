@@ -29,6 +29,6 @@ public class ProjectCreateCommand extends AbstractCommand {
         final String description = bootstrap.getTerminalService().nextLine();
         final String startDate = bootstrap.getTerminalService().nextLine();
         final String endDate = bootstrap.getTerminalService().nextLine();
-        projectEndPoint.createProject(name, description, startDate, endDate, session);
+        projectEndPoint.createProject(session, name, description, startDate, endDate);
     }
 }

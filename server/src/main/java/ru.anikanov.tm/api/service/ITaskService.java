@@ -36,4 +36,5 @@ public interface ITaskService {
 
     @Nullable
     Task findByPartOfDescription(@NotNull final String partOfDescription, @NotNull final String userId);
+
 }

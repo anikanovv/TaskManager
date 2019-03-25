@@ -27,7 +27,7 @@ public class TaskFindByPartOfDescriptionCommand extends AbstractCommand {
         System.out.println("type description(part of description)");
         @Nullable final String partOfDescription = bootstrap.getTerminalService().nextLine();
 
-        @Nullable Task task = endPoint.findTaskByPartOfDescription(partOfDescription, bootstrap.getCurrentUser());
+        @Nullable Task task = endPoint.findTaskByPartOfDescription(bootstrap.getCurrentSession(), partOfDescription);
         System.out.println(task);
     }
 }

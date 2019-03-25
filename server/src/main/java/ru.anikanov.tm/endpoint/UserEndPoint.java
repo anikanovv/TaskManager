@@ -34,19 +34,19 @@ public class UserEndPoint {
     }
 
     @WebMethod
-    public void removeUser(@WebParam @Nullable final String login, @WebParam @NotNull final String userId) {
-        serviceLocator.getUserService().remove(login,userId);
+    public void removeUser(@WebParam @NotNull final Session session, @WebParam @Nullable final String login) {
+        serviceLocator.getUserService().remove(login, session.getUserId());
     }
 
     @WebMethod
-    public void removeAllUser(@WebParam @NotNull final String userId) {
-        serviceLocator.getUserService().removeAll(userId);
+    public void removeAllUser(@WebParam @NotNull final Session session) {
+        serviceLocator.getUserService().removeAll(session.getUserId());
     }
 
     @Nullable
     @WebMethod
-    public User findOneUser(@WebParam @Nullable final String login, @WebParam @NotNull final String userId) {
-        return serviceLocator.getUserService().findOne(login,userId);
+    public User findOneUser(@WebParam @NotNull final Session session, @WebParam @Nullable final String login) {
+        return serviceLocator.getUserService().findOne(login, session.getUserId());
     }
 
     @WebMethod
@@ -55,8 +55,8 @@ public class UserEndPoint {
     }
     @Nullable
     @WebMethod
-    public List<User> findAllUser(@WebParam @NotNull final String userId) {
-        return serviceLocator.getUserService().findAll(userId);
+    public List<User> findAllUser(@WebParam @NotNull final Session session) {
+        return serviceLocator.getUserService().findAll(session.getUserId());
     }
 
     @WebMethod

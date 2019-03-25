@@ -23,6 +23,6 @@ public class UserDeleteCommand extends AbstractCommand {
     public void execute() {
         final UserEndPoint endPoint=bootstrap.getUserEndPoint();
         final String login = bootstrap.getTerminalService().nextLine();
-        endPoint.removeUser(login, bootstrap.getCurrentUser());
+        endPoint.removeUser(bootstrap.getCurrentSession(), login);
     }
 }

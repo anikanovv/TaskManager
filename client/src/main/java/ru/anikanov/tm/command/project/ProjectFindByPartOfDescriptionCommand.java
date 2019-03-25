@@ -26,7 +26,7 @@ public class ProjectFindByPartOfDescriptionCommand extends AbstractCommand {
         final ProjectEndPoint projectEndPoint= bootstrap.getProjectEndPoint();
         System.out.println("type description(part of description)");
         @Nullable final String partOfDescription = bootstrap.getTerminalService().nextLine();
-        @Nullable Project project = projectEndPoint.findProjectByPartOfNameProject(partOfDescription, bootstrap.getCurrentSession());
+        @Nullable Project project = projectEndPoint.findProjectByPartOfNameProject(bootstrap.getCurrentSession(), partOfDescription);
         System.out.println(project);
     }
 }

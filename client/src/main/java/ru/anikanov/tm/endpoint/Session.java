@@ -24,7 +24,7 @@ import javax.xml.bind.annotation.XmlType;
  *   &lt;/complexContent&gt;
  * &lt;/complexType&gt;
  * </pre>
- *
+ * 
  * 
  */
 @XmlAccessorType(XmlAccessType.FIELD)
@@ -42,7 +42,7 @@ public class Session
 
     /**
      * Gets the value of the signature property.
-     *
+     * 
      * @return
      *     possible object is
      *     {@link String }
@@ -54,7 +54,7 @@ public class Session
 
     /**
      * Sets the value of the signature property.
-     *
+     * 
      * @param value
      *     allowed object is
      *     {@link String }

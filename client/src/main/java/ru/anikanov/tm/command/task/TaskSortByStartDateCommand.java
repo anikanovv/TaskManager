@@ -26,7 +26,7 @@ public class TaskSortByStartDateCommand extends AbstractCommand {
     @Override
     public void execute() throws Exception {
         final TaskEndPoint endPoint= bootstrap.getTaskEndPoint();
-        @Nullable final List<Task> tasks = endPoint.sortTaskByStartDate(bootstrap.getCurrentUser());
+        @Nullable final List<Task> tasks = endPoint.sortTaskByStartDate(bootstrap.getCurrentSession());
         assert tasks != null;
         tasks.forEach(System.out::println);
     }

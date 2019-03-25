@@ -23,6 +23,6 @@ public class TaskDeleteCommand extends AbstractCommand {
     public void execute() {
         final TaskEndPoint endPoint= bootstrap.getTaskEndPoint();
         final String name = bootstrap.getTerminalService().nextLine();
-        endPoint.removeTask(name, bootstrap.getCurrentUser());
+        endPoint.removeTask(bootstrap.getCurrentSession(), name);
     }
 }

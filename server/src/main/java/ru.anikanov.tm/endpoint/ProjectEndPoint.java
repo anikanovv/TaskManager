@@ -21,18 +21,18 @@ public class ProjectEndPoint implements IProjectEndPoint {
     }
 
     @WebMethod
-    public Project createProject(@WebParam final String name, @WebParam final String description, @WebParam final String startDate,
-                                 @WebParam final String endDate, @WebParam @NotNull final Session session) {
+    public Project createProject(@WebParam @NotNull final Session session, @WebParam final String name, @WebParam final String description, @WebParam final String startDate,
+                                 @WebParam final String endDate) {
         return serviceLocator.getProjectService()
                 .persist(name, description, startDate, endDate, session);
     }
     @WebMethod
-    public void updateProject(@WebParam final String name, @WebParam final String description, @WebParam final String startDate,
-                              @WebParam final String endDate, @WebParam @NotNull final Session session) {
+    public void updateProject(@WebParam @NotNull final Session session, @WebParam final String name, @WebParam final String description, @WebParam final String startDate,
+                              @WebParam final String endDate) {
         serviceLocator.getProjectService().merge(name, description, startDate, endDate, session);
     }
     @WebMethod
-    public void removeProject(@WebParam final String name, @WebParam @NotNull final Session session) {
+    public void removeProject(@WebParam @NotNull final Session session, @WebParam final String name) {
         serviceLocator.getProjectService().remove(name, session);
     }
     @WebMethod
@@ -40,11 +40,11 @@ public class ProjectEndPoint implements IProjectEndPoint {
         serviceLocator.getProjectService().removeAll(session);
     }
     @WebMethod
-    public Project findProjectByPartOfNameProject(@WebParam final String partOfName, @WebParam @NotNull final Session session) {
+    public Project findProjectByPartOfNameProject(@WebParam @NotNull final Session session, @WebParam final String partOfName) {
         return serviceLocator.getProjectService().findByPartOfName(partOfName, session);
     }
     @WebMethod
-    public Project findProjectByPartOfDescription(@WebParam final String partOfDescription, @WebParam @NotNull final Session session) {
+    public Project findProjectByPartOfDescription(@WebParam @NotNull final Session session, @WebParam final String partOfDescription) {
         return serviceLocator.getProjectService().findByPartOfDescription(partOfDescription, session);
     }
     @WebMethod

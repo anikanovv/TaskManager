@@ -26,7 +26,7 @@ public class TaskFindByPartOfNameCommand extends AbstractCommand {
         final TaskEndPoint endPoint= bootstrap.getTaskEndPoint();
         System.out.println("type name(part of name)");
         @Nullable final String partOfName= bootstrap.getTerminalService().nextLine();
-        @Nullable Task task = endPoint.findTaskByPartOfName(partOfName, bootstrap.getCurrentUser());
+        @Nullable Task task = endPoint.findTaskByPartOfName(bootstrap.getCurrentSession(), partOfName);
         System.out.println(task);
     }
 }

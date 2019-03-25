@@ -6,6 +6,7 @@ import ru.anikanov.tm.endpoint.Task;
 import ru.anikanov.tm.endpoint.TaskEndPoint;
 
 import java.util.List;
+import java.util.Objects;
 
 public class TaskSortByEndDateCommand extends AbstractCommand {
     @Override
@@ -26,8 +27,7 @@ public class TaskSortByEndDateCommand extends AbstractCommand {
     @Override
     public void execute() throws Exception {
         final TaskEndPoint endPoint= bootstrap.getTaskEndPoint();
-        @Nullable final List<Task> tasks = endPoint.sortTaskByFinishDate(bootstrap.getCurrentUser());
-        assert tasks != null;
-        tasks.forEach(System.out::println);
+        @Nullable final List<Task> tasks = endPoint.sortTaskByFinishDate(bootstrap.getCurrentSession());
+        Objects.requireNonNull(tasks).forEach(System.out::println);
     }
 }

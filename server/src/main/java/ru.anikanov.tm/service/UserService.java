@@ -85,4 +85,8 @@ public class UserService extends AbstractService implements IUserService {
     public User findByName(@NotNull final String name) {
         return userRepository.findByName(name);
     }
+
+    public User getCurrentUser(@NotNull final Session session) {
+        return userRepository.findOne(Objects.requireNonNull(session.getUserId()));
+    }
 }

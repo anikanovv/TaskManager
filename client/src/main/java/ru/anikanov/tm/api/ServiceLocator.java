@@ -20,15 +20,12 @@ public interface ServiceLocator {
     SessionEndPoint getSessionEndPoint();
 
     @NotNull
+    DomainEndPoint getDomainEndPoint();
+    @NotNull
     Map<String, AbstractCommand> getCommandMap();
 
     @NotNull
     ITerminalService getTerminalService();
-
-    @Nullable
-    String getCurrentUser();
-
-    void setCurrentUser(@NotNull final String name);
 
     @Nullable
     Session getCurrentSession();

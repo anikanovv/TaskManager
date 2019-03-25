@@ -22,6 +22,6 @@ public class UserRemoveAllCommand extends AbstractCommand {
     @Override
     public void execute() {
         final UserEndPoint endPoint=bootstrap.getUserEndPoint();
-        endPoint.removeAllUser(bootstrap.getCurrentUser());
+        endPoint.removeAllUser(bootstrap.getCurrentSession());
     }
 }

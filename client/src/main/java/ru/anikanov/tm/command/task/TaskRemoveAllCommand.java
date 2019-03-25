@@ -22,6 +22,6 @@ public class TaskRemoveAllCommand extends AbstractCommand {
     @Override
     public void execute() {
         final TaskEndPoint endPoint= bootstrap.getTaskEndPoint();
-        endPoint.removeAllTask(bootstrap.getCurrentUser());
+        endPoint.removeAllTask(bootstrap.getCurrentSession());
     }
 }

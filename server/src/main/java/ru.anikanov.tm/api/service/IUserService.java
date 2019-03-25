@@ -35,5 +35,7 @@ public interface IUserService {
 
     User findByName(@NotNull final String name);
 
+    User getCurrentUser(@NotNull final Session session);
+
 
 }

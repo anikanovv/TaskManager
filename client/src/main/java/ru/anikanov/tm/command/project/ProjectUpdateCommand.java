@@ -28,6 +28,6 @@ public class ProjectUpdateCommand extends AbstractCommand {
         final String description = bootstrap.getTerminalService().nextLine();
         final String startDate = bootstrap.getTerminalService().nextLine();
         final String endDate = bootstrap.getTerminalService().nextLine();
-        projectEndPoint.updateProject(name, description, startDate, endDate, bootstrap.getCurrentSession());
+        projectEndPoint.updateProject(bootstrap.getCurrentSession(), name, description, startDate, endDate);
     }
 }

@@ -31,6 +31,8 @@ public class Bootstrap implements ServiceLocator {
     @NotNull
     private SessionEndPoint sessionEndPoint = new SessionEndPointService().getSessionEndPointPort();
     @NotNull
+    private DomainEndPoint domainEndPoint = new DomainEndPointService().getDomainEndPointPort();
+    @NotNull
     private final ITerminalService terminalService = new TerminalService(this);
     @NotNull
     private Map<String, AbstractCommand> commandMap = new HashMap<>();

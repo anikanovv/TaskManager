@@ -28,7 +28,7 @@ public class TerminalService implements ITerminalService {
                 commandString = scanner.nextLine().trim();
                 @Nullable AbstractCommand command = serviceLocator.getCommandMap().get(commandString);
                 if (command != null)
-                    if ((command.isSecure()) || (!Objects.requireNonNull(serviceLocator.getCurrentUser()).isEmpty())) {
+                    if ((command.isSecure()) || (!Objects.requireNonNull(Objects.requireNonNull(serviceLocator.getCurrentSession()).getUserId()).isEmpty())) {
                         try {
                             command.execute();
                         } catch (Exception e) {

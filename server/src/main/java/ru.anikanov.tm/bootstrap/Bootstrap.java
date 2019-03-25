@@ -7,14 +7,8 @@ import ru.anikanov.tm.api.ServiceLocator;
 import ru.anikanov.tm.api.repository.IProjectRepository;
 import ru.anikanov.tm.api.repository.ITaskRepository;
 import ru.anikanov.tm.api.repository.IUserRepository;
-import ru.anikanov.tm.api.service.IProjectService;
-import ru.anikanov.tm.api.service.ISessionService;
-import ru.anikanov.tm.api.service.ITaskService;
-import ru.anikanov.tm.api.service.IUserService;
-import ru.anikanov.tm.endpoint.ProjectEndPoint;
-import ru.anikanov.tm.endpoint.SessionEndPoint;
-import ru.anikanov.tm.endpoint.TaskEndPoint;
-import ru.anikanov.tm.endpoint.UserEndPoint;
+import ru.anikanov.tm.api.service.*;
+import ru.anikanov.tm.endpoint.*;
 import ru.anikanov.tm.entity.Session;
 import ru.anikanov.tm.entity.User;
 import ru.anikanov.tm.enumeration.Role;
@@ -22,10 +16,7 @@ import ru.anikanov.tm.repository.ProjectRepository;
 import ru.anikanov.tm.repository.SessionRepository;
 import ru.anikanov.tm.repository.TaskRepository;
 import ru.anikanov.tm.repository.UserRepository;
-import ru.anikanov.tm.service.ProjectService;
-import ru.anikanov.tm.service.SessionService;
-import ru.anikanov.tm.service.TaskService;
-import ru.anikanov.tm.service.UserService;
+import ru.anikanov.tm.service.*;
 import ru.anikanov.tm.utils.PasswordHashUtil;
 
 import javax.xml.ws.Endpoint;
@@ -50,6 +41,8 @@ public class Bootstrap implements ServiceLocator {
     private final IUserService userService = new UserService(userRepository);
     @NotNull
     private final ISessionService sessionService = new SessionService(sessionRepository);
+    @NotNull
+    private final IDomainService domainService = new DomainService(this);
 
     public void init() {
         initUsers();
@@ -57,6 +50,7 @@ public class Bootstrap implements ServiceLocator {
         Endpoint.publish("http://localhost:8080/TaskEndpoint?wsdl", new TaskEndPoint(this));
         Endpoint.publish("http://localhost:8080/UserEndpoint?wsdl", new UserEndPoint(this));
         Endpoint.publish("http://localhost:8080/SessionEndpoint?wsdl", new SessionEndPoint(this));
+        Endpoint.publish("http://localhost:8080/DomainEndpoint?wsdl", new DomainEndPoint(this));
     }
 
     private void initUsers() {

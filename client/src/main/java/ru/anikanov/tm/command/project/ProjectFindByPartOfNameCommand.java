@@ -24,7 +24,7 @@ public class ProjectFindByPartOfNameCommand extends AbstractCommand {
     public void execute() throws Exception {
         System.out.println("type name(part of name)");
         @Nullable final String partOfName = bootstrap.getTerminalService().nextLine();
-        @Nullable Project project = bootstrap.getProjectEndPoint().findProjectByPartOfNameProject(partOfName, bootstrap.getCurrentSession());
+        @Nullable Project project = bootstrap.getProjectEndPoint().findProjectByPartOfNameProject(bootstrap.getCurrentSession(), partOfName);
         System.out.println(project);
     }
 }

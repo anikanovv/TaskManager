@@ -2,6 +2,8 @@ package ru.anikanov.tm.command.user;
 
 import ru.anikanov.tm.command.AbstractCommand;
 
+import java.util.Objects;
+
 public class UserEndSessionCommand extends AbstractCommand {
 
     @Override
@@ -20,9 +22,9 @@ public class UserEndSessionCommand extends AbstractCommand {
 
     @Override
     public void execute() {
-        final String login = bootstrap.getCurrentUser();
+        final String login = Objects.requireNonNull(bootstrap.getCurrentSession()).getUserId();
         System.out.println(login);
-        bootstrap.setCurrentUser(null);
+        bootstrap.setCurrentSession(null);
         System.out.println("Session end");
     }
 }
