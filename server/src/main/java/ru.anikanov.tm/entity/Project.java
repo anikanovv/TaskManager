@@ -8,7 +8,7 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 import org.jetbrains.annotations.Nullable;
 import ru.anikanov.tm.enumeration.Status;
-import ru.anikanov.tm.utils.DateToString;
+import ru.anikanov.tm.utils.DateFormatUtil;
 
 import javax.xml.bind.annotation.*;
 import java.io.Serializable;
@@ -20,7 +20,7 @@ import java.util.Date;
 @JacksonXmlRootElement
 @XmlRootElement(name = "Project")
 @XmlAccessorType(XmlAccessType.FIELD)
-public class Project extends AbstractEntity implements Serializable {
+public final class Project extends AbstractEntity implements Serializable {
     @JacksonXmlElementWrapper(useWrapping = false)
     @Nullable
     @XmlElement
@@ -53,17 +53,17 @@ public class Project extends AbstractEntity implements Serializable {
 
     @XmlTransient
     public String getEnd() {
-        return new DateToString().dateToString(endDate);
+        return new DateFormatUtil().dateToString(endDate);
     }
 
     @XmlTransient
     public String getStart() {
-        return new DateToString().dateToString(startDate);
+        return new DateFormatUtil().dateToString(startDate);
     }
 
     public void setStart(@Nullable final String startString) {
         try {
-            startDate = new DateToString().stringToDate(startString);
+            startDate = new DateFormatUtil().stringToDate(startString);
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -71,7 +71,7 @@ public class Project extends AbstractEntity implements Serializable {
 
     public void setEnd(@Nullable final String endString) {
         try {
-            endDate = new DateToString().stringToDate(endString);
+            endDate = new DateFormatUtil().stringToDate(endString);
         } catch (Exception e) {
             e.printStackTrace();
         }

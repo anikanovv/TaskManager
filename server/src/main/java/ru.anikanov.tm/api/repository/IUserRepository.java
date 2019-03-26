@@ -11,7 +11,7 @@ public interface IUserRepository extends IRepository {
     @NotNull
     User persist(@NotNull final User user);
 
-    void merge(@NotNull User user);
+    User merge(@NotNull User user);
 
     void remove(@NotNull final String login);
 

@@ -22,14 +22,16 @@ public class LoadFasterXmlCommand extends AbstractCommand {
 
     @Override
     public boolean isSecure() {
-        return true;
+        return false;
     }
 
     @Override
     public void execute() throws Exception {
-        @NotNull final File file = new File(Objects.requireNonNull(bootstrap.getCurrentSession()).getUserId() + ".xml");
-        @NotNull final XmlMapper xmlMapper = new XmlMapper();
-        @Nullable final Domain value = xmlMapper.readValue(file, Domain.class);
-        System.out.println(value);
+        if (bootstrap.getUserEndPoint().checkadmin(bootstrap.getCurrentSession())) {
+            @NotNull final File file = new File(Objects.requireNonNull(bootstrap.getCurrentSession()).getUserId() + ".xml");
+            @NotNull final XmlMapper xmlMapper = new XmlMapper();
+            @Nullable final Domain value = xmlMapper.readValue(file, Domain.class);
+            System.out.println(value);
+        } else System.out.println("Don't have rights");
     }
 }

@@ -44,7 +44,7 @@ public class ObjectFactory {
 
     /**
      * Create an instance of {@link FasterJsonSerialize }
-     *
+     * 
      */
     public FasterJsonSerialize createFasterJsonSerialize() {
         return new FasterJsonSerialize();
@@ -52,6 +52,7 @@ public class ObjectFactory {
 
     /**
      * Create an instance of {@link FasterJsonSerializeResponse }
+     * 
      */
     public FasterJsonSerializeResponse createFasterJsonSerializeResponse() {
         return new FasterJsonSerializeResponse();
@@ -59,6 +60,7 @@ public class ObjectFactory {
 
     /**
      * Create an instance of {@link FasterXmlSerialize }
+     * 
      */
     public FasterXmlSerialize createFasterXmlSerialize() {
         return new FasterXmlSerialize();
@@ -66,6 +68,7 @@ public class ObjectFactory {
 
     /**
      * Create an instance of {@link FasterXmlSerializeResponse }
+     * 
      */
     public FasterXmlSerializeResponse createFasterXmlSerializeResponse() {
         return new FasterXmlSerializeResponse();
@@ -73,6 +76,7 @@ public class ObjectFactory {
 
     /**
      * Create an instance of {@link JaxbJsonSerialize }
+     * 
      */
     public JaxbJsonSerialize createJaxbJsonSerialize() {
         return new JaxbJsonSerialize();
@@ -80,6 +84,7 @@ public class ObjectFactory {
 
     /**
      * Create an instance of {@link JaxbJsonSerializeResponse }
+     * 
      */
     public JaxbJsonSerializeResponse createJaxbJsonSerializeResponse() {
         return new JaxbJsonSerializeResponse();
@@ -95,7 +100,7 @@ public class ObjectFactory {
 
     /**
      * Create an instance of {@link JaxbXmlSerializeResponse }
-     *
+     * 
      */
     public JaxbXmlSerializeResponse createJaxbXmlSerializeResponse() {
         return new JaxbXmlSerializeResponse();
@@ -103,7 +108,7 @@ public class ObjectFactory {
 
     /**
      * Create an instance of {@link StandartSerialize }
-     *
+     * 
      */
     public StandartSerialize createStandartSerialize() {
         return new StandartSerialize();
@@ -111,7 +116,7 @@ public class ObjectFactory {
 
     /**
      * Create an instance of {@link StandartSerializeResponse }
-     *
+     * 
      */
     public StandartSerializeResponse createStandartSerializeResponse() {
         return new StandartSerializeResponse();
@@ -127,7 +132,7 @@ public class ObjectFactory {
 
     /**
      * Create an instance of {@link JAXBElement }{@code <}{@link FasterJsonSerialize }{@code >}}
-     *
+     * 
      */
     @XmlElementDecl(namespace = "http://endpoint.tm.anikanov.ru/", name = "fasterJsonSerialize")
     public JAXBElement<FasterJsonSerialize> createFasterJsonSerialize(FasterJsonSerialize value) {
@@ -136,6 +141,7 @@ public class ObjectFactory {
 
     /**
      * Create an instance of {@link JAXBElement }{@code <}{@link FasterJsonSerializeResponse }{@code >}}
+     * 
      */
     @XmlElementDecl(namespace = "http://endpoint.tm.anikanov.ru/", name = "fasterJsonSerializeResponse")
     public JAXBElement<FasterJsonSerializeResponse> createFasterJsonSerializeResponse(FasterJsonSerializeResponse value) {
@@ -144,6 +150,7 @@ public class ObjectFactory {
 
     /**
      * Create an instance of {@link JAXBElement }{@code <}{@link FasterXmlSerialize }{@code >}}
+     * 
      */
     @XmlElementDecl(namespace = "http://endpoint.tm.anikanov.ru/", name = "fasterXmlSerialize")
     public JAXBElement<FasterXmlSerialize> createFasterXmlSerialize(FasterXmlSerialize value) {
@@ -152,6 +159,7 @@ public class ObjectFactory {
 
     /**
      * Create an instance of {@link JAXBElement }{@code <}{@link FasterXmlSerializeResponse }{@code >}}
+     * 
      */
     @XmlElementDecl(namespace = "http://endpoint.tm.anikanov.ru/", name = "fasterXmlSerializeResponse")
     public JAXBElement<FasterXmlSerializeResponse> createFasterXmlSerializeResponse(FasterXmlSerializeResponse value) {
@@ -160,7 +168,7 @@ public class ObjectFactory {
 
     /**
      * Create an instance of {@link JAXBElement }{@code <}{@link JaxbJsonSerialize }{@code >}}
-     *
+     * 
      */
     @XmlElementDecl(namespace = "http://endpoint.tm.anikanov.ru/", name = "jaxbJsonSerialize")
     public JAXBElement<JaxbJsonSerialize> createJaxbJsonSerialize(JaxbJsonSerialize value) {
@@ -169,7 +177,7 @@ public class ObjectFactory {
 
     /**
      * Create an instance of {@link JAXBElement }{@code <}{@link JaxbJsonSerializeResponse }{@code >}}
-     *
+     * 
      */
     @XmlElementDecl(namespace = "http://endpoint.tm.anikanov.ru/", name = "jaxbJsonSerializeResponse")
     public JAXBElement<JaxbJsonSerializeResponse> createJaxbJsonSerializeResponse(JaxbJsonSerializeResponse value) {
@@ -178,7 +186,7 @@ public class ObjectFactory {
 
     /**
      * Create an instance of {@link JAXBElement }{@code <}{@link JaxbXmlSerialize }{@code >}}
-     *
+     * 
      */
     @XmlElementDecl(namespace = "http://endpoint.tm.anikanov.ru/", name = "jaxbXmlSerialize")
     public JAXBElement<JaxbXmlSerialize> createJaxbXmlSerialize(JaxbXmlSerialize value) {
@@ -187,6 +195,7 @@ public class ObjectFactory {
 
     /**
      * Create an instance of {@link JAXBElement }{@code <}{@link JaxbXmlSerializeResponse }{@code >}}
+     * 
      */
     @XmlElementDecl(namespace = "http://endpoint.tm.anikanov.ru/", name = "jaxbXmlSerializeResponse")
     public JAXBElement<JaxbXmlSerializeResponse> createJaxbXmlSerializeResponse(JaxbXmlSerializeResponse value) {
@@ -195,6 +204,7 @@ public class ObjectFactory {
 
     /**
      * Create an instance of {@link JAXBElement }{@code <}{@link StandartSerialize }{@code >}}
+     * 
      */
     @XmlElementDecl(namespace = "http://endpoint.tm.anikanov.ru/", name = "standartSerialize")
     public JAXBElement<StandartSerialize> createStandartSerialize(StandartSerialize value) {
@@ -203,6 +213,7 @@ public class ObjectFactory {
 
     /**
      * Create an instance of {@link JAXBElement }{@code <}{@link StandartSerializeResponse }{@code >}}
+     * 
      */
     @XmlElementDecl(namespace = "http://endpoint.tm.anikanov.ru/", name = "standartSerializeResponse")
     public JAXBElement<StandartSerializeResponse> createStandartSerializeResponse(StandartSerializeResponse value) {

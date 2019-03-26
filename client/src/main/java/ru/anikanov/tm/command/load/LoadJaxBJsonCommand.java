@@ -23,16 +23,18 @@ public class LoadJaxBJsonCommand extends AbstractCommand {
 
     @Override
     public boolean isSecure() {
-        return true;
+        return false;
     }
 
     @Override
     public void execute() throws Exception {
-        @NotNull final JAXBContext jaxbContext = JAXBContext.newInstance(Domain.class);
-        @NotNull final Unmarshaller u = jaxbContext.createUnmarshaller();
-        u.setProperty("eclipselink.media-type", "application/json");
-        @NotNull final File file = new File(Objects.requireNonNull(bootstrap.getCurrentSession()).getUserId() + ".json");
-        @Nullable final Domain domain = (Domain) u.unmarshal(file);
-        System.out.println(domain);
+        if (bootstrap.getUserEndPoint().checkadmin(bootstrap.getCurrentSession())) {
+            @NotNull final JAXBContext jaxbContext = JAXBContext.newInstance(Domain.class);
+            @NotNull final Unmarshaller u = jaxbContext.createUnmarshaller();
+            u.setProperty("eclipselink.media-type", "application/json");
+            @NotNull final File file = new File(Objects.requireNonNull(bootstrap.getCurrentSession()).getUserId() + ".json");
+            @Nullable final Domain domain = (Domain) u.unmarshal(file);
+            System.out.println(domain);
+        } else System.out.println("Don't have rights");
     }
 }

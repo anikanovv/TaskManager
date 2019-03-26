@@ -31,8 +31,8 @@ public class DomainService implements IDomainService {
         @NotNull final FileOutputStream fos;
         try {
             fos = new FileOutputStream(serviceLocator.getUserService().getCurrentUser(session).getName() + "fasterjson.json");
-            @NotNull final List<Project> projects = Objects.requireNonNull(serviceLocator.getProjectService().findAll(session));
-            @NotNull final List<Task> tasks = Objects.requireNonNull(serviceLocator.getTaskService().findAll(Objects.requireNonNull(session.getUserId())));
+            @NotNull final List<Project> projects = Objects.requireNonNull(serviceLocator.getProjectService().findAll(Objects.requireNonNull(session.getUserId())));
+            @Nullable final List<Task> tasks = serviceLocator.getTaskService().findAll(Objects.requireNonNull(session.getUserId()));
             @NotNull final Domain domain = new Domain();
             domain.setProjects(projects);
             domain.setTasks(tasks);
@@ -52,7 +52,7 @@ public class DomainService implements IDomainService {
         @NotNull final FileOutputStream file;
         try {
             file = new FileOutputStream(serviceLocator.getUserService().getCurrentUser(session).getName() + "fasterxml" + ".xml");
-            @Nullable final List<Project> projects = serviceLocator.getProjectService().findAll(session);
+            @Nullable final List<Project> projects = serviceLocator.getProjectService().findAll(Objects.requireNonNull(session.getUserId()));
             @Nullable final List<Task> tasks = serviceLocator.getTaskService().findAll(Objects.requireNonNull(session.getUserId()));
             @Nullable final Domain domain = new Domain();
             domain.setProjects(projects);
@@ -75,7 +75,7 @@ public class DomainService implements IDomainService {
             @NotNull final Marshaller marshaller = jaxbContext.createMarshaller();
             marshaller.setProperty("eclipselink.media-type", "application/json");
             @NotNull final FileWriter file = new FileWriter(serviceLocator.getUserService().getCurrentUser(session).getName() + "jaxbjson.json");
-            @Nullable final List<Project> projects = serviceLocator.getProjectService().findAll(session);
+            @Nullable final List<Project> projects = serviceLocator.getProjectService().findAll(Objects.requireNonNull(session.getUserId()));
             @Nullable final List<Task> tasks = serviceLocator.getTaskService().findAll(Objects.requireNonNull(session.getUserId()));
             @Nullable final Domain domain = new Domain();
             domain.setProjects(projects);
@@ -94,8 +94,8 @@ public class DomainService implements IDomainService {
             @NotNull final Marshaller marshaller = context.createMarshaller();
             marshaller.setProperty(Marshaller.JAXB_FORMATTED_OUTPUT, Boolean.TRUE);
             @NotNull final File file = new File(serviceLocator.getUserService().getCurrentUser(session) + "jaxbxml.xml");
-            @Nullable final List<Project> projects = Objects.requireNonNull(serviceLocator.getProjectService().findAll(session));
-            @Nullable final List<Task> tasks = serviceLocator.getTaskService().findAll(Objects.requireNonNull(session.getUserId()));
+            @Nullable final List<Project> projects = serviceLocator.getProjectService().findAll(Objects.requireNonNull(session.getUserId()));
+            @Nullable final List<Task> tasks = serviceLocator.getTaskService().findAll(session.getUserId());
             @Nullable final Domain domain = new Domain();
             domain.setProjects(projects);
             domain.setTasks(tasks);
@@ -109,7 +109,7 @@ public class DomainService implements IDomainService {
         @NotNull final ObjectOutputStream oos;
         try {
             oos = new ObjectOutputStream(new FileOutputStream(serviceLocator.getUserService().getCurrentUser(session).getName() + "serialize.dat"));
-            @Nullable final List<Project> projects = serviceLocator.getProjectService().findAll(session);
+            @Nullable final List<Project> projects = serviceLocator.getProjectService().findAll(Objects.requireNonNull(session.getUserId()));
             @Nullable final List<Task> tasks = serviceLocator.getTaskService().findAll(Objects.requireNonNull(session.getUserId()));
             @Nullable final Domain domain = new Domain();
             domain.setProjects(projects);

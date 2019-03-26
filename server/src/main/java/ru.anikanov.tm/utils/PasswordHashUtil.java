@@ -6,7 +6,7 @@ import java.math.BigInteger;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 
-public class PasswordHashUtil {
+public final class PasswordHashUtil {
     @NotNull
     public static String md5(@NotNull String string) {
         MessageDigest messageDigest;

@@ -20,7 +20,7 @@ import java.util.List;
 @JacksonXmlRootElement
 @XmlRootElement(name = "Domain")
 @XmlAccessorType(XmlAccessType.FIELD)
-public class Domain extends AbstractEntity implements Serializable {
+public final class Domain extends AbstractEntity implements Serializable {
     @XmlElement
     @Nullable
     private List<Project> projects;

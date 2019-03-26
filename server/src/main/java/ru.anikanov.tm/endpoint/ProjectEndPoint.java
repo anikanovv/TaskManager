@@ -11,6 +11,8 @@ import javax.jws.WebMethod;
 import javax.jws.WebParam;
 import javax.jws.WebService;
 import java.util.List;
+import java.util.Objects;
+
 @WebService
 @NoArgsConstructor
 public class ProjectEndPoint implements IProjectEndPoint {
@@ -24,43 +26,43 @@ public class ProjectEndPoint implements IProjectEndPoint {
     public Project createProject(@WebParam @NotNull final Session session, @WebParam final String name, @WebParam final String description, @WebParam final String startDate,
                                  @WebParam final String endDate) {
         return serviceLocator.getProjectService()
-                .persist(name, description, startDate, endDate, session);
+                .persist(name, description, startDate, endDate, Objects.requireNonNull(session.getUserId()));
     }
     @WebMethod
     public void updateProject(@WebParam @NotNull final Session session, @WebParam final String name, @WebParam final String description, @WebParam final String startDate,
                               @WebParam final String endDate) {
-        serviceLocator.getProjectService().merge(name, description, startDate, endDate, session);
+        serviceLocator.getProjectService().merge(name, description, startDate, endDate, Objects.requireNonNull(session.getUserId()));
     }
     @WebMethod
     public void removeProject(@WebParam @NotNull final Session session, @WebParam final String name) {
-        serviceLocator.getProjectService().remove(name, session);
+        serviceLocator.getProjectService().remove(name, Objects.requireNonNull(session.getUserId()));
     }
     @WebMethod
     public void removeAllProject(@WebParam @NotNull final Session session) {
-        serviceLocator.getProjectService().removeAll(session);
+        serviceLocator.getProjectService().removeAll(Objects.requireNonNull(session.getUserId()));
     }
     @WebMethod
     public Project findProjectByPartOfNameProject(@WebParam @NotNull final Session session, @WebParam final String partOfName) {
-        return serviceLocator.getProjectService().findByPartOfName(partOfName, session);
+        return serviceLocator.getProjectService().findByPartOfName(partOfName, Objects.requireNonNull(session.getUserId()));
     }
     @WebMethod
     public Project findProjectByPartOfDescription(@WebParam @NotNull final Session session, @WebParam final String partOfDescription) {
-        return serviceLocator.getProjectService().findByPartOfDescription(partOfDescription, session);
+        return serviceLocator.getProjectService().findByPartOfDescription(partOfDescription, Objects.requireNonNull(session.getUserId()));
     }
     @WebMethod
     public List<Project> sortProjectByStartDate(@WebParam @NotNull final Session session) {
-        return serviceLocator.getProjectService().sortedByStartDate(session);
+        return serviceLocator.getProjectService().sortedByStartDate(Objects.requireNonNull(session.getUserId()));
     }
     @WebMethod
     public List<Project> sortProjectByFinishDate(@WebParam @NotNull final Session session) {
-        return serviceLocator.getProjectService().sortedByFinishDate(session);
+        return serviceLocator.getProjectService().sortedByFinishDate(Objects.requireNonNull(session.getUserId()));
     }
     @WebMethod
     public List<Project> sortProjectByStatus(@WebParam @NotNull final Session session) {
-        return serviceLocator.getProjectService().sortedByStatus(session);
+        return serviceLocator.getProjectService().sortedByStatus(Objects.requireNonNull(session.getUserId()));
     }
     @WebMethod
     public List<Project> findAllProject(@WebParam @NotNull final Session session) {
-        return serviceLocator.getProjectService().findAll(session);
+        return serviceLocator.getProjectService().findAll(Objects.requireNonNull(session.getUserId()));
     }
 }

@@ -22,14 +22,16 @@ public class LoadFasterJsonCommand extends AbstractCommand {
 
     @Override
     public boolean isSecure() {
-        return true;
+        return false;
     }
 
     @Override
     public void execute() throws Exception {
-        @NotNull final File file = new File(Objects.requireNonNull(bootstrap.getCurrentSession()).getUserId() + ".json");
-        @NotNull final ObjectMapper mapper = new ObjectMapper();
-        @Nullable final Domain value = mapper.readValue(file, Domain.class);
-        System.out.println(value);
+        if (bootstrap.getUserEndPoint().checkadmin(bootstrap.getCurrentSession())) {
+            @NotNull final File file = new File(Objects.requireNonNull(bootstrap.getCurrentSession()).getUserId() + ".json");
+            @NotNull final ObjectMapper mapper = new ObjectMapper();
+            @Nullable final Domain value = mapper.readValue(file, Domain.class);
+            System.out.println(value);
+        } else System.out.println("Don't have rights");
     }
 }

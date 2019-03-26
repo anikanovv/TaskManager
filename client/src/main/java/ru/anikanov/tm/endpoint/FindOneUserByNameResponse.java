@@ -9,9 +9,9 @@ import javax.xml.bind.annotation.XmlType;
 
 /**
  * <p>Java class for findOneUserByNameResponse complex type.
- *
+ * 
  * <p>The following schema fragment specifies the expected content contained within this class.
- *
+ * 
  * <pre>
  * &lt;complexType name="findOneUserByNameResponse"&gt;
  *   &lt;complexContent&gt;
@@ -23,6 +23,8 @@ import javax.xml.bind.annotation.XmlType;
  *   &lt;/complexContent&gt;
  * &lt;/complexType&gt;
  * </pre>
+ *
+ * 
  */
 @XmlAccessorType(XmlAccessType.FIELD)
 @XmlType(name = "findOneUserByNameResponse", propOrder = {
@@ -36,8 +38,10 @@ public class FindOneUserByNameResponse {
     /**
      * Gets the value of the return property.
      *
-     * @return possible object is
-     * {@link User }
+     * @return
+     *     possible object is
+     *     {@link User }
+     *     
      */
     public User getReturn() {
         return _return;
@@ -46,8 +50,10 @@ public class FindOneUserByNameResponse {
     /**
      * Sets the value of the return property.
      *
-     * @param value allowed object is
-     *              {@link User }
+     * @param value
+     *     allowed object is
+     *     {@link User }
+     *     
      */
     public void setReturn(User value) {
         this._return = value;

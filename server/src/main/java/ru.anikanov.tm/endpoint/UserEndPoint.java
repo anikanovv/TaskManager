@@ -12,6 +12,7 @@ import javax.jws.WebMethod;
 import javax.jws.WebParam;
 import javax.jws.WebService;
 import java.util.List;
+import java.util.Objects;
 
 @NoArgsConstructor
 @WebService
@@ -35,18 +36,18 @@ public class UserEndPoint {
 
     @WebMethod
     public void removeUser(@WebParam @NotNull final Session session, @WebParam @Nullable final String login) {
-        serviceLocator.getUserService().remove(login, session.getUserId());
+        serviceLocator.getUserService().remove(login, Objects.requireNonNull(session.getUserId()));
     }
 
     @WebMethod
     public void removeAllUser(@WebParam @NotNull final Session session) {
-        serviceLocator.getUserService().removeAll(session.getUserId());
+        serviceLocator.getUserService().removeAll(Objects.requireNonNull(session.getUserId()));
     }
 
     @Nullable
     @WebMethod
     public User findOneUser(@WebParam @NotNull final Session session, @WebParam @Nullable final String login) {
-        return serviceLocator.getUserService().findOne(login, session.getUserId());
+        return serviceLocator.getUserService().findOne(login, Objects.requireNonNull(session.getUserId()));
     }
 
     @WebMethod
@@ -56,7 +57,7 @@ public class UserEndPoint {
     @Nullable
     @WebMethod
     public List<User> findAllUser(@WebParam @NotNull final Session session) {
-        return serviceLocator.getUserService().findAll(session.getUserId());
+        return serviceLocator.getUserService().findAll(Objects.requireNonNull(session.getUserId()));
     }
 
     @WebMethod

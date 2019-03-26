@@ -10,7 +10,6 @@ import ru.anikanov.tm.entity.Task;
 import ru.anikanov.tm.entity.User;
 
 import java.util.List;
-import java.util.Objects;
 
 public class TaskService extends AbstractService implements ITaskService {
     @NotNull
@@ -60,14 +59,14 @@ public class TaskService extends AbstractService implements ITaskService {
         @Nullable final User user = userRepository.findOne(userId);
         if (task == null) return;
         if (user == null) return;
-        if ((!userId.equals(task.getUserId())) || (!Objects.requireNonNull(user.getRole()).displayName().equals("admin")))
+        if (!userId.equals(task.getUserId()))
             return;
         if ((taskName == null) || taskName.isEmpty()) return;
         if ((description == null) || description.isEmpty()) return;
         if ((dateStart == null) || dateStart.isEmpty()) return;
         if ((dateFinish == null) || dateFinish.isEmpty()) return;
         try {
-            taskRepository.merge(new Task(task.getProjectId(), taskName, description, dateStart, dateFinish, userId));
+            taskRepository.merge(taskName, description, dateStart, dateFinish, userId);
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -79,55 +78,56 @@ public class TaskService extends AbstractService implements ITaskService {
         @Nullable final User user = userRepository.findOne(userId);
         if (task == null) return;
         if (user == null) return;
-        if ((!userId.equals(task.getUserId())) || (!Objects.requireNonNull(user.getRole()).displayName().equals("admin")))
-            return;
+        if (!userId.equals(task.getUserId())) return;
         taskRepository.remove(taskId);
     }
 
     public void removeAll(@NotNull final String userId) {
         @Nullable final User user = userRepository.findOne(userId);
         if (user == null) return;
-        if (!Objects.requireNonNull(user.getRole()).displayName().equals("admin")) return;
         taskRepository.removeAll();
     }
 
     public List<Task> findAll(@NotNull final String userId) {
         @Nullable final User user = userRepository.findOne(userId);
         if (user == null) return null;
-        if (!Objects.requireNonNull(user.getRole()).displayName().equals("admin")) return null;
-        return taskRepository.findAll();
+        return taskRepository.findAll(userId);
     }
 
     @Nullable
     public List<Task> sortedByStartDate(@NotNull final String userId) {
-        @Nullable List<Task> tasks = findAll(userId);
-        if ((tasks == null) || (tasks.isEmpty())) return null;
-        return taskRepository.sortedByStartDate();
+        @Nullable final User user = userRepository.findOne(userId);
+        if (user == null) return null;
+        return taskRepository.sortedByStartDate(userId);
     }
 
     @Nullable
     public List<Task> sortedByFinishDate(@NotNull final String userId) {
-        @Nullable List<Task> tasks = findAll(userId);
-        if ((tasks == null) || (tasks.isEmpty())) return null;
-        return taskRepository.sortedByFinishDate();
+        @Nullable final User user = userRepository.findOne(userId);
+        if (user == null) return null;
+        return taskRepository.sortedByFinishDate(userId);
     }
 
     @Nullable
     public List<Task> sortedByStatus(@NotNull final String userId) {
-        @Nullable List<Task> tasks = findAll(userId);
-        if ((tasks == null) || (tasks.isEmpty())) return null;
-        return taskRepository.sortedByStatus();
+        @Nullable final User user = userRepository.findOne(userId);
+        if (user == null) return null;
+        return taskRepository.sortedByStatus(userId);
     }
 
     @Nullable
     public Task findByPartOfName(@Nullable final String partOfName, @NotNull final String userId) {
+        @Nullable final User user = userRepository.findOne(userId);
+        if (user == null) return null;
         if ((partOfName == null) || (partOfName.isEmpty())) return null;
-        return taskRepository.findByPartOfName(partOfName);
+        return taskRepository.findByPartOfName(partOfName, userId);
     }
 
     @Nullable
     public Task findByPartOfDescription(@Nullable final String partOfDescription, @NotNull final String userId) {
+        @Nullable final User user = userRepository.findOne(userId);
+        if (user == null) return null;
         if ((partOfDescription == null) || (partOfDescription.isEmpty())) return null;
-        return taskRepository.findByPartOfName(partOfDescription);
+        return taskRepository.findByPartOfName(partOfDescription, userId);
     }
 }

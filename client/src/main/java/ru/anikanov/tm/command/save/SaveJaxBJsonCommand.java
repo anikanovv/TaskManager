@@ -15,11 +15,13 @@ public class SaveJaxBJsonCommand extends AbstractCommand {
 
     @Override
     public boolean isSecure() {
-        return true;
+        return false;
     }
 
     @Override
     public void execute() throws Exception {
-        bootstrap.getDomainEndPoint().jaxbJsonSerialize(bootstrap.getCurrentSession());
+        if (bootstrap.getUserEndPoint().checkadmin(bootstrap.getCurrentSession())) {
+            bootstrap.getDomainEndPoint().jaxbJsonSerialize(bootstrap.getCurrentSession());
+        } else System.out.println("Don't have rights");
     }
 }

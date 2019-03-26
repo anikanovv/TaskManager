@@ -30,11 +30,11 @@ public class UserService extends AbstractService implements IUserService {
         return null;
     }
 
-    public void merge(@Nullable final String login, @Nullable final String password, @Nullable final Role role) {
-        if ((login == null) || login.isEmpty()) return;
-        if ((password == null) || password.isEmpty()) return;
-        if (role == null) return;
-        userRepository.merge(new User(login, password, role));
+    public User merge(@Nullable final String login, @Nullable final String password, @Nullable final Role role) {
+        if ((login == null) || login.isEmpty()) return null;
+        if ((password == null) || password.isEmpty()) return null;
+        if (role == null) return null;
+        return userRepository.merge(new User(login, password, role));
     }
 
     public boolean logIn(@Nullable final String login, @Nullable final String password) {

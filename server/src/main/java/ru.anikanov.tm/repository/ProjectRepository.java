@@ -1,16 +1,22 @@
 package ru.anikanov.tm.repository;
 
-import lombok.Getter;
+import lombok.NoArgsConstructor;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 import ru.anikanov.tm.api.repository.IProjectRepository;
 import ru.anikanov.tm.entity.Project;
 
+import java.sql.Connection;
 import java.util.*;
 
-@Getter
+@NoArgsConstructor
 public class ProjectRepository extends AbstractRepository implements IProjectRepository {
     private Map<String, Project> projectMap = new LinkedHashMap<>();
+    private Connection connection;
+
+    public ProjectRepository(@Nullable final Connection connection) {
+        this.connection = connection;
+    }
 
     @NotNull
     @Override

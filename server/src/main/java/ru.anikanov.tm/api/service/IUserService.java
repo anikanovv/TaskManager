@@ -13,7 +13,7 @@ public interface IUserService {
     @Nullable
     User persist(@Nullable final String login, @Nullable final String password, @Nullable final Role role);
 
-    void merge(@Nullable final String login, @Nullable final String password, @Nullable final Role role);
+    User merge(@Nullable final String login, @Nullable final String password, @Nullable final Role role);
 
     void remove(@Nullable final String login, @NotNull final String userId);
 

@@ -18,10 +18,11 @@ public class UserRepository extends AbstractRepository implements IUserRepositor
         return user;
     }
 
-    public void merge(@NotNull final User u) {
+    public User merge(@NotNull final User u) {
         @NotNull final User user = userMap.get(u.getName());
         user.setHashPassword(u.getHashPassword());
         user.setRole(u.getRole());
+        return user;
     }
 
     public boolean logIn(@NotNull final String login, @NotNull final String password) {

@@ -14,7 +14,7 @@ import java.util.Locale;
 @Getter
 @Setter
 @NoArgsConstructor
-public class Task extends AbstractEntity {
+public final class Task extends AbstractEntity {
     @Nullable
     private String projectId;
     @Nullable

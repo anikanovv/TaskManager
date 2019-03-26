@@ -22,14 +22,16 @@ public class LoadDeserilizationCommand extends AbstractCommand {
 
     @Override
     public boolean isSecure() {
-        return true;
+        return false;
     }
 
     @Override
     public void execute() throws Exception {
-        try (@NotNull final ObjectInputStream ois = new ObjectInputStream(new FileInputStream((Objects.requireNonNull(bootstrap.getCurrentSession()).getUserId()) + ".dat"))) {
-            @Nullable final Domain domain = (Domain) ois.readObject();
-            System.out.println(domain);
-        }
+        if (bootstrap.getUserEndPoint().checkadmin(bootstrap.getCurrentSession())) {
+            try (@NotNull final ObjectInputStream ois = new ObjectInputStream(new FileInputStream((Objects.requireNonNull(bootstrap.getCurrentSession()).getUserId()) + ".dat"))) {
+                @Nullable final Domain domain = (Domain) ois.readObject();
+                System.out.println(domain);
+            }
+        } else System.out.println("Don't have rights");
     }
 }

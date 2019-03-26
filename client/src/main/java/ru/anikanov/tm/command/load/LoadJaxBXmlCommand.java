@@ -23,14 +23,16 @@ public class LoadJaxBXmlCommand extends AbstractCommand {
 
     @Override
     public boolean isSecure() {
-        return true;
+        return false;
     }
 
     @Override
     public void execute() throws Exception {
-        @NotNull final JAXBContext context = JAXBContext.newInstance(Domain.class);
-        @NotNull final Unmarshaller unmarshaller = context.createUnmarshaller();
-        @Nullable final Domain domain = (Domain) unmarshaller.unmarshal(new File(Objects.requireNonNull(bootstrap.getCurrentSession()).getUserId() + ".xml"));
-        System.out.println(domain);
+        if (bootstrap.getUserEndPoint().checkadmin(bootstrap.getCurrentSession())) {
+            @NotNull final JAXBContext context = JAXBContext.newInstance(Domain.class);
+            @NotNull final Unmarshaller unmarshaller = context.createUnmarshaller();
+            @Nullable final Domain domain = (Domain) unmarshaller.unmarshal(new File(Objects.requireNonNull(bootstrap.getCurrentSession()).getUserId() + ".xml"));
+            System.out.println(domain);
+        } else System.out.println("Don't have rights");
     }
 }
