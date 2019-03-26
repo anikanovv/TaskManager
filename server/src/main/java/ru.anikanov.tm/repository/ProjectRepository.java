@@ -10,7 +10,7 @@ import java.sql.Connection;
 import java.util.*;
 
 @NoArgsConstructor
-public class ProjectRepository extends AbstractRepository implements IProjectRepository {
+public class ProjectRepository implements IProjectRepository {
     private Map<String, Project> projectMap = new LinkedHashMap<>();
     private Connection connection;
 
@@ -27,7 +27,6 @@ public class ProjectRepository extends AbstractRepository implements IProjectRep
 
     @Override
     public Project merge(@NotNull final Project project) {
-        if (project.getName() == null) return null;
         @Nullable final Project newProject = findOne(project.getName());
         if (newProject == null) return null;
         newProject.setDescription(project.getDescription());
@@ -40,49 +39,53 @@ public class ProjectRepository extends AbstractRepository implements IProjectRep
         projectMap.remove(projectName);
     }
 
-    public void removeAll() {
-        projectMap.clear();
+    public void removeAll(@NotNull final String userId) {
+        projectMap.forEach((k, v) -> {
+            if (userId.equals(v.getUserId())) projectMap.remove(k);
+        });
     }
 
     @Nullable
-    public List<Project> findAll() {
+    public List<Project> findAll(@NotNull final String userId) {
         @Nullable List<Project> list = new ArrayList<>();
-        projectMap.forEach((k, v) -> list.add(v));
+        projectMap.forEach((k, v) -> {
+            if (userId.equals(v.getUserId())) list.add(v);
+        });
         return list;
     }
 
     @Nullable
-    public Project findOne(@NotNull String projectName) {
-        return projectMap.get(projectName);
+    public Project findOne(@Nullable final String projectId) {
+        return projectMap.get(projectId);
     }
 
     @Nullable
-    public List<Project> sortedByStartDate() {
-        @Nullable List<Project> projects = findAll();
+    public List<Project> sortedByStartDate(@NotNull final String userId) {
+        @Nullable List<Project> projects = findAll(userId);
         if (projects == null) return null;
         projects.sort(Comparator.comparing(Project::getStartDate));
         return projects;
     }
 
     @Nullable
-    public List<Project> sortedByFinishDate() {
-        @Nullable List<Project> projects = findAll();
+    public List<Project> sortedByFinishDate(@NotNull final String userId) {
+        @Nullable List<Project> projects = findAll(userId);
         if (projects == null) return null;
         projects.sort(Comparator.comparing(Project::getEndDate));
         return projects;
     }
 
     @Nullable
-    public List<Project> sortedByStatus() {
-        @Nullable final List<Project> projects = findAll();
+    public List<Project> sortedByStatus(@NotNull final String userId) {
+        @Nullable final List<Project> projects = findAll(userId);
         if (projects == null) return null;
         projects.sort(Comparator.comparing(Project::getStatus));
         return projects;
     }
 
     @Nullable
-    public Project findByPartOfName(@NotNull final String partOfName) {
-        @Nullable final List<Project> projects = findAll();
+    public Project findByPartOfName(@NotNull final String partOfName, @NotNull final String userId) {
+        @Nullable final List<Project> projects = findAll(userId);
         @Nullable Project thisproject = null;
         if (projects == null) return null;
         for (Project project : projects) {
@@ -92,8 +95,8 @@ public class ProjectRepository extends AbstractRepository implements IProjectRep
     }
 
     @Nullable
-    public Project findByPartOfDescription(@NotNull final String partOfDescription) {
-        @Nullable final List<Project> projects = findAll();
+    public Project findByPartOfDescription(@NotNull final String partOfDescription, @NotNull final String userId) {
+        @Nullable final List<Project> projects = findAll(userId);
         @Nullable Project thisproject = null;
         if (projects == null) return null;
         for (Project project : projects) {

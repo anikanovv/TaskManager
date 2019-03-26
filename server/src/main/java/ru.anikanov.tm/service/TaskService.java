@@ -10,6 +10,7 @@ import ru.anikanov.tm.entity.Task;
 import ru.anikanov.tm.entity.User;
 
 import java.util.List;
+import java.util.Objects;
 
 public class TaskService extends AbstractService implements ITaskService {
     @NotNull
@@ -26,14 +27,17 @@ public class TaskService extends AbstractService implements ITaskService {
     }
 
     @Nullable
-    public Task findOne(@Nullable final String taskId, @NotNull final String userId) {
+    public Task findOne(@Nullable final String taskId, @Nullable final String userId) {
+        if ((userId == null) || userId.isEmpty()) return null;
         if ((taskId == null) || taskId.isEmpty()) return null;
-        return taskRepository.findOne(taskId);
+        Task task = taskRepository.findOne(taskId);
+        if (userId.equals(Objects.requireNonNull(task).getUserId())) return task;
+        else return null;
     }
 
     @Nullable
     public Task persist(@NotNull final String projectId, @Nullable final String taskName, @Nullable final String description,
-                        @Nullable final String dateStart, @Nullable final String dateFinish, @NotNull final String userId) {
+                        @Nullable final String dateStart, @Nullable final String dateFinish, @Nullable final String userId) {
         if ((taskName == null) || taskName.isEmpty()) return null;
         @Nullable final Task task = taskRepository.findOne(taskName);
         if (task == null) {
@@ -41,7 +45,7 @@ public class TaskService extends AbstractService implements ITaskService {
             if ((description == null) || description.isEmpty()) return null;
             if ((dateStart == null) || dateStart.isEmpty()) return null;
             if ((dateFinish == null) || dateFinish.isEmpty()) return null;
-            if (userId.isEmpty()) return null;
+            if ((userId == null) || userId.isEmpty()) return null;
         }
         try {
             @NotNull final Task newtask = new Task(projectId, taskName, description, dateStart, dateFinish, userId);
@@ -53,8 +57,9 @@ public class TaskService extends AbstractService implements ITaskService {
     }
 
     public void merge(@Nullable final String taskId, @Nullable final String taskName, @Nullable final String description,
-                      @Nullable final String dateStart, @Nullable final String dateFinish, @NotNull final String userId) {
+                      @Nullable final String dateStart, @Nullable final String dateFinish, @Nullable final String userId) {
         if ((taskId == null) || taskId.isEmpty()) return;
+        if ((userId == null) || userId.isEmpty()) return;
         @Nullable final Task task = taskRepository.findOne(taskId);
         @Nullable final User user = userRepository.findOne(userId);
         if (task == null) return;
@@ -72,8 +77,9 @@ public class TaskService extends AbstractService implements ITaskService {
         }
     }
 
-    public void remove(@Nullable final String taskId, @NotNull final String userId) {
+    public void remove(@Nullable final String taskId, @Nullable final String userId) {
         if ((taskId == null) || taskId.isEmpty()) return;
+        if ((userId == null) || userId.isEmpty()) return;
         @Nullable final Task task = taskRepository.findOne(taskId);
         @Nullable final User user = userRepository.findOne(userId);
         if (task == null) return;
@@ -82,52 +88,59 @@ public class TaskService extends AbstractService implements ITaskService {
         taskRepository.remove(taskId);
     }
 
-    public void removeAll(@NotNull final String userId) {
+    public void removeAll(@Nullable final String userId) {
+        if ((userId == null) || userId.isEmpty()) return;
         @Nullable final User user = userRepository.findOne(userId);
         if (user == null) return;
-        taskRepository.removeAll();
+        taskRepository.removeAll(userId);
     }
 
-    public List<Task> findAll(@NotNull final String userId) {
+    public List<Task> findAll(@Nullable final String userId) {
+        if ((userId == null) || userId.isEmpty()) return null;
         @Nullable final User user = userRepository.findOne(userId);
         if (user == null) return null;
         return taskRepository.findAll(userId);
     }
 
     @Nullable
-    public List<Task> sortedByStartDate(@NotNull final String userId) {
+    public List<Task> sortedByStartDate(@Nullable final String userId) {
+        if ((userId == null) || userId.isEmpty()) return null;
         @Nullable final User user = userRepository.findOne(userId);
         if (user == null) return null;
         return taskRepository.sortedByStartDate(userId);
     }
 
     @Nullable
-    public List<Task> sortedByFinishDate(@NotNull final String userId) {
+    public List<Task> sortedByFinishDate(@Nullable final String userId) {
+        if ((userId == null) || userId.isEmpty()) return null;
         @Nullable final User user = userRepository.findOne(userId);
         if (user == null) return null;
         return taskRepository.sortedByFinishDate(userId);
     }
 
     @Nullable
-    public List<Task> sortedByStatus(@NotNull final String userId) {
+    public List<Task> sortedByStatus(@Nullable final String userId) {
+        if ((userId == null) || userId.isEmpty()) return null;
         @Nullable final User user = userRepository.findOne(userId);
         if (user == null) return null;
         return taskRepository.sortedByStatus(userId);
     }
 
     @Nullable
-    public Task findByPartOfName(@Nullable final String partOfName, @NotNull final String userId) {
+    public Task findByPartOfName(@Nullable final String partOfName, @Nullable final String userId) {
+        if ((partOfName == null) || (partOfName.isEmpty())) return null;
+        if ((userId == null) || userId.isEmpty()) return null;
         @Nullable final User user = userRepository.findOne(userId);
         if (user == null) return null;
-        if ((partOfName == null) || (partOfName.isEmpty())) return null;
         return taskRepository.findByPartOfName(partOfName, userId);
     }
 
     @Nullable
-    public Task findByPartOfDescription(@Nullable final String partOfDescription, @NotNull final String userId) {
+    public Task findByPartOfDescription(@Nullable final String partOfDescription, @Nullable final String userId) {
+        if ((userId == null) || userId.isEmpty()) return null;
+        if ((partOfDescription == null) || (partOfDescription.isEmpty())) return null;
         @Nullable final User user = userRepository.findOne(userId);
         if (user == null) return null;
-        if ((partOfDescription == null) || (partOfDescription.isEmpty())) return null;
         return taskRepository.findByPartOfName(partOfDescription, userId);
     }
 }

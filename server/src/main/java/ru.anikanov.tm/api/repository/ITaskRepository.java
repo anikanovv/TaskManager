@@ -16,7 +16,7 @@ public interface ITaskRepository extends IRepository {
 
     void remove(@NotNull final String name);
 
-    void removeAll();
+    void removeAll(@NotNull final String userId);
 
     @Nullable
     Task findOne(@NotNull final String name);

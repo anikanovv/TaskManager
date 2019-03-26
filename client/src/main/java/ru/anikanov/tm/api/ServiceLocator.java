@@ -30,6 +30,6 @@ public interface ServiceLocator {
     @Nullable
     Session getCurrentSession();
 
-    void setCurrentSession(@NotNull final Session session);
+    void setCurrentSession(@Nullable final Session session);
 
 }

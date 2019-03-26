@@ -15,26 +15,26 @@ public interface IProjectRepository extends IRepository {
 
     void remove(@NotNull final String name);
 
-    void removeAll();
+    void removeAll(@NotNull final String userId);
 
     @Nullable
     Project findOne(@NotNull final String name);
 
     @Nullable
-    List<Project> findAll();
+    List<Project> findAll(@NotNull final String userId);
 
     @Nullable
-    List<Project> sortedByStartDate();
+    List<Project> sortedByStartDate(@NotNull final String userId);
 
     @Nullable
-    List<Project> sortedByFinishDate();
+    List<Project> sortedByFinishDate(@NotNull final String userId);
 
     @Nullable
-    List<Project> sortedByStatus();
+    List<Project> sortedByStatus(@NotNull final String userId);
 
     @Nullable
-    Project findByPartOfName(@NotNull final String partOfName);
+    Project findByPartOfName(@NotNull final String partOfName, @NotNull final String userId);
 
     @Nullable
-    Project findByPartOfDescription(@NotNull final String partOfDescription);
+    Project findByPartOfDescription(@NotNull final String partOfDescription, @NotNull final String userId);
 }

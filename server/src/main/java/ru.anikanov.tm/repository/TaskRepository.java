@@ -40,8 +40,10 @@ public class TaskRepository implements ITaskRepository {
         taskMap.remove(taskName);
     }
 
-    public void removeAll() {
-        taskMap.clear();
+    public void removeAll(@NotNull final String userId) {
+        taskMap.forEach((k, v) -> {
+            if (userId.equals(v.getUserId())) taskMap.remove(k);
+        });
     }
 
     public void removeWholeProject(@NotNull final String projectId) {
@@ -54,7 +56,7 @@ public class TaskRepository implements ITaskRepository {
     public List<Task> findAll(@NotNull final String userId) {
         @Nullable List<Task> tasks = new ArrayList<>();
         taskMap.forEach((k, v) -> {
-            if (v.getUserId().equals(userId))
+            if (userId.equals(v.getUserId()))
                 tasks.add(v);
         });
         return tasks;
@@ -62,7 +64,7 @@ public class TaskRepository implements ITaskRepository {
 
     @Nullable
     public List<Task> sortedByStartDate(@NotNull final String userId) {
-        List<Task> tasks = findAll(userId);
+        @Nullable List<Task> tasks = findAll(userId);
         if (tasks == null) return null;
         tasks.sort(Comparator.comparing(Task::getStartDate));
         return tasks;
