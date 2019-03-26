@@ -3,27 +3,27 @@
 ### Список команд для работы:
 | Название  | Описание |
 | ------------- | ------------- |
-| - register user  | Content Cell  |
-| - update user  | Content Cell  |
-| - updatepass user  | Content Cell  |
-| - delete user  | Content Cell  |
-| - removeall users  | Content Cell  |
-| - auth user  | Content Cell  |
-| - create user  | Content Cell  |
-| - read user  | Content Cell  |
-| - readall users  | Content Cell  |
-| - create project  | Content Cell  |
-| - update project  | Content Cell  |
-| - delete project  | Content Cell  |
-| - removeall projects  | Content Cell  |
-| - read project  | Content Cell  |
-| - readall projects  | Content Cell  |
-| - create task  | Content Cell  |
-| - update task  | Content Cell  |
-| - delete task  | Content Cell  |
-| - removeall tasks  | Content Cell  |
-| - read task  | Content Cell  |
-| - readall tasks  | Content Cell  |
+| - register user  | регистарция пользователя  |
+| - update user  | обновление информации о пользователе  |
+| - updatepass user  | обновления пароля пользователя  |
+| - delete user  | удалить пользователя  |
+| - removeall users  | удалить всех пользователей  |
+| - auth user  | авторизация пользователя  |
+| - create user  | создать пользователя  |
+| - read user  | читать информацию о пользователе  |
+| - readall users  | читать информацию о всех пользователях  |
+| - create project  | создать проект  |
+| - update project  | обновить проект  |
+| - delete project  | удалить проект |
+| - removeall projects  | удалить все проекты  |
+| - read project  | читать информацию о проекте  |
+| - readall projects  | читать информацию о всех проектах  |
+| - create task  | создать задачу  |
+| - update task  | обновить задачу  |
+| - delete task  | удалить задачу  |
+| - removeall tasks  | удалить все задачи  |
+| - read task  | читать информацию о задаче  |
+| - readall tasks  |  читать информацию о всех задачах  |
 ### ТРЕБОВАНИЯ К SOFTWARE:
 * IntelliJ IDEA Community version 
 * Java 8
@@ -33,7 +33,11 @@
 * Аниканов Владислав Алексеевич
 * mail: anikanov.vlad@gmail.com
 ### КОМАНДЫ ДЛЯ СБОРКИ ПРИЛОЖЕНИЯ:
-* $ mvn package
+`````````
+* $ mvn clean install
+`````````
 ### КОМАНДЫ ДЛЯ ЗАПУСКА ПРИЛОЖЕНИЯ:
+`````````
 * cd target
 * java -jar tm.jar
+`````````
