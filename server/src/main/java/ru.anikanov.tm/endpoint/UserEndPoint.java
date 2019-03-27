@@ -30,8 +30,9 @@ public class UserEndPoint {
 
     @Nullable
     @WebMethod
-    public User createUser(@WebParam @Nullable final String login, @WebParam @Nullable final String password, @WebParam @Nullable final Role role) {
-        return serviceLocator.getUserService().persist(login,password,role);
+    public User createUser(@WebParam @Nullable final String login, @WebParam @Nullable final String firstName, @WebParam @Nullable final String lastName, @WebParam @Nullable final String email,
+                           @WebParam @Nullable final String password, @WebParam @Nullable final Role role) {
+        return serviceLocator.getUserService().persist(login, firstName, lastName, email, password, role);
     }
 
     @WebMethod
@@ -61,8 +62,9 @@ public class UserEndPoint {
     }
 
     @WebMethod
-    public void updateUser(@WebParam @Nullable final String login, @WebParam @Nullable final String password, @WebParam @Nullable final Role role) {
-        serviceLocator.getUserService().merge(login,password,role);
+    public void updateUser(@WebParam @Nullable final String login, @WebParam @Nullable final String firstName, @WebParam @Nullable final String lastName, @WebParam @Nullable final String email,
+                           @WebParam @Nullable final String password, @WebParam @Nullable final Role role) {
+        serviceLocator.getUserService().merge(login, firstName, lastName, email, password, role);
     }
 
     @WebMethod

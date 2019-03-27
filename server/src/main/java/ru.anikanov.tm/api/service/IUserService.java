@@ -11,9 +11,11 @@ import java.util.List;
 public interface IUserService {
 
     @Nullable
-    User persist(@Nullable final String login, @Nullable final String password, @Nullable final Role role);
+    User persist(@Nullable final String login, @Nullable final String firstName, @Nullable final String lastName, @Nullable final String email,
+                 @Nullable final String password, @Nullable final Role role);
 
-    User merge(@Nullable final String login, @Nullable final String password, @Nullable final Role role);
+    User merge(@Nullable final String login, @Nullable final String firstName, @Nullable final String lastName, @Nullable final String email,
+               @Nullable final String password, @Nullable final Role role);
 
     void remove(@Nullable final String login, @NotNull final String userId);
 

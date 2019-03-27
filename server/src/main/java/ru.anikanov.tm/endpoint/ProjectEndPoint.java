@@ -10,6 +10,8 @@ import ru.anikanov.tm.entity.Session;
 import javax.jws.WebMethod;
 import javax.jws.WebParam;
 import javax.jws.WebService;
+import java.sql.SQLException;
+import java.text.ParseException;
 import java.util.List;
 import java.util.Objects;
 
@@ -42,7 +44,7 @@ public class ProjectEndPoint implements IProjectEndPoint {
         serviceLocator.getProjectService().removeAll(Objects.requireNonNull(session.getUserId()));
     }
     @WebMethod
-    public Project findProjectByPartOfNameProject(@WebParam @NotNull final Session session, @WebParam final String partOfName) {
+    public Project findProjectByPartOfNameProject(@WebParam @NotNull final Session session, @WebParam final String partOfName) throws SQLException, ParseException {
         return serviceLocator.getProjectService().findByPartOfName(partOfName, Objects.requireNonNull(session.getUserId()));
     }
     @WebMethod

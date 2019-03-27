@@ -11,7 +11,7 @@ import ru.anikanov.tm.enumeration.Role;
 import java.util.List;
 import java.util.Objects;
 
-public class UserService extends AbstractService implements IUserService {
+public class UserService implements IUserService {
     @NotNull
     private IUserRepository userRepository;
 
@@ -20,27 +20,35 @@ public class UserService extends AbstractService implements IUserService {
     }
 
     @Nullable
-    public User persist(@Nullable final String login, @Nullable final String password, @Nullable final Role role) {
+    public User persist(@Nullable final String login, @Nullable final String firstName, @Nullable final String lastName, @Nullable final String email,
+                        @Nullable final String password, @Nullable final Role role) {
         if ((login == null) || login.isEmpty()) return null;
         if (userRepository.findOne(login) == null) {
+            if ((firstName == null) || firstName.isEmpty()) return null;
+            if ((lastName == null) || lastName.isEmpty()) return null;
+            if ((email == null) || email.isEmpty()) return null;
             if ((password == null) || password.isEmpty()) return null;
             if (role == null) return null;
-            return userRepository.persist(new User(login, password, role));
+            return userRepository.persist(new User(login, firstName, lastName, email, password, role));
         }
         return null;
     }
 
-    public User merge(@Nullable final String login, @Nullable final String password, @Nullable final Role role) {
+    public User merge(@Nullable final String login, @Nullable final String firstName, @Nullable final String lastName, @Nullable final String email,
+                      @Nullable final String password, @Nullable final Role role) {
         if ((login == null) || login.isEmpty()) return null;
+        if ((firstName == null) || firstName.isEmpty()) return null;
+        if ((lastName == null) || lastName.isEmpty()) return null;
+        if ((email == null) || email.isEmpty()) return null;
         if ((password == null) || password.isEmpty()) return null;
         if (role == null) return null;
-        return userRepository.merge(new User(login, password, role));
+        return userRepository.merge(new User(login, firstName, lastName, email, password, role));
     }
 
     public boolean logIn(@Nullable final String login, @Nullable final String password) {
         if ((login == null) || login.isEmpty()) return false;
         if ((password == null) || password.isEmpty()) return false;
-        @Nullable final User user = findByName(login);
+        @Nullable final User user = findOne(login, login);
         if (user == null) return false;
         return userRepository.logIn(login, password);
 

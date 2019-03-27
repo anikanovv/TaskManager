@@ -4,6 +4,8 @@ import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 import ru.anikanov.tm.entity.Project;
 
+import java.sql.SQLException;
+import java.text.ParseException;
 import java.util.List;
 
 public interface IProjectRepository extends IRepository {
@@ -33,7 +35,7 @@ public interface IProjectRepository extends IRepository {
     List<Project> sortedByStatus(@NotNull final String userId);
 
     @Nullable
-    Project findByPartOfName(@NotNull final String partOfName, @NotNull final String userId);
+    Project findByPartOfName(@NotNull final String partOfName, @NotNull final String userId) throws SQLException, ParseException;
 
     @Nullable
     Project findByPartOfDescription(@NotNull final String partOfDescription, @NotNull final String userId);

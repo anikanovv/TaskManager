@@ -9,6 +9,8 @@ import ru.anikanov.tm.api.service.IProjectService;
 import ru.anikanov.tm.entity.Project;
 import ru.anikanov.tm.entity.User;
 
+import java.sql.SQLException;
+import java.text.ParseException;
 import java.util.List;
 import java.util.Objects;
 
@@ -102,7 +104,8 @@ public class ProjectService implements IProjectService {
         if ((userId == null) || userId.isEmpty()) return null;
         if ((projectId == null) || projectId.isEmpty()) return null;
         Project project = projectRepository.findOne(projectId);
-        if (userId.equals(Objects.requireNonNull(project).getUserId())) return project;
+        if (project == null) return null;
+        if (userId.equals(project.getUserId())) return project;
         else return null;
     }
 
@@ -125,7 +128,7 @@ public class ProjectService implements IProjectService {
     }
 
     @Nullable
-    public Project findByPartOfName(@Nullable final String partOfName, @Nullable final String userId) {
+    public Project findByPartOfName(@Nullable final String partOfName, @Nullable final String userId) throws SQLException, ParseException {
         if ((partOfName == null) || (partOfName.isEmpty())) return null;
         if ((userId == null) || userId.isEmpty()) return null;
         return projectRepository.findByPartOfName(partOfName, userId);
@@ -135,7 +138,7 @@ public class ProjectService implements IProjectService {
     public Project findByPartOfDescription(@Nullable final String partOfDescription, @Nullable final String userId) {
         if ((partOfDescription == null) || (partOfDescription.isEmpty())) return null;
         if ((userId == null) || userId.isEmpty()) return null;
-        return projectRepository.findByPartOfName(partOfDescription, userId);
+        return projectRepository.findByPartOfDescription(partOfDescription, userId);
     }
 
 

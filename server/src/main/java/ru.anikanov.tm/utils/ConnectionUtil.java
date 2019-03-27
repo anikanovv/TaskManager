@@ -1,5 +1,4 @@
 package ru.anikanov.tm.utils;
-
 import org.jetbrains.annotations.Nullable;
 import ru.anikanov.tm.bootstrap.Bootstrap;
 
@@ -11,12 +10,30 @@ import java.sql.SQLException;
 import java.util.Properties;
 
 public class ConnectionUtil {
+    private static final String JDBC_DRIVER = "org.h2.Driver";
+    private static final String DB_URL = "jdbc:h2:~/test1";
+    private static final String USER = "sa";
+    private static final String PASS = "";
+
+    /*  public static Connection getConnection() {
+          Connection conn = null;
+          try {
+              Class.forName(JDBC_DRIVER);
+              System.out.println("Connecting to database...");
+              conn = DriverManager.getConnection(DB_URL, USER, PASS);
+              conn.close();
+          } catch (Exception se) {
+              se.printStackTrace();
+          }
+          return conn;
+      }*/
     @Nullable
     public static Connection getConnection() {
         Connection conn = null;
         Properties prop = new Properties();
         InputStream input = null;
         try {
+            Class.forName("com.mysql.jdbc.Driver").newInstance();
             String filename = "config.properties";
             input = Bootstrap.class.getClassLoader().getResourceAsStream(filename);
             if (input == null) {
@@ -40,6 +57,8 @@ public class ConnectionUtil {
             }
         } catch (IOException e) {
             System.err.println("ОШИБКА: Файл свойств отсуствует!");
+        } catch (ClassNotFoundException | InstantiationException | IllegalAccessException e) {
+            e.printStackTrace();
         }
         return conn;
     }

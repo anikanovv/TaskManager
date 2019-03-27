@@ -7,6 +7,8 @@ import ru.anikanov.tm.entity.Session;
 import javax.jws.WebMethod;
 import javax.jws.WebParam;
 import javax.jws.WebService;
+import java.sql.SQLException;
+import java.text.ParseException;
 import java.util.List;
 
 @WebService
@@ -22,7 +24,7 @@ public interface IProjectEndPoint {
     @WebMethod
     void removeAllProject(@WebParam @NotNull final Session session);
     @WebMethod
-    Project findProjectByPartOfNameProject(@WebParam @NotNull final Session session, @WebParam final String partOfName);
+    Project findProjectByPartOfNameProject(@WebParam @NotNull final Session session, @WebParam final String partOfName) throws SQLException, ParseException;
     @WebMethod
     Project findProjectByPartOfDescription(@WebParam @NotNull final Session session, @WebParam final String partOfDescription);
     @WebMethod

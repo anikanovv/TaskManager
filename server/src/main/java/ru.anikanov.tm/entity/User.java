@@ -18,10 +18,20 @@ public final class User extends AbstractEntity {
     @Nullable
     private String hashPassword;
     @Nullable
+    private String firstName;
+    @Nullable
+    private String lastName;
+    @Nullable
+    private String email;
+    @Nullable
     private Role role;
 
-    public User(@NotNull String login, @NotNull String password, @NotNull Role role) {
+    public User(@NotNull final String login, @NotNull final String firstName, @NotNull final String lastName, @NotNull final String email,
+                @NotNull final String password, @NotNull final Role role) {
         this.name = login;
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.email = email;
         this.hashPassword = password;
         this.role = role;
     }

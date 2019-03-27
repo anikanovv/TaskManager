@@ -63,7 +63,7 @@ public final class Project extends AbstractEntity implements Serializable {
 
     public void setStart(@Nullable final String startString) {
         try {
-            startDate = new DateFormatUtil().stringToDate(startString);
+            startDate = new java.sql.Date(new DateFormatUtil().stringToDate(startString).getTime());
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -71,7 +71,7 @@ public final class Project extends AbstractEntity implements Serializable {
 
     public void setEnd(@Nullable final String endString) {
         try {
-            endDate = new DateFormatUtil().stringToDate(endString);
+            endDate = new java.sql.Date(new DateFormatUtil().stringToDate(endString).getTime());
         } catch (Exception e) {
             e.printStackTrace();
         }
