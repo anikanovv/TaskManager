@@ -15,30 +15,32 @@ public class SessionService implements ISessionService {
     private SessionRepository sessionRepository;
 
     public SessionService(@NotNull final SessionRepository sr) {
-        sessionRepository=sr;
+        sessionRepository = sr;
     }
 
-    public Session create(String userId) {
-        Session session = new Session(userId, System.currentTimeMillis());
-        session.setUserId(userId);
+    public Session create(@Nullable final String userId) {
+        if (userId == null || userId.isEmpty()) return null;
+        @Nullable Session session = new Session(userId, System.currentTimeMillis());
         session.setId(UUID.randomUUID().toString());
-        session.setSignature(SignatureUtil.sign(session, "salt", 22));
         session.setTimestamp(System.currentTimeMillis());
+        session.setUserId(userId);
+        session.setSignature(SignatureUtil.sign(session, "salt", 22));
         return sessionRepository.create(session);
+    }
+
+    @Override
+    public Session findOne(@Nullable final String sessionId) {
+        if (sessionId == null || sessionId.isEmpty()) return null;
+        return sessionRepository.findOne(sessionId);
     }
 
     public boolean validate(@Nullable final Session session) {
         if (session == null) return false;
-        if (session.getSignature() == null) return false;
-        if (session.getTimestamp() == null) return false;
         if (session.getId() == null) return false;
-        Session clone = null;
-        try {
-            clone = session.clone();
-        } catch (CloneNotSupportedException e) {
-            e.printStackTrace();
-        }
-        clone.setSignature(SignatureUtil.sign(session, "salt", 22));
+        @Nullable Session clone = findOne(session.getId());
+        if (clone == null) return false;
+        clone.setSignature(null);
+        clone.setSignature(SignatureUtil.sign(clone, "salt", 22));
         if (session.getSignature() != null) {
             return (session.getSignature().equals(clone.getSignature()));
         }

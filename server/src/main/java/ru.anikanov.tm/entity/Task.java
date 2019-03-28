@@ -5,11 +5,9 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 import org.jetbrains.annotations.Nullable;
 import ru.anikanov.tm.enumeration.Status;
+import ru.anikanov.tm.utils.DateFormatUtil;
 
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
 import java.util.Date;
-import java.util.Locale;
 
 @Getter
 @Setter
@@ -29,39 +27,39 @@ public final class Task extends AbstractEntity {
     private String userId;
     @Nullable
     private Status status;
-    private final SimpleDateFormat format = new SimpleDateFormat("dd.MM.yyyy", Locale.US);
+//    private final SimpleDateFormat format = new SimpleDateFormat("dd.MM.yyyy", Locale.US);
 
     public Task(@Nullable final String projectId, @Nullable final String name, @Nullable final String description,
                 @Nullable final String startDate, @Nullable final String endDate, @Nullable final String userId) throws Exception {
         this.projectId = projectId;
         this.taskName = name;
         this.taskDescription = description;
-        this.startDate = format.parse(startDate);
-        this.endDate = format.parse(endDate);
+        setStart(startDate);
+        setEnd(endDate);
         this.userId = userId;
         status = Status.SCHEDULED;
     }
 
     public String getStart() {
-        return format.format(startDate);
+        return new DateFormatUtil().dateToString(startDate);
     }
 
     public void setStart(@Nullable final String start) {
         try {
-            this.startDate = format.parse(start);
-        } catch (ParseException e) {
+            startDate = new java.sql.Date(new DateFormatUtil().stringToDate(start).getTime());
+        } catch (Exception e) {
             e.printStackTrace();
         }
     }
 
     public String getEnd() {
-        return format.format(startDate);
+        return new DateFormatUtil().dateToString(startDate);
     }
 
     public void setEnd(@Nullable final String end) {
         try {
-            this.endDate = format.parse(end);
-        } catch (ParseException e) {
+            endDate = new java.sql.Date(new DateFormatUtil().stringToDate(end).getTime());
+        } catch (Exception e) {
             e.printStackTrace();
         }
     }

@@ -11,20 +11,20 @@ public interface ITaskRepository extends IRepository {
     @Nullable
     Task persist(@NotNull final Task task);
 
-    Task merge(@Nullable final String taskName, @Nullable final String description,
-               @Nullable final String dateStart, @Nullable final String dateFinish, @NotNull final String userId);
+    Task merge(@NotNull final String taskId, @NotNull final String taskName, @NotNull final String description,
+               @NotNull final String dateStart, @NotNull final String dateFinish, @NotNull final String userId);
 
-    void remove(@NotNull final String name);
+    void remove(@NotNull final String name, @NotNull final String userId);
 
     void removeAll(@NotNull final String userId);
 
     @Nullable
-    Task findOne(@NotNull final String name);
+    Task findOne(@NotNull final String name, @NotNull final String userId);
 
     @Nullable
     List<Task> findAll(@NotNull final String userId);
 
-    void removeWholeProject(@NotNull final String projectId);
+    void removeWholeProject(@NotNull final String projectId, @NotNull final String userId);
 
     @Nullable
     List<Task> sortedByStartDate(@NotNull final String userId);

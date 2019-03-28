@@ -13,14 +13,14 @@ public interface IProjectRepository extends IRepository {
     @NotNull
     Project persist(@NotNull final Project p);
 
-    Project merge(@NotNull Project p);
+    Project merge(@NotNull Project p) throws SQLException;
 
-    void remove(@NotNull final String name);
+    void remove(@NotNull final String name, @NotNull final String userId);
 
     void removeAll(@NotNull final String userId);
 
     @Nullable
-    Project findOne(@NotNull final String name);
+    Project findOne(@NotNull final String name, @NotNull final String userId);
 
     @Nullable
     List<Project> findAll(@NotNull final String userId);
@@ -38,5 +38,5 @@ public interface IProjectRepository extends IRepository {
     Project findByPartOfName(@NotNull final String partOfName, @NotNull final String userId) throws SQLException, ParseException;
 
     @Nullable
-    Project findByPartOfDescription(@NotNull final String partOfDescription, @NotNull final String userId);
+    Project findByPartOfDescription(@NotNull final String partOfDescription, @NotNull final String userId) throws SQLException;
 }

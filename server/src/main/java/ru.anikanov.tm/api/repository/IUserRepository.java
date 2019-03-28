@@ -20,7 +20,7 @@ public interface IUserRepository extends IRepository {
     @Nullable
     User findOne(@NotNull final String login);
 
-    @NotNull
+    @Nullable
     List<User> findAll();
 
     boolean logIn(@NotNull final String login, @NotNull final String password);

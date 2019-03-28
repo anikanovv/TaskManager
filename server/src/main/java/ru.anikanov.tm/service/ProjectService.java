@@ -7,12 +7,10 @@ import ru.anikanov.tm.api.repository.ITaskRepository;
 import ru.anikanov.tm.api.repository.IUserRepository;
 import ru.anikanov.tm.api.service.IProjectService;
 import ru.anikanov.tm.entity.Project;
-import ru.anikanov.tm.entity.User;
 
 import java.sql.SQLException;
 import java.text.ParseException;
 import java.util.List;
-import java.util.Objects;
 
 public class ProjectService implements IProjectService {
     @NotNull
@@ -32,12 +30,12 @@ public class ProjectService implements IProjectService {
     public Project persist(@Nullable final String projectName, @Nullable final String description, @Nullable final String dateStart,
                            @Nullable final String dateFinish, @Nullable final String userId) {
         if ((projectName == null) || projectName.isEmpty()) return null;
-        @Nullable final Project project = projectRepository.findOne(projectName);
+        if (userId == null || userId.isEmpty()) return null;
+        @Nullable final Project project = projectRepository.findOne(projectName, userId);
         if (project == null) {
             if ((description == null) || description.isEmpty()) return null;
             if ((dateStart == null) || dateStart.isEmpty()) return null;
             if ((dateFinish == null) || dateFinish.isEmpty()) return null;
-            if ((userId == null) || userId.isEmpty()) return null;
             try {
                 @Nullable final Project newproject = new Project(projectName, description, dateStart, dateFinish, userId);
                 return projectRepository.persist(newproject);
@@ -51,12 +49,6 @@ public class ProjectService implements IProjectService {
     public void merge(@Nullable final String projectName, @Nullable final String description, @Nullable final String dateStart,
                       @Nullable final String dateFinish, @Nullable final String userId) {
         if ((projectName == null) || projectName.isEmpty()) return;
-        @Nullable final Project project = projectRepository.findOne(projectName);
-        @Nullable final User user = userRepository.findOne(Objects.requireNonNull(userId));
-        if (project == null) return;
-        if (user == null) return;
-        if (!userId.equals(project.getUserId()))
-            return;
         if ((description == null) || description.isEmpty()) return;
         if ((dateStart == null) || dateStart.isEmpty()) return;
         if ((dateFinish == null) || dateFinish.isEmpty()) return;
@@ -71,31 +63,27 @@ public class ProjectService implements IProjectService {
     public void remove(@Nullable final String projectName, @Nullable final String userId) {
         if ((projectName == null) || projectName.isEmpty()) return;
         if ((userId == null) || userId.isEmpty()) return;
-        @Nullable final Project project = projectRepository.findOne(projectName);
-        @Nullable final User user = userRepository.findOne(userId);
+        @Nullable Project project = null;
+        try {
+            project = findByPartOfName(projectName, userId);
+        } catch (SQLException | ParseException e) {
+            e.printStackTrace();
+        }
         if (project == null) return;
-        if (user == null) return;
-        if (!userId.equals(project.getUserId()))
-            return;
-        @NotNull final String projectId = project.getId();
-        projectRepository.remove(projectName);
-        taskRepository.removeWholeProject(projectId);
-
+        taskRepository.removeWholeProject(project.getId(), userId);
+        projectRepository.remove(projectName, userId);
     }
 
     public void removeAll(@Nullable final String userId) {
         if ((userId == null) || userId.isEmpty()) return;
-        @Nullable final User user = userRepository.findOne(userId);
-        if (user == null) return;
         taskRepository.removeAll(userId);
         projectRepository.removeAll(userId);
     }
 
     @Nullable
     public List<Project> findAll(@Nullable final String userId) {
+
         if ((userId == null) || userId.isEmpty()) return null;
-        @Nullable final User user = userRepository.findOne(userId);
-        if (user == null) return null;
         return projectRepository.findAll(userId);
     }
 
@@ -103,7 +91,7 @@ public class ProjectService implements IProjectService {
     public Project findOne(@Nullable final String projectId, @Nullable final String userId) {
         if ((userId == null) || userId.isEmpty()) return null;
         if ((projectId == null) || projectId.isEmpty()) return null;
-        Project project = projectRepository.findOne(projectId);
+        @Nullable final Project project = projectRepository.findOne(projectId, userId);
         if (project == null) return null;
         if (userId.equals(project.getUserId())) return project;
         else return null;
@@ -135,7 +123,7 @@ public class ProjectService implements IProjectService {
     }
 
     @Nullable
-    public Project findByPartOfDescription(@Nullable final String partOfDescription, @Nullable final String userId) {
+    public Project findByPartOfDescription(@Nullable final String partOfDescription, @Nullable final String userId) throws SQLException {
         if ((partOfDescription == null) || (partOfDescription.isEmpty())) return null;
         if ((userId == null) || userId.isEmpty()) return null;
         return projectRepository.findByPartOfDescription(partOfDescription, userId);

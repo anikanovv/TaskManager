@@ -38,5 +38,5 @@ public interface IProjectService {
     Project findByPartOfName(@NotNull final String partOfName, @NotNull final String userId) throws SQLException, ParseException;
 
     @Nullable
-    Project findByPartOfDescription(@NotNull final String partOfDescription, @NotNull final String userId);
+    Project findByPartOfDescription(@NotNull final String partOfDescription, @NotNull final String userId) throws SQLException;
 }

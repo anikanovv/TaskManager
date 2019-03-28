@@ -48,7 +48,7 @@ public class ProjectEndPoint implements IProjectEndPoint {
         return serviceLocator.getProjectService().findByPartOfName(partOfName, Objects.requireNonNull(session.getUserId()));
     }
     @WebMethod
-    public Project findProjectByPartOfDescription(@WebParam @NotNull final Session session, @WebParam final String partOfDescription) {
+    public Project findProjectByPartOfDescription(@WebParam @NotNull final Session session, @WebParam final String partOfDescription) throws SQLException {
         return serviceLocator.getProjectService().findByPartOfDescription(partOfDescription, Objects.requireNonNull(session.getUserId()));
     }
     @WebMethod

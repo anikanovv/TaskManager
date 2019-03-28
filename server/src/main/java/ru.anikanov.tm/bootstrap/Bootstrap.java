@@ -10,7 +10,6 @@ import ru.anikanov.tm.api.repository.ITaskRepository;
 import ru.anikanov.tm.api.repository.IUserRepository;
 import ru.anikanov.tm.api.service.*;
 import ru.anikanov.tm.endpoint.*;
-import ru.anikanov.tm.entity.Project;
 import ru.anikanov.tm.entity.Session;
 import ru.anikanov.tm.entity.User;
 import ru.anikanov.tm.enumeration.Role;
@@ -24,10 +23,7 @@ import ru.anikanov.tm.utils.PasswordHashUtil;
 
 import javax.xml.ws.Endpoint;
 import java.sql.Connection;
-import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.sql.Statement;
-import java.text.ParseException;
 import java.util.Objects;
 
 @Getter
@@ -36,13 +32,13 @@ public class Bootstrap implements ServiceLocator {
     @Nullable
     private Connection connection = ConnectionUtil.getConnection();
     @NotNull
-    private ITaskRepository taskRepository = new TaskRepository();
+    private ITaskRepository taskRepository = new TaskRepository(connection);
     @NotNull
     private IProjectRepository projectRepository = new ProjectRepository(connection);
     @NotNull
     private IUserRepository userRepository = new UserRepository(connection);
     @NotNull
-    private SessionRepository sessionRepository = new SessionRepository();
+    private SessionRepository sessionRepository = new SessionRepository(connection);
     @NotNull
     private final IProjectService projectService = new ProjectService(projectRepository, taskRepository, userRepository);
     @NotNull
@@ -76,32 +72,13 @@ public class Bootstrap implements ServiceLocator {
         projectService.persist("new1", "descr1", "12.11.1234", "12.11.1234", Objects.requireNonNull(userses.getUserId()));
         projectService.persist("new2", "descr2", "12.11.1234", "12.11.1234", Objects.requireNonNull(adminses.getUserId()));
     }
-
-    public static void main(String[] args) throws SQLException, ParseException {
-        Bootstrap bootstrap=new Bootstrap();
-        Connection conn= ConnectionUtil.getConnection();
-        Statement stmt = null;
-        ResultSet rs = null;
-//        bootstrap.getUserService().remove("user1","11");
-//        bootstrap.getUserService().remove("user2","11");
-//        User user = bootstrap.getUserService().persist("user2","Human","Looman","Looman@man.com", PasswordHashUtil.md5("user"), Role.USER);
-//        User user1 = bootstrap.getUserService().persist("user1","Moman","Popan","Looman@man.com", PasswordHashUtil.md5("lol"), Role.USER);
-//        Project project1=bootstrap.projectService.persist("123new123","ss","12.11.2011","12.11.2011",user1.getId());
-//        Project project133=bootstrap.projectService.persist("newasdasdnew","ss","12.11.2011","12.11.2011",user.getId());
-//        Project project12=bootstrap.projectService.persist("asdnnewasldhk","ss","12.11.2011","12.11.2011",user.getId());
-        Project project = bootstrap.projectService.findOne("newasdasdnew", "f8da79db-0957-4b9d-baaa-f10c1e4088c9");
-        if (project != null) System.out.println(project.getName());
-//        System.out.println(bootstrap.projectService.findOne(project.getId(),user.getId()));
-
-        try {
-            stmt = conn.createStatement();
-//                stmt.executeUpdate(query);
-        }
-        catch (SQLException ex){
-            System.out.println("SQLException: " + ex.getMessage());
-            System.out.println("SQLState: " + ex.getSQLState());
-            System.out.println("VendorError: " + ex.getErrorCode());
-        }
-    }
+/*
+    public static void main(String[] args) throws SQLException{
+        Bootstrap bootstrap = new Bootstrap();
+        User user = bootstrap.getUserService().findOne("uuu","11bd6325-0373-42fb-9474-3ae474deb79a");
+        Session adminses=bootstrap.sessionService.create(user.getId());
+        System.out.println(bootstrap.sessionService.findOne("6be6d6af-3d7e-4457-864c-93e68b247ede").getId());
+       if (bootstrap.sessionService.validate(adminses)) System.out.println("TURE");
+    }*/
 }
 

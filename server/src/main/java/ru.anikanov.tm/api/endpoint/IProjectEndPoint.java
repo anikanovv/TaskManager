@@ -26,7 +26,7 @@ public interface IProjectEndPoint {
     @WebMethod
     Project findProjectByPartOfNameProject(@WebParam @NotNull final Session session, @WebParam final String partOfName) throws SQLException, ParseException;
     @WebMethod
-    Project findProjectByPartOfDescription(@WebParam @NotNull final Session session, @WebParam final String partOfDescription);
+    Project findProjectByPartOfDescription(@WebParam @NotNull final Session session, @WebParam final String partOfDescription) throws SQLException;
     @WebMethod
     List<Project> sortProjectByStartDate(@WebParam @NotNull final Session session);
     @WebMethod

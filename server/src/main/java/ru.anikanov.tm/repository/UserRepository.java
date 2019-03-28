@@ -20,16 +20,17 @@ public class UserRepository extends AbstractRepository implements IUserRepositor
     private Connection connection;
     private Statement statement;
 
-    public UserRepository(Connection connection) throws SQLException {
+    public UserRepository(@Nullable final Connection connection) throws SQLException {
         this.connection = connection;
-        statement = connection.createStatement();
+        if (connection != null)
+            statement = connection.createStatement();
     }
 
     @NotNull
     public User persist(@NotNull final User user) {
         userMap.put(user.getId(), user);
-        String sql = "INSERT INTO taskmanager.app_user VALUES ('" + user.getId() + "', '" + user.getEmail() + "', '" + user.getFirstName() + "','" + user.getLastName() + "', '" + user.getName() +
-                "','" + user.getHashPassword() + "', '" + (user.getRole()).toString() + "');";
+        @NotNull final String sql = "INSERT INTO taskmanager.app_user VALUES ('" + user.getId() + "', '" + user.getEmail() + "', '" + user.getFirstName() + "','" + user.getLastName() + "', '" + user.getName() +
+                "','" + user.getHashPassword() + "', '" + (Objects.requireNonNull(user.getRole())).toString() + "');";
         try {
             statement.executeUpdate(sql);
         } catch (SQLException e) {
@@ -39,8 +40,9 @@ public class UserRepository extends AbstractRepository implements IUserRepositor
     }
 
     public User merge(@NotNull final User u) {
-        @Nullable final User user = findOne(Objects.requireNonNull(u.getName()));
-        String sql = "UPDATE taskmanager.app_user SET " +
+        @Nullable final User user = findOne((Objects.requireNonNull(u.getName())));
+        if (user == null) return null;
+        @NotNull final String sql = "UPDATE taskmanager.app_user SET " +
                 "firstName = '" + u.getFirstName() + "', " +
                 "lastName = '" + u.getLastName() + "', " +
                 "email = '" + u.getEmail() + "', " +
@@ -65,11 +67,11 @@ public class UserRepository extends AbstractRepository implements IUserRepositor
     }
 
     public boolean updatePassword(@NotNull final String login, @NotNull final String oldOne, @NotNull final String newOne) {
-        @Nullable User user = findOne(login);
+        @Nullable final User user = findOne(login);
         if (user == null) return false;
         if (Objects.equals(user.getHashPassword(), PasswordHashUtil.md5(oldOne))) {
-            String newPasswordHash = PasswordHashUtil.md5(newOne);
-            String sql = "UPDATE taskmanager.app_user SET passwordhash='" + newPasswordHash + "'";
+            @NotNull final String newPasswordHash = PasswordHashUtil.md5(newOne);
+            @NotNull final String sql = "UPDATE taskmanager.app_user SET passwordhash='" + newPasswordHash + "'";
             try {
                 statement.executeUpdate(sql);
             } catch (SQLException e) {
@@ -88,11 +90,9 @@ public class UserRepository extends AbstractRepository implements IUserRepositor
         try {
             statement = Objects.requireNonNull(connection).prepareStatement(query);
             statement.setString(1, login);
-//        statement.setString(2, userId);
             @NotNull final ResultSet resultSet = statement.executeQuery();
             if (resultSet.next()) {
                 @NotNull final User user = Objects.requireNonNull(fetch(resultSet));
-                statement.close();
                 return user;
             }
         } catch (SQLException e) {
@@ -140,7 +140,7 @@ public class UserRepository extends AbstractRepository implements IUserRepositor
 
 
     public void remove(@NotNull final String login) {
-        String sql = "DELETE FROM taskmanager.app_user \n" +
+        @NotNull final String sql = "DELETE FROM taskmanager.app_user \n" +
                 "WHERE login='" + login + "';";
 
         try {
@@ -148,28 +148,22 @@ public class UserRepository extends AbstractRepository implements IUserRepositor
         } catch (SQLException e) {
             e.printStackTrace();
         }
-//        userMap.remove(login);
     }
 
     public void removeAll() {
-        String sql = "DELETE FROM taskmanager.app_user ";
+        @NotNull final String sql = "DELETE FROM taskmanager.app_user ";
         try {
             statement.executeUpdate(sql);
         } catch (SQLException e) {
             e.printStackTrace();
         }
-//        userMap.remove(login);
     }
 
     public User findByName(@NotNull final String login) {
         @NotNull final String query =
-                "SELECT * FROM taskmanager.app_user WHERE id = ?";
-        @NotNull final PreparedStatement statement;
+                "SELECT * FROM taskmanager.app_user WHERE id = '" + login + "'";
         try {
-            statement = Objects.requireNonNull(connection).prepareStatement(query);
-            statement.setString(1, login);
-//        statement.setString(2, userId);
-            @NotNull final ResultSet resultSet = statement.executeQuery();
+            @NotNull final ResultSet resultSet = statement.executeQuery(query);
             if (resultSet.next()) {
                 @NotNull final User user = Objects.requireNonNull(fetch(resultSet));
                 statement.close();

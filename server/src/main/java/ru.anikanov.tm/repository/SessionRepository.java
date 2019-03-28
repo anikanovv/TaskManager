@@ -1,47 +1,68 @@
 package ru.anikanov.tm.repository;
 
+import lombok.SneakyThrows;
+import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
 import ru.anikanov.tm.entity.Session;
-import ru.anikanov.tm.utils.SignatureUtil;
 
+import java.sql.Connection;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
 import java.util.LinkedHashMap;
 import java.util.Map;
+import java.util.Objects;
 
 public class SessionRepository {
-    private Map<String, Session> sessionMap=new LinkedHashMap<>();
+    private Map<String, Session> sessionMap = new LinkedHashMap<>();
+    private Statement statement;
 
-    /* public Session persist(Session session){
- //        sign(session);
-         session.setTimestamp(System.currentTimeMillis());
-         session.setSignature(SignatureUtil.sign(session.getId(), "salt", 11));
-         return sessionMap.put(session.getId(),session);
-     }
-
-     public void check(Session session) {
-         session.setSignature(null);
-         sign(session);
-     }
-
-     public void sign(Session session) {
-         String signature = SignatureUtil.sign(session.getId(), "salt", 11);
-         session.setSignature(signature);
-     }
-
-     public boolean validate(Session session) throws Exception {
-         if (session == null) throw new Exception();
-         if (session.getId() == null) throw new Exception();
-         if (session.getTimestamp() == null) throw new Exception();
-         if (session.getSignature() == null) throw new Exception();
-        *//* Session newSession = session.clone();
-        check(newSession);*//*
-        return session.getSignature().equals(session.getSignature());
+    public SessionRepository(@Nullable final Connection connection) {
+        try {
+            if (connection != null)
+                statement = connection.createStatement();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
     }
 
-    public void remove(Session session) throws Exception {
-         sessionMap.remove(session.getId());
-    }
-*/
+    @Nullable
     public Session create(Session session) {
-        sessionMap.put(session.getId(), session);
+        @NotNull final String sql = "INSERT into taskmanager.app_session VALUES('" + session.getId() + "','" + session.getSignature() + "','" + session.getTimestamp() +
+                "','" + session.getUserId() + "')";
+        try {
+            statement.executeUpdate(sql);
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return session;
+    }
+
+    @Nullable
+    public Session findOne(String sessionId) {
+        @NotNull final String query =
+                "SELECT * FROM taskmanager.app_session WHERE id= '" + sessionId + "'";
+        try {
+            @NotNull final ResultSet resultSet = statement.executeQuery(query);
+            if (resultSet.next()) {
+                @NotNull final Session session = Objects.requireNonNull(fetch(resultSet));
+                return session;
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
+
+    @Nullable
+    @SneakyThrows
+    private Session fetch(@Nullable final ResultSet row) {
+        if (row == null) return null;
+        @NotNull final Session session = new Session();
+        session.setId(row.getString("id"));
+        session.setSignature(row.getString("signature"));
+        session.setTimestamp(Long.parseLong(row.getString("timestamp")));
+        session.setUserId(row.getString("user_id"));
         return session;
     }
 }
