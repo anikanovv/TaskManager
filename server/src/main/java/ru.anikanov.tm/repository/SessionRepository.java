@@ -6,32 +6,28 @@ import org.jetbrains.annotations.Nullable;
 import ru.anikanov.tm.entity.Session;
 
 import java.sql.Connection;
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.sql.Statement;
-import java.util.LinkedHashMap;
-import java.util.Map;
 import java.util.Objects;
 
 public class SessionRepository {
-    private Map<String, Session> sessionMap = new LinkedHashMap<>();
-    private Statement statement;
+    private Connection connection;
 
     public SessionRepository(@Nullable final Connection connection) {
-        try {
-            if (connection != null)
-                statement = connection.createStatement();
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
+        this.connection = connection;
     }
 
     @Nullable
     public Session create(Session session) {
-        @NotNull final String sql = "INSERT into taskmanager.app_session VALUES('" + session.getId() + "','" + session.getSignature() + "','" + session.getTimestamp() +
-                "','" + session.getUserId() + "')";
+        @NotNull final String sql = "INSERT into taskmanager.app_session VALUES(?,?,?,?)";
         try {
-            statement.executeUpdate(sql);
+            PreparedStatement statement = connection.prepareStatement(sql);
+            statement.setString(1, session.getId());
+            statement.setString(2, session.getSignature());
+            statement.setLong(3, session.getTimestamp());
+            statement.setString(4, session.getUserId());
+            statement.executeUpdate();
         } catch (SQLException e) {
             e.printStackTrace();
         }
@@ -41,9 +37,11 @@ public class SessionRepository {
     @Nullable
     public Session findOne(String sessionId) {
         @NotNull final String query =
-                "SELECT * FROM taskmanager.app_session WHERE id= '" + sessionId + "'";
+                "SELECT * FROM taskmanager.app_session WHERE id= ?";
         try {
-            @NotNull final ResultSet resultSet = statement.executeQuery(query);
+            PreparedStatement statement = connection.prepareStatement(query);
+            statement.setString(1, sessionId);
+            @NotNull final ResultSet resultSet = statement.executeQuery();
             if (resultSet.next()) {
                 @NotNull final Session session = Objects.requireNonNull(fetch(resultSet));
                 return session;

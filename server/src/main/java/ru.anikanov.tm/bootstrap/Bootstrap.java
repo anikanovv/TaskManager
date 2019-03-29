@@ -72,12 +72,11 @@ public class Bootstrap implements ServiceLocator {
         projectService.persist("new1", "descr1", "12.11.1234", "12.11.1234", Objects.requireNonNull(userses.getUserId()));
         projectService.persist("new2", "descr2", "12.11.1234", "12.11.1234", Objects.requireNonNull(adminses.getUserId()));
     }
-/*
-    public static void main(String[] args) throws SQLException{
+/*    public static void main(String[] args) throws SQLException{
         Bootstrap bootstrap = new Bootstrap();
         User user = bootstrap.getUserService().findOne("uuu","11bd6325-0373-42fb-9474-3ae474deb79a");
         Session adminses=bootstrap.sessionService.create(user.getId());
-        System.out.println(bootstrap.sessionService.findOne("6be6d6af-3d7e-4457-864c-93e68b247ede").getId());
+        System.out.println(bootstrap.taskService.findByPartOfName("name2","11bd6325-0373-42fb-9474-3ae474deb79a"));
        if (bootstrap.sessionService.validate(adminses)) System.out.println("TURE");
     }*/
 }

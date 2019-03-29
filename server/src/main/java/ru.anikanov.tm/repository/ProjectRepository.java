@@ -10,28 +10,31 @@ import ru.anikanov.tm.enumeration.Status;
 import ru.anikanov.tm.utils.DateFormatUtil;
 
 import java.sql.Connection;
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.sql.Statement;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Comparator;
+import java.util.List;
+import java.util.Objects;
 
 @NoArgsConstructor
 public class ProjectRepository implements IProjectRepository {
-    private Map<String, Project> projectMap = new LinkedHashMap<>();
     private Connection connection;
-    private Statement statement;
 
-    public ProjectRepository(@Nullable final Connection connection) throws SQLException {
+    public ProjectRepository(@Nullable final Connection connection) {
         this.connection = connection;
-        statement = Objects.requireNonNull(connection).createStatement();
     }
 
     @Nullable
     public Project findOne(@Nullable final String projectId, @Nullable final String userId) {
-        @NotNull final String sql = "SELECT * FROM taskmanager.app_project WHERE id='" + projectId + "' AND user_id='" + userId + "'";
+        @NotNull final String sql = "SELECT * FROM taskmanager.app_project WHERE id=? AND user_id=?";
         @Nullable Project project = null;
         try {
-            @Nullable final ResultSet resultSet = statement.executeQuery(sql);
+            PreparedStatement statement = connection.prepareStatement(sql);
+            statement.setString(1, projectId);
+            statement.setString(2, userId);
+            @Nullable final ResultSet resultSet = statement.executeQuery();
             if (resultSet == null) return null;
             if (resultSet.next()) {
                 project = fetch(resultSet);
@@ -45,11 +48,17 @@ public class ProjectRepository implements IProjectRepository {
     @NotNull
     @Override
     public Project persist(@NotNull final Project project) {
-        projectMap.put(project.getId(), project);
-        @NotNull final String sql = "INSERT into taskmanager.app_project VALUES('" + project.getId() + "','" + project.getStartDate() + "','" + project.getEndDate() +
-                "','" + project.getDescription() + "','" + project.getName() + "','" + Objects.requireNonNull(project.getStatus()).toString() + "','" + project.getUserId() + "')";
+        @NotNull final String sql = "INSERT into taskmanager.app_project VALUES(?,?,?,?,?,?,?)";
         try {
-            statement.executeUpdate(sql);
+            PreparedStatement statement = connection.prepareStatement(sql);
+            statement.setString(1, project.getId());
+            statement.setDate(2, new java.sql.Date(project.getStartDate().getTime()));
+            statement.setDate(3, new java.sql.Date(project.getEndDate().getTime()));
+            statement.setString(4, project.getDescription());
+            statement.setString(5, project.getName());
+            statement.setString(6, (project.getStatus()).toString());
+            statement.setString(7, project.getUserId());
+            statement.executeUpdate();
         } catch (SQLException e) {
             e.printStackTrace();
         }
@@ -61,14 +70,21 @@ public class ProjectRepository implements IProjectRepository {
         @Nullable final Project newProject = findByPartOfName(Objects.requireNonNull(project.getName()), Objects.requireNonNull(project.getUserId()));
         if (newProject == null) return null;
         @NotNull final String sql = "UPDATE taskmanager.app_project SET " +
-                "dateBegin = '" + project.getStartDate() + "', " +
-                "dateEnd = '" + project.getEndDate() + "', " +
-                "description = '" + project.getDescription() + "', " +
-                "name = '" + project.getName() + "' , " +
-                "status = '" + Objects.requireNonNull(project.getStatus()).toString() + "'  " +
-                "WHERE id = '" + newProject.getId() + "'";
+                "dateBegin = ?, " +
+                "dateEnd = ?, " +
+                "description = ?, " +
+                "name = ? , " +
+                "status = ?  " +
+                "WHERE id = ?";
         try {
-            statement.executeUpdate(sql);
+            PreparedStatement statement = connection.prepareStatement(sql);
+            statement.setDate(1, new java.sql.Date(project.getStartDate().getTime()));
+            statement.setDate(2, new java.sql.Date(project.getEndDate().getTime()));
+            statement.setString(3, project.getDescription());
+            statement.setString(4, project.getName());
+            statement.setString(5, Objects.requireNonNull(project.getStatus()).toString());
+            statement.setString(6, project.getId());
+            statement.executeUpdate();
         } catch (SQLException e) {
             e.printStackTrace();
         }
@@ -77,20 +93,24 @@ public class ProjectRepository implements IProjectRepository {
 
     public void remove(@NotNull final String projectName, @NotNull final String userId) {
         @NotNull final String sql = "DELETE FROM taskmanager.app_project \n" +
-                "WHERE name='" + projectName + "' AND user_id='" + userId + "';";
+                "WHERE name=? AND user_id=?;";
         try {
-            statement.executeUpdate(sql);
+            PreparedStatement statement = connection.prepareStatement(sql);
+            statement.setString(1, projectName);
+            statement.setString(2, userId);
+            statement.executeUpdate();
         } catch (SQLException e) {
             e.printStackTrace();
         }
-
     }
 
     public void removeAll(@NotNull final String userId) {
         @NotNull final String sql = "DELETE FROM taskmanager.app_project \n" +
-                "WHERE user_id='" + userId + "';";
+                "WHERE user_id=?;";
         try {
-            statement.executeUpdate(sql);
+            PreparedStatement statement = connection.prepareStatement(sql);
+            statement.setString(1, userId);
+            statement.executeUpdate();
         } catch (SQLException e) {
             e.printStackTrace();
         }
@@ -99,10 +119,12 @@ public class ProjectRepository implements IProjectRepository {
     @Nullable
     public List<Project> findAll(@NotNull final String userId) {
         @NotNull final String query =
-                "SELECT * FROM taskmanager.app_project WHERE user_id='" + userId + "'";
+                "SELECT * FROM taskmanager.app_project WHERE user_id=?";
         @Nullable final ResultSet resultSet;
         try {
-            resultSet = statement.executeQuery(query);
+            PreparedStatement statement = connection.prepareStatement(query);
+            statement.setString(1, userId);
+            resultSet = statement.executeQuery();
             @NotNull final List<Project> result = new ArrayList<>();
             while (resultSet.next()) {
                 @Nullable final Project project = fetch(resultSet);
@@ -159,8 +181,11 @@ public class ProjectRepository implements IProjectRepository {
     @Nullable
     public Project findByPartOfName(@NotNull final String partOfName, @NotNull final String userId) throws SQLException {
         @NotNull final String query =
-                "SELECT * FROM taskmanager.app_project WHERE name LIKE '%" + partOfName + "%'";
-        @NotNull final ResultSet resultSet = statement.executeQuery(query);
+                "SELECT * FROM taskmanager.app_project WHERE user_id=? AND name LIKE ?";
+        PreparedStatement statement = connection.prepareStatement(query);
+        statement.setString(1, userId);
+        statement.setString(2, "%" + partOfName + "%");
+        @NotNull final ResultSet resultSet = statement.executeQuery();
         if (resultSet.next()) {
             @Nullable final Project project = fetch(resultSet);
             return project;
@@ -171,8 +196,11 @@ public class ProjectRepository implements IProjectRepository {
     @Nullable
     public Project findByPartOfDescription(@NotNull final String partOfDescription, @NotNull final String userId) throws SQLException {
         @NotNull final String query =
-                "SELECT * FROM taskmanager.app_project WHERE description LIKE '%" + partOfDescription + "%'";
-        @NotNull final ResultSet resultSet = statement.executeQuery(query);
+                "SELECT * FROM taskmanager.app_project WHERE user_id=? AND description LIKE ?";
+        PreparedStatement statement = connection.prepareStatement(query);
+        statement.setString(1, userId);
+        statement.setString(2, "%" + partOfDescription + "%");
+        @NotNull final ResultSet resultSet = statement.executeQuery();
         if (resultSet.next()) {
             @Nullable final Project project = fetch(resultSet);
             return project;
