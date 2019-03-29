@@ -10,7 +10,6 @@ import ru.anikanov.tm.api.repository.ITaskRepository;
 import ru.anikanov.tm.api.repository.IUserRepository;
 import ru.anikanov.tm.api.service.*;
 import ru.anikanov.tm.endpoint.*;
-import ru.anikanov.tm.entity.Session;
 import ru.anikanov.tm.entity.User;
 import ru.anikanov.tm.enumeration.Role;
 import ru.anikanov.tm.repository.ProjectRepository;
@@ -24,7 +23,6 @@ import ru.anikanov.tm.utils.PasswordHashUtil;
 import javax.xml.ws.Endpoint;
 import java.sql.Connection;
 import java.sql.SQLException;
-import java.util.Objects;
 
 @Getter
 @Setter
@@ -63,14 +61,10 @@ public class Bootstrap implements ServiceLocator {
     }
 
     private void initUsers() {
-        User admin = userService.persist("admin", "Man", "Man", "Man@man.com", PasswordHashUtil.md5("admin"), Role.ADMIN);
-        User user = userService.persist("user", "Human", "Looman", "Looman@man.com", PasswordHashUtil.md5("user"), Role.USER);
-        Session userses = new Session();
-        userses.setUserId(Objects.requireNonNull(user).getId());
-        Session adminses = new Session();
-        adminses.setUserId(Objects.requireNonNull(admin).getId());
-        projectService.persist("new1", "descr1", "12.11.1234", "12.11.1234", Objects.requireNonNull(userses.getUserId()));
-        projectService.persist("new2", "descr2", "12.11.1234", "12.11.1234", Objects.requireNonNull(adminses.getUserId()));
+        @Nullable final User admin = userService.persist("admin", "Man", "Man", "Man@man.com", PasswordHashUtil.md5("admin"), Role.ADMIN);
+        @Nullable final User user = userService.persist("user", "Human", "Looman", "Looman@man.com", PasswordHashUtil.md5("user"), Role.USER);
+        projectService.persist("new1", "descr1", "12.11.1234", "12.11.1234", admin.getId());
+        projectService.persist("new2", "descr2", "12.11.1234", "12.11.1234", user.getId());
     }
 /*    public static void main(String[] args) throws SQLException{
         Bootstrap bootstrap = new Bootstrap();
