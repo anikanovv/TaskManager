@@ -4,7 +4,7 @@ import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 import ru.anikanov.tm.api.service.ISessionService;
 import ru.anikanov.tm.entity.Session;
-import ru.anikanov.tm.repository.SessionRepository;
+import ru.anikanov.tm.repository.SessionMapper;
 import ru.anikanov.tm.utils.SignatureUtil;
 
 import java.util.UUID;
@@ -12,9 +12,9 @@ import java.util.UUID;
 public class SessionService implements ISessionService {
 
     @NotNull
-    private SessionRepository sessionRepository;
+    private SessionMapper sessionRepository;
 
-    public SessionService(@NotNull final SessionRepository sr) {
+    public SessionService(@NotNull final SessionMapper sr) {
         sessionRepository = sr;
     }
 
@@ -25,7 +25,8 @@ public class SessionService implements ISessionService {
         session.setTimestamp(System.currentTimeMillis());
         session.setUserId(userId);
         session.setSignature(SignatureUtil.sign(session, "salt", 22));
-        return sessionRepository.create(session);
+        sessionRepository.create(session);
+        return session;
     }
 
     @Override

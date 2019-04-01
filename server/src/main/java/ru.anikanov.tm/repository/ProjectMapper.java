@@ -8,7 +8,7 @@ import ru.anikanov.tm.entity.Project;
 import java.util.List;
 
 public interface ProjectMapper {
-    @Insert("INSERT into taskmanager.app_project (id,dateBegin,dateEnd,description,name,status,user_id) VALUES(#{id}, #{startDate}, #{endDate}, #{projectDescription}, #{projectName}, #{status}, #{userId})")
+    @Insert("INSERT into taskmanager.app_project (id,dateBegin,dateEnd,description,name,status,user_id) VALUES(#{id}, #{startDate}, #{endDate}, #{description}, #{name}, #{status}, #{userId})")
     void persist(@NotNull final Project project);
 
     @Update("UPDATE taskmanager.app_project SET dateBegin = #{dateBegin}, dateEnd = #{dateEnd}, description = #{description}, name = #{name} WHERE id = #{id};")

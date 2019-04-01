@@ -2,11 +2,11 @@ package ru.anikanov.tm.service;
 
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
-import ru.anikanov.tm.api.repository.IUserRepository;
 import ru.anikanov.tm.api.service.IUserService;
 import ru.anikanov.tm.entity.Session;
 import ru.anikanov.tm.entity.User;
 import ru.anikanov.tm.enumeration.Role;
+import ru.anikanov.tm.repository.UserMapper;
 import ru.anikanov.tm.utils.PasswordHashUtil;
 
 import java.util.List;
@@ -14,9 +14,9 @@ import java.util.Objects;
 
 public class UserService implements IUserService {
     @NotNull
-    private IUserRepository userRepository;
+    private UserMapper userRepository;
 
-    public UserService(@NotNull final IUserRepository userRepository) {
+    public UserService(@NotNull final UserMapper userRepository) {
         this.userRepository = userRepository;
     }
 
@@ -30,20 +30,22 @@ public class UserService implements IUserService {
             if ((email == null) || email.isEmpty()) return null;
             if ((password == null) || password.isEmpty()) return null;
             if (role == null) return null;
-            return userRepository.persist(new User(login, firstName, lastName, email, password, role));
+            User user = new User(login, firstName, lastName, email, password, role);
+            userRepository.persist(user);
+            return user;
         }
         return null;
     }
 
-    public User merge(@Nullable final String login, @Nullable final String firstName, @Nullable final String lastName, @Nullable final String email,
+    public void merge(@Nullable final String login, @Nullable final String firstName, @Nullable final String lastName, @Nullable final String email,
                       @Nullable final String password, @Nullable final Role role) {
-        if ((login == null) || login.isEmpty()) return null;
-        if ((firstName == null) || firstName.isEmpty()) return null;
-        if ((lastName == null) || lastName.isEmpty()) return null;
-        if ((email == null) || email.isEmpty()) return null;
-        if ((password == null) || password.isEmpty()) return null;
-        if (role == null) return null;
-        return userRepository.merge(new User(login, firstName, lastName, email, password, role));
+        if ((login == null) || login.isEmpty()) return;
+        if ((firstName == null) || firstName.isEmpty()) return;
+        if ((lastName == null) || lastName.isEmpty()) return;
+        if ((email == null) || email.isEmpty()) return;
+        if ((password == null) || password.isEmpty()) return;
+        if (role == null) return;
+        userRepository.merge(new User(login, firstName, lastName, email, password, role));
     }
 
     public boolean logIn(@Nullable final String login, @Nullable final String password) {

@@ -14,7 +14,7 @@ public interface IUserService {
     User persist(@Nullable final String login, @Nullable final String firstName, @Nullable final String lastName, @Nullable final String email,
                  @Nullable final String password, @Nullable final Role role);
 
-    User merge(@Nullable final String login, @Nullable final String firstName, @Nullable final String lastName, @Nullable final String email,
+    void merge(@Nullable final String login, @Nullable final String firstName, @Nullable final String lastName, @Nullable final String email,
                @Nullable final String password, @Nullable final Role role);
 
     void remove(@Nullable final String login, @NotNull final String userId);

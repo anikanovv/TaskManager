@@ -2,20 +2,18 @@ package ru.anikanov.tm.service;
 
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
-import ru.anikanov.tm.api.repository.IProjectRepository;
-import ru.anikanov.tm.api.repository.ITaskRepository;
-import ru.anikanov.tm.api.repository.IUserRepository;
 import ru.anikanov.tm.api.service.ITaskService;
 import ru.anikanov.tm.entity.Task;
+import ru.anikanov.tm.repository.TaskMapper;
 
 import java.util.Comparator;
 import java.util.List;
 
 public class TaskService extends AbstractService implements ITaskService {
     @NotNull
-    private ITaskRepository taskRepository;
+    private TaskMapper taskRepository;
 
-    public TaskService(@NotNull final IProjectRepository pr, @NotNull final ITaskRepository tr, @NotNull final IUserRepository ur) {
+    public TaskService(@NotNull final TaskMapper tr) {
         taskRepository = tr;
     }
 
@@ -32,7 +30,8 @@ public class TaskService extends AbstractService implements ITaskService {
         if ((dateFinish == null) || dateFinish.isEmpty()) return null;
         try {
             @NotNull final Task newtask = new Task(projectId, taskName, description, dateStart, dateFinish, userId);
-            return taskRepository.persist(newtask);
+            taskRepository.persist(newtask);
+            return newtask;
         } catch (Exception e) {
             e.printStackTrace();
         }

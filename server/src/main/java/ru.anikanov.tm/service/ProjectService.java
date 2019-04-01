@@ -2,11 +2,10 @@ package ru.anikanov.tm.service;
 
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
-import ru.anikanov.tm.api.repository.IProjectRepository;
-import ru.anikanov.tm.api.repository.ITaskRepository;
-import ru.anikanov.tm.api.repository.IUserRepository;
 import ru.anikanov.tm.api.service.IProjectService;
 import ru.anikanov.tm.entity.Project;
+import ru.anikanov.tm.repository.ProjectMapper;
+import ru.anikanov.tm.repository.TaskMapper;
 
 import java.sql.SQLException;
 import java.text.ParseException;
@@ -15,16 +14,13 @@ import java.util.List;
 
 public class ProjectService implements IProjectService {
     @NotNull
-    private IProjectRepository projectRepository;
+    private ProjectMapper projectRepository;
     @NotNull
-    private ITaskRepository taskRepository;
-    @NotNull
-    private IUserRepository userRepository;
+    private TaskMapper taskRepository;
 
-    public ProjectService(@NotNull final IProjectRepository pr, @NotNull final ITaskRepository tr, @NotNull final IUserRepository ur) {
+    public ProjectService(@NotNull final ProjectMapper pr, @NotNull final TaskMapper tr) {
         projectRepository = pr;
         taskRepository = tr;
-        userRepository = ur;
     }
 
     @Nullable
@@ -39,7 +35,8 @@ public class ProjectService implements IProjectService {
             if ((dateFinish == null) || dateFinish.isEmpty()) return null;
             try {
                 @Nullable final Project newproject = new Project(projectName, description, dateStart, dateFinish, userId);
-                return projectRepository.persist(newproject);
+                projectRepository.persist(newproject);
+                return newproject;
             } catch (Exception e) {
                 e.printStackTrace();
             }
@@ -53,9 +50,10 @@ public class ProjectService implements IProjectService {
         if ((description == null) || description.isEmpty()) return;
         if ((dateStart == null) || dateStart.isEmpty()) return;
         if ((dateFinish == null) || dateFinish.isEmpty()) return;
+        if ((userId == null) || userId.isEmpty()) return;
         try {
             @Nullable final Project p = new Project(projectName, description, dateStart, dateFinish, userId);
-            projectRepository.merge(p);
+            projectRepository.merge(p.getId(), projectName, description, dateStart, dateFinish, userId);
         } catch (Exception e) {
             e.printStackTrace();
         }
