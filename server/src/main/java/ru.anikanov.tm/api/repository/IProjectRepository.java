@@ -8,7 +8,7 @@ import java.sql.SQLException;
 import java.text.ParseException;
 import java.util.List;
 
-public interface IProjectRepository extends IRepository {
+public interface IProjectRepository {
 
     @NotNull
     Project persist(@NotNull final Project p);
@@ -24,15 +24,6 @@ public interface IProjectRepository extends IRepository {
 
     @Nullable
     List<Project> findAll(@NotNull final String userId);
-
-    @Nullable
-    List<Project> sortedByStartDate(@NotNull final String userId);
-
-    @Nullable
-    List<Project> sortedByFinishDate(@NotNull final String userId);
-
-    @Nullable
-    List<Project> sortedByStatus(@NotNull final String userId);
 
     @Nullable
     Project findByPartOfName(@NotNull final String partOfName, @NotNull final String userId) throws SQLException, ParseException;

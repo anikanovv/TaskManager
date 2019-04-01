@@ -10,6 +10,7 @@ import ru.anikanov.tm.entity.Project;
 
 import java.sql.SQLException;
 import java.text.ParseException;
+import java.util.Comparator;
 import java.util.List;
 
 public class ProjectService implements IProjectService {
@@ -100,19 +101,28 @@ public class ProjectService implements IProjectService {
     @Nullable
     public List<Project> sortedByStartDate(@Nullable final String userId) {
         if ((userId == null) || userId.isEmpty()) return null;
-        return projectRepository.sortedByStartDate(userId);
+        @Nullable List<Project> projects = projectRepository.findAll(userId);
+        if (projects == null) return null;
+        projects.sort(Comparator.comparing(Project::getStartDate));
+        return projects;
     }
 
     @Nullable
     public List<Project> sortedByFinishDate(@Nullable final String userId) {
         if ((userId == null) || userId.isEmpty()) return null;
-        return projectRepository.sortedByFinishDate(userId);
+        @Nullable List<Project> projects = projectRepository.findAll(userId);
+        if (projects == null) return null;
+        projects.sort(Comparator.comparing(Project::getEndDate));
+        return projects;
     }
 
     @Nullable
     public List<Project> sortedByStatus(@Nullable final String userId) {
         if ((userId == null) || userId.isEmpty()) return null;
-        return projectRepository.sortedByStatus(userId);
+        @Nullable List<Project> projects = projectRepository.findAll(userId);
+        if (projects == null) return null;
+        projects.sort(Comparator.comparing(Project::getStatus));
+        return projects;
     }
 
     @Nullable

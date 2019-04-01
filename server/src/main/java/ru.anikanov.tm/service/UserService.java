@@ -7,6 +7,7 @@ import ru.anikanov.tm.api.service.IUserService;
 import ru.anikanov.tm.entity.Session;
 import ru.anikanov.tm.entity.User;
 import ru.anikanov.tm.enumeration.Role;
+import ru.anikanov.tm.utils.PasswordHashUtil;
 
 import java.util.List;
 import java.util.Objects;
@@ -50,19 +51,15 @@ public class UserService implements IUserService {
         if ((password == null) || password.isEmpty()) return false;
         @Nullable final User user = findOne(login, login);
         if (user == null) return false;
-        return userRepository.logIn(login, password);
+        return Objects.equals(user.getHashPassword(), PasswordHashUtil.md5(password));
 
     }
 
-    public boolean logOut() {
-        return userRepository.logOut();
-    }
-
-    public boolean updatePassword(@Nullable final String login, @Nullable final String oldOne, @Nullable final String newOne) {
-        if ((login == null) || login.isEmpty()) return false;
-        if ((oldOne == null) || oldOne.isEmpty()) return false;
-        if ((newOne == null) || newOne.isEmpty()) return false;
-        return userRepository.updatePassword(login, oldOne, newOne);
+    public void updatePassword(@Nullable final String login, @Nullable final String oldOne, @Nullable final String newOne) {
+        if ((login == null) || login.isEmpty()) return;
+        if ((oldOne == null) || oldOne.isEmpty()) return;
+        if ((newOne == null) || newOne.isEmpty()) return;
+        userRepository.updatePassword(login, oldOne, newOne);
     }
 
     @Nullable

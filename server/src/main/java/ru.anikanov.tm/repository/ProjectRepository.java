@@ -14,7 +14,6 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
-import java.util.Comparator;
 import java.util.List;
 import java.util.Objects;
 
@@ -152,30 +151,6 @@ public class ProjectRepository implements IProjectRepository {
         project.setStatus(Status.valueOf(row.getString("status")));
         project.setUserId(row.getString("user_id"));
         return project;
-    }
-
-    @Nullable
-    public List<Project> sortedByStartDate(@NotNull final String userId) {
-        @Nullable List<Project> projects = findAll(userId);
-        if (projects == null) return null;
-        projects.sort(Comparator.comparing(Project::getStartDate));
-        return projects;
-    }
-
-    @Nullable
-    public List<Project> sortedByFinishDate(@NotNull final String userId) {
-        @Nullable List<Project> projects = findAll(userId);
-        if (projects == null) return null;
-        projects.sort(Comparator.comparing(Project::getEndDate));
-        return projects;
-    }
-
-    @Nullable
-    public List<Project> sortedByStatus(@NotNull final String userId) {
-        @Nullable final List<Project> projects = findAll(userId);
-        if (projects == null) return null;
-        projects.sort(Comparator.comparing(Project::getStatus));
-        return projects;
     }
 
     @Nullable

@@ -15,7 +15,10 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.text.ParseException;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.LinkedHashMap;
+import java.util.List;
+import java.util.Map;
 
 @NoArgsConstructor
 @Getter
@@ -28,7 +31,6 @@ public class TaskRepository implements ITaskRepository {
     public TaskRepository(@Nullable final Connection connection) {
         this.connection = connection;
     }
-
     @Nullable
     public Task findOne(@NotNull final String taskId, @NotNull final String userId) {
         @NotNull final String sql = "SELECT * FROM taskmanager.app_task WHERE id=? AND user_id=?";
@@ -171,30 +173,6 @@ public class TaskRepository implements ITaskRepository {
     }
 
     @Nullable
-    public List<Task> sortedByStartDate(@NotNull final String userId) {
-        @Nullable List<Task> tasks = findAll(userId);
-        if (tasks == null) return null;
-        tasks.sort(Comparator.comparing(Task::getStartDate));
-        return tasks;
-    }
-
-    @Nullable
-    public List<Task> sortedByFinishDate(@NotNull final String userId) {
-        @Nullable List<Task> tasks = findAll(userId);
-        if (tasks == null) return null;
-        tasks.sort(Comparator.comparing(Task::getEndDate));
-        return tasks;
-    }
-
-    @Nullable
-    public List<Task> sortedByStatus(@NotNull final String userId) {
-        @Nullable List<Task> tasks = findAll(userId);
-        if (tasks == null) return null;
-        tasks.sort(Comparator.comparing(Task::getStatus));
-        return tasks;
-    }
-
-    @Nullable
     public Task findByPartOfName(@NotNull final String partOfName, @NotNull final String userId) {
         @NotNull final String sql =
                 "SELECT * FROM taskmanager.app_task WHERE user_id=? AND name LIKE ?";
@@ -202,7 +180,6 @@ public class TaskRepository implements ITaskRepository {
         try {
             PreparedStatement statement = connection.prepareStatement(sql);
             statement.setString(1, userId);
-//            statement.setString(2, partOfName);
             statement.setString(2, "%" + partOfName + "%");
             resultSet = statement.executeQuery();
             if (resultSet.next()) {

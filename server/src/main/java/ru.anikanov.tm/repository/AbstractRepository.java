@@ -1,10 +1,8 @@
 package ru.anikanov.tm.repository;
 
-import ru.anikanov.tm.api.repository.IRepository;
-
 import java.util.List;
 
-public abstract class AbstractRepository<T> implements IRepository {
+public abstract class AbstractRepository<T> {
 
     abstract public void remove(String name) throws Exception;
 

@@ -1,19 +1,16 @@
 package ru.anikanov.tm.api.repository;
 
 import ru.anikanov.tm.entity.Session;
-import ru.anikanov.tm.utils.SignatureUtil;
 
-import java.util.List;
+public interface ISessionRepository {
+    Session persist(Session session) throws Exception;
 
-public interface ISessionRepository extends IRepository {
-    public Session persist(Session session) throws Exception;
+    void check(Session session) throws Exception;
 
-    public void check(Session session) throws Exception;
+    void sign(Session session);
 
-    public void sign(Session session);
+    boolean validate(Session session) throws Exception;
 
-    public boolean validate(Session session) throws Exception;
-
-    public void remove(Session session) throws Exception;
+    void remove(Session session) throws Exception;
 
 }

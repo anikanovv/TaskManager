@@ -69,19 +69,9 @@ public class UserRepository extends AbstractRepository implements IUserRepositor
         return user;
     }
 
-    public boolean logIn(@NotNull final String login, @NotNull final String password) {
+    public void updatePassword(@NotNull final String login, @NotNull final String oldOne, @NotNull final String newOne) {
         @Nullable final User user = findOne(login);
-        if (user == null) return false;
-        return Objects.equals(user.getHashPassword(), PasswordHashUtil.md5(password));
-    }
-
-    public boolean logOut() {
-        return true;
-    }
-
-    public boolean updatePassword(@NotNull final String login, @NotNull final String oldOne, @NotNull final String newOne) {
-        @Nullable final User user = findOne(login);
-        if (user == null) return false;
+        if (user == null) return;
         if (Objects.equals(user.getHashPassword(), PasswordHashUtil.md5(oldOne))) {
             @NotNull final String newPasswordHash = PasswordHashUtil.md5(newOne);
             @NotNull final String query = "UPDATE taskmanager.app_user SET passwordhash=? WHERE login=?;";
@@ -93,9 +83,7 @@ public class UserRepository extends AbstractRepository implements IUserRepositor
             } catch (SQLException e) {
                 e.printStackTrace();
             }
-            return true;
-        } else return false;
-
+        }
     }
 
     @Nullable

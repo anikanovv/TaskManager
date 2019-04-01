@@ -1,10 +1,14 @@
 package ru.anikanov.tm.repository;
 
 import lombok.SneakyThrows;
+import org.apache.ibatis.annotations.Insert;
+import org.apache.ibatis.session.SqlSession;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 import ru.anikanov.tm.entity.Session;
+import ru.anikanov.tm.utils.MyBatisUtil;
 
+import java.io.IOException;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -18,9 +22,17 @@ public class SessionRepository {
         this.connection = connection;
     }
 
-    @Nullable
+
+    @Insert("INSERT into taskmanager.app_session (id,signature,timestamp,user_id) VALUES(#{id}, #{signature}, #{timestamp}, #{userId})")
     public Session create(Session session) {
-        @NotNull final String sql = "INSERT into taskmanager.app_session VALUES(?,?,?,?)";
+        try (SqlSession sqlSession = MyBatisUtil.getSessionFactory().openSession()) {
+            SessionRepository sessionMapper = sqlSession.getMapper(SessionRepository.class);
+            sessionMapper.create(session);
+            sqlSession.commit();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+      /*  @NotNull final String sql = "INSERT into taskmanager.app_session VALUES(?,?,?,?)";
         try {
             PreparedStatement statement = connection.prepareStatement(sql);
             statement.setString(1, session.getId());
@@ -30,7 +42,7 @@ public class SessionRepository {
             statement.executeUpdate();
         } catch (SQLException e) {
             e.printStackTrace();
-        }
+        }*/
         return session;
     }
 

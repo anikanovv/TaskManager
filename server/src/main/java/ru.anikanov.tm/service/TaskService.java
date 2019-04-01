@@ -8,6 +8,7 @@ import ru.anikanov.tm.api.repository.IUserRepository;
 import ru.anikanov.tm.api.service.ITaskService;
 import ru.anikanov.tm.entity.Task;
 
+import java.util.Comparator;
 import java.util.List;
 
 public class TaskService extends AbstractService implements ITaskService {
@@ -82,19 +83,28 @@ public class TaskService extends AbstractService implements ITaskService {
     @Nullable
     public List<Task> sortedByStartDate(@Nullable final String userId) {
         if ((userId == null) || userId.isEmpty()) return null;
-        return taskRepository.sortedByStartDate(userId);
+        @Nullable List<Task> tasks = taskRepository.findAll(userId);
+        if (tasks == null) return null;
+        tasks.sort(Comparator.comparing(Task::getStartDate));
+        return tasks;
     }
 
     @Nullable
     public List<Task> sortedByFinishDate(@Nullable final String userId) {
         if ((userId == null) || userId.isEmpty()) return null;
-        return taskRepository.sortedByFinishDate(userId);
+        @Nullable List<Task> tasks = taskRepository.findAll(userId);
+        if (tasks == null) return null;
+        tasks.sort(Comparator.comparing(Task::getEndDate));
+        return tasks;
     }
 
     @Nullable
     public List<Task> sortedByStatus(@Nullable final String userId) {
         if ((userId == null) || userId.isEmpty()) return null;
-        return taskRepository.sortedByStatus(userId);
+        @Nullable List<Task> tasks = taskRepository.findAll(userId);
+        if (tasks == null) return null;
+        tasks.sort(Comparator.comparing(Task::getStatus));
+        return tasks;
     }
 
     @Nullable

@@ -29,9 +29,7 @@ public interface IUserService {
 
     boolean logIn(@Nullable final String login, @Nullable final String password);
 
-    boolean logOut();
-
-    boolean updatePassword(@Nullable final String login, @Nullable final String oldOne, @Nullable final String newOne);
+    void updatePassword(@Nullable final String login, @Nullable final String oldOne, @Nullable final String newOne);
 
     boolean checkadmin(@NotNull final Session session);
 

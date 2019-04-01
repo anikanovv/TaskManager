@@ -16,9 +16,9 @@
         </environment>
     </environments>
     <mappers>
-        <mapper class="ru.volnenko.tm.repository.TaskRepository"/>
-        <mapper class="ru.volnenko.tm.repository.ProjectRepository"/>
-        <mapper class="ru.volnenko.tm.repository.ProjectRepository"/>
-        <mapper class="ru.volnenko.tm.repository.UserRepository"/>
+        <!--<mapper class="ru.anikanov.tm.repository.TaskRepository"/>-->
+        <!--<mapper class="ru.anikanov.tm.repository.ProjectRepository"/>-->
+        <mapper class="ru.anikanov.tm.repository.SessionMapper"/>
+        <!--<mapper class="ru.anikanov.tm.repository.UserRepository"/>-->
     </mappers>
 </configuration>

@@ -6,7 +6,7 @@ import ru.anikanov.tm.entity.User;
 
 import java.util.List;
 
-public interface IUserRepository extends IRepository {
+public interface IUserRepository {
 
     @NotNull
     User persist(@NotNull final User user);
@@ -23,11 +23,7 @@ public interface IUserRepository extends IRepository {
     @Nullable
     List<User> findAll();
 
-    boolean logIn(@NotNull final String login, @NotNull final String password);
-
-    boolean logOut();
-
-    boolean updatePassword(@NotNull final String login, @NotNull final String oldOne, @NotNull final String newOne);
+    void updatePassword(@NotNull final String login, @NotNull final String oldOne, @NotNull final String newOne);
 
     User findByName(@NotNull final String name);
 
