@@ -1,22 +1,16 @@
 package ru.anikanov.tm.service;
 
-import org.jetbrains.annotations.NotNull;
+import org.apache.ibatis.session.SqlSession;
 import org.jetbrains.annotations.Nullable;
 import ru.anikanov.tm.api.service.ISessionService;
 import ru.anikanov.tm.entity.Session;
 import ru.anikanov.tm.repository.SessionMapper;
 import ru.anikanov.tm.utils.SignatureUtil;
+import ru.anikanov.tm.utils.SqlSessionFactory;
 
 import java.util.UUID;
 
 public class SessionService implements ISessionService {
-
-    @NotNull
-    private SessionMapper sessionRepository;
-
-    public SessionService(@NotNull final SessionMapper sr) {
-        sessionRepository = sr;
-    }
 
     public Session create(@Nullable final String userId) {
         if (userId == null || userId.isEmpty()) return null;
@@ -25,14 +19,34 @@ public class SessionService implements ISessionService {
         session.setTimestamp(System.currentTimeMillis());
         session.setUserId(userId);
         session.setSignature(SignatureUtil.sign(session, "salt", 22));
-        sessionRepository.create(session);
+        SqlSession sqlSession = new SqlSessionFactory().getSqlSessionFactory().openSession();
+        SessionMapper sessionMapper = sqlSession.getMapper(SessionMapper.class);
+        try {
+            sessionMapper.create(session);
+            sqlSession.commit();
+        } catch (Exception e) {
+            sqlSession.rollback();
+        } finally {
+            sqlSession.close();
+        }
         return session;
     }
 
     @Override
     public Session findOne(@Nullable final String sessionId) {
+
         if (sessionId == null || sessionId.isEmpty()) return null;
-        return sessionRepository.findOne(sessionId);
+        SqlSession sqlSession = new SqlSessionFactory().getSqlSessionFactory().openSession();
+        SessionMapper sessionMapper = sqlSession.getMapper(SessionMapper.class);
+        Session session = null;
+        try {
+            session = sessionMapper.findOne(sessionId);
+        } catch (Exception e) {
+            sqlSession.rollback();
+        } finally {
+            sqlSession.close();
+        }
+        return session;
     }
 
     public boolean validate(@Nullable final Session session) {

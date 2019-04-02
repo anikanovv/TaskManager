@@ -48,13 +48,13 @@ public class Bootstrap implements ServiceLocator {
     @NotNull
     private SessionMapper sessionMapper = sqlSession.getMapper(SessionMapper.class);
     @NotNull
-    private final IProjectService projectService = new ProjectService(projectMapper, taskMapper);
+    private final IProjectService projectService = new ProjectService();
     @NotNull
     private final ITaskService taskService = new TaskService(taskMapper);
     @NotNull
-    private final IUserService userService = new UserService(userMapper);
+    private final IUserService userService = new UserService();
     @NotNull
-    private final ISessionService sessionService = new SessionService(sessionMapper);
+    private final ISessionService sessionService = new SessionService();
     @NotNull
     private final IDomainService domainService = new DomainService(this);
 

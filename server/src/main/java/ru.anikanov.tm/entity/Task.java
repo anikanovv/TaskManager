@@ -12,7 +12,7 @@ import java.util.Date;
 @Getter
 @Setter
 @NoArgsConstructor
-public final class Task extends AbstractEntity {
+public class Task extends AbstractEntity {
     @Nullable
     private String projectId;
     @Nullable

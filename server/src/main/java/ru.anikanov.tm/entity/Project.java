@@ -20,7 +20,7 @@ import java.util.Date;
 @JacksonXmlRootElement
 @XmlRootElement(name = "Project")
 @XmlAccessorType(XmlAccessType.FIELD)
-public final class Project extends AbstractEntity implements Serializable {
+public class Project extends AbstractEntity implements Serializable {
     @JacksonXmlElementWrapper(useWrapping = false)
     @Nullable
     @XmlElement

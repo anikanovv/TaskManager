@@ -8,7 +8,7 @@ import org.jetbrains.annotations.Nullable;
 @Setter
 @Getter
 @NoArgsConstructor
-public final class Session extends AbstractEntity implements Cloneable {
+public class Session extends AbstractEntity implements Cloneable {
     @Nullable
     private String userId;
     @Nullable

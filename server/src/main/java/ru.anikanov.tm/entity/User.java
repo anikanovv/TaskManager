@@ -12,7 +12,7 @@ import java.util.Objects;
 @Getter
 @Setter
 @NoArgsConstructor
-public final class User extends AbstractEntity {
+public class User extends AbstractEntity {
     @Nullable
     private String name;
     @Nullable
