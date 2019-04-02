@@ -50,7 +50,7 @@ public class Bootstrap implements ServiceLocator {
     @NotNull
     private final IProjectService projectService = new ProjectService();
     @NotNull
-    private final ITaskService taskService = new TaskService(taskMapper);
+    private final ITaskService taskService = new TaskService();
     @NotNull
     private final IUserService userService = new UserService();
     @NotNull
