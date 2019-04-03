@@ -6,13 +6,21 @@ import org.jetbrains.annotations.Nullable;
 import ru.anikanov.tm.api.service.IProjectService;
 import ru.anikanov.tm.entity.Project;
 import ru.anikanov.tm.repository.ProjectMapper;
+import ru.anikanov.tm.repository.ProjectRepository;
 import ru.anikanov.tm.repository.TaskMapper;
 import ru.anikanov.tm.utils.SqlSessionFactory;
 
+import javax.persistence.EntityManager;
+import javax.persistence.EntityManagerFactory;
 import java.util.Comparator;
 import java.util.List;
 
 public class ProjectService implements IProjectService {
+    private EntityManagerFactory factory;
+
+    public ProjectService(EntityManagerFactory factory) {
+        this.factory = factory;
+    }
     @Nullable
     public Project persist(@Nullable final String projectName, @Nullable final String description, @Nullable final String dateStart,
                            @Nullable final String dateFinish, @Nullable final String userId) {
@@ -98,55 +106,52 @@ public class ProjectService implements IProjectService {
     }
 
     @Nullable
-    public List<Project> findAll(@Nullable final String userId) {
-        if ((userId == null) || userId.isEmpty()) return null;
-        @NotNull final SqlSession sqlSession = new SqlSessionFactory().getSqlSessionFactory().openSession();
-        @NotNull final ProjectMapper projectMapper = sqlSession.getMapper(ProjectMapper.class);
-        return projectMapper.findAll(userId);
-    }
-
-    @Nullable
     public Project findOne(@Nullable final String projectId, @Nullable final String userId) {
         if ((userId == null) || userId.isEmpty()) return null;
         if ((projectId == null) || projectId.isEmpty()) return null;
-        @NotNull final SqlSession sqlSession = new SqlSessionFactory().getSqlSessionFactory().openSession();
-        @NotNull final ProjectMapper projectMapper = sqlSession.getMapper(ProjectMapper.class);
-        return projectMapper.findOne(projectId, userId);
+        @NotNull final EntityManager entityManager = factory.createEntityManager();
+        @NotNull final ProjectRepository projectRepository = new ProjectRepository(entityManager);
+        return projectRepository.findOne(projectId, userId);
+    }
+
+    @Nullable
+    public List<Project> findAll(@Nullable final String userId) {
+        if ((userId == null) || userId.isEmpty()) return null;
+        @NotNull final EntityManager entityManager = factory.createEntityManager();
+        @NotNull final ProjectRepository projectRepository = new ProjectRepository(entityManager);
+        return projectRepository.findAll(userId);
     }
 
     @Nullable
     public List<Project> sortedByStartDate(@Nullable final String userId) {
         if ((userId == null) || userId.isEmpty()) return null;
-        @NotNull final SqlSession sqlSession = new SqlSessionFactory().getSqlSessionFactory().openSession();
-        @NotNull final ProjectMapper projectMapper = sqlSession.getMapper(ProjectMapper.class);
-        @Nullable List<Project> projects = projectMapper.findAll(userId);
+        @NotNull final EntityManager entityManager = factory.createEntityManager();
+        @NotNull final ProjectRepository projectRepository = new ProjectRepository(entityManager);
+        @Nullable List<Project> projects = projectRepository.findAll(userId);
         if (projects == null) return null;
         projects.sort(Comparator.comparing(Project::getStartDate));
-        sqlSession.close();
         return projects;
     }
 
     @Nullable
     public List<Project> sortedByFinishDate(@Nullable final String userId) {
         if ((userId == null) || userId.isEmpty()) return null;
-        @NotNull final SqlSession sqlSession = new SqlSessionFactory().getSqlSessionFactory().openSession();
-        @NotNull final ProjectMapper projectMapper = sqlSession.getMapper(ProjectMapper.class);
-        @Nullable List<Project> projects = projectMapper.findAll(userId);
+        @NotNull final EntityManager entityManager = factory.createEntityManager();
+        @NotNull final ProjectRepository projectRepository = new ProjectRepository(entityManager);
+        @Nullable List<Project> projects = projectRepository.findAll(userId);
         if (projects == null) return null;
         projects.sort(Comparator.comparing(Project::getEndDate));
-        sqlSession.close();
         return projects;
     }
 
     @Nullable
     public List<Project> sortedByStatus(@Nullable final String userId) {
         if ((userId == null) || userId.isEmpty()) return null;
-        @NotNull final SqlSession sqlSession = new SqlSessionFactory().getSqlSessionFactory().openSession();
-        @NotNull final ProjectMapper projectMapper = sqlSession.getMapper(ProjectMapper.class);
-        @Nullable List<Project> projects = projectMapper.findAll(userId);
+        @NotNull final EntityManager entityManager = factory.createEntityManager();
+        @NotNull final ProjectRepository projectRepository = new ProjectRepository(entityManager);
+        @Nullable List<Project> projects = projectRepository.findAll(userId);
         if (projects == null) return null;
         projects.sort(Comparator.comparing(Project::getStatus));
-        sqlSession.close();
         return projects;
     }
 
@@ -154,21 +159,18 @@ public class ProjectService implements IProjectService {
     public Project findByPartOfName(@Nullable final String partOfName, @Nullable final String userId) {
         if ((partOfName == null) || (partOfName.isEmpty())) return null;
         if ((userId == null) || userId.isEmpty()) return null;
-        @NotNull final SqlSession sqlSession = new SqlSessionFactory().getSqlSessionFactory().openSession();
-        @NotNull final ProjectMapper projectMapper = sqlSession.getMapper(ProjectMapper.class);
-        @Nullable Project project = projectMapper.findByPartOfName(partOfName, userId);
-        sqlSession.close();
-        return project;
+        @NotNull final EntityManager entityManager = factory.createEntityManager();
+        @NotNull final ProjectRepository projectRepository = new ProjectRepository(entityManager);
+        return projectRepository.findByPartOfName(partOfName, userId);
     }
 
     @Nullable
     public Project findByPartOfDescription(@Nullable final String partOfDescription, @Nullable final String userId) {
         if ((partOfDescription == null) || (partOfDescription.isEmpty())) return null;
         if ((userId == null) || userId.isEmpty()) return null;
-        @NotNull final SqlSession sqlSession = new SqlSessionFactory().getSqlSessionFactory().openSession();
-        @NotNull final ProjectMapper projectMapper = sqlSession.getMapper(ProjectMapper.class);
-        @Nullable Project project = projectMapper.findByPartOfDescription(partOfDescription, userId);
-        sqlSession.close();
-        return project;
+        @NotNull final EntityManager entityManager = factory.createEntityManager();
+        @NotNull final ProjectRepository projectRepository = new ProjectRepository(entityManager);
+        return projectRepository.findByPartOfName(partOfDescription, userId);
     }
+
 }

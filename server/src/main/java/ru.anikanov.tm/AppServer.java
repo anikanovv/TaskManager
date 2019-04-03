@@ -2,11 +2,9 @@ package ru.anikanov.tm;
 
 import ru.anikanov.tm.bootstrap.Bootstrap;
 
-import java.sql.SQLException;
-
 
 public class AppServer {
-    public static void main(String[] args) throws SQLException {
+    public static void main(String[] args) throws Exception {
         Bootstrap bootstrap = new Bootstrap();
         bootstrap.init();
     }

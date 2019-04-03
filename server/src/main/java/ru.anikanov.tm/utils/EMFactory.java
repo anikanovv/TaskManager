@@ -6,6 +6,9 @@ import org.hibernate.boot.registry.StandardServiceRegistry;
 import org.hibernate.boot.registry.StandardServiceRegistryBuilder;
 import org.hibernate.cfg.Environment;
 import org.jetbrains.annotations.NotNull;
+import ru.anikanov.tm.entity.Project;
+import ru.anikanov.tm.entity.Session;
+import ru.anikanov.tm.entity.Task;
 import ru.anikanov.tm.entity.User;
 
 import javax.persistence.EntityManagerFactory;
@@ -35,9 +38,9 @@ public class EMFactory {
         final StandardServiceRegistry registry = registryBuilder.build();
         final MetadataSources sources = new MetadataSources(registry);
         sources.addAnnotatedClass(User.class);
-//        sources.addAnnotatedClass(Project.class);
-//        sources.addAnnotatedClass(Task.class);
-//        sources.addAnnotatedClass(Session.class);
+        sources.addAnnotatedClass(Session.class);
+        sources.addAnnotatedClass(Task.class);
+        sources.addAnnotatedClass(Project.class);
         final Metadata metadata = sources.getMetadataBuilder().build();
         return metadata.getSessionFactoryBuilder().build();
     }

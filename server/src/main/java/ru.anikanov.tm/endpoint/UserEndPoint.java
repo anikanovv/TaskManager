@@ -24,7 +24,7 @@ public class UserEndPoint {
     }
 
     @WebMethod
-    public boolean logIn(@WebParam @Nullable final String login, @WebParam @Nullable final String password) {
+    public User logIn(@WebParam @Nullable final String login, @WebParam @Nullable final String password) {
         return serviceLocator.getUserService().logIn(login,password);
     }
 
@@ -37,18 +37,18 @@ public class UserEndPoint {
 
     @WebMethod
     public void removeUser(@WebParam @NotNull final Session session, @WebParam @Nullable final String login) {
-        serviceLocator.getUserService().remove(login, Objects.requireNonNull(session.getUserId()));
+        serviceLocator.getUserService().remove(Objects.requireNonNull(session.getUserId()));
     }
 
     @WebMethod
     public void removeAllUser(@WebParam @NotNull final Session session) {
-        serviceLocator.getUserService().removeAll(Objects.requireNonNull(session.getUserId()));
+        serviceLocator.getUserService().removeAll();
     }
 
     @Nullable
     @WebMethod
     public User findOneUser(@WebParam @NotNull final Session session, @WebParam @Nullable final String login) {
-        return serviceLocator.getUserService().findOne(login, Objects.requireNonNull(session.getUserId()));
+        return serviceLocator.getUserService().findOne(Objects.requireNonNull(session.getUserId()));
     }
 
     @WebMethod
@@ -58,13 +58,13 @@ public class UserEndPoint {
     @Nullable
     @WebMethod
     public List<User> findAllUser(@WebParam @NotNull final Session session) {
-        return serviceLocator.getUserService().findAll(Objects.requireNonNull(session.getUserId()));
+        return serviceLocator.getUserService().findAll();
     }
 
     @WebMethod
     public void updateUser(@WebParam @Nullable final String login, @WebParam @Nullable final String firstName, @WebParam @Nullable final String lastName, @WebParam @Nullable final String email,
-                           @WebParam @Nullable final String password, @WebParam @Nullable final Role role) {
-        serviceLocator.getUserService().merge(login, firstName, lastName, email, password, role);
+                           @WebParam @Nullable final String password, @WebParam @Nullable final Role role, @WebParam @Nullable final String id) {
+        serviceLocator.getUserService().merge(login, firstName, lastName, email, password, role, id);
     }
 
     @WebMethod

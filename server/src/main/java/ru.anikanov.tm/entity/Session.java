@@ -3,13 +3,25 @@ package ru.anikanov.tm.entity;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
+
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.Id;
+import javax.persistence.Table;
 
 @Setter
 @Getter
 @NoArgsConstructor
+@Entity
+@Table(name = "app_session")
 public class Session extends AbstractEntity implements Cloneable {
+    @NotNull
+    @Id
+    private String id = super.getId();
     @Nullable
+    @Column(name = "user_id")
     private String userId;
     @Nullable
     private Long timestamp;

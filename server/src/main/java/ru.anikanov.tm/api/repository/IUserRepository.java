@@ -13,7 +13,7 @@ public interface IUserRepository {
 
     User merge(@NotNull User user);
 
-    void remove(@NotNull final String login);
+    void remove(@NotNull final User user);
 
     void removeAll();
 
@@ -22,8 +22,6 @@ public interface IUserRepository {
 
     @Nullable
     List<User> findAll();
-
-    void updatePassword(@NotNull final String login, @NotNull final String oldOne, @NotNull final String newOne);
 
     User findByName(@NotNull final String name);
 

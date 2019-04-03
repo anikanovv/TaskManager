@@ -4,9 +4,9 @@ import org.jetbrains.annotations.Nullable;
 import ru.anikanov.tm.entity.Session;
 
 public interface ISessionService {
-    Session create(String userId);
+    Session persist(String userId);
 
-    Session findOne(String userId);
+    Session findOne(String sessionId);
 
     boolean validate(@Nullable final Session session);
 

@@ -3,40 +3,53 @@ package ru.anikanov.tm.entity;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 import ru.anikanov.tm.enumeration.Status;
 import ru.anikanov.tm.utils.DateFormatUtil;
 
+import javax.persistence.*;
 import java.util.Date;
 
 @Getter
 @Setter
 @NoArgsConstructor
+@Entity
+@Table(name = "app_task")
 public class Task extends AbstractEntity {
+    @NotNull
+    @Id
+    private String id = super.getId();
     @Nullable
+    @Column(name = "project_id")
     private String projectId;
     @Nullable
+    @Column(name = "name")
     private String taskName;
     @Nullable
+    @Column(name = "description")
     private String taskDescription;
     @Nullable
+    @Column(name = "dateBegin")
     private Date startDate;
     @Nullable
+    @Column(name = "dateEnd")
     private Date endDate;
     @Nullable
+    @Column(name = "user_id")
     private String userId;
-    @Nullable
-    private Status status;
+    @NotNull
+    @Enumerated(EnumType.STRING)
+    private Status status = Status.SCHEDULED;
 
     public Task(@Nullable final String projectId, @Nullable final String name, @Nullable final String description,
-                @Nullable final String startDate, @Nullable final String endDate, @Nullable final String userId) throws Exception {
+                @Nullable final String startDate, @Nullable final String endDate, @Nullable final String userId) {
         this.projectId = projectId;
         this.taskName = name;
         this.taskDescription = description;
         setStart(startDate);
         setEnd(endDate);
         this.userId = userId;
-        status = Status.SCHEDULED;
     }
 
     public String getStart() {

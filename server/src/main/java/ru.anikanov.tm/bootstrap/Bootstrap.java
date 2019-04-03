@@ -7,14 +7,18 @@ import org.jetbrains.annotations.Nullable;
 import ru.anikanov.tm.api.ServiceLocator;
 import ru.anikanov.tm.api.service.*;
 import ru.anikanov.tm.endpoint.*;
+import ru.anikanov.tm.entity.Task;
 import ru.anikanov.tm.entity.User;
 import ru.anikanov.tm.enumeration.Role;
 import ru.anikanov.tm.service.*;
 import ru.anikanov.tm.utils.ConnectionUtil;
+import ru.anikanov.tm.utils.EMFactory;
 import ru.anikanov.tm.utils.PasswordHashUtil;
 
+import javax.persistence.EntityManagerFactory;
 import javax.xml.ws.Endpoint;
 import java.sql.Connection;
+import java.util.List;
 
 @Getter
 @Setter
@@ -22,17 +26,19 @@ public class Bootstrap implements ServiceLocator {
     @Nullable
     private Connection connection = ConnectionUtil.getConnection();
     @NotNull
+    private EntityManagerFactory factory = new EMFactory().factory();
+    @NotNull
     private final IProjectService projectService = new ProjectService();
     @NotNull
-    private final ITaskService taskService = new TaskService();
+    private final ITaskService taskService = new TaskService(factory);
     @NotNull
-    private final IUserService userService = new UserService();
+    private final IUserService userService = new UserService(factory);
     @NotNull
-    private final ISessionService sessionService = new SessionService();
+    private final ISessionService sessionService = new SessionService(factory);
     @NotNull
     private final IDomainService domainService = new DomainService(this);
 
-    public Bootstrap() {
+    public Bootstrap() throws Exception {
     }
 
     public void init() {
@@ -51,13 +57,13 @@ public class Bootstrap implements ServiceLocator {
 //        projectService.persist("new2", "descr2", "12.11.1234", "12.11.1234", user.getId());
     }
 
-    public static void main(String[] args) {
+    public static void main(String[] args) throws Exception {
         Bootstrap bootstrap = new Bootstrap();
-//        SqlSession sqlSession = new SqlSessionFactory().getSqlSessionFactory().openSession();
-        User user = bootstrap.userService.findOne("11bd6325-0373-42fb-9474-3ae474deb79a", "11bd6325-0373-42fb-9474-3ae474deb79a");
-//        List<Project> projects = bootstrap.projectService.findAll(user.getId());
-        System.out.println(user);
-
+        List<Task> atsk = bootstrap.taskService.findAll("e742c623-e978-4b2b-8439-fd1ec41cebf7");
+//        Session session=bootstrap.sessionService.findOne("bb290dc7-4c51-4128-98f1-70a374bfd921");
+//        List<User>users=bootstrap.userService.findAll();
+//        bootstrap.userService.merge("Cheburek", "Kek", "Looman", "Looman@man.com", PasswordHashUtil.md5("user"), Role.USER,user.getId());
+        System.out.println("11");
     }
 }
 

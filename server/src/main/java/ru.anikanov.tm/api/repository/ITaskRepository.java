@@ -12,19 +12,18 @@ public interface ITaskRepository {
     @Nullable
     Task persist(@NotNull final Task task);
 
-    Task merge(@NotNull final String taskId, @NotNull final String taskName, @NotNull final String description,
-               @NotNull final String dateStart, @NotNull final String dateFinish, @NotNull final String userId);
+    void merge(@NotNull final Task task);
 
-    void remove(@NotNull final String name, @NotNull final String userId);
+    void remove(@NotNull final Task task);
 
     void removeAll(@NotNull final String userId);
+
+    void removeWholeProject(@NotNull final String projectId, @NotNull final String userId);
 
     Task findOne(@Param("id") @NotNull final String id, @Param("userId") @NotNull final String userId);
 
     @Nullable
-    List<Task> findAll(@Param("id") @NotNull final String userId);
-
-    void removeWholeProject(@NotNull final String projectId, @NotNull final String userId);
+    List findAll(@Param("id") @NotNull final String userId);
 
     @Nullable
 

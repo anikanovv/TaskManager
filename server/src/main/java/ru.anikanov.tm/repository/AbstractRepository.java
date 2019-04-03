@@ -4,7 +4,7 @@ import java.util.List;
 
 public abstract class AbstractRepository<T> {
 
-    abstract public void remove(String name) throws Exception;
+//    abstract public void remove(String name) throws Exception;
 
     abstract public void removeAll();
 

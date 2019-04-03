@@ -1,47 +1,26 @@
 package ru.anikanov.tm.repository;
 
 import lombok.NoArgsConstructor;
-import lombok.SneakyThrows;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 import ru.anikanov.tm.api.repository.IProjectRepository;
 import ru.anikanov.tm.entity.Project;
-import ru.anikanov.tm.enumeration.Status;
-import ru.anikanov.tm.utils.DateFormatUtil;
 
+import javax.persistence.EntityManager;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
-import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
 @NoArgsConstructor
 public class ProjectRepository implements IProjectRepository {
     private Connection connection;
+    @NotNull
+    private EntityManager entityManager;
 
-    public ProjectRepository(@Nullable final Connection connection) {
-        this.connection = connection;
-    }
-
-    @Nullable
-    public Project findOne(@Nullable final String projectId, @Nullable final String userId) {
-        @NotNull final String sql = "SELECT * FROM taskmanager.app_project WHERE id=? AND user_id=?";
-        @Nullable Project project = null;
-        try {
-            PreparedStatement statement = connection.prepareStatement(sql);
-            statement.setString(1, projectId);
-            statement.setString(2, userId);
-            @Nullable final ResultSet resultSet = statement.executeQuery();
-            if (resultSet == null) return null;
-            if (resultSet.next()) {
-                project = fetch(resultSet);
-            }
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-        return project;
+    public ProjectRepository(@NotNull final EntityManager entityManager) {
+        this.entityManager = entityManager;
     }
 
     @NotNull
@@ -65,7 +44,7 @@ public class ProjectRepository implements IProjectRepository {
     }
 
     @Override
-    public Project merge(@NotNull final Project project) throws SQLException {
+    public Project merge(@NotNull final Project project) {
         @Nullable final Project newProject = findByPartOfName(Objects.requireNonNull(project.getName()), Objects.requireNonNull(project.getUserId()));
         if (newProject == null) return null;
         @NotNull final String sql = "UPDATE taskmanager.app_project SET " +
@@ -116,70 +95,33 @@ public class ProjectRepository implements IProjectRepository {
     }
 
     @Nullable
+    public Project findOne(@Nullable final String projectId, @Nullable final String userId) {
+        return (Project) entityManager.createQuery("SELECT project FROM Project project WHERE project.id = ?1 AND project.userId = ?2")
+                .setParameter(1, projectId)
+                .setParameter(2, userId)
+                .getSingleResult();
+    }
+
+    @Nullable
     public List<Project> findAll(@NotNull final String userId) {
-        @NotNull final String query =
-                "SELECT * FROM taskmanager.app_project WHERE user_id=?";
-        @Nullable final ResultSet resultSet;
-        try {
-            PreparedStatement statement = connection.prepareStatement(query);
-            statement.setString(1, userId);
-            resultSet = statement.executeQuery();
-            @NotNull final List<Project> result = new ArrayList<>();
-            while (resultSet.next()) {
-                @Nullable final Project project = fetch(resultSet);
-                if (project == null) break;
-                System.out.println(project.getName());
-                result.add(project);
-            }
-            return result;
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-        return null;
+        return entityManager.createQuery("SELECT project FROM Project project WHERE project.userId = ?1")
+                .setParameter(1, userId)
+                .getResultList();
     }
 
     @Nullable
-    @SneakyThrows
-    private Project fetch(@Nullable final ResultSet row) {
-        if (row == null) return null;
-        @NotNull final Project project = new Project();
-        project.setId(row.getString("id"));
-        project.setStartDate(DateFormatUtil.sqlStringToDate(row.getString("dateBegin")));
-        project.setEndDate(DateFormatUtil.sqlStringToDate(row.getString("dateEnd")));
-        project.setName(row.getString("name"));
-        project.setDescription(row.getString("description"));
-        project.setStatus(Status.valueOf(row.getString("status")));
-        project.setUserId(row.getString("user_id"));
-        return project;
+    public Project findByPartOfName(@NotNull final String partOfName, @NotNull final String userId) {
+        return (Project) entityManager.createQuery("SELECT project FROM Project project WHERE project.userId = ?1 AND project.partOfName LIKE ?2")
+                .setParameter(1, userId)
+                .setParameter(2, partOfName)
+                .getSingleResult();
     }
 
     @Nullable
-    public Project findByPartOfName(@NotNull final String partOfName, @NotNull final String userId) throws SQLException {
-        @NotNull final String query =
-                "SELECT * FROM taskmanager.app_project WHERE user_id=? AND name LIKE ?";
-        PreparedStatement statement = connection.prepareStatement(query);
-        statement.setString(1, userId);
-        statement.setString(2, "%" + partOfName + "%");
-        @NotNull final ResultSet resultSet = statement.executeQuery();
-        if (resultSet.next()) {
-            @Nullable final Project project = fetch(resultSet);
-            return project;
-        }
-        return null;
-    }
-
-    @Nullable
-    public Project findByPartOfDescription(@NotNull final String partOfDescription, @NotNull final String userId) throws SQLException {
-        @NotNull final String query =
-                "SELECT * FROM taskmanager.app_project WHERE user_id=? AND description LIKE ?";
-        PreparedStatement statement = connection.prepareStatement(query);
-        statement.setString(1, userId);
-        statement.setString(2, "%" + partOfDescription + "%");
-        @NotNull final ResultSet resultSet = statement.executeQuery();
-        if (resultSet.next()) {
-            @Nullable final Project project = fetch(resultSet);
-            return project;
-        }
-        return null;
+    public Project findByPartOfDescription(@NotNull final String partOfDescription, @NotNull final String userId) {
+        return (Project) entityManager.createQuery("SELECT project FROM Project project WHERE project.userId = ?1 AND project.partOfDescription LIKE ?2")
+                .setParameter(1, userId)
+                .setParameter(2, partOfDescription)
+                .getSingleResult();
     }
 }
