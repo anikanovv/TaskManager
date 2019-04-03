@@ -1,6 +1,7 @@
 package ru.anikanov.tm.service;
 
 import org.apache.ibatis.session.SqlSession;
+import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 import ru.anikanov.tm.api.service.ISessionService;
 import ru.anikanov.tm.entity.Session;
@@ -19,8 +20,8 @@ public class SessionService implements ISessionService {
         session.setTimestamp(System.currentTimeMillis());
         session.setUserId(userId);
         session.setSignature(SignatureUtil.sign(session, "salt", 22));
-        SqlSession sqlSession = new SqlSessionFactory().getSqlSessionFactory().openSession();
-        SessionMapper sessionMapper = sqlSession.getMapper(SessionMapper.class);
+        @NotNull final SqlSession sqlSession = new SqlSessionFactory().getSqlSessionFactory().openSession();
+        @NotNull final SessionMapper sessionMapper = sqlSession.getMapper(SessionMapper.class);
         try {
             sessionMapper.create(session);
             sqlSession.commit();
@@ -36,17 +37,9 @@ public class SessionService implements ISessionService {
     public Session findOne(@Nullable final String sessionId) {
 
         if (sessionId == null || sessionId.isEmpty()) return null;
-        SqlSession sqlSession = new SqlSessionFactory().getSqlSessionFactory().openSession();
-        SessionMapper sessionMapper = sqlSession.getMapper(SessionMapper.class);
-        Session session = null;
-        try {
-            session = sessionMapper.findOne(sessionId);
-        } catch (Exception e) {
-            sqlSession.rollback();
-        } finally {
-            sqlSession.close();
-        }
-        return session;
+        @NotNull final SqlSession sqlSession = new SqlSessionFactory().getSqlSessionFactory().openSession();
+        @NotNull final SessionMapper sessionMapper = sqlSession.getMapper(SessionMapper.class);
+        return sessionMapper.findOne(sessionId);
     }
 
     public boolean validate(@Nullable final Session session) {

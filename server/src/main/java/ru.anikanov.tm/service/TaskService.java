@@ -96,9 +96,7 @@ public class TaskService extends AbstractService implements ITaskService {
         @NotNull final TaskMapper taskMapper = sqlSession.getMapper(TaskMapper.class);
         @Nullable final Task task = taskMapper.findOne(taskId, userId);
         sqlSession.close();
-        if (task == null) return null;
-        if (userId.equals(task.getUserId())) return task;
-        else return null;
+        return task;
     }
 
     @Nullable

@@ -27,7 +27,6 @@ public class Task extends AbstractEntity {
     private String userId;
     @Nullable
     private Status status;
-//    private final SimpleDateFormat format = new SimpleDateFormat("dd.MM.yyyy", Locale.US);
 
     public Task(@Nullable final String projectId, @Nullable final String name, @Nullable final String description,
                 @Nullable final String startDate, @Nullable final String endDate, @Nullable final String userId) throws Exception {

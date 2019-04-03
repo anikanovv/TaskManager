@@ -102,15 +102,7 @@ public class ProjectService implements IProjectService {
         if ((userId == null) || userId.isEmpty()) return null;
         @NotNull final SqlSession sqlSession = new SqlSessionFactory().getSqlSessionFactory().openSession();
         @NotNull final ProjectMapper projectMapper = sqlSession.getMapper(ProjectMapper.class);
-        @Nullable List<Project> projects = null;
-        try {
-            projects = projectMapper.findAll(userId);
-        } catch (Exception e) {
-            sqlSession.rollback();
-        } finally {
-            sqlSession.close();
-        }
-        return projects;
+        return projectMapper.findAll(userId);
     }
 
     @Nullable
@@ -119,15 +111,7 @@ public class ProjectService implements IProjectService {
         if ((projectId == null) || projectId.isEmpty()) return null;
         @NotNull final SqlSession sqlSession = new SqlSessionFactory().getSqlSessionFactory().openSession();
         @NotNull final ProjectMapper projectMapper = sqlSession.getMapper(ProjectMapper.class);
-        @Nullable Project project = null;
-        try {
-            project = projectMapper.findOne(projectId, userId);
-        } catch (Exception e) {
-            sqlSession.rollback();
-        } finally {
-            sqlSession.close();
-        }
-        return project;
+        return projectMapper.findOne(projectId, userId);
     }
 
     @Nullable
@@ -135,16 +119,10 @@ public class ProjectService implements IProjectService {
         if ((userId == null) || userId.isEmpty()) return null;
         @NotNull final SqlSession sqlSession = new SqlSessionFactory().getSqlSessionFactory().openSession();
         @NotNull final ProjectMapper projectMapper = sqlSession.getMapper(ProjectMapper.class);
-        @Nullable List<Project> projects = null;
-        try {
-            projects = projectMapper.findAll(userId);
-            if (projects == null) return null;
-            projects.sort(Comparator.comparing(Project::getStartDate));
-        } catch (Exception e) {
-            sqlSession.rollback();
-        } finally {
-            sqlSession.close();
-        }
+        @Nullable List<Project> projects = projectMapper.findAll(userId);
+        if (projects == null) return null;
+        projects.sort(Comparator.comparing(Project::getStartDate));
+        sqlSession.close();
         return projects;
     }
 
@@ -153,16 +131,10 @@ public class ProjectService implements IProjectService {
         if ((userId == null) || userId.isEmpty()) return null;
         @NotNull final SqlSession sqlSession = new SqlSessionFactory().getSqlSessionFactory().openSession();
         @NotNull final ProjectMapper projectMapper = sqlSession.getMapper(ProjectMapper.class);
-        @Nullable List<Project> projects = null;
-        try {
-            projects = projectMapper.findAll(userId);
-            if (projects == null) return null;
-            projects.sort(Comparator.comparing(Project::getEndDate));
-        } catch (Exception e) {
-            sqlSession.rollback();
-        } finally {
-            sqlSession.close();
-        }
+        @Nullable List<Project> projects = projectMapper.findAll(userId);
+        if (projects == null) return null;
+        projects.sort(Comparator.comparing(Project::getEndDate));
+        sqlSession.close();
         return projects;
     }
 
@@ -171,16 +143,10 @@ public class ProjectService implements IProjectService {
         if ((userId == null) || userId.isEmpty()) return null;
         @NotNull final SqlSession sqlSession = new SqlSessionFactory().getSqlSessionFactory().openSession();
         @NotNull final ProjectMapper projectMapper = sqlSession.getMapper(ProjectMapper.class);
-        @Nullable List<Project> projects = null;
-        try {
-            projects = projectMapper.findAll(userId);
-            if (projects == null) return null;
-            projects.sort(Comparator.comparing(Project::getStatus));
-        } catch (Exception e) {
-            sqlSession.rollback();
-        } finally {
-            sqlSession.close();
-        }
+        @Nullable List<Project> projects = projectMapper.findAll(userId);
+        if (projects == null) return null;
+        projects.sort(Comparator.comparing(Project::getStatus));
+        sqlSession.close();
         return projects;
     }
 
@@ -190,14 +156,8 @@ public class ProjectService implements IProjectService {
         if ((userId == null) || userId.isEmpty()) return null;
         @NotNull final SqlSession sqlSession = new SqlSessionFactory().getSqlSessionFactory().openSession();
         @NotNull final ProjectMapper projectMapper = sqlSession.getMapper(ProjectMapper.class);
-        @Nullable Project project = null;
-        try {
-            project = projectMapper.findByPartOfName(partOfName, userId);
-        } catch (Exception e) {
-            sqlSession.rollback();
-        } finally {
-            sqlSession.close();
-        }
+        @Nullable Project project = projectMapper.findByPartOfName(partOfName, userId);
+        sqlSession.close();
         return project;
     }
 
@@ -207,14 +167,8 @@ public class ProjectService implements IProjectService {
         if ((userId == null) || userId.isEmpty()) return null;
         @NotNull final SqlSession sqlSession = new SqlSessionFactory().getSqlSessionFactory().openSession();
         @NotNull final ProjectMapper projectMapper = sqlSession.getMapper(ProjectMapper.class);
-        @Nullable Project project = null;
-        try {
-            project = projectMapper.findByPartOfDescription(partOfDescription, userId);
-        } catch (Exception e) {
-            sqlSession.rollback();
-        } finally {
-            sqlSession.close();
-        }
+        @Nullable Project project = projectMapper.findByPartOfDescription(partOfDescription, userId);
+        sqlSession.close();
         return project;
     }
 }

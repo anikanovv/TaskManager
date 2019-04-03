@@ -10,6 +10,7 @@ import ru.anikanov.tm.entity.User;
 import ru.anikanov.tm.enumeration.Role;
 import ru.anikanov.tm.utils.PasswordHashUtil;
 
+import javax.persistence.EntityManager;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -21,9 +22,11 @@ public class UserRepository extends AbstractRepository implements IUserRepositor
     @Getter
     private Map<String, User> userMap = new LinkedHashMap<>();
     private Connection connection;
+    private EntityManager entityManager;
 
-    public UserRepository(@Nullable final Connection connection) {
+    public UserRepository(@Nullable final Connection connection, @Nullable final EntityManager entityManager) {
         this.connection = connection;
+        this.entityManager = entityManager;
     }
 
     @NotNull
@@ -87,8 +90,10 @@ public class UserRepository extends AbstractRepository implements IUserRepositor
     }
 
     @Nullable
-    public User findOne(@NotNull final String login) {
-        @NotNull final String query =
+    public User findOne(@NotNull final String id) {
+        return entityManager.find(User.class, id);
+    }
+ /*       @NotNull final String query =
                 "SELECT * FROM taskmanager.app_user WHERE login = ?";
         @NotNull final PreparedStatement statement;
         try {
@@ -102,8 +107,7 @@ public class UserRepository extends AbstractRepository implements IUserRepositor
         } catch (SQLException e) {
             e.printStackTrace();
         }
-        return null;
-    }
+        return null;*/
 
     @Nullable
     @SneakyThrows

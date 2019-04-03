@@ -1,45 +1,42 @@
 package ru.anikanov.tm.entity;
 
 
-import com.fasterxml.jackson.dataformat.xml.annotation.JacksonXmlElementWrapper;
-import com.fasterxml.jackson.dataformat.xml.annotation.JacksonXmlRootElement;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 import ru.anikanov.tm.enumeration.Status;
 import ru.anikanov.tm.utils.DateFormatUtil;
 
-import javax.xml.bind.annotation.*;
+import javax.persistence.*;
+import javax.xml.bind.annotation.XmlTransient;
 import java.io.Serializable;
 import java.util.Date;
-
 @Getter
 @Setter
 @NoArgsConstructor
-@JacksonXmlRootElement
-@XmlRootElement(name = "Project")
-@XmlAccessorType(XmlAccessType.FIELD)
+@Entity
 public class Project extends AbstractEntity implements Serializable {
-    @JacksonXmlElementWrapper(useWrapping = false)
+    @NotNull
+    @Id
+    private String id = super.getId();
     @Nullable
-    @XmlElement
     private String name;
     @Nullable
-    @XmlElement
     private String description;
     @Nullable
-    @XmlElement
+    @Column(name = "dateBegin")
     private Date startDate;
     @Nullable
-    @XmlElement
+    @Column(name = "dateEnd")
     private Date endDate;
     @Nullable
-    @XmlElement
+    @Column(name = "user_id")
     private String userId;
-    @Nullable
-    @XmlElement
-    private Status status;
+    @NotNull
+    @Enumerated(EnumType.STRING)
+    private Status status = Status.SCHEDULED;
 
     public Project(@Nullable final String name, @Nullable final String description, @Nullable final String startDate,
                    @Nullable final String endDate, @Nullable final String userId) {
@@ -48,7 +45,6 @@ public class Project extends AbstractEntity implements Serializable {
         setStart(startDate);
         setEnd(endDate);
         this.userId = userId;
-        status = Status.SCHEDULED;
     }
 
     @XmlTransient

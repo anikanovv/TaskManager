@@ -115,34 +115,18 @@ public class UserService implements IUserService {
     }
 
     @Nullable
-    public User findOne(@Nullable final String login, @NotNull final String userId) {
-        if ((login == null) || login.isEmpty()) return null;
+    public User findOne(@Nullable final String id, @NotNull final String userId) {
+        if ((id == null) || id.isEmpty()) return null;
         @NotNull final SqlSession sqlSession = new SqlSessionFactory().getSqlSessionFactory().openSession();
         @NotNull final UserMapper userMapper = sqlSession.getMapper(UserMapper.class);
-        @Nullable User user = null;
-        try {
-            user = userMapper.findOne(login);
-        } catch (Exception e) {
-            sqlSession.rollback();
-        } finally {
-            sqlSession.close();
-        }
-        return user;
+        return userMapper.findOne(id);
     }
 
     @Nullable
     public List<User> findAll(@NotNull final String userId) {
         @NotNull final SqlSession sqlSession = new SqlSessionFactory().getSqlSessionFactory().openSession();
         @NotNull final UserMapper userMapper = sqlSession.getMapper(UserMapper.class);
-        @Nullable List<User> users = null;
-        try {
-            users = userMapper.findAll();
-        } catch (Exception e) {
-            sqlSession.rollback();
-        } finally {
-            sqlSession.close();
-        }
-        return users;
+        return userMapper.findAll();
     }
 
     public boolean checkadmin(@NotNull final Session session) {
@@ -153,29 +137,12 @@ public class UserService implements IUserService {
     public User findByName(@NotNull final String name) {
         @NotNull final SqlSession sqlSession = new SqlSessionFactory().getSqlSessionFactory().openSession();
         @NotNull final UserMapper userMapper = sqlSession.getMapper(UserMapper.class);
-        @Nullable User user = null;
-        try {
-            user = userMapper.findByName(name);
-        } catch (Exception e) {
-            sqlSession.rollback();
-        } finally {
-            sqlSession.close();
-        }
-        return user;
+        return userMapper.findByName(name);
     }
 
     public User getCurrentUser(@NotNull final Session session) {
-        SqlSession sqlSession = new SqlSessionFactory().getSqlSessionFactory().openSession();
-        UserMapper userMapper = sqlSession.getMapper(UserMapper.class);
-        @Nullable User user = null;
-        try {
-            user = userMapper.findOne(Objects.requireNonNull(session.getUserId()));
-        } catch (Exception e) {
-            sqlSession.rollback();
-        } finally {
-            sqlSession.close();
-        }
-        if (user == null) return null;
-        return user;
+        @NotNull final SqlSession sqlSession = new SqlSessionFactory().getSqlSessionFactory().openSession();
+        @NotNull final UserMapper userMapper = sqlSession.getMapper(UserMapper.class);
+        return userMapper.findOne(Objects.requireNonNull(session.getUserId()));
     }
 }

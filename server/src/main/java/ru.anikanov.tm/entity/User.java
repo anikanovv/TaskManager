@@ -7,15 +7,23 @@ import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 import ru.anikanov.tm.enumeration.Role;
 
+import javax.persistence.*;
 import java.util.Objects;
 
 @Getter
 @Setter
 @NoArgsConstructor
+@Entity
+@Table(name = "app_user")
 public class User extends AbstractEntity {
+    @NotNull
+    @Id
+    private String id = super.getId();
     @Nullable
+    @Column(name = "login")
     private String name;
     @Nullable
+    @Column(name = "passwordHash")
     private String hashPassword;
     @Nullable
     private String firstName;
@@ -23,8 +31,9 @@ public class User extends AbstractEntity {
     private String lastName;
     @Nullable
     private String email;
-    @Nullable
-    private Role role;
+    @NotNull
+    @Enumerated(EnumType.STRING)
+    private Role role = Role.USER;
 
     public User(@NotNull final String login, @NotNull final String firstName, @NotNull final String lastName, @NotNull final String email,
                 @NotNull final String password, @NotNull final Role role) {
@@ -33,7 +42,6 @@ public class User extends AbstractEntity {
         this.lastName = lastName;
         this.email = email;
         this.hashPassword = password;
-        this.role = role;
     }
 
     public String getRoleName() {
