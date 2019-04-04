@@ -7,7 +7,7 @@ import org.jetbrains.annotations.Nullable;
 import ru.anikanov.tm.api.ServiceLocator;
 import ru.anikanov.tm.api.service.*;
 import ru.anikanov.tm.endpoint.*;
-import ru.anikanov.tm.entity.Task;
+import ru.anikanov.tm.entity.Project;
 import ru.anikanov.tm.entity.User;
 import ru.anikanov.tm.enumeration.Role;
 import ru.anikanov.tm.service.*;
@@ -18,7 +18,6 @@ import ru.anikanov.tm.utils.PasswordHashUtil;
 import javax.persistence.EntityManagerFactory;
 import javax.xml.ws.Endpoint;
 import java.sql.Connection;
-import java.util.List;
 
 @Getter
 @Setter
@@ -28,7 +27,7 @@ public class Bootstrap implements ServiceLocator {
     @NotNull
     private EntityManagerFactory factory = new EMFactory().factory();
     @NotNull
-    private final IProjectService projectService = new ProjectService();
+    private final IProjectService projectService = new ProjectService(factory);
     @NotNull
     private final ITaskService taskService = new TaskService(factory);
     @NotNull
@@ -59,8 +58,8 @@ public class Bootstrap implements ServiceLocator {
 
     public static void main(String[] args) throws Exception {
         Bootstrap bootstrap = new Bootstrap();
-        List<Task> atsk = bootstrap.taskService.findAll("e742c623-e978-4b2b-8439-fd1ec41cebf7");
-//        Session session=bootstrap.sessionService.findOne("bb290dc7-4c51-4128-98f1-70a374bfd921");
+        Project project = bootstrap.projectService.findOne("4ee1d515-e7a7-4050-8d8f-8eb2fb14c0bb", "57a91905-57c5-4774-a9c6-1411b024c003");
+        //        Session session=bootstrap.sessionService.findOne("bb290dc7-4c51-4128-98f1-70a374bfd921");
 //        List<User>users=bootstrap.userService.findAll();
 //        bootstrap.userService.merge("Cheburek", "Kek", "Looman", "Looman@man.com", PasswordHashUtil.md5("user"), Role.USER,user.getId());
         System.out.println("11");

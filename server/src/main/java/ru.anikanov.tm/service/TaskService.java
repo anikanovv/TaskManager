@@ -26,8 +26,6 @@ public class TaskService extends AbstractService implements ITaskService {
         @NotNull final EntityManager entityManager = factory.createEntityManager();
         try {
             @NotNull final TaskRepository taskRepository = new TaskRepository(entityManager);
-            @Nullable final Task task = findOne(taskName, userId);
-            if (task != null) return null;
             if (projectId == null || projectId.isEmpty()) return null;
             if ((description == null) || description.isEmpty()) return null;
             if ((dateStart == null) || dateStart.isEmpty()) return null;

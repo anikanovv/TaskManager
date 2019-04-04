@@ -3,14 +3,14 @@ package ru.anikanov.tm.api.repository;
 import ru.anikanov.tm.entity.Session;
 
 public interface ISessionRepository {
-    Session persist(Session session) throws Exception;
+    Session persist(Session session);
 
-    void check(Session session) throws Exception;
+    void check(Session session);
 
     void sign(Session session);
 
-    boolean validate(Session session) throws Exception;
+    boolean validate(Session session);
 
-    void remove(Session session) throws Exception;
+    void remove(Session session);
 
 }

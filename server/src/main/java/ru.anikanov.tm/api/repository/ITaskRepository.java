@@ -26,7 +26,6 @@ public interface ITaskRepository {
     List findAll(@Param("id") @NotNull final String userId);
 
     @Nullable
-
     Task findByPartOfName(@NotNull final String partOfName, @NotNull final String userId);
 
     @Nullable

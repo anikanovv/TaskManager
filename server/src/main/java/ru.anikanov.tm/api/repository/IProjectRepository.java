@@ -5,7 +5,6 @@ import org.jetbrains.annotations.Nullable;
 import ru.anikanov.tm.entity.Project;
 
 import java.sql.SQLException;
-import java.text.ParseException;
 import java.util.List;
 
 public interface IProjectRepository {
@@ -15,7 +14,7 @@ public interface IProjectRepository {
 
     Project merge(@NotNull Project p) throws SQLException;
 
-    void remove(@NotNull final String name, @NotNull final String userId);
+    void remove(@NotNull final Project project);
 
     void removeAll(@NotNull final String userId);
 
@@ -26,8 +25,8 @@ public interface IProjectRepository {
     List<Project> findAll(@NotNull final String userId);
 
     @Nullable
-    Project findByPartOfName(@NotNull final String partOfName, @NotNull final String userId) throws SQLException, ParseException;
+    Project findByPartOfName(@NotNull final String partOfName, @NotNull final String userId);
 
     @Nullable
-    Project findByPartOfDescription(@NotNull final String partOfDescription, @NotNull final String userId) throws SQLException;
+    Project findByPartOfDescription(@NotNull final String partOfDescription, @NotNull final String userId);
 }

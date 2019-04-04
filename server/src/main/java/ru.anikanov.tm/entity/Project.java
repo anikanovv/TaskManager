@@ -13,10 +13,13 @@ import javax.persistence.*;
 import javax.xml.bind.annotation.XmlTransient;
 import java.io.Serializable;
 import java.util.Date;
+import java.util.List;
+
 @Getter
 @Setter
 @NoArgsConstructor
 @Entity
+@Table(name = "app_project")
 public class Project extends AbstractEntity implements Serializable {
     @NotNull
     @Id
@@ -37,6 +40,8 @@ public class Project extends AbstractEntity implements Serializable {
     @NotNull
     @Enumerated(EnumType.STRING)
     private Status status = Status.SCHEDULED;
+    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY, mappedBy = "projectId", orphanRemoval = true)
+    private List<Task> tasks;
 
     public Project(@Nullable final String name, @Nullable final String description, @Nullable final String startDate,
                    @Nullable final String endDate, @Nullable final String userId) {

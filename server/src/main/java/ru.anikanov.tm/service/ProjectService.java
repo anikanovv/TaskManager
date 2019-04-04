@@ -1,14 +1,10 @@
 package ru.anikanov.tm.service;
 
-import org.apache.ibatis.session.SqlSession;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 import ru.anikanov.tm.api.service.IProjectService;
 import ru.anikanov.tm.entity.Project;
-import ru.anikanov.tm.repository.ProjectMapper;
 import ru.anikanov.tm.repository.ProjectRepository;
-import ru.anikanov.tm.repository.TaskMapper;
-import ru.anikanov.tm.utils.SqlSessionFactory;
 
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
@@ -21,87 +17,80 @@ public class ProjectService implements IProjectService {
     public ProjectService(EntityManagerFactory factory) {
         this.factory = factory;
     }
+
     @Nullable
     public Project persist(@Nullable final String projectName, @Nullable final String description, @Nullable final String dateStart,
                            @Nullable final String dateFinish, @Nullable final String userId) {
         if ((projectName == null) || projectName.isEmpty()) return null;
         if (userId == null || userId.isEmpty()) return null;
-        @NotNull final SqlSession sqlSession = new SqlSessionFactory().getSqlSessionFactory().openSession();
-        @NotNull final ProjectMapper projectMapper = sqlSession.getMapper(ProjectMapper.class);
+        @NotNull final EntityManager entityManager = factory.createEntityManager();
         try {
-            @Nullable final Project project = projectMapper.findOne(projectName, userId);
-            if (project == null) {
-                if ((description == null) || description.isEmpty()) return null;
-                if ((dateStart == null) || dateStart.isEmpty()) return null;
-                if ((dateFinish == null) || dateFinish.isEmpty()) return null;
-                @Nullable final Project newproject = new Project(projectName, description, dateStart, dateFinish, userId);
-                projectMapper.persist(newproject);
-                sqlSession.commit();
-                return newproject;
-            }
+            @NotNull final ProjectRepository projectRepository = new ProjectRepository(entityManager);
+            if ((description == null) || description.isEmpty()) return null;
+            if ((dateStart == null) || dateStart.isEmpty()) return null;
+            if ((dateFinish == null) || dateFinish.isEmpty()) return null;
+            @Nullable final Project newproject = new Project(projectName, description, dateStart, dateFinish, userId);
+            entityManager.getTransaction().begin();
+            projectRepository.persist(newproject);
+            entityManager.getTransaction().commit();
+            return newproject;
         } catch (Exception e) {
-            sqlSession.rollback();
-        } finally {
-            sqlSession.close();
+            entityManager.getTransaction().rollback();
+            return null;
         }
-
-        return null;
     }
 
-    public void merge(@Nullable final String projectName, @Nullable final String description, @Nullable final String dateStart,
+    public void merge(@Nullable final String id, @Nullable final String projectName, @Nullable final String description, @Nullable final String dateStart,
                       @Nullable final String dateFinish, @Nullable final String userId) {
         if ((projectName == null) || projectName.isEmpty()) return;
         if ((description == null) || description.isEmpty()) return;
         if ((dateStart == null) || dateStart.isEmpty()) return;
         if ((dateFinish == null) || dateFinish.isEmpty()) return;
         if ((userId == null) || userId.isEmpty()) return;
-        @NotNull final SqlSession sqlSession = new SqlSessionFactory().getSqlSessionFactory().openSession();
-        @NotNull final ProjectMapper projectMapper = sqlSession.getMapper(ProjectMapper.class);
+        @NotNull final EntityManager entityManager = factory.createEntityManager();
         try {
-            @Nullable final Project p = new Project(projectName, description, dateStart, dateFinish, userId);
-            projectMapper.merge(p.getId(), projectName, description, dateStart, dateFinish, userId);
-            sqlSession.commit();
+            @NotNull final ProjectRepository projectRepository = new ProjectRepository(entityManager);
+            @Nullable Project p = findOne(id, userId);
+            if (p == null) p = new Project();
+            p.setName(projectName);
+            p.setDescription(description);
+            p.setStart(dateStart);
+            p.setEnd(dateFinish);
+            p.setUserId(userId);
+            entityManager.getTransaction().begin();
+            projectRepository.merge(p);
+            entityManager.getTransaction().commit();
         } catch (Exception e) {
-            sqlSession.rollback();
-        } finally {
-            sqlSession.close();
+            entityManager.getTransaction().rollback();
         }
-
-
     }
 
-    public void remove(@Nullable final String projectName, @Nullable final String userId) {
-        if ((projectName == null) || projectName.isEmpty()) return;
+    public void remove(@Nullable final String id, @Nullable final String userId) {
+        if ((id == null) || id.isEmpty()) return;
         if ((userId == null) || userId.isEmpty()) return;
-        @NotNull final SqlSession sqlSession = new SqlSessionFactory().getSqlSessionFactory().openSession();
-        @NotNull final ProjectMapper projectMapper = sqlSession.getMapper(ProjectMapper.class);
-        @NotNull final TaskMapper taskMapper = sqlSession.getMapper(TaskMapper.class);
+        @NotNull final EntityManager entityManager = factory.createEntityManager();
         try {
-            @Nullable final Project project = projectMapper.findByPartOfName(projectName, userId);
+            @NotNull final ProjectRepository projectRepository = new ProjectRepository(entityManager);
+            @Nullable final Project project = projectRepository.findOne(id, userId);
             if (project == null) return;
-            taskMapper.removeWholeProject(project.getId(), userId);
-            projectMapper.remove(projectName, userId);
-            sqlSession.commit();
+            entityManager.getTransaction().begin();
+            projectRepository.remove(project);
+            entityManager.getTransaction().commit();
         } catch (Exception e) {
-            sqlSession.rollback();
-        } finally {
-            sqlSession.close();
+            entityManager.getTransaction().rollback();
         }
     }
 
     public void removeAll(@Nullable final String userId) {
         if ((userId == null) || userId.isEmpty()) return;
-        @NotNull final SqlSession sqlSession = new SqlSessionFactory().getSqlSessionFactory().openSession();
-        @NotNull final ProjectMapper projectMapper = sqlSession.getMapper(ProjectMapper.class);
-        @NotNull final TaskMapper taskMapper = sqlSession.getMapper(TaskMapper.class);
+        @NotNull final EntityManager entityManager = factory.createEntityManager();
         try {
-            taskMapper.removeAll(userId);
-            projectMapper.removeAll(userId);
-            sqlSession.commit();
+            @NotNull final ProjectRepository projectRepository = new ProjectRepository(entityManager);
+            entityManager.getTransaction().begin();
+            projectRepository.removeAll(userId);
+            entityManager.getTransaction().commit();
         } catch (Exception e) {
-            sqlSession.rollback();
-        } finally {
-            sqlSession.close();
+            entityManager.getTransaction().rollback();
         }
     }
 
@@ -170,7 +159,7 @@ public class ProjectService implements IProjectService {
         if ((userId == null) || userId.isEmpty()) return null;
         @NotNull final EntityManager entityManager = factory.createEntityManager();
         @NotNull final ProjectRepository projectRepository = new ProjectRepository(entityManager);
-        return projectRepository.findByPartOfName(partOfDescription, userId);
+        return projectRepository.findByPartOfDescription(partOfDescription, userId);
     }
 
 }

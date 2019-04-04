@@ -67,7 +67,7 @@ public class TaskRepository implements ITaskRepository {
     public Task findByPartOfName(@NotNull final String partOfName, @NotNull final String userId) {
         return (Task) entityManager.createQuery("SELECT task FROM Task task WHERE task.userId = ?1 AND task.taskName LIKE ?2")
                 .setParameter(1, userId)
-                .setParameter(2, partOfName)
+                .setParameter(2, "%" + partOfName + "%")
                 .getSingleResult();
     }
 
@@ -75,7 +75,7 @@ public class TaskRepository implements ITaskRepository {
     public Task findByPartOfDescription(@NotNull final String partOfDescription, @NotNull final String userId) {
         return (Task) entityManager.createQuery("SELECT task FROM Task task WHERE task.userId = ?1 AND task.taskDescription LIKE ?2")
                 .setParameter(1, userId)
-                .setParameter(2, partOfDescription)
+                .setParameter(2, "%" + partOfDescription + "%")
                 .getSingleResult();
     }
 }
