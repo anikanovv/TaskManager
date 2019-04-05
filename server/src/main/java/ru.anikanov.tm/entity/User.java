@@ -8,6 +8,7 @@ import org.jetbrains.annotations.Nullable;
 import ru.anikanov.tm.enumeration.Role;
 
 import javax.persistence.*;
+import java.util.List;
 import java.util.Objects;
 
 @Getter
@@ -18,7 +19,7 @@ import java.util.Objects;
 public class User extends AbstractEntity {
 
     @Nullable
-    @Column(name = "login")
+    @Column(name = "login", unique = true)
     private String name;
     @Nullable
     @Column(name = "passwordHash")
@@ -32,6 +33,12 @@ public class User extends AbstractEntity {
     @NotNull
     @Enumerated(EnumType.STRING)
     private Role role = Role.USER;
+    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY, mappedBy = "userId", orphanRemoval = true)
+    private List<Project> projects;
+    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY, mappedBy = "userId", orphanRemoval = true)
+    private List<Task> tasks;
+    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY, mappedBy = "userId", orphanRemoval = true)
+    private List<Session> sessions;
 
     public User(@NotNull final String login, @NotNull final String firstName, @NotNull final String lastName, @NotNull final String email,
                 @NotNull final String password, @NotNull final Role role) {

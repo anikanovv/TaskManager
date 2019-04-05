@@ -1,29 +1,19 @@
 package ru.anikanov.tm.api;
 
 import org.jetbrains.annotations.NotNull;
-import ru.anikanov.tm.api.service.*;
+import ru.anikanov.tm.endpoint.*;
 
 public interface ServiceLocator {
 
     @NotNull
-    IProjectService getProjectService();
-
+    ProjectEndPoint getProjectEndPoint();
     @NotNull
-    ITaskService getTaskService();
-
+    TaskEndPoint getTaskEndPoint();
     @NotNull
-    IUserService getUserService();
-
+    UserEndPoint getUserEndPoint();
     @NotNull
-    ISessionService getSessionService();
-
+    SessionEndPoint getSessionEndPoint();
     @NotNull
-    IDomainService getDomainService();
-
-
-   /* @Nullable
-    String getCurrentSession();
-
-    void setCurrentSession(@NotNull final Session name);*/
+    DomainEndPoint getDomainEndPoint();
 
 }

@@ -7,13 +7,15 @@ import ru.anikanov.tm.entity.Session;
 import ru.anikanov.tm.repository.SessionRepository;
 import ru.anikanov.tm.utils.SignatureUtil;
 
+import javax.inject.Inject;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import java.util.UUID;
 
 public class SessionService implements ISessionService {
-    private EntityManagerFactory factory;
+    private final EntityManagerFactory factory;
 
+    @Inject
     public SessionService(EntityManagerFactory factory) {
         this.factory = factory;
     }

@@ -11,21 +11,19 @@ import ru.anikanov.tm.entity.Session;
 import ru.anikanov.tm.entity.Task;
 import ru.anikanov.tm.entity.User;
 
+import javax.enterprise.context.ApplicationScoped;
+import javax.enterprise.inject.Produces;
 import javax.persistence.EntityManagerFactory;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Properties;
 
+@ApplicationScoped
 public class EMFactory {
-    private Properties getProperties() throws Exception {
-        @NotNull final Properties property = new Properties();
-        property.load(this.getClass().getClassLoader().getResourceAsStream("config.properties"));
-        return property;
-    }
-
+    @Produces
     public EntityManagerFactory factory() throws Exception {
         final Map<String, String> settings = new HashMap<>();
-        @NotNull final Properties property = getProperties();
+        @NotNull final Properties property = PropertiesUtil.getProperties();
         settings.put(Environment.DRIVER, property.getProperty("db.driver"));
         settings.put(Environment.URL, property.getProperty("db.host"));
         settings.put(Environment.USER, property.getProperty("db.login"));

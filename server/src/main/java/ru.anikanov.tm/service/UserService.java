@@ -9,15 +9,19 @@ import ru.anikanov.tm.enumeration.Role;
 import ru.anikanov.tm.repository.UserRepository;
 import ru.anikanov.tm.utils.PasswordHashUtil;
 
+import javax.enterprise.context.ApplicationScoped;
+import javax.inject.Inject;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import java.util.List;
 import java.util.Objects;
 
+@ApplicationScoped
 public class UserService implements IUserService {
-    private EntityManagerFactory factory;
+    private final EntityManagerFactory factory;
 
-    public UserService(EntityManagerFactory factory) {
+    @Inject
+    public UserService(@NotNull final EntityManagerFactory factory) {
         this.factory = factory;
     }
 

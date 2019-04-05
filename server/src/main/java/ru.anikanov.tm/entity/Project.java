@@ -22,6 +22,7 @@ import java.util.List;
 @Table(name = "app_project")
 public class Project extends AbstractEntity implements Serializable {
     @Nullable
+    @Column(name = "name", unique = true)
     private String name;
     @Nullable
     private String description;

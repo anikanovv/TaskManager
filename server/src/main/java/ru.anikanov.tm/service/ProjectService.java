@@ -6,14 +6,16 @@ import ru.anikanov.tm.api.service.IProjectService;
 import ru.anikanov.tm.entity.Project;
 import ru.anikanov.tm.repository.ProjectRepository;
 
+import javax.inject.Inject;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import java.util.Comparator;
 import java.util.List;
 
 public class ProjectService implements IProjectService {
-    private EntityManagerFactory factory;
+    private final EntityManagerFactory factory;
 
+    @Inject
     public ProjectService(EntityManagerFactory factory) {
         this.factory = factory;
     }

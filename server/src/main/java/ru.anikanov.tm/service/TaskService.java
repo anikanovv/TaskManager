@@ -6,14 +6,16 @@ import ru.anikanov.tm.api.service.ITaskService;
 import ru.anikanov.tm.entity.Task;
 import ru.anikanov.tm.repository.TaskRepository;
 
+import javax.inject.Inject;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import java.util.Comparator;
 import java.util.List;
 
 public class TaskService extends AbstractService implements ITaskService {
-    private EntityManagerFactory factory;
+    private final EntityManagerFactory factory;
 
+    @Inject
     public TaskService(EntityManagerFactory factory) {
         this.factory = factory;
     }
