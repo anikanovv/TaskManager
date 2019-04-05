@@ -11,19 +11,15 @@ import ru.anikanov.tm.entity.Task;
 import ru.anikanov.tm.entity.User;
 import ru.anikanov.tm.enumeration.Role;
 import ru.anikanov.tm.service.*;
-import ru.anikanov.tm.utils.ConnectionUtil;
 import ru.anikanov.tm.utils.EMFactory;
 import ru.anikanov.tm.utils.PasswordHashUtil;
 
 import javax.persistence.EntityManagerFactory;
 import javax.xml.ws.Endpoint;
-import java.sql.Connection;
 
 @Getter
 @Setter
 public class Bootstrap implements ServiceLocator {
-    @Nullable
-    private Connection connection = ConnectionUtil.getConnection();
     @NotNull
     private EntityManagerFactory factory = new EMFactory().factory();
     @NotNull
