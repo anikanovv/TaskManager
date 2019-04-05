@@ -2,7 +2,7 @@ package ru.anikanov.tm.command.user;
 
 import ru.anikanov.tm.command.AbstractCommand;
 import ru.anikanov.tm.endpoint.Session;
-import ru.anikanov.tm.endpoint.User;
+import ru.anikanov.tm.endpoint.UserDto;
 import ru.anikanov.tm.endpoint.UserEndPoint;
 import ru.anikanov.tm.utils.PasswordHash;
 
@@ -32,8 +32,8 @@ public class UserAuthCommand extends AbstractCommand {
         final String login = bootstrap.getTerminalService().nextLine();
         System.out.println("pass");
         final String pass = PasswordHash.makehash(Objects.requireNonNull(bootstrap.getTerminalService().nextLine()));
-        if (endPoint.logIn(login, pass)) {
-            User user = endPoint.findOneUserByName(login);
+        if (endPoint.logIn(login, pass) != null) {
+            UserDto user = endPoint.findOneUserByName(login);
             System.out.println("AUTH OK!");
             System.out.println(user.getRole());
             Session session = bootstrap.getSessionEndPoint().createSession(user.getId());

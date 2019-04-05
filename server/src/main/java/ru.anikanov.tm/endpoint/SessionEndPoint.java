@@ -19,7 +19,7 @@ public class SessionEndPoint {
 
     @WebMethod
     public Session createSession(@WebParam final String userId) {
-        return serviceLocator.getSessionService().create(userId);
+        return serviceLocator.getSessionService().persist(userId);
     }
 
     @WebMethod

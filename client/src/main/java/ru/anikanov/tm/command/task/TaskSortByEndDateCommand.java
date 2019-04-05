@@ -2,7 +2,7 @@ package ru.anikanov.tm.command.task;
 
 import org.jetbrains.annotations.Nullable;
 import ru.anikanov.tm.command.AbstractCommand;
-import ru.anikanov.tm.endpoint.Task;
+import ru.anikanov.tm.endpoint.TaskDto;
 import ru.anikanov.tm.endpoint.TaskEndPoint;
 
 import java.util.List;
@@ -27,7 +27,7 @@ public class TaskSortByEndDateCommand extends AbstractCommand {
     @Override
     public void execute() throws Exception {
         final TaskEndPoint endPoint= bootstrap.getTaskEndPoint();
-        @Nullable final List<Task> tasks = endPoint.sortTaskByFinishDate(bootstrap.getCurrentSession());
+        @Nullable final List<TaskDto> tasks = endPoint.sortTaskByFinishDate(bootstrap.getCurrentSession());
         Objects.requireNonNull(tasks).forEach(System.out::println);
     }
 }

@@ -16,9 +16,7 @@ import java.util.Objects;
 @Entity
 @Table(name = "app_user")
 public class User extends AbstractEntity {
-    @NotNull
-    @Id
-    private String id = super.getId();
+
     @Nullable
     @Column(name = "login")
     private String name;

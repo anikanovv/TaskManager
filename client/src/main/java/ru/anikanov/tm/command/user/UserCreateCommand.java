@@ -27,6 +27,9 @@ public class UserCreateCommand extends AbstractCommand {
         final UserEndPoint endPoint=bootstrap.getUserEndPoint();
         System.out.println("Name,pass,role");
         final String userName = bootstrap.getTerminalService().nextLine();
+        final String firstName = bootstrap.getTerminalService().nextLine();
+        final String lastName = bootstrap.getTerminalService().nextLine();
+        final String email = bootstrap.getTerminalService().nextLine();
         final String userPass = bootstrap.getTerminalService().nextLine();
         final String userRole = bootstrap.getTerminalService().nextLine();
         Role role = null;
@@ -35,7 +38,7 @@ public class UserCreateCommand extends AbstractCommand {
             else role = Role.USER;
         }
         if (userPass != null) {
-            endPoint.createUser(userName, PasswordHash.makehash(userPass), role);
+            endPoint.createUser(userName, firstName, lastName, email, PasswordHash.makehash(userPass), role);
         }
     }
 }

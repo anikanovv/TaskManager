@@ -55,8 +55,8 @@ public class TaskService extends AbstractService implements ITaskService {
             @NotNull final TaskRepository taskRepository = new TaskRepository(entityManager);
             @Nullable Task task = taskRepository.findOne(taskId, userId);
             if (task == null) task = new Task();
-            task.setTaskName(taskName);
-            task.setTaskName(description);
+            task.setName(taskName);
+            task.setDescription(description);
             task.setStart(dateStart);
             task.setEnd(dateFinish);
             entityManager.getTransaction().begin();

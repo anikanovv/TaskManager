@@ -21,9 +21,6 @@ import java.util.List;
 @Entity
 @Table(name = "app_project")
 public class Project extends AbstractEntity implements Serializable {
-    @NotNull
-    @Id
-    private String id = super.getId();
     @Nullable
     private String name;
     @Nullable

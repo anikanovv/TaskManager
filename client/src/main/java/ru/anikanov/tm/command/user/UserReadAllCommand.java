@@ -1,7 +1,7 @@
 package ru.anikanov.tm.command.user;
 
 import ru.anikanov.tm.command.AbstractCommand;
-import ru.anikanov.tm.endpoint.User;
+import ru.anikanov.tm.endpoint.UserDto;
 import ru.anikanov.tm.endpoint.UserEndPoint;
 
 import java.util.List;
@@ -25,7 +25,7 @@ public class UserReadAllCommand extends AbstractCommand {
     @Override
     public void execute() {
         final UserEndPoint endPoint=bootstrap.getUserEndPoint();
-        final List<User> users = endPoint.findAllUser(bootstrap.getCurrentSession());
+        final List<UserDto> users = endPoint.findAllUser(bootstrap.getCurrentSession());
         users.forEach(System.out::println);
     }
 }

@@ -2,7 +2,7 @@ package ru.anikanov.tm.command.task;
 
 import org.jetbrains.annotations.Nullable;
 import ru.anikanov.tm.command.AbstractCommand;
-import ru.anikanov.tm.endpoint.Task;
+import ru.anikanov.tm.endpoint.TaskDto;
 import ru.anikanov.tm.endpoint.TaskEndPoint;
 
 public class TaskFindByPartOfDescriptionCommand extends AbstractCommand {
@@ -27,7 +27,7 @@ public class TaskFindByPartOfDescriptionCommand extends AbstractCommand {
         System.out.println("type description(part of description)");
         @Nullable final String partOfDescription = bootstrap.getTerminalService().nextLine();
 
-        @Nullable Task task = endPoint.findTaskByPartOfDescription(bootstrap.getCurrentSession(), partOfDescription);
+        @Nullable TaskDto task = endPoint.findTaskByPartOfDescription(bootstrap.getCurrentSession(), partOfDescription);
         System.out.println(task);
     }
 }

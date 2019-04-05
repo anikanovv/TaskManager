@@ -2,7 +2,7 @@ package ru.anikanov.tm.command.project;
 
 import org.jetbrains.annotations.Nullable;
 import ru.anikanov.tm.command.AbstractCommand;
-import ru.anikanov.tm.endpoint.Project;
+import ru.anikanov.tm.endpoint.ProjectDto;
 import ru.anikanov.tm.endpoint.ProjectEndPoint;
 
 public class ProjectFindByPartOfDescriptionCommand extends AbstractCommand {
@@ -26,7 +26,7 @@ public class ProjectFindByPartOfDescriptionCommand extends AbstractCommand {
         final ProjectEndPoint projectEndPoint= bootstrap.getProjectEndPoint();
         System.out.println("type description(part of description)");
         @Nullable final String partOfDescription = bootstrap.getTerminalService().nextLine();
-        @Nullable Project project = projectEndPoint.findProjectByPartOfNameProject(bootstrap.getCurrentSession(), partOfDescription);
+        @Nullable ProjectDto project = projectEndPoint.findProjectByPartOfNameProject(bootstrap.getCurrentSession(), partOfDescription);
         System.out.println(project);
     }
 }

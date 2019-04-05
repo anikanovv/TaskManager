@@ -4,12 +4,14 @@ import lombok.NoArgsConstructor;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 import ru.anikanov.tm.api.ServiceLocator;
+import ru.anikanov.tm.dto.TaskDto;
 import ru.anikanov.tm.entity.Session;
 import ru.anikanov.tm.entity.Task;
 
 import javax.jws.WebMethod;
 import javax.jws.WebParam;
 import javax.jws.WebService;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
@@ -24,60 +26,92 @@ public class TaskEndPoint {
 
     @Nullable
     @WebMethod
-    public Task createTask(@WebParam @NotNull final Session session, @WebParam final String projectId, @WebParam final String name, @WebParam final String description,
-                           @WebParam final String startDate, @WebParam final String endDate) {
-        return serviceLocator.getTaskService().persist(projectId, name, description, startDate, endDate, Objects.requireNonNull(session.getUserId()));
+    public TaskDto createTask(@WebParam @NotNull final Session session, @WebParam final String projectId, @WebParam final String name, @WebParam final String description,
+                              @WebParam final String startDate, @WebParam final String endDate) {
+        serviceLocator.getSessionService().validate(session);
+        Task task = serviceLocator.getTaskService().persist(projectId, name, description, startDate, endDate, Objects.requireNonNull(session.getUserId()));
+        return new TaskDto(task);
     }
 
     @WebMethod
     public void updateTask(@WebParam @NotNull final Session session, @WebParam final String taskId, @WebParam final String name, @WebParam final String description,
                            @WebParam final String startDate, @WebParam final String endDate) {
-        serviceLocator.getTaskService().merge(taskId, name, description, startDate, endDate, Objects.requireNonNull(session.getUserId()));
+        serviceLocator.getSessionService().validate(session);
+        serviceLocator.getTaskService()
+                .merge(taskId, name, description, startDate, endDate, Objects.requireNonNull(session.getUserId()));
     }
 
     @WebMethod
     public void removeTask(@WebParam @NotNull final Session session, @WebParam final String name) {
-        serviceLocator.getTaskService().remove(name, Objects.requireNonNull(session.getUserId()));
+        serviceLocator.getSessionService().validate(session);
+        serviceLocator.getTaskService()
+                .remove(name, Objects.requireNonNull(session.getUserId()));
     }
 
     @WebMethod
     public void removeAllTask(@WebParam @NotNull final Session session) {
-        serviceLocator.getTaskService().removeAll(Objects.requireNonNull(session.getUserId()));
+        serviceLocator.getSessionService().validate(session);
+        serviceLocator.getTaskService()
+                .removeAll(Objects.requireNonNull(session.getUserId()));
     }
 
     @WebMethod
     @Nullable
-    public List<Task> sortTaskByStartDate(@WebParam @NotNull final Session session) {
-        return serviceLocator.getTaskService().sortedByStartDate(Objects.requireNonNull(session.getUserId()));
+    public List<TaskDto> sortTaskByStartDate(@WebParam @NotNull final Session session) {
+        serviceLocator.getSessionService().validate(session);
+        @NotNull final List<TaskDto> listDto = new ArrayList<>();
+        @Nullable final List<Task> list = serviceLocator.getTaskService().sortedByStartDate(session.getUserId());
+        if (list == null || list.isEmpty()) return null;
+        list.forEach(v -> listDto.add(new TaskDto(v)));
+        return listDto;
     }
 
     @Nullable
     @WebMethod
-    public List<Task> sortTaskByFinishDate(@WebParam @NotNull final Session session) {
-        return serviceLocator.getTaskService().sortedByFinishDate(Objects.requireNonNull(session.getUserId()));
+    public List<TaskDto> sortTaskByFinishDate(@WebParam @NotNull final Session session) {
+        serviceLocator.getSessionService().validate(session);
+        @NotNull final List<TaskDto> listDto = new ArrayList<>();
+        @Nullable final List<Task> list = serviceLocator.getTaskService().sortedByFinishDate(session.getUserId());
+        if (list == null || list.isEmpty()) return null;
+        list.forEach(v -> listDto.add(new TaskDto(v)));
+        return listDto;
     }
 
     @Nullable
     @WebMethod
-    public List<Task> sortTaskByStatus(@WebParam @NotNull final Session session) {
-        return serviceLocator.getTaskService().sortedByStatus(Objects.requireNonNull(session.getUserId()));
+    public List<TaskDto> sortTaskByStatus(@WebParam @NotNull final Session session) {
+        serviceLocator.getSessionService().validate(session);
+        @NotNull final List<TaskDto> listDto = new ArrayList<>();
+        @Nullable final List<Task> list = serviceLocator.getTaskService().sortedByStatus(session.getUserId());
+        if (list == null || list.isEmpty()) return null;
+        list.forEach(v -> listDto.add(new TaskDto(v)));
+        return listDto;
     }
 
     @Nullable
     @WebMethod
-    public List<Task> findAllTask(@WebParam @NotNull final Session session) {
-        return serviceLocator.getTaskService().findAll(Objects.requireNonNull(session.getUserId()));
+    public List<TaskDto> findAllTask(@WebParam @NotNull final Session session) {
+        serviceLocator.getSessionService().validate(session);
+        @NotNull final List<TaskDto> listDto = new ArrayList<>();
+        @Nullable final List<Task> list = serviceLocator.getTaskService().findAll(session.getUserId());
+        if (list == null || list.isEmpty()) return null;
+        list.forEach(v -> listDto.add(new TaskDto(v)));
+        return listDto;
     }
 
     @Nullable
     @WebMethod
-    public Task findTaskByPartOfName(@WebParam @NotNull final Session session, @WebParam @NotNull final String partOfName) {
-        return serviceLocator.getTaskService().findByPartOfName(partOfName, Objects.requireNonNull(session.getUserId()));
+    public TaskDto findTaskByPartOfName(@WebParam @NotNull final Session session, @WebParam @NotNull final String partOfName) {
+        serviceLocator.getSessionService().validate(session);
+        Task task = serviceLocator.getTaskService().findByPartOfName(partOfName, Objects.requireNonNull(session.getUserId()));
+        return new TaskDto(task);
     }
 
     @Nullable
     @WebMethod
-    public Task findTaskByPartOfDescription(@WebParam @NotNull final Session session, @WebParam @NotNull final String partOfDescription) {
-        return serviceLocator.getTaskService().findByPartOfDescription(partOfDescription, Objects.requireNonNull(session.getUserId()));
+    public TaskDto findTaskByPartOfDescription(@WebParam @NotNull final Session session, @WebParam @NotNull final String partOfDescription) {
+        serviceLocator.getSessionService().validate(session);
+        Task task = serviceLocator.getTaskService().findByPartOfDescription(partOfDescription, Objects.requireNonNull(session.getUserId()));
+        return new TaskDto(task);
     }
 }

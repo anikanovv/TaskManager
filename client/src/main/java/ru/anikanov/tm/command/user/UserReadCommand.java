@@ -1,7 +1,7 @@
 package ru.anikanov.tm.command.user;
 
 import ru.anikanov.tm.command.AbstractCommand;
-import ru.anikanov.tm.endpoint.User;
+import ru.anikanov.tm.endpoint.UserDto;
 import ru.anikanov.tm.endpoint.UserEndPoint;
 
 public class UserReadCommand extends AbstractCommand {
@@ -24,7 +24,7 @@ public class UserReadCommand extends AbstractCommand {
     public void execute() {
         final UserEndPoint endPoint=bootstrap.getUserEndPoint();
         final String login = bootstrap.getTerminalService().nextLine();
-        final User user = endPoint.findOneUser(bootstrap.getCurrentSession(), login);
+        final UserDto user = endPoint.findOneUser(bootstrap.getCurrentSession(), login);
         System.out.println(user);
     }
 }

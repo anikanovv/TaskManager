@@ -17,18 +17,16 @@ import java.util.Date;
 @Entity
 @Table(name = "app_task")
 public class Task extends AbstractEntity {
-    @NotNull
-    @Id
-    private String id = super.getId();
+
     @Nullable
     @Column(name = "project_id")
     private String projectId;
     @Nullable
     @Column(name = "name")
-    private String taskName;
+    private String name;
     @Nullable
     @Column(name = "description")
-    private String taskDescription;
+    private String description;
     @Nullable
     @Column(name = "dateBegin")
     private Date startDate;
@@ -45,8 +43,8 @@ public class Task extends AbstractEntity {
     public Task(@Nullable final String projectId, @Nullable final String name, @Nullable final String description,
                 @Nullable final String startDate, @Nullable final String endDate, @Nullable final String userId) {
         this.projectId = projectId;
-        this.taskName = name;
-        this.taskDescription = description;
+        this.name = name;
+        this.description = description;
         setStart(startDate);
         setEnd(endDate);
         this.userId = userId;
@@ -78,6 +76,6 @@ public class Task extends AbstractEntity {
 
     @Override
     public String toString() {
-        return (taskName + " - " + taskDescription + "\n" + "start: " + startDate + " end: " + endDate);
+        return (name + " - " + description + "\n" + "start: " + startDate + " end: " + endDate);
     }
 }

@@ -17,7 +17,7 @@ import javax.xml.bind.annotation.XmlType;
  *   &lt;complexContent&gt;
  *     &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType"&gt;
  *       &lt;sequence&gt;
- *         &lt;element name="return" type="{http://endpoint.tm.anikanov.ru/}task" minOccurs="0"/&gt;
+ *         &lt;element name="return" type="{http://endpoint.tm.anikanov.ru/}taskDto" minOccurs="0"/&gt;
  *       &lt;/sequence&gt;
  *     &lt;/restriction&gt;
  *   &lt;/complexContent&gt;
@@ -33,17 +33,17 @@ import javax.xml.bind.annotation.XmlType;
 public class FindTaskByPartOfNameResponse {
 
     @XmlElement(name = "return")
-    protected Task _return;
+    protected TaskDto _return;
 
     /**
      * Gets the value of the return property.
      * 
      * @return
      *     possible object is
-     *     {@link Task }
+     *     {@link TaskDto }
      *     
      */
-    public Task getReturn() {
+    public TaskDto getReturn() {
         return _return;
     }
 
@@ -52,10 +52,10 @@ public class FindTaskByPartOfNameResponse {
      * 
      * @param value
      *     allowed object is
-     *     {@link Task }
+     *     {@link TaskDto }
      *     
      */
-    public void setReturn(Task value) {
+    public void setReturn(TaskDto value) {
         this._return = value;
     }
 
