@@ -1,24 +1,22 @@
 package ru.anikanov.tm.repository;
 
-import lombok.Getter;
 import lombok.NoArgsConstructor;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 import ru.anikanov.tm.api.repository.IUserRepository;
 import ru.anikanov.tm.entity.User;
+import ru.anikanov.tm.utils.PasswordHashUtil;
 
 import javax.persistence.EntityManager;
 import java.util.List;
 
 @NoArgsConstructor
 public class UserRepository extends AbstractRepository implements IUserRepository {
-    @Getter
     private EntityManager entityManager;
 
-    public UserRepository(@Nullable final EntityManager entityManager) {
+    public UserRepository(EntityManager entityManager) {
         this.entityManager = entityManager;
     }
-
     @NotNull
     public User persist(@NotNull final User user) {
         entityManager.persist(user);
@@ -50,15 +48,15 @@ public class UserRepository extends AbstractRepository implements IUserRepositor
     }
 
     public User findByName(@NotNull final String login) {
-        return (User) entityManager.createQuery("SELECT u FROM User u WHERE u.name = ?1")
-                .setParameter(1, login)
+        return (User) entityManager.createQuery("SELECT u FROM User u WHERE u.name = :login")
+                .setParameter("login", login)
                 .getSingleResult();
     }
 
     public User logIn(@NotNull final String login, @NotNull final String password) {
-        return (User) entityManager.createQuery("SELECT u FROM User u WHERE u.name = ?1 AND u.hashPassword = ?2")
-                .setParameter(1, login)
-                .setParameter(2, password)
+        return (User) entityManager.createQuery("SELECT u FROM User u WHERE u.name = :login AND u.hashPassword = :password")
+                .setParameter("login", login)
+                .setParameter("password", PasswordHashUtil.md5(password))
                 .getSingleResult();
     }
 }

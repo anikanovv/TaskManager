@@ -10,14 +10,13 @@ import ru.anikanov.tm.entity.Task;
 import javax.persistence.EntityManager;
 import java.util.List;
 
-@NoArgsConstructor
 @Getter
+@NoArgsConstructor
 public class TaskRepository implements ITaskRepository {
-
     @NotNull
     private EntityManager entityManager;
 
-    public TaskRepository(@NotNull final EntityManager entityManager) {
+    public TaskRepository(EntityManager entityManager) {
         this.entityManager = entityManager;
     }
 
@@ -36,46 +35,46 @@ public class TaskRepository implements ITaskRepository {
     }
 
     public void removeAll(@NotNull final String userId) {
-        entityManager.createQuery("DELETE FROM Task task WHERE task.userId = ?1")
-                .setParameter(1, userId)
+        entityManager.createQuery("DELETE FROM Task task WHERE task.userId = :userId")
+                .setParameter("userId", userId)
                 .executeUpdate();
     }
 
     public void removeWholeProject(@NotNull final String projectId, @NotNull final String userId) {
-        entityManager.createQuery("DELETE FROM Task task WHERE task.userId = ?1 AND task.projectId = ?2")
-                .setParameter(1, userId)
-                .setParameter(2, projectId)
+        entityManager.createQuery("DELETE FROM Task task WHERE task.userId = :userId AND task.projectId = :projectId")
+                .setParameter("userId", userId)
+                .setParameter("projectId", projectId)
                 .executeUpdate();
     }
 
     @Nullable
     public Task findOne(@NotNull final String taskId, @NotNull final String userId) {
-        return (Task) entityManager.createQuery("SELECT task FROM Task task WHERE task.id = ?1 AND task.userId = ?2")
-                .setParameter(1, taskId)
-                .setParameter(2, userId)
+        return (Task) entityManager.createQuery("SELECT task FROM Task task WHERE task.id = :userId AND task.userId = :userId")
+                .setParameter("userId", taskId)
+                .setParameter("userId", userId)
                 .getSingleResult();
     }
 
     @Nullable
     public List<Task> findAll(@NotNull final String userId) {
-        return entityManager.createQuery("SELECT task FROM Task task WHERE task.userId = ?1")
-                .setParameter(1, userId)
+        return entityManager.createQuery("SELECT task FROM Task task WHERE task.userId = :userId")
+                .setParameter("userId", userId)
                 .getResultList();
     }
 
     @Nullable
     public Task findByPartOfName(@NotNull final String partOfName, @NotNull final String userId) {
-        return (Task) entityManager.createQuery("SELECT task FROM Task task WHERE task.userId = ?1 AND task.taskName LIKE ?2")
-                .setParameter(1, userId)
-                .setParameter(2, "%" + partOfName + "%")
+        return (Task) entityManager.createQuery("SELECT task FROM Task task WHERE task.userId = :userId AND task.taskName LIKE :partOfName")
+                .setParameter("userId", userId)
+                .setParameter("partOfName", "%" + partOfName + "%")
                 .getSingleResult();
     }
 
     @Nullable
     public Task findByPartOfDescription(@NotNull final String partOfDescription, @NotNull final String userId) {
-        return (Task) entityManager.createQuery("SELECT task FROM Task task WHERE task.userId = ?1 AND task.taskDescription LIKE ?2")
-                .setParameter(1, userId)
-                .setParameter(2, "%" + partOfDescription + "%")
+        return (Task) entityManager.createQuery("SELECT task FROM Task task WHERE task.userId = :userId AND task.taskDescription LIKE :partOfDescription")
+                .setParameter("userId", userId)
+                .setParameter("partOfDescription", "%" + partOfDescription + "%")
                 .getSingleResult();
     }
 }

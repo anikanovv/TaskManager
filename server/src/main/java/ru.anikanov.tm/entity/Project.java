@@ -17,8 +17,8 @@ import java.util.List;
 
 @Getter
 @Setter
-@NoArgsConstructor
 @Entity
+@NoArgsConstructor
 @Table(name = "app_project")
 public class Project extends AbstractEntity implements Serializable {
     @Nullable

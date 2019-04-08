@@ -37,7 +37,7 @@ public class LogInResponse {
 
     /**
      * Gets the value of the return property.
-     *
+     * 
      * @return
      *     possible object is
      *     {@link UserDto }
@@ -49,7 +49,7 @@ public class LogInResponse {
 
     /**
      * Sets the value of the return property.
-     *
+     * 
      * @param value
      *     allowed object is
      *     {@link UserDto }

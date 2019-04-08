@@ -10,9 +10,10 @@ import ru.anikanov.tm.enumeration.Status;
 
 import java.util.Date;
 
-@NoArgsConstructor
 @Setter
 @Getter
+@NoArgsConstructor
+
 public class ProjectDto {
     @Nullable
     private String name;

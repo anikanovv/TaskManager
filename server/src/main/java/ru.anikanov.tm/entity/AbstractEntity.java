@@ -10,9 +10,9 @@ import java.util.UUID;
 
 @MappedSuperclass
 public abstract class AbstractEntity {
+    @Id
     @Getter
     @Setter
     @NotNull
-    @Id
     String id = UUID.randomUUID().toString();
 }

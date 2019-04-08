@@ -8,39 +8,54 @@ import ru.anikanov.tm.api.ServiceLocator;
 import ru.anikanov.tm.api.service.ITerminalService;
 import ru.anikanov.tm.command.AbstractCommand;
 import ru.anikanov.tm.endpoint.*;
-import ru.anikanov.tm.service.TerminalService;
 
+import javax.inject.Inject;
 import java.lang.Exception;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Objects;
 
 @Getter
 @Setter
 public class Bootstrap implements ServiceLocator {
-
     @Nullable
     private String currentUser;
     @Nullable
     private Session currentSession;
-    @NotNull
+    //    @Inject
     private ProjectEndPoint projectEndPoint=new ProjectEndPointService().getProjectEndPointPort();
-    @NotNull
+    //    @Inject
     private TaskEndPoint taskEndPoint=new TaskEndPointService().getTaskEndPointPort();
-    @NotNull
+    //    @Inject
     private UserEndPoint userEndPoint=new UserEndPointService().getUserEndPointPort();
-    @NotNull
+    //    @Inject
     private SessionEndPoint sessionEndPoint = new SessionEndPointService().getSessionEndPointPort();
-    @NotNull
+    //    @Inject
     private DomainEndPoint domainEndPoint = new DomainEndPointService().getDomainEndPointPort();
-    @NotNull
-    private final ITerminalService terminalService = new TerminalService(this);
+    @Inject
+    private ITerminalService terminalService;
     @NotNull
     private Map<String, AbstractCommand> commandMap = new HashMap<>();
 
-    public void init(@NotNull final Class[] classes) throws Exception {
+
+    public void init(@NotNull final Class[] classes) {
         try {
             initCommands(classes);
-            terminalService.terminalCicle();
+            while (true) {
+                @Nullable String commandString;
+                System.out.println("command");
+                commandString = getTerminalService().nextLine().trim();
+                @Nullable AbstractCommand command = getCommandMap().get(commandString);
+                if (command != null)
+                    if ((command.isSecure()) || (!Objects.requireNonNull(Objects.requireNonNull(getCurrentSession()).getUserId()).isEmpty())) {
+                        try {
+                            command.execute();
+                        } catch (Exception e) {
+                            e.printStackTrace();
+                        }
+                    } else System.out.println("wrong");
+                else System.out.println("wrong command");
+            }
         } catch (Exception ignored) {
         }
 

@@ -10,59 +10,79 @@ import javax.xml.datatype.XMLGregorianCalendar;
 
 /**
  * <p>Java class for task complex type.
- * 
+ *
  * <p>The following schema fragment specifies the expected content contained within this class.
- * 
+ *
  * <pre>
  * &lt;complexType name="task"&gt;
  *   &lt;complexContent&gt;
  *     &lt;extension base="{http://endpoint.tm.anikanov.ru/}abstractEntity"&gt;
  *       &lt;sequence&gt;
+ *         &lt;element name="description" type="{http://www.w3.org/2001/XMLSchema}string" minOccurs="0"/&gt;
  *         &lt;element name="end" type="{http://www.w3.org/2001/XMLSchema}string" minOccurs="0"/&gt;
  *         &lt;element name="endDate" type="{http://www.w3.org/2001/XMLSchema}dateTime" minOccurs="0"/&gt;
+ *         &lt;element name="name" type="{http://www.w3.org/2001/XMLSchema}string" minOccurs="0"/&gt;
  *         &lt;element name="projectId" type="{http://www.w3.org/2001/XMLSchema}string" minOccurs="0"/&gt;
  *         &lt;element name="start" type="{http://www.w3.org/2001/XMLSchema}string" minOccurs="0"/&gt;
  *         &lt;element name="startDate" type="{http://www.w3.org/2001/XMLSchema}dateTime" minOccurs="0"/&gt;
  *         &lt;element name="status" type="{http://endpoint.tm.anikanov.ru/}status" minOccurs="0"/&gt;
- *         &lt;element name="taskDescription" type="{http://www.w3.org/2001/XMLSchema}string" minOccurs="0"/&gt;
- *         &lt;element name="taskName" type="{http://www.w3.org/2001/XMLSchema}string" minOccurs="0"/&gt;
  *         &lt;element name="userId" type="{http://www.w3.org/2001/XMLSchema}string" minOccurs="0"/&gt;
  *       &lt;/sequence&gt;
  *     &lt;/extension&gt;
  *   &lt;/complexContent&gt;
  * &lt;/complexType&gt;
  * </pre>
- * 
- * 
+ *
+ *
  */
 @XmlAccessorType(XmlAccessType.FIELD)
 @XmlType(name = "task", propOrder = {
+        "description",
     "end",
     "endDate",
+        "name",
     "projectId",
     "start",
     "startDate",
     "status",
-    "taskDescription",
-    "taskName",
     "userId"
 })
 public class Task
     extends AbstractEntity
 {
 
+    protected String description;
     protected String end;
     @XmlSchemaType(name = "dateTime")
     protected XMLGregorianCalendar endDate;
+    protected String name;
     protected String projectId;
     protected String start;
     @XmlSchemaType(name = "dateTime")
     protected XMLGregorianCalendar startDate;
     @XmlSchemaType(name = "string")
     protected Status status;
-    protected String taskDescription;
-    protected String taskName;
     protected String userId;
+
+    /**
+     * Gets the value of the description property.
+     *
+     * @return possible object is
+     * {@link String }
+     */
+    public String getDescription() {
+        return description;
+    }
+
+    /**
+     * Sets the value of the description property.
+     *
+     * @param value allowed object is
+     *              {@link String }
+     */
+    public void setDescription(String value) {
+        this.description = value;
+    }
 
     /**
      * Gets the value of the end property.
@@ -113,12 +133,34 @@ public class Task
     }
 
     /**
-     * Gets the value of the projectId property.
-     * 
+     * Gets the value of the name property.
+     *
      * @return
      *     possible object is
      *     {@link String }
-     *     
+     *
+     */
+    public String getName() {
+        return name;
+    }
+
+    /**
+     * Sets the value of the name property.
+     *
+     * @param value allowed object is
+     *              {@link String }
+     */
+    public void setName(String value) {
+        this.name = value;
+    }
+
+    /**
+     * Gets the value of the projectId property.
+     *
+     * @return
+     *     possible object is
+     *     {@link String }
+     *
      */
     public String getProjectId() {
         return projectId;
@@ -206,54 +248,6 @@ public class Task
      */
     public void setStatus(Status value) {
         this.status = value;
-    }
-
-    /**
-     * Gets the value of the taskDescription property.
-     * 
-     * @return
-     *     possible object is
-     *     {@link String }
-     *     
-     */
-    public String getTaskDescription() {
-        return taskDescription;
-    }
-
-    /**
-     * Sets the value of the taskDescription property.
-     * 
-     * @param value
-     *     allowed object is
-     *     {@link String }
-     *     
-     */
-    public void setTaskDescription(String value) {
-        this.taskDescription = value;
-    }
-
-    /**
-     * Gets the value of the taskName property.
-     * 
-     * @return
-     *     possible object is
-     *     {@link String }
-     *     
-     */
-    public String getTaskName() {
-        return taskName;
-    }
-
-    /**
-     * Sets the value of the taskName property.
-     * 
-     * @param value
-     *     allowed object is
-     *     {@link String }
-     *     
-     */
-    public void setTaskName(String value) {
-        this.taskName = value;
     }
 
     /**

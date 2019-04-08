@@ -11,8 +11,8 @@ import javax.persistence.Table;
 
 @Setter
 @Getter
-@NoArgsConstructor
 @Entity
+@NoArgsConstructor
 @Table(name = "app_session")
 public class Session extends AbstractEntity implements Cloneable {
 

@@ -21,10 +21,10 @@ import java.util.List;
 @XmlRootElement(name = "Domain")
 @XmlAccessorType(XmlAccessType.FIELD)
 public class Domain extends AbstractEntity implements Serializable {
-    @XmlElement
     @Nullable
+    @XmlElement
     private List<Project> projects;
-    @XmlElement
     @Nullable
+    @XmlElement
     private List<Task> tasks;
 }

@@ -14,11 +14,6 @@
         <!-- https://mvnrepository.com/artifact/org.slf4j/slf4j-api -->
 
 
-        <dependency>
-            <groupId>org.projectlombok</groupId>
-            <artifactId>lombok</artifactId>
-            <version>1.16.18</version>
-        </dependency>
     </dependencies>
     <build>
         <finalName>tm</finalName>
@@ -65,7 +60,7 @@
                         <manifestEntries>
                             <Implementation-Version>${project.version}-${buildNumber}</Implementation-Version>
                             <Implementation-Build>${scmBranch}</Implementation-Build>
-                            <Main-Class>ru.anikanov.tm.App</Main-Class>
+                            <Main-Class>ru.anikanov.tm.AppServer</Main-Class>
                         </manifestEntries>
                     </archive>
                 </configuration>

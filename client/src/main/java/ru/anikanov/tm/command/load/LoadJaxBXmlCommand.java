@@ -3,7 +3,7 @@ package ru.anikanov.tm.command.load;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 import ru.anikanov.tm.command.AbstractCommand;
-import ru.anikanov.tm.entity.Domain;
+import ru.anikanov.tm.endpoint.Domain;
 
 import javax.xml.bind.JAXBContext;
 import javax.xml.bind.Unmarshaller;

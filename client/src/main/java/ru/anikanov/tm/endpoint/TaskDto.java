@@ -10,9 +10,9 @@ import javax.xml.datatype.XMLGregorianCalendar;
 
 /**
  * <p>Java class for taskDto complex type.
- *
+ * 
  * <p>The following schema fragment specifies the expected content contained within this class.
- *
+ * 
  * <pre>
  * &lt;complexType name="taskDto"&gt;
  *   &lt;complexContent&gt;
@@ -28,6 +28,8 @@ import javax.xml.datatype.XMLGregorianCalendar;
  *   &lt;/complexContent&gt;
  * &lt;/complexType&gt;
  * </pre>
+ *
+ * 
  */
 @XmlAccessorType(XmlAccessType.FIELD)
 @XmlType(name = "taskDto", propOrder = {
@@ -51,8 +53,10 @@ public class TaskDto {
     /**
      * Gets the value of the dateBegin property.
      *
-     * @return possible object is
-     * {@link XMLGregorianCalendar }
+     * @return
+     *     possible object is
+     *     {@link XMLGregorianCalendar }
+     *     
      */
     public XMLGregorianCalendar getDateBegin() {
         return dateBegin;
@@ -61,8 +65,10 @@ public class TaskDto {
     /**
      * Sets the value of the dateBegin property.
      *
-     * @param value allowed object is
-     *              {@link XMLGregorianCalendar }
+     * @param value
+     *     allowed object is
+     *     {@link XMLGregorianCalendar }
+     *     
      */
     public void setDateBegin(XMLGregorianCalendar value) {
         this.dateBegin = value;
@@ -71,8 +77,10 @@ public class TaskDto {
     /**
      * Gets the value of the dateEnd property.
      *
-     * @return possible object is
-     * {@link XMLGregorianCalendar }
+     * @return
+     *     possible object is
+     *     {@link XMLGregorianCalendar }
+     *     
      */
     public XMLGregorianCalendar getDateEnd() {
         return dateEnd;
@@ -81,8 +89,10 @@ public class TaskDto {
     /**
      * Sets the value of the dateEnd property.
      *
-     * @param value allowed object is
-     *              {@link XMLGregorianCalendar }
+     * @param value
+     *     allowed object is
+     *     {@link XMLGregorianCalendar }
+     *     
      */
     public void setDateEnd(XMLGregorianCalendar value) {
         this.dateEnd = value;
@@ -91,8 +101,10 @@ public class TaskDto {
     /**
      * Gets the value of the description property.
      *
-     * @return possible object is
-     * {@link String }
+     * @return
+     *     possible object is
+     *     {@link String }
+     *     
      */
     public String getDescription() {
         return description;
@@ -101,8 +113,10 @@ public class TaskDto {
     /**
      * Sets the value of the description property.
      *
-     * @param value allowed object is
-     *              {@link String }
+     * @param value
+     *     allowed object is
+     *     {@link String }
+     *     
      */
     public void setDescription(String value) {
         this.description = value;
@@ -111,8 +125,10 @@ public class TaskDto {
     /**
      * Gets the value of the name property.
      *
-     * @return possible object is
-     * {@link String }
+     * @return
+     *     possible object is
+     *     {@link String }
+     *     
      */
     public String getName() {
         return name;
@@ -121,8 +137,10 @@ public class TaskDto {
     /**
      * Sets the value of the name property.
      *
-     * @param value allowed object is
-     *              {@link String }
+     * @param value
+     *     allowed object is
+     *     {@link String }
+     *     
      */
     public void setName(String value) {
         this.name = value;
@@ -131,8 +149,10 @@ public class TaskDto {
     /**
      * Gets the value of the status property.
      *
-     * @return possible object is
-     * {@link Status }
+     * @return
+     *     possible object is
+     *     {@link Status }
+     *     
      */
     public Status getStatus() {
         return status;
@@ -141,8 +161,10 @@ public class TaskDto {
     /**
      * Sets the value of the status property.
      *
-     * @param value allowed object is
-     *              {@link Status }
+     * @param value
+     *     allowed object is
+     *     {@link Status }
+     *     
      */
     public void setStatus(Status value) {
         this.status = value;

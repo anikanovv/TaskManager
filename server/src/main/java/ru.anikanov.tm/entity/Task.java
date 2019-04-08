@@ -13,8 +13,8 @@ import java.util.Date;
 
 @Getter
 @Setter
-@NoArgsConstructor
 @Entity
+@NoArgsConstructor
 @Table(name = "app_task")
 public class Task extends AbstractEntity {
 

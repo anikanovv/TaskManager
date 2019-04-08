@@ -25,4 +25,7 @@ public interface IUserRepository {
 
     User findByName(@NotNull final String name);
 
+    @Nullable
+    User logIn(@NotNull final String login, @NotNull final String password);
+
 }

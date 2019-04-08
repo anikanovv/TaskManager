@@ -24,6 +24,7 @@ import javax.xml.namespace.QName;
 @XmlRegistry
 public class ObjectFactory {
 
+    private final static QName _Domain_QNAME = new QName("http://endpoint.tm.anikanov.ru/", "Domain");
     private final static QName _FasterJsonSerialize_QNAME = new QName("http://endpoint.tm.anikanov.ru/", "fasterJsonSerialize");
     private final static QName _FasterJsonSerializeResponse_QNAME = new QName("http://endpoint.tm.anikanov.ru/", "fasterJsonSerializeResponse");
     private final static QName _FasterXmlSerialize_QNAME = new QName("http://endpoint.tm.anikanov.ru/", "fasterXmlSerialize");
@@ -40,6 +41,13 @@ public class ObjectFactory {
      * 
      */
     public ObjectFactory() {
+    }
+
+    /**
+     * Create an instance of {@link Domain }
+     */
+    public Domain createDomain() {
+        return new Domain();
     }
 
     /**
@@ -131,8 +139,31 @@ public class ObjectFactory {
     }
 
     /**
+     * Create an instance of {@link Project }
+     *
+     */
+    public Project createProject() {
+        return new Project();
+    }
+
+    /**
+     * Create an instance of {@link Task }
+     */
+    public Task createTask() {
+        return new Task();
+    }
+
+    /**
+     * Create an instance of {@link JAXBElement }{@code <}{@link Domain }{@code >}}
+     */
+    @XmlElementDecl(namespace = "http://endpoint.tm.anikanov.ru/", name = "Domain")
+    public JAXBElement<Domain> createDomain(Domain value) {
+        return new JAXBElement<Domain>(_Domain_QNAME, Domain.class, null, value);
+    }
+
+    /**
      * Create an instance of {@link JAXBElement }{@code <}{@link FasterJsonSerialize }{@code >}}
-     * 
+     *
      */
     @XmlElementDecl(namespace = "http://endpoint.tm.anikanov.ru/", name = "fasterJsonSerialize")
     public JAXBElement<FasterJsonSerialize> createFasterJsonSerialize(FasterJsonSerialize value) {

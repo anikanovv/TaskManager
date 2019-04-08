@@ -18,13 +18,14 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
-@NoArgsConstructor
 @WebService
+@NoArgsConstructor
 public class UserEndPoint {
     @Inject
     private ISessionService sessionService;
     @Inject
     private IUserService userService;
+
     @WebMethod
     public UserDto logIn(@WebParam @Nullable final String login, @WebParam @Nullable final String password) {
         User user = userService.logIn(login, password);
@@ -64,6 +65,7 @@ public class UserEndPoint {
         User user = userService.findByName(login);
         return new UserDto(user);
     }
+
     @Nullable
     @WebMethod
     public List<UserDto> findAllUser(@WebParam @NotNull final Session session) {

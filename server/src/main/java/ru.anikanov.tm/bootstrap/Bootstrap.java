@@ -5,30 +5,36 @@ import lombok.Setter;
 import org.jetbrains.annotations.NotNull;
 import ru.anikanov.tm.api.ServiceLocator;
 import ru.anikanov.tm.endpoint.*;
+import ru.anikanov.tm.service.UserService;
 
+import javax.enterprise.context.ApplicationScoped;
 import javax.inject.Inject;
 import javax.xml.ws.Endpoint;
 
 @Getter
 @Setter
+@ApplicationScoped
 public class Bootstrap implements ServiceLocator {
-    @NotNull
     @Inject
+    @NotNull
     private ProjectEndPoint projectEndPoint;
     @Inject
     @NotNull
     private TaskEndPoint taskEndPoint;
-    @NotNull
     @Inject
+    @NotNull
+
     private UserEndPoint userEndPoint;
     @Inject
     @NotNull
     private SessionEndPoint sessionEndPoint;
-    @NotNull
     @Inject
+    @NotNull
     private DomainEndPoint domainEndPoint;
+    @Inject
+    UserService userService;
 
-    public Bootstrap() throws Exception {
+    public Bootstrap() {
     }
 
     public void init() {

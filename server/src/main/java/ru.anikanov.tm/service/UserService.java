@@ -1,7 +1,9 @@
 package ru.anikanov.tm.service;
 
+import lombok.NoArgsConstructor;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
+import ru.anikanov.tm.api.repository.IUserRepository;
 import ru.anikanov.tm.api.service.IUserService;
 import ru.anikanov.tm.entity.Session;
 import ru.anikanov.tm.entity.User;
@@ -12,27 +14,23 @@ import ru.anikanov.tm.utils.PasswordHashUtil;
 import javax.enterprise.context.ApplicationScoped;
 import javax.inject.Inject;
 import javax.persistence.EntityManager;
-import javax.persistence.EntityManagerFactory;
+import javax.transaction.Transactional;
 import java.util.List;
 import java.util.Objects;
 
 @ApplicationScoped
+@NoArgsConstructor
 public class UserService implements IUserService {
-    private final EntityManagerFactory factory;
-
     @Inject
-    public UserService(@NotNull final EntityManagerFactory factory) {
-        this.factory = factory;
-    }
+    private EntityManager entityManager;
 
     @Nullable
+    @Transactional
     public User persist(@Nullable final String login, @Nullable final String firstName, @Nullable final String lastName, @Nullable final String email,
                         @Nullable final String password, @Nullable final Role role) {
         if ((login == null) || login.isEmpty()) return null;
-        @NotNull final EntityManager entityManager = factory.createEntityManager();
+        final IUserRepository userRepository = new UserRepository(entityManager);
         try {
-            @NotNull final UserRepository userRepository = new UserRepository(entityManager);
-            if (userRepository.findOne(login) != null) return null;
             if ((firstName == null) || firstName.isEmpty()) return null;
             if ((lastName == null) || lastName.isEmpty()) return null;
             if ((email == null) || email.isEmpty()) return null;
@@ -58,9 +56,8 @@ public class UserService implements IUserService {
         if ((email == null) || email.isEmpty()) return;
         if ((password == null) || password.isEmpty()) return;
         if (role == null) return;
-        @NotNull final EntityManager entityManager = factory.createEntityManager();
+        final IUserRepository userRepository = new UserRepository(entityManager);
         try {
-            @NotNull final UserRepository userRepository = new UserRepository(entityManager);
             @Nullable User user = findOne(id);
             if (user == null) user = new User();
             user.setRole(role);
@@ -80,9 +77,8 @@ public class UserService implements IUserService {
     public User logIn(@Nullable final String login, @Nullable final String password) {
         if ((login == null) || login.isEmpty()) return null;
         if ((password == null) || password.isEmpty()) return null;
-        @NotNull final EntityManager entityManager = factory.createEntityManager();
+        final IUserRepository userRepository = new UserRepository(entityManager);
         try {
-            @NotNull final UserRepository userRepository = new UserRepository(entityManager);
             @Nullable final User user = userRepository.logIn(login, password);
             return user;
         } catch (Exception e) {
@@ -95,9 +91,8 @@ public class UserService implements IUserService {
         if ((login == null) || login.isEmpty()) return;
         if ((oldOne == null) || oldOne.isEmpty()) return;
         if ((newOne == null) || newOne.isEmpty()) return;
-        @NotNull final EntityManager entityManager = factory.createEntityManager();
+        final IUserRepository userRepository = new UserRepository(entityManager);
         try {
-            @NotNull final UserRepository userRepository = new UserRepository(entityManager);
             @Nullable final User user = userRepository.logIn(login, PasswordHashUtil.md5(oldOne));
             if (user == null) return;
             entityManager.getTransaction().begin();
@@ -110,9 +105,8 @@ public class UserService implements IUserService {
 
     public void remove(@NotNull final String userId) {
         if (userId.isEmpty()) return;
-        @NotNull final EntityManager entityManager = factory.createEntityManager();
+        final IUserRepository userRepository = new UserRepository(entityManager);
         try {
-            @NotNull final UserRepository userRepository = new UserRepository(entityManager);
             entityManager.getTransaction().begin();
             @Nullable final User user = userRepository.findOne(userId);
             if (user == null) return;
@@ -124,9 +118,8 @@ public class UserService implements IUserService {
     }
 
     public void removeAll() {
-        @NotNull final EntityManager entityManager = factory.createEntityManager();
+        final IUserRepository userRepository = new UserRepository(entityManager);
         try {
-            @NotNull final UserRepository userRepository = new UserRepository(entityManager);
             entityManager.getTransaction().begin();
             userRepository.removeAll();
             entityManager.getTransaction().commit();
@@ -138,15 +131,13 @@ public class UserService implements IUserService {
     @Nullable
     public User findOne(@NotNull final String userId) {
         if (userId.isEmpty()) return null;
-        @NotNull final EntityManager entityManager = factory.createEntityManager();
-        UserRepository userRepository = new UserRepository(entityManager);
+        final IUserRepository userRepository = new UserRepository(entityManager);
         return userRepository.findOne(userId);
     }
 
     @Nullable
     public List<User> findAll() {
-        @NotNull final EntityManager entityManager = factory.createEntityManager();
-        UserRepository userRepository = new UserRepository(entityManager);
+        final IUserRepository userRepository = new UserRepository(entityManager);
         return userRepository.findAll();
     }
 
@@ -156,14 +147,12 @@ public class UserService implements IUserService {
     }
 
     public User findByName(@NotNull final String login) {
-        @NotNull final EntityManager entityManager = factory.createEntityManager();
-        UserRepository userRepository = new UserRepository(entityManager);
+        final IUserRepository userRepository = new UserRepository(entityManager);
         return userRepository.findByName(login);
     }
 
     public User getCurrentUser(@NotNull final Session session) {
-        @NotNull final EntityManager entityManager = factory.createEntityManager();
-        UserRepository userRepository = new UserRepository(entityManager);
+        final IUserRepository userRepository = new UserRepository(entityManager);
         return userRepository.findOne(Objects.requireNonNull(session.getUserId()));
     }
 }

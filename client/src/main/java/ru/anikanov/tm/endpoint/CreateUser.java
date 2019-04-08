@@ -125,8 +125,10 @@ public class CreateUser {
     /**
      * Gets the value of the arg3 property.
      *
-     * @return possible object is
-     * {@link String }
+     * @return
+     *     possible object is
+     *     {@link String }
+     *     
      */
     public String getArg3() {
         return arg3;
@@ -135,8 +137,10 @@ public class CreateUser {
     /**
      * Sets the value of the arg3 property.
      *
-     * @param value allowed object is
-     *              {@link String }
+     * @param value
+     *     allowed object is
+     *     {@link String }
+     *     
      */
     public void setArg3(String value) {
         this.arg3 = value;
@@ -145,8 +149,10 @@ public class CreateUser {
     /**
      * Gets the value of the arg4 property.
      *
-     * @return possible object is
-     * {@link String }
+     * @return
+     *     possible object is
+     *     {@link String }
+     *     
      */
     public String getArg4() {
         return arg4;
@@ -155,8 +161,10 @@ public class CreateUser {
     /**
      * Sets the value of the arg4 property.
      *
-     * @param value allowed object is
-     *              {@link String }
+     * @param value
+     *     allowed object is
+     *     {@link String }
+     *     
      */
     public void setArg4(String value) {
         this.arg4 = value;
@@ -165,8 +173,10 @@ public class CreateUser {
     /**
      * Gets the value of the arg5 property.
      *
-     * @return possible object is
-     * {@link Role }
+     * @return
+     *     possible object is
+     *     {@link Role }
+     *     
      */
     public Role getArg5() {
         return arg5;
@@ -175,8 +185,10 @@ public class CreateUser {
     /**
      * Sets the value of the arg5 property.
      *
-     * @param value allowed object is
-     *              {@link Role }
+     * @param value
+     *     allowed object is
+     *     {@link Role }
+     *     
      */
     public void setArg5(Role value) {
         this.arg5 = value;

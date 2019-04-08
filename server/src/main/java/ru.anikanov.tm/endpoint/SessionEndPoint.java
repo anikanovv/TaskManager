@@ -9,8 +9,8 @@ import javax.jws.WebMethod;
 import javax.jws.WebParam;
 import javax.jws.WebService;
 
-@NoArgsConstructor
 @WebService
+@NoArgsConstructor
 public class SessionEndPoint {
     @Inject
     private ISessionService sessionService;
@@ -25,3 +25,4 @@ public class SessionEndPoint {
     }
 
 }
+

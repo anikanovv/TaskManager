@@ -4,13 +4,11 @@ import org.jetbrains.annotations.Nullable;
 import ru.anikanov.tm.entity.Session;
 
 import javax.persistence.EntityManager;
-import java.sql.Connection;
 
 public class SessionRepository {
-    private Connection connection;
     private EntityManager entityManager;
 
-    public SessionRepository(@Nullable final EntityManager entityManager) {
+    public SessionRepository(EntityManager entityManager) {
         this.entityManager = entityManager;
     }
 

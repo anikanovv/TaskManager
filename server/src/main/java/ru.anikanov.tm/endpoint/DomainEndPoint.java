@@ -3,6 +3,7 @@ package ru.anikanov.tm.endpoint;
 import lombok.NoArgsConstructor;
 import org.jetbrains.annotations.NotNull;
 import ru.anikanov.tm.api.service.IDomainService;
+import ru.anikanov.tm.entity.Domain;
 import ru.anikanov.tm.entity.Session;
 
 import javax.inject.Inject;
@@ -18,8 +19,9 @@ public class DomainEndPoint {
 
 
     @WebMethod
-    public void fasterJsonSerialize(@WebParam @NotNull final Session session) {
+    public Domain fasterJsonSerialize(@WebParam @NotNull final Session session) {
         domainService.fasterJson(session);
+        return null;
     }
 
     @WebMethod

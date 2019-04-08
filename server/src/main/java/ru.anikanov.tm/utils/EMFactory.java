@@ -11,17 +11,16 @@ import ru.anikanov.tm.entity.Session;
 import ru.anikanov.tm.entity.Task;
 import ru.anikanov.tm.entity.User;
 
-import javax.enterprise.context.ApplicationScoped;
 import javax.enterprise.inject.Produces;
+import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Properties;
 
-@ApplicationScoped
+
 public class EMFactory {
-    @Produces
-    public EntityManagerFactory factory() throws Exception {
+    public EntityManagerFactory factory() {
         final Map<String, String> settings = new HashMap<>();
         @NotNull final Properties property = PropertiesUtil.getProperties();
         settings.put(Environment.DRIVER, property.getProperty("db.driver"));
@@ -41,6 +40,11 @@ public class EMFactory {
         sources.addAnnotatedClass(Project.class);
         final Metadata metadata = sources.getMetadataBuilder().build();
         return metadata.getSessionFactoryBuilder().build();
+    }
+
+    @Produces
+    public EntityManager getEntityManager() {
+        return factory().createEntityManager();
     }
 
 }

@@ -8,9 +8,9 @@ import javax.xml.bind.annotation.XmlType;
 
 /**
  * <p>Java class for updateProject complex type.
- *
+ * 
  * <p>The following schema fragment specifies the expected content contained within this class.
- *
+ * 
  * <pre>
  * &lt;complexType name="updateProject"&gt;
  *   &lt;complexContent&gt;
@@ -28,7 +28,7 @@ import javax.xml.bind.annotation.XmlType;
  * &lt;/complexType&gt;
  * </pre>
  *
- *
+ * 
  */
 @XmlAccessorType(XmlAccessType.FIELD)
 @XmlType(name = "updateProject", propOrder = {
@@ -171,8 +171,10 @@ public class UpdateProject {
     /**
      * Gets the value of the arg5 property.
      *
-     * @return possible object is
-     * {@link String }
+     * @return
+     *     possible object is
+     *     {@link String }
+     *     
      */
     public String getArg5() {
         return arg5;
@@ -181,8 +183,10 @@ public class UpdateProject {
     /**
      * Sets the value of the arg5 property.
      *
-     * @param value allowed object is
-     *              {@link String }
+     * @param value
+     *     allowed object is
+     *     {@link String }
+     *     
      */
     public void setArg5(String value) {
         this.arg5 = value;

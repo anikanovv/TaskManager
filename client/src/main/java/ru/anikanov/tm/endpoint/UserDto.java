@@ -9,9 +9,9 @@ import javax.xml.bind.annotation.XmlType;
 
 /**
  * <p>Java class for userDto complex type.
- *
+ * 
  * <p>The following schema fragment specifies the expected content contained within this class.
- *
+ * 
  * <pre>
  * &lt;complexType name="userDto"&gt;
  *   &lt;complexContent&gt;
@@ -28,6 +28,8 @@ import javax.xml.bind.annotation.XmlType;
  *   &lt;/complexContent&gt;
  * &lt;/complexType&gt;
  * </pre>
+ *
+ * 
  */
 @XmlAccessorType(XmlAccessType.FIELD)
 @XmlType(name = "userDto", propOrder = {
@@ -51,8 +53,10 @@ public class UserDto {
     /**
      * Gets the value of the email property.
      *
-     * @return possible object is
-     * {@link String }
+     * @return
+     *     possible object is
+     *     {@link String }
+     *     
      */
     public String getEmail() {
         return email;
@@ -61,8 +65,10 @@ public class UserDto {
     /**
      * Sets the value of the email property.
      *
-     * @param value allowed object is
-     *              {@link String }
+     * @param value
+     *     allowed object is
+     *     {@link String }
+     *     
      */
     public void setEmail(String value) {
         this.email = value;
@@ -71,8 +77,10 @@ public class UserDto {
     /**
      * Gets the value of the firstName property.
      *
-     * @return possible object is
-     * {@link String }
+     * @return
+     *     possible object is
+     *     {@link String }
+     *     
      */
     public String getFirstName() {
         return firstName;
@@ -81,8 +89,10 @@ public class UserDto {
     /**
      * Sets the value of the firstName property.
      *
-     * @param value allowed object is
-     *              {@link String }
+     * @param value
+     *     allowed object is
+     *     {@link String }
+     *     
      */
     public void setFirstName(String value) {
         this.firstName = value;
@@ -91,8 +101,10 @@ public class UserDto {
     /**
      * Gets the value of the id property.
      *
-     * @return possible object is
-     * {@link String }
+     * @return
+     *     possible object is
+     *     {@link String }
+     *     
      */
     public String getId() {
         return id;
@@ -101,8 +113,10 @@ public class UserDto {
     /**
      * Sets the value of the id property.
      *
-     * @param value allowed object is
-     *              {@link String }
+     * @param value
+     *     allowed object is
+     *     {@link String }
+     *     
      */
     public void setId(String value) {
         this.id = value;
@@ -111,8 +125,10 @@ public class UserDto {
     /**
      * Gets the value of the lastName property.
      *
-     * @return possible object is
-     * {@link String }
+     * @return
+     *     possible object is
+     *     {@link String }
+     *     
      */
     public String getLastName() {
         return lastName;
@@ -121,8 +137,10 @@ public class UserDto {
     /**
      * Sets the value of the lastName property.
      *
-     * @param value allowed object is
-     *              {@link String }
+     * @param value
+     *     allowed object is
+     *     {@link String }
+     *     
      */
     public void setLastName(String value) {
         this.lastName = value;
@@ -131,8 +149,10 @@ public class UserDto {
     /**
      * Gets the value of the login property.
      *
-     * @return possible object is
-     * {@link String }
+     * @return
+     *     possible object is
+     *     {@link String }
+     *     
      */
     public String getLogin() {
         return login;
@@ -141,8 +161,10 @@ public class UserDto {
     /**
      * Sets the value of the login property.
      *
-     * @param value allowed object is
-     *              {@link String }
+     * @param value
+     *     allowed object is
+     *     {@link String }
+     *     
      */
     public void setLogin(String value) {
         this.login = value;
@@ -151,8 +173,10 @@ public class UserDto {
     /**
      * Gets the value of the role property.
      *
-     * @return possible object is
-     * {@link Role }
+     * @return
+     *     possible object is
+     *     {@link Role }
+     *     
      */
     public Role getRole() {
         return role;
@@ -161,8 +185,10 @@ public class UserDto {
     /**
      * Sets the value of the role property.
      *
-     * @param value allowed object is
-     *              {@link Role }
+     * @param value
+     *     allowed object is
+     *     {@link Role }
+     *     
      */
     public void setRole(Role value) {
         this.role = value;

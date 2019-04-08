@@ -1,25 +1,24 @@
 package ru.anikanov.tm.service;
 
-import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 import ru.anikanov.tm.api.service.ISessionService;
 import ru.anikanov.tm.entity.Session;
 import ru.anikanov.tm.repository.SessionRepository;
 import ru.anikanov.tm.utils.SignatureUtil;
 
+import javax.enterprise.context.ApplicationScoped;
 import javax.inject.Inject;
 import javax.persistence.EntityManager;
-import javax.persistence.EntityManagerFactory;
+import javax.transaction.Transactional;
 import java.util.UUID;
 
+@ApplicationScoped
 public class SessionService implements ISessionService {
-    private final EntityManagerFactory factory;
 
     @Inject
-    public SessionService(EntityManagerFactory factory) {
-        this.factory = factory;
-    }
+    private EntityManager entityManager;
 
+    @Transactional
     public Session persist(@Nullable final String userId) {
         if (userId == null || userId.isEmpty()) return null;
         @Nullable Session session = new Session(userId, System.currentTimeMillis());
@@ -27,9 +26,8 @@ public class SessionService implements ISessionService {
         session.setTimestamp(System.currentTimeMillis());
         session.setUserId(userId);
         session.setSignature(SignatureUtil.sign(session, "salt", 22));
-        @NotNull final EntityManager entityManager = factory.createEntityManager();
+        final SessionRepository sessionRepository = new SessionRepository(entityManager);
         try {
-            @NotNull final SessionRepository sessionRepository = new SessionRepository(entityManager);
             entityManager.getTransaction().begin();
             sessionRepository.persist(session);
             entityManager.getTransaction().commit();
@@ -44,8 +42,7 @@ public class SessionService implements ISessionService {
     public Session findOne(@Nullable final String sessionId) {
 
         if (sessionId == null || sessionId.isEmpty()) return null;
-        @NotNull final EntityManager entityManager = factory.createEntityManager();
-        @NotNull final SessionRepository sessionRepository = new SessionRepository(entityManager);
+        final SessionRepository sessionRepository = new SessionRepository(entityManager);
         return sessionRepository.findOne(sessionId);
     }
 

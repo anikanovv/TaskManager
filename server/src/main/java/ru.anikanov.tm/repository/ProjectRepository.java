@@ -11,10 +11,9 @@ import java.util.List;
 
 @NoArgsConstructor
 public class ProjectRepository implements IProjectRepository {
-    @NotNull
     private EntityManager entityManager;
 
-    public ProjectRepository(@NotNull final EntityManager entityManager) {
+    public ProjectRepository(EntityManager entityManager) {
         this.entityManager = entityManager;
     }
 
@@ -35,39 +34,39 @@ public class ProjectRepository implements IProjectRepository {
     }
 
     public void removeAll(@NotNull final String userId) {
-        entityManager.createQuery("DELETE FROM Project project WHERE project.userId = ?1")
-                .setParameter(1, userId)
+        entityManager.createQuery("DELETE FROM Project project WHERE project.userId = :userId")
+                .setParameter("userId", userId)
                 .executeUpdate();
     }
 
     @Nullable
     public Project findOne(@Nullable final String projectId, @Nullable final String userId) {
-        return (Project) entityManager.createQuery("SELECT project FROM Project project WHERE project.id = ?1 AND project.userId = ?2")
-                .setParameter(1, projectId)
-                .setParameter(2, userId)
+        return (Project) entityManager.createQuery("SELECT project FROM Project project WHERE project.id = :id AND project.userId = :userId")
+                .setParameter("id", projectId)
+                .setParameter("userId", userId)
                 .getSingleResult();
     }
 
     @Nullable
     public List<Project> findAll(@NotNull final String userId) {
-        return entityManager.createQuery("SELECT project FROM Project project WHERE project.userId = ?1")
-                .setParameter(1, userId)
+        return entityManager.createQuery("SELECT project FROM Project project WHERE project.userId = :userId")
+                .setParameter("userId", userId)
                 .getResultList();
     }
 
     @Nullable
     public Project findByPartOfName(@NotNull final String partOfName, @NotNull final String userId) {
-        return (Project) entityManager.createQuery("SELECT project FROM Project project WHERE project.userId = ?1 AND project.name LIKE ?2")
-                .setParameter(1, userId)
-                .setParameter(2, "%" + partOfName + "%")
+        return (Project) entityManager.createQuery("SELECT project FROM Project project WHERE project.userId = :userId AND project.name LIKE :name")
+                .setParameter("userId", userId)
+                .setParameter("name", "%" + partOfName + "%")
                 .getSingleResult();
     }
 
     @Nullable
     public Project findByPartOfDescription(@NotNull final String partOfDescription, @NotNull final String userId) {
-        return (Project) entityManager.createQuery("SELECT project FROM Project project WHERE project.userId = ?1 AND project.description LIKE ?2")
-                .setParameter(1, userId)
-                .setParameter(2, "%" + partOfDescription + "%")
+        return (Project) entityManager.createQuery("SELECT project FROM Project project WHERE project.userId = :userId AND project.description LIKE :description")
+                .setParameter("userId", userId)
+                .setParameter("description", "%" + partOfDescription + "%")
                 .getSingleResult();
     }
 }

@@ -3,7 +3,7 @@ package ru.anikanov.tm.command.load;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 import ru.anikanov.tm.command.AbstractCommand;
-import ru.anikanov.tm.entity.Domain;
+import ru.anikanov.tm.endpoint.Domain;
 
 import java.io.FileInputStream;
 import java.io.ObjectInputStream;

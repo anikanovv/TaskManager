@@ -17,8 +17,8 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
-@NoArgsConstructor
 @WebService
+@NoArgsConstructor
 public class TaskEndPoint {
     @Inject
     private ISessionService sessionService;
@@ -55,8 +55,8 @@ public class TaskEndPoint {
                 .removeAll(Objects.requireNonNull(session.getUserId()));
     }
 
-    @WebMethod
     @Nullable
+    @WebMethod
     public List<TaskDto> sortTaskByStartDate(@WebParam @NotNull final Session session) {
         sessionService.validate(session);
         @NotNull final List<TaskDto> listDto = new ArrayList<>();
