@@ -9,7 +9,6 @@ import ru.anikanov.tm.utils.SignatureUtil;
 import javax.enterprise.context.ApplicationScoped;
 import javax.inject.Inject;
 import javax.persistence.EntityManager;
-import javax.transaction.Transactional;
 import java.util.UUID;
 
 @ApplicationScoped
@@ -18,7 +17,6 @@ public class SessionService implements ISessionService {
     @Inject
     private EntityManager entityManager;
 
-    @Transactional
     public Session persist(@Nullable final String userId) {
         if (userId == null || userId.isEmpty()) return null;
         @Nullable Session session = new Session(userId, System.currentTimeMillis());

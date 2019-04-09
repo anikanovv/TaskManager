@@ -11,16 +11,13 @@ import javax.enterprise.inject.se.SeContainerInitializer;
 public class AppServer {
 
     public static void main(String[] args) {
-      /*  SeContainerInitializer.newInstance()
-                .addPackages(AppServer.class).initialize()
-                .select(Bootstrap.class).get().init();*/
         SeContainerInitializer initializer = SeContainerInitializer.newInstance();
         initializer.addPackages(AppServer.class);
         SeContainer container = initializer.initialize();
         container.select(Bootstrap.class).get().init();
 
     }
-    /*public static void main(String[] args) throws Exception {
+ /*   public static void main(String[] args) throws Exception {
         SeContainerInitializer initializer = SeContainerInitializer.newInstance();
         initializer.addPackages(AppServer.class);
         SeContainer container = initializer.initialize();
@@ -29,6 +26,6 @@ public class AppServer {
         //        Session session=bootstrap.sessionService.findOne("bb290dc7-4c51-4128-98f1-70a374bfd921");
 //        List<User>users=bootstrap.userService.findAll();
 //        bootstrap.userService.merge("Cheburek", "Kek", "Looman", "Looman@man.com", PasswordHashUtil.md5("user"), Role.USER,user.getId());
-        System.out.println("11");
-    }*/
+        System.out.println("11");*/
+//    }
 }

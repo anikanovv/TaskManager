@@ -5,7 +5,6 @@ import lombok.Setter;
 import org.jetbrains.annotations.NotNull;
 import ru.anikanov.tm.api.ServiceLocator;
 import ru.anikanov.tm.endpoint.*;
-import ru.anikanov.tm.service.UserService;
 
 import javax.enterprise.context.ApplicationScoped;
 import javax.inject.Inject;
@@ -23,7 +22,6 @@ public class Bootstrap implements ServiceLocator {
     private TaskEndPoint taskEndPoint;
     @Inject
     @NotNull
-
     private UserEndPoint userEndPoint;
     @Inject
     @NotNull
@@ -31,18 +29,16 @@ public class Bootstrap implements ServiceLocator {
     @Inject
     @NotNull
     private DomainEndPoint domainEndPoint;
-    @Inject
-    UserService userService;
 
     public Bootstrap() {
     }
 
     public void init() {
-        Endpoint.publish("http://localhost:8080/ProjectEndpoint?wsdl", new ProjectEndPoint());
-        Endpoint.publish("http://localhost:8080/TaskEndpoint?wsdl", new TaskEndPoint());
-        Endpoint.publish("http://localhost:8080/UserEndpoint?wsdl", new UserEndPoint());
-        Endpoint.publish("http://localhost:8080/SessionEndpoint?wsdl", new SessionEndPoint());
-        Endpoint.publish("http://localhost:8080/DomainEndpoint?wsdl", new DomainEndPoint());
+        Endpoint.publish("http://localhost:8080/ProjectEndpoint?wsdl", projectEndPoint);
+        Endpoint.publish("http://localhost:8080/TaskEndpoint?wsdl", taskEndPoint);
+        Endpoint.publish("http://localhost:8080/UserEndpoint?wsdl", userEndPoint);
+        Endpoint.publish("http://localhost:8080/SessionEndpoint?wsdl", sessionEndPoint);
+        Endpoint.publish("http://localhost:8080/DomainEndpoint?wsdl", domainEndPoint);
     }
 }
 

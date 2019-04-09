@@ -14,18 +14,17 @@ import ru.anikanov.tm.utils.PasswordHashUtil;
 import javax.enterprise.context.ApplicationScoped;
 import javax.inject.Inject;
 import javax.persistence.EntityManager;
-import javax.transaction.Transactional;
 import java.util.List;
 import java.util.Objects;
 
-@ApplicationScoped
 @NoArgsConstructor
+@ApplicationScoped
+
 public class UserService implements IUserService {
     @Inject
     private EntityManager entityManager;
 
     @Nullable
-    @Transactional
     public User persist(@Nullable final String login, @Nullable final String firstName, @Nullable final String lastName, @Nullable final String email,
                         @Nullable final String password, @Nullable final Role role) {
         if ((login == null) || login.isEmpty()) return null;

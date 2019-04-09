@@ -2,7 +2,6 @@ package ru.anikanov.tm.api;
 
 import org.jetbrains.annotations.NotNull;
 import ru.anikanov.tm.endpoint.*;
-import ru.anikanov.tm.service.UserService;
 
 public interface ServiceLocator {
 
@@ -16,7 +15,5 @@ public interface ServiceLocator {
     SessionEndPoint getSessionEndPoint();
     @NotNull
     DomainEndPoint getDomainEndPoint();
-
-    UserService getUserService();
 
 }

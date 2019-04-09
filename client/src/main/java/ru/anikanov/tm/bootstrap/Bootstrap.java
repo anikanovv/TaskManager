@@ -9,6 +9,7 @@ import ru.anikanov.tm.api.service.ITerminalService;
 import ru.anikanov.tm.command.AbstractCommand;
 import ru.anikanov.tm.endpoint.*;
 
+import javax.enterprise.context.ApplicationScoped;
 import javax.inject.Inject;
 import java.lang.Exception;
 import java.util.HashMap;
@@ -17,6 +18,8 @@ import java.util.Objects;
 
 @Getter
 @Setter
+@ApplicationScoped
+
 public class Bootstrap implements ServiceLocator {
     @Nullable
     private String currentUser;

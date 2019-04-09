@@ -1,5 +1,6 @@
 package ru.anikanov.tm.endpoint;
 
+import javax.enterprise.inject.Produces;
 import javax.xml.namespace.QName;
 import javax.xml.ws.Service;
 import javax.xml.ws.WebEndpoint;
@@ -67,6 +68,7 @@ public class UserEndPointService extends Service {
      * @return
      *     returns UserEndPoint
      */
+    @Produces
     @WebEndpoint(name = "UserEndPointPort")
     public UserEndPoint getUserEndPointPort() {
         return super.getPort(UserEndPointPort, UserEndPoint.class);

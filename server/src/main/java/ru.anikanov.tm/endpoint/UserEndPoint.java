@@ -22,9 +22,10 @@ import java.util.Objects;
 @NoArgsConstructor
 public class UserEndPoint {
     @Inject
-    private ISessionService sessionService;
-    @Inject
     private IUserService userService;
+    @Inject
+    private ISessionService sessionService;
+
 
     @WebMethod
     public UserDto logIn(@WebParam @Nullable final String login, @WebParam @Nullable final String password) {

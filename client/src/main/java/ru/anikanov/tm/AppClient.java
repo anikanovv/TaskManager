@@ -11,11 +11,9 @@ import ru.anikanov.tm.command.system.HelpCommand;
 import ru.anikanov.tm.command.task.*;
 import ru.anikanov.tm.command.user.*;
 
-import javax.enterprise.context.ApplicationScoped;
 import javax.enterprise.inject.se.SeContainerInitializer;
 
-@ApplicationScoped
-public class App {
+public class AppClient {
     @NotNull
     private static final Class[] CLASSES = {AbstractCommand.class, ExitCommand.class, HelpCommand.class,
             ProjectCreateCommand.class, ProjectDeleteCommand.class, ProjectReadCommand.class,
@@ -33,7 +31,7 @@ public class App {
 
     public static void main(final String[] args) {
         SeContainerInitializer.newInstance()
-                .addPackages(App.class).initialize()
+                .addPackages(AppClient.class).initialize()
                 .select(Bootstrap.class).get().init(CLASSES);
     }
 }

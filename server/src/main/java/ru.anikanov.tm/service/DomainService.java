@@ -13,6 +13,7 @@ import ru.anikanov.tm.entity.Project;
 import ru.anikanov.tm.entity.Session;
 import ru.anikanov.tm.entity.Task;
 
+import javax.enterprise.context.ApplicationScoped;
 import javax.inject.Inject;
 import javax.xml.bind.JAXBContext;
 import javax.xml.bind.JAXBException;
@@ -20,6 +21,8 @@ import javax.xml.bind.Marshaller;
 import java.io.*;
 import java.util.List;
 import java.util.Objects;
+
+@ApplicationScoped
 
 public class DomainService implements IDomainService {
     @Inject
