@@ -7,13 +7,17 @@ import ru.anikanov.tm.api.repository.IUserRepository;
 import ru.anikanov.tm.entity.User;
 import ru.anikanov.tm.utils.PasswordHashUtil;
 
+import javax.enterprise.context.ApplicationScoped;
+import javax.inject.Inject;
 import javax.persistence.EntityManager;
 import java.util.List;
 
+@ApplicationScoped
 @NoArgsConstructor
 public class UserRepository extends AbstractRepository implements IUserRepository {
     private EntityManager entityManager;
 
+    @Inject
     public UserRepository(EntityManager entityManager) {
         this.entityManager = entityManager;
     }

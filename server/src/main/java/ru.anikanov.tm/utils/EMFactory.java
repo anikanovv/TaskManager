@@ -1,5 +1,6 @@
 package ru.anikanov.tm.utils;
 
+import org.apache.deltaspike.jpa.api.transaction.TransactionScoped;
 import org.hibernate.boot.Metadata;
 import org.hibernate.boot.MetadataSources;
 import org.hibernate.boot.registry.StandardServiceRegistry;
@@ -20,7 +21,7 @@ import java.util.Properties;
 
 
 public class EMFactory {
-    public EntityManagerFactory factory() {
+    private EntityManagerFactory factory() {
         final Map<String, String> settings = new HashMap<>();
         @NotNull final Properties property = PropertiesUtil.getProperties();
         settings.put(Environment.DRIVER, property.getProperty("db.driver"));
@@ -43,6 +44,7 @@ public class EMFactory {
     }
 
     @Produces
+    @TransactionScoped
     public EntityManager getEntityManager() {
         return factory().createEntityManager();
     }

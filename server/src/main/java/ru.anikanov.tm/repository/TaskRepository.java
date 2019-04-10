@@ -7,15 +7,19 @@ import org.jetbrains.annotations.Nullable;
 import ru.anikanov.tm.api.repository.ITaskRepository;
 import ru.anikanov.tm.entity.Task;
 
+import javax.enterprise.context.ApplicationScoped;
+import javax.inject.Inject;
 import javax.persistence.EntityManager;
 import java.util.List;
 
 @Getter
+@ApplicationScoped
 @NoArgsConstructor
 public class TaskRepository implements ITaskRepository {
     @NotNull
     private EntityManager entityManager;
 
+    @Inject
     public TaskRepository(EntityManager entityManager) {
         this.entityManager = entityManager;
     }

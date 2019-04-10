@@ -8,11 +8,9 @@ import ru.anikanov.tm.endpoint.*;
 import java.lang.Exception;
 import java.util.List;
 
-//@RunWith(CdiTestRunner.class)
 @FixMethodOrder(MethodSorters.NAME_ASCENDING)
-public class ProjectTest {
-
-    private ProjectEndPoint projectService = new ProjectEndPointService().getProjectEndPointPort();
+public class TaskTest {
+    private TaskEndPoint taskEndPoint = new TaskEndPointService().getTaskEndPointPort();
 
     private UserEndPoint userEndPoint = new UserEndPointService().getUserEndPointPort();
 
@@ -30,34 +28,34 @@ public class ProjectTest {
     @Test
     public void test1_persist() {
         signIn();
-        @Nullable final ProjectDto project = projectService.createProject(session,
+        @Nullable final TaskDto task = taskEndPoint.createTask(session,
                 "test", "des", "12.12.2012", "12.12.2012");
-        Assert.assertNotNull(project);
-        Assert.assertEquals("test", project.getName());
+        Assert.assertNotNull(task);
+        Assert.assertEquals("test", task.getName());
     }
 
 
     @Test
     public void test2_merge() {
         signIn();
-        projectService.updateProject(session, "21f935fc-f0f9-4a30-a171-b81095ff2a2a", "test123", "newDes228", "12.11.2021", "21.12.2030");
-        @Nullable final ProjectDto project = projectService.findProjectByPartOfNameProject(session, "test123");
-        Assert.assertNotNull(project);
-        Assert.assertEquals("newDes228", project.getDescription());
+        taskEndPoint.updateTask(session, "21f935fc-f0f9-4a30-a171-b81095ff2a2a", "test123", "newDes228", "12.11.2021", "21.12.2030");
+        @Nullable final TaskDto task = taskEndPoint.findTaskByPartOfName(session, "test123");
+        Assert.assertNotNull(task);
+        Assert.assertEquals("newDes228", task.getDescription());
     }
 
     @Test
     public void test3_findOne() {
         signIn();
-        @Nullable final ProjectDto project = projectService.findProjectByPartOfNameProject(session, "test");
-        Assert.assertNotNull(project);
-        Assert.assertEquals("test3", project.getName());
+        @Nullable final TaskDto task = taskEndPoint.findTaskByPartOfName(session, "test");
+        Assert.assertNotNull(task);
+        Assert.assertEquals("test3", task.getName());
     }
 
     @Test
     public void test4_findAll() throws Exception {
         signIn();
-        @Nullable final List<ProjectDto> list = projectService.findAllProject(session);
+        @Nullable final List<TaskDto> list = taskEndPoint.findAllTask(session);
         Assert.assertNotNull(list);
         Assert.assertEquals("test", list.get(0).getName());
     }
@@ -65,16 +63,18 @@ public class ProjectTest {
     @Test
     public void test5_remove() throws Exception {
         signIn();
-        projectService.removeProject(session, "21f935fc-f0f9-4a30-a171-b81095ff2a2a");
-        @Nullable final ProjectDto project = projectService.findProjectByPartOfNameProject(session, "test123");
-        Assert.assertNull(project);
+        taskEndPoint.removeTask(session, "21f935fc-f0f9-4a30-a171-b81095ff2a2a");
+        @Nullable final TaskDto task = taskEndPoint.findTaskByPartOfName(session, "test123");
+        Assert.assertNull(task);
     }
 
     @Test
     public void test6_removeAll() throws Exception {
         signIn();
-        projectService.removeAllProject(session);
-        @Nullable final List<ProjectDto> list = projectService.findAllProject(session);
+        taskEndPoint.removeAllTask(session);
+        @Nullable final List<TaskDto> list = taskEndPoint.findAllTask(session);
         Assert.assertTrue(list.isEmpty());
     }
+}
+
 }

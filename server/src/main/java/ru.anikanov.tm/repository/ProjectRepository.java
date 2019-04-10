@@ -6,13 +6,17 @@ import org.jetbrains.annotations.Nullable;
 import ru.anikanov.tm.api.repository.IProjectRepository;
 import ru.anikanov.tm.entity.Project;
 
+import javax.enterprise.context.ApplicationScoped;
+import javax.inject.Inject;
 import javax.persistence.EntityManager;
 import java.util.List;
 
+@ApplicationScoped
 @NoArgsConstructor
 public class ProjectRepository implements IProjectRepository {
     private EntityManager entityManager;
 
+    @Inject
     public ProjectRepository(EntityManager entityManager) {
         this.entityManager = entityManager;
     }

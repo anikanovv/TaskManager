@@ -4,7 +4,6 @@ import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 import ru.anikanov.tm.entity.Project;
 
-import java.sql.SQLException;
 import java.util.List;
 
 public interface IProjectRepository {
@@ -12,7 +11,7 @@ public interface IProjectRepository {
     @NotNull
     Project persist(@NotNull final Project p);
 
-    Project merge(@NotNull Project p) throws SQLException;
+    Project merge(@NotNull Project p);
 
     void remove(@NotNull final Project project);
 
