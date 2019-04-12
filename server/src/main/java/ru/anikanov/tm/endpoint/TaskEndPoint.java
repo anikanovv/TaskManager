@@ -30,23 +30,23 @@ public class TaskEndPoint {
     public TaskDto createTask(@WebParam @NotNull final Session session, @WebParam final String projectId, @WebParam final String name, @WebParam final String description,
                               @WebParam final String startDate, @WebParam final String endDate) {
         sessionService.validate(session);
-        Task task = taskService.persist(projectId, name, description, startDate, endDate, Objects.requireNonNull(session.getUserId()));
+        Task task = taskService.persist(Objects.requireNonNull(session.getUserId()), projectId, name, description, startDate, endDate);
         return new TaskDto(task);
     }
 
     @WebMethod
     public void updateTask(@WebParam @NotNull final Session session, @WebParam final String taskId, @WebParam final String name, @WebParam final String description,
                            @WebParam final String startDate, @WebParam final String endDate) {
-        sessionService.validate(session);
+//        sessionService.validate(session);
         taskService
-                .merge(taskId, name, description, startDate, endDate, Objects.requireNonNull(session.getUserId()));
+                .merge(Objects.requireNonNull(session.getUserId()), taskId, name, description, startDate, endDate);
     }
 
     @WebMethod
     public void removeTask(@WebParam @NotNull final Session session, @WebParam final String name) {
         sessionService.validate(session);
         taskService
-                .remove(name, Objects.requireNonNull(session.getUserId()));
+                .remove(Objects.requireNonNull(session.getUserId()), name);
     }
 
     @WebMethod
@@ -103,8 +103,8 @@ public class TaskEndPoint {
     @Nullable
     @WebMethod
     public TaskDto findTaskByPartOfName(@WebParam @NotNull final Session session, @WebParam @NotNull final String partOfName) {
-        sessionService.validate(session);
-        Task task = taskService.findByPartOfName(partOfName, Objects.requireNonNull(session.getUserId()));
+//        sessionService.validate(session);
+        Task task = taskService.findByPartOfName(Objects.requireNonNull(session.getUserId()), partOfName);
         return new TaskDto(task);
     }
 
@@ -112,7 +112,7 @@ public class TaskEndPoint {
     @WebMethod
     public TaskDto findTaskByPartOfDescription(@WebParam @NotNull final Session session, @WebParam @NotNull final String partOfDescription) {
         sessionService.validate(session);
-        Task task = taskService.findByPartOfDescription(partOfDescription, Objects.requireNonNull(session.getUserId()));
+        Task task = taskService.findByPartOfDescription(Objects.requireNonNull(session.getUserId()), partOfDescription);
         return new TaskDto(task);
     }
 }

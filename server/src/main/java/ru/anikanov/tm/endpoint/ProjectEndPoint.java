@@ -29,8 +29,8 @@ public class ProjectEndPoint {
     public ProjectDto createProject(@WebParam @NotNull final Session session, @WebParam final String name, @WebParam final String description, @WebParam final String startDate,
                                     @WebParam final String endDate) {
         sessionService.validate(session);
-        Project project = projectService
-                .persist(name, description, startDate, endDate, Objects.requireNonNull(session.getUserId()));
+        @Nullable final Project project = projectService
+                .persist(session.getUserId(), name, description, startDate, endDate);
         return new ProjectDto(project);
     }
 
@@ -39,13 +39,13 @@ public class ProjectEndPoint {
                               @WebParam final String description, @WebParam final String startDate,
                               @WebParam final String endDate) {
         sessionService.validate(session);
-        projectService.merge(id, name, description, startDate, endDate, Objects.requireNonNull(session.getUserId()));
+        projectService.merge(session.getUserId(), id, name, description, startDate, endDate);
     }
 
     @WebMethod
     public void removeProject(@WebParam @NotNull final Session session, @WebParam final String name) {
         sessionService.validate(session);
-        projectService.remove(name, Objects.requireNonNull(session.getUserId()));
+        projectService.remove(session.getUserId(), name);
     }
 
     @WebMethod
@@ -57,14 +57,14 @@ public class ProjectEndPoint {
     @WebMethod
     public ProjectDto findProjectByPartOfNameProject(@WebParam @NotNull final Session session, @WebParam final String partOfName) {
         sessionService.validate(session);
-        Project project = projectService.findByPartOfName(partOfName, Objects.requireNonNull(session.getUserId()));
+        @Nullable final Project project = projectService.findByPartOfName(session.getUserId(), partOfName);
         return new ProjectDto(project);
     }
 
     @WebMethod
     public ProjectDto findProjectByPartOfDescription(@WebParam @NotNull final Session session, @WebParam final String partOfDescription) {
         sessionService.validate(session);
-        Project project = projectService.findByPartOfDescription(partOfDescription, Objects.requireNonNull(session.getUserId()));
+        @Nullable final Project project = projectService.findByPartOfDescription(session.getUserId(), partOfDescription);
         return new ProjectDto(project);
     }
 

@@ -20,8 +20,8 @@ public class TaskService extends AbstractService implements ITaskService {
 
 
     @Nullable
-    public Task persist(@Nullable final String projectId, @Nullable final String taskName, @Nullable final String description,
-                        @Nullable final String dateStart, @Nullable final String dateFinish, @Nullable final String userId) {
+    public Task persist(@Nullable final String userId, @Nullable final String projectId, @Nullable final String taskName, @Nullable final String description,
+                        @Nullable final String dateStart, @Nullable final String dateFinish) {
         if ((taskName == null) || taskName.isEmpty()) return null;
         if ((userId == null) || userId.isEmpty()) return null;
         if (projectId == null || projectId.isEmpty()) return null;
@@ -33,8 +33,8 @@ public class TaskService extends AbstractService implements ITaskService {
         return newtask;
     }
 
-    public void merge(@Nullable final String taskId, @Nullable final String taskName, @Nullable final String description,
-                      @Nullable final String dateStart, @Nullable final String dateFinish, @Nullable final String userId) {
+    public void merge(@Nullable final String userId, @Nullable final String taskId, @Nullable final String taskName, @Nullable final String description,
+                      @Nullable final String dateStart, @Nullable final String dateFinish) {
         if ((taskId == null) || taskId.isEmpty()) return;
         if ((userId == null) || userId.isEmpty()) return;
         if ((taskName == null) || taskName.isEmpty()) return;
@@ -50,7 +50,7 @@ public class TaskService extends AbstractService implements ITaskService {
         taskRepository.merge(task);
     }
 
-    public void remove(@Nullable final String taskId, @Nullable final String userId) {
+    public void remove(@Nullable final String userId, @Nullable final String taskId) {
         if ((taskId == null) || taskId.isEmpty()) return;
         if ((userId == null) || userId.isEmpty()) return;
         @Nullable final Task task = taskRepository.findOne(taskId, userId);
@@ -64,21 +64,21 @@ public class TaskService extends AbstractService implements ITaskService {
     }
 
     @Nullable
-    public Task findOne(@Nullable final String taskId, @Nullable final String userId) {
+    public Task findOne(@Nullable final String userId, @Nullable final String taskId) {
         if ((userId == null) || userId.isEmpty()) return null;
         if ((taskId == null) || taskId.isEmpty()) return null;
         return taskRepository.findOne(taskId, userId);
     }
 
     @Nullable
-    public Task findByPartOfName(@Nullable final String partOfName, @Nullable final String userId) {
+    public Task findByPartOfName(@Nullable final String userId, @Nullable final String partOfName) {
         if ((partOfName == null) || (partOfName.isEmpty())) return null;
         if ((userId == null) || userId.isEmpty()) return null;
         return taskRepository.findByPartOfName(partOfName, userId);
     }
 
     @Nullable
-    public Task findByPartOfDescription(@Nullable final String partOfDescription, @Nullable final String userId) {
+    public Task findByPartOfDescription(@Nullable final String userId, @Nullable final String partOfDescription) {
         if ((partOfDescription == null) || (partOfDescription.isEmpty())) return null;
         if ((userId == null) || userId.isEmpty()) return null;
         return taskRepository.findByPartOfDescription(partOfDescription, userId);

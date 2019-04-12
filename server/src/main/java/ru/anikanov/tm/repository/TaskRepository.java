@@ -29,7 +29,7 @@ public interface TaskRepository extends EntityRepository<Task, String> {
     @Query("SELECT task FROM Task task WHERE task.userId = :userId")
     List<Task> findAll(@QueryParam("userId") @NotNull final String userId);
 
-    @Query("SELECT task FROM Task task WHERE task.userId = :userId AND task.taskName LIKE :partOfName")
+    @Query("SELECT task FROM Task task WHERE task.userId = :userId AND task.name LIKE :partOfName")
     Task findByPartOfName(@QueryParam("partOfName") @NotNull final String partOfName, @QueryParam("userId") @NotNull final String userId);
 
     @Query("SELECT task FROM Task task WHERE task.userId = :userId AND task.taskDescription LIKE :partOfDescription")

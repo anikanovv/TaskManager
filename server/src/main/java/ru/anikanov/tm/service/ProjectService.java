@@ -18,8 +18,8 @@ public class ProjectService implements IProjectService {
     private ProjectRepository projectRep;
 
     @Nullable
-    public Project persist(@Nullable final String projectName, @Nullable final String description, @Nullable final String dateStart,
-                           @Nullable final String dateFinish, @Nullable final String userId) {
+    public Project persist(@Nullable final String userId, @Nullable final String projectName, @Nullable final String description, @Nullable final String dateStart,
+                           @Nullable final String dateFinish) {
         if ((projectName == null) || projectName.isEmpty()) return null;
         if (userId == null || userId.isEmpty()) return null;
         if ((description == null) || description.isEmpty()) return null;
@@ -30,8 +30,8 @@ public class ProjectService implements IProjectService {
         return newproject;
     }
 
-    public void merge(@Nullable final String id, @Nullable final String projectName, @Nullable final String description, @Nullable final String dateStart,
-                      @Nullable final String dateFinish, @Nullable final String userId) {
+    public void merge(@Nullable final String userId, @Nullable final String id, @Nullable final String projectName, @Nullable final String description, @Nullable final String dateStart,
+                      @Nullable final String dateFinish) {
         if ((projectName == null) || projectName.isEmpty()) return;
         if ((description == null) || description.isEmpty()) return;
         if ((dateStart == null) || dateStart.isEmpty()) return;
@@ -47,7 +47,7 @@ public class ProjectService implements IProjectService {
         projectRep.merge(p);
     }
 
-    public void remove(@Nullable final String id, @Nullable final String userId) {
+    public void remove(@Nullable final String userId, @Nullable final String id) {
         if ((id == null) || id.isEmpty()) return;
         if ((userId == null) || userId.isEmpty()) return;
         @Nullable final Project project = projectRep.findOne(id, userId);
@@ -61,7 +61,7 @@ public class ProjectService implements IProjectService {
     }
 
     @Nullable
-    public Project findOne(@Nullable final String projectId, @Nullable final String userId) {
+    public Project findOne(@Nullable final String userId, @Nullable final String projectId) {
         if ((userId == null) || userId.isEmpty()) return null;
         if ((projectId == null) || projectId.isEmpty()) return null;
         return projectRep.findOne(userId, projectId);
@@ -101,14 +101,14 @@ public class ProjectService implements IProjectService {
     }
 
     @Nullable
-    public Project findByPartOfName(@Nullable final String partOfName, @Nullable final String userId) {
+    public Project findByPartOfName(@Nullable final String userId, @Nullable final String partOfName) {
         if ((partOfName == null) || (partOfName.isEmpty())) return null;
         if ((userId == null) || userId.isEmpty()) return null;
         return projectRep.findByPartOfName(userId, partOfName);
     }
 
     @Nullable
-    public Project findByPartOfDescription(@Nullable final String partOfDescription, @Nullable final String userId) {
+    public Project findByPartOfDescription(@Nullable final String userId, @Nullable final String partOfDescription) {
         if ((partOfDescription == null) || (partOfDescription.isEmpty())) return null;
         if ((userId == null) || userId.isEmpty()) return null;
         return projectRep.findByPartOfDescription(partOfDescription, userId);

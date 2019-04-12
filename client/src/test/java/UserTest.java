@@ -1,12 +1,15 @@
+import org.apache.deltaspike.testcontrol.api.junit.CdiTestRunner;
 import org.jetbrains.annotations.Nullable;
 import org.junit.Assert;
-import ru.anikanov.tm.endpoint.Session;
-import ru.anikanov.tm.endpoint.SessionEndPoint;
-import ru.anikanov.tm.endpoint.UserDto;
-import ru.anikanov.tm.endpoint.UserEndPoint;
+import org.junit.Test;
+import org.junit.runner.RunWith;
+import ru.anikanov.tm.endpoint.*;
 
 import javax.inject.Inject;
+import java.lang.Exception;
+import java.util.List;
 
+@RunWith(CdiTestRunner.class)
 public class UserTest {
     @Inject
     private UserEndPoint userEndPoint;
@@ -15,18 +18,17 @@ public class UserTest {
 
     private Session session;
 
-    public void signIn() {
+    public void logIn() {
         @Nullable final UserDto userDto = userEndPoint.logIn("user", "user");
         Assert.assertNotNull(userDto);
         session = sessionEndPoint.createSession(userDto.getId());
         Assert.assertNotNull(session);
     }
 
-  /*  @Test
+    @Test
     public void test1_create() {
-        signIn();
-        @Nullable final UserDto user = userEndPoint.createUser(session,
-                "test", "des", "12.12.2012", "12.12.2012");
+        logIn();
+        @Nullable final UserDto user = userEndPoint.createUser("login", "pass", "des", "12.12.2012", "12.12.2012", Role.USER);
         Assert.assertNotNull(user);
         Assert.assertEquals("test", user.getLogin());
     }
@@ -34,52 +36,51 @@ public class UserTest {
 
     @Test
     public void test2_update() {
-        signIn();
-        userEndPoint.updateUser(session, "21f935fc-f0f9-4a30-a171-b81095ff2a2a", "test123", "newDes228", "12.11.2021", "21.12.2030");
-        @Nullable final UserDto user = userEndPoint.findOneUserByName(session, "test123");
+        logIn();
+        userEndPoint.updateUser("login", "my", "wife", "is", "male", Role.USER, "18fabae5-7117-4b63-ac77-799c0b3908fd");
+        @Nullable final UserDto user = userEndPoint.findOneUserByName("login");
         Assert.assertNotNull(user);
-        Assert.assertEquals("newDes228", user.getEmail());
+        Assert.assertEquals("wife", user.getEmail());
     }
 
     @Test
     public void test3_updatePassword() {
-        signIn();
-        userEndPoint.updateUserPassword(session, "21f935fc-f0f9-4a30-a171-b81095ff2a2a", "test123", "newDes228", "12.11.2021", "21.12.2030");
-        @Nullable final UserDto user = userEndPoint.findOneUserByName(session, "test123");
+        logIn();
+        userEndPoint.updateUserPassword("user", "user", "user228");
+        @Nullable final UserDto user = userEndPoint.logIn("login", "user228");
         Assert.assertNotNull(user);
-        Assert.assertNotNull(userEndPoint.logIn());
     }
 
     @Test
     public void test4_findOne() {
-        signIn();
-        @Nullable final UserDto user = userEndPoint.findOneUserByName(session, "test");
+        logIn();
+        @Nullable final UserDto user = userEndPoint.findOneUser(session, "18fabae5-7117-4b63-ac77-799c0b3908fd");
         Assert.assertNotNull(user);
-        Assert.assertEquals("test3", user.getLogin());
+        Assert.assertEquals("test", user.getLogin());
     }
 
     @Test
     public void test5_findAll() throws Exception {
-        signIn();
+        logIn();
         @Nullable final List<UserDto> list = userEndPoint.findAllUser(session);
         Assert.assertNotNull(list);
-        Assert.assertEquals("test", list.get(0).getName());
+        Assert.assertEquals("user", list.get(0).getLogin());
     }
 
     @Test
     public void test6_remove() throws Exception {
-        signIn();
-        userEndPoint.removeUser(session, "21f935fc-f0f9-4a30-a171-b81095ff2a2a");
-        @Nullable final UserDto user = userEndPoint.findOneUserByName(session, "test123");
+        logIn();
+        userEndPoint.removeUser(session, "18fabae5-7117-4b63-ac77-799c0b3908fd");
+        @Nullable final UserDto user = userEndPoint.findOneUserByName("test");
         Assert.assertNull(user);
     }
 
     @Test
     public void test7_removeAll() throws Exception {
-        signIn();
+        logIn();
         userEndPoint.removeAllUser(session);
         @Nullable final List<UserDto> list = userEndPoint.findAllUser(session);
         Assert.assertTrue(list.isEmpty());
-    }*/
+    }
 }
 

@@ -1,4 +1,3 @@
-import org.apache.deltaspike.testcontrol.api.TestControl;
 import org.apache.deltaspike.testcontrol.api.junit.CdiTestRunner;
 import org.jetbrains.annotations.Nullable;
 import org.junit.Assert;
@@ -8,13 +7,11 @@ import org.junit.runner.RunWith;
 import org.junit.runners.MethodSorters;
 import ru.anikanov.tm.endpoint.*;
 
-import javax.enterprise.context.SessionScoped;
 import javax.inject.Inject;
 import java.lang.Exception;
 import java.util.List;
 
 @RunWith(CdiTestRunner.class)
-@TestControl(startScopes = SessionScoped.class)
 @FixMethodOrder(MethodSorters.NAME_ASCENDING)
 public class ProjectTest {
     @Inject
@@ -26,7 +23,7 @@ public class ProjectTest {
 
     private Session session;
 
-    private void signIn() {
+    private void logIn() {
         @Nullable final UserDto userDto = userEndPoint.logIn("user", "user");
         Assert.assertNotNull(userDto);
         session = sessionEndPoint.createSession(userDto.getId());
@@ -35,7 +32,7 @@ public class ProjectTest {
 
     @Test
     public void test1_persist() {
-        signIn();
+        logIn();
         @Nullable final ProjectDto project = projectService.createProject(session,
                 "newTest", "des", "12.12.2012", "12.12.2012");
         Assert.assertNotNull(project);
@@ -45,7 +42,7 @@ public class ProjectTest {
 
     @Test
     public void test2_merge() {
-        signIn();
+        logIn();
         projectService.updateProject(session, "bc416e48-a517-44ab-bed9-8fd97b9ef25c", "test", "newDes228", "12.11.2021", "21.12.2030");
         @Nullable final ProjectDto project = projectService.findProjectByPartOfNameProject(session, "test");
         Assert.assertNotNull(project);
@@ -54,7 +51,7 @@ public class ProjectTest {
 
     @Test
     public void test3_findOne() {
-        signIn();
+        logIn();
         @Nullable final ProjectDto project = projectService.findProjectByPartOfNameProject(session, "test");
         Assert.assertNotNull(project);
         Assert.assertEquals("test", project.getName());
@@ -62,7 +59,7 @@ public class ProjectTest {
 
     @Test
     public void test4_findAll() throws Exception {
-        signIn();
+        logIn();
         @Nullable final List<ProjectDto> list = projectService.findAllProject(session);
         Assert.assertNotNull(list);
         Assert.assertEquals(2, list.size());
@@ -70,7 +67,7 @@ public class ProjectTest {
 
     @Test
     public void test5_remove() throws Exception {
-        signIn();
+        logIn();
         projectService.removeProject(session, "bc416e48-a517-44ab-bed9-8fd97b9ef25c");
         @Nullable final ProjectDto project2 = projectService.findProjectByPartOfNameProject(session, "newTest");
         Assert.assertNull(project2);
@@ -78,7 +75,7 @@ public class ProjectTest {
 
     @Test
     public void test6_removeAll() throws Exception {
-        signIn();
+        logIn();
         projectService.removeAllProject(session);
         @Nullable final List<ProjectDto> list = projectService.findAllProject(session);
         Assert.assertTrue(list.isEmpty());
