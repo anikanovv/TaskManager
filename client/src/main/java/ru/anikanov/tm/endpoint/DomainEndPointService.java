@@ -1,5 +1,6 @@
 package ru.anikanov.tm.endpoint;
 
+import javax.enterprise.inject.Produces;
 import javax.xml.namespace.QName;
 import javax.xml.ws.Service;
 import javax.xml.ws.WebEndpoint;
@@ -65,6 +66,7 @@ public class DomainEndPointService extends Service {
      * @return
      *     returns DomainEndPoint
      */
+    @Produces
     @WebEndpoint(name = "DomainEndPointPort")
     public DomainEndPoint getDomainEndPointPort() {
         return super.getPort(DomainEndPointPort, DomainEndPoint.class);

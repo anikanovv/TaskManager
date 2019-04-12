@@ -1,10 +1,6 @@
 import org.jetbrains.annotations.Nullable;
 import org.junit.Assert;
-import org.junit.Test;
 import ru.anikanov.tm.endpoint.*;
-
-import java.lang.Exception;
-import java.util.List;
 
 public class UserTest {
     private UserEndPoint userEndPoint = new UserEndPointService().getUserEndPointPort();
@@ -20,7 +16,7 @@ public class UserTest {
         Assert.assertNotNull(session);
     }
 
-    @Test
+  /*  @Test
     public void test1_create() {
         signIn();
         @Nullable final UserDto user = userEndPoint.createUser(session,
@@ -78,6 +74,6 @@ public class UserTest {
         userEndPoint.removeAllUser(session);
         @Nullable final List<UserDto> list = userEndPoint.findAllUser(session);
         Assert.assertTrue(list.isEmpty());
-    }
+    }*/
 }
 

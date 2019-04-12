@@ -25,14 +25,14 @@ public class TaskTest {
         Assert.assertNotNull(session);
     }
 
-    @Test
-    public void test1_persist() {
+//    @Test
+  /*  public void test1_persist() {
         signIn();
         @Nullable final TaskDto task = taskEndPoint.createTask(session,
                 "test", "des", "12.12.2012", "12.12.2012");
         Assert.assertNotNull(task);
         Assert.assertEquals("test", task.getName());
-    }
+    }*/
 
 
     @Test
@@ -77,4 +77,3 @@ public class TaskTest {
     }
 }
 
-}

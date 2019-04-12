@@ -1,14 +1,21 @@
+import org.apache.deltaspike.testcontrol.api.TestControl;
+import org.apache.deltaspike.testcontrol.api.junit.CdiTestRunner;
+import org.apache.deltaspike.testcontrol.api.mock.DynamicMockManager;
 import org.jetbrains.annotations.Nullable;
 import org.junit.Assert;
 import org.junit.FixMethodOrder;
 import org.junit.Test;
+import org.junit.runner.RunWith;
 import org.junit.runners.MethodSorters;
 import ru.anikanov.tm.endpoint.*;
 
+import javax.enterprise.context.SessionScoped;
+import javax.inject.Inject;
 import java.lang.Exception;
 import java.util.List;
 
-//@RunWith(CdiTestRunner.class)
+@RunWith(CdiTestRunner.class)
+@TestControl(startScopes = SessionScoped.class)
 @FixMethodOrder(MethodSorters.NAME_ASCENDING)
 public class ProjectTest {
 
@@ -17,6 +24,10 @@ public class ProjectTest {
     private UserEndPoint userEndPoint = new UserEndPointService().getUserEndPointPort();
 
     private SessionEndPoint sessionEndPoint = new SessionEndPointService().getSessionEndPointPort();
+
+    @Inject
+    private DynamicMockManager mockManager;
+
 
     Session session;
 
@@ -31,17 +42,17 @@ public class ProjectTest {
     public void test1_persist() {
         signIn();
         @Nullable final ProjectDto project = projectService.createProject(session,
-                "test", "des", "12.12.2012", "12.12.2012");
+                "newTest", "des", "12.12.2012", "12.12.2012");
         Assert.assertNotNull(project);
-        Assert.assertEquals("test", project.getName());
+        Assert.assertEquals("newTest", project.getName());
     }
 
 
     @Test
     public void test2_merge() {
         signIn();
-        projectService.updateProject(session, "21f935fc-f0f9-4a30-a171-b81095ff2a2a", "test123", "newDes228", "12.11.2021", "21.12.2030");
-        @Nullable final ProjectDto project = projectService.findProjectByPartOfNameProject(session, "test123");
+        projectService.updateProject(session, "bc416e48-a517-44ab-bed9-8fd97b9ef25c", "test", "newDes228", "12.11.2021", "21.12.2030");
+        @Nullable final ProjectDto project = projectService.findProjectByPartOfNameProject(session, "test");
         Assert.assertNotNull(project);
         Assert.assertEquals("newDes228", project.getDescription());
     }
@@ -51,7 +62,7 @@ public class ProjectTest {
         signIn();
         @Nullable final ProjectDto project = projectService.findProjectByPartOfNameProject(session, "test");
         Assert.assertNotNull(project);
-        Assert.assertEquals("test3", project.getName());
+        Assert.assertEquals("test", project.getName());
     }
 
     @Test
@@ -59,15 +70,15 @@ public class ProjectTest {
         signIn();
         @Nullable final List<ProjectDto> list = projectService.findAllProject(session);
         Assert.assertNotNull(list);
-        Assert.assertEquals("test", list.get(0).getName());
+        Assert.assertEquals(2, list.size());
     }
 
     @Test
     public void test5_remove() throws Exception {
         signIn();
-        projectService.removeProject(session, "21f935fc-f0f9-4a30-a171-b81095ff2a2a");
-        @Nullable final ProjectDto project = projectService.findProjectByPartOfNameProject(session, "test123");
-        Assert.assertNull(project);
+        projectService.removeProject(session, "bc416e48-a517-44ab-bed9-8fd97b9ef25c");
+        @Nullable final ProjectDto project2 = projectService.findProjectByPartOfNameProject(session, "newTest");
+        Assert.assertNull(project2);
     }
 
     @Test
