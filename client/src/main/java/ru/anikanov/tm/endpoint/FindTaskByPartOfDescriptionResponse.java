@@ -9,9 +9,9 @@ import javax.xml.bind.annotation.XmlType;
 
 /**
  * <p>Java class for findTaskByPartOfDescriptionResponse complex type.
- * 
+ *
  * <p>The following schema fragment specifies the expected content contained within this class.
- * 
+ *
  * <pre>
  * &lt;complexType name="findTaskByPartOfDescriptionResponse"&gt;
  *   &lt;complexContent&gt;
@@ -23,12 +23,10 @@ import javax.xml.bind.annotation.XmlType;
  *   &lt;/complexContent&gt;
  * &lt;/complexType&gt;
  * </pre>
- * 
- * 
  */
 @XmlAccessorType(XmlAccessType.FIELD)
 @XmlType(name = "findTaskByPartOfDescriptionResponse", propOrder = {
-    "_return"
+        "_return"
 })
 public class FindTaskByPartOfDescriptionResponse {
 
@@ -37,11 +35,9 @@ public class FindTaskByPartOfDescriptionResponse {
 
     /**
      * Gets the value of the return property.
-     * 
-     * @return
-     *     possible object is
-     *     {@link TaskDto }
-     *     
+     *
+     * @return possible object is
+     * {@link TaskDto }
      */
     public TaskDto getReturn() {
         return _return;
@@ -49,11 +45,9 @@ public class FindTaskByPartOfDescriptionResponse {
 
     /**
      * Sets the value of the return property.
-     * 
-     * @param value
-     *     allowed object is
-     *     {@link TaskDto }
-     *     
+     *
+     * @param value allowed object is
+     *              {@link TaskDto }
      */
     public void setReturn(TaskDto value) {
         this._return = value;

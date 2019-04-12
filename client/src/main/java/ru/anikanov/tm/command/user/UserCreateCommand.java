@@ -24,7 +24,7 @@ public class UserCreateCommand extends AbstractCommand {
 
     @Override
     public void execute() {
-        final UserEndPoint endPoint=bootstrap.getUserEndPoint();
+        final UserEndPoint endPoint = bootstrap.getUserEndPoint();
         System.out.println("Name,pass,role");
         final String userName = bootstrap.getTerminalService().nextLine();
         final String firstName = bootstrap.getTerminalService().nextLine();

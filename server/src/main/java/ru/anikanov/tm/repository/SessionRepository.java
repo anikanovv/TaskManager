@@ -7,7 +7,7 @@ import org.apache.deltaspike.data.api.Repository;
 import ru.anikanov.tm.entity.Session;
 
 @Repository
-public interface SessionRep extends EntityRepository<Session, String> {
+public interface SessionRepository extends EntityRepository<Session, String> {
 
     Session persist(Session session);
 

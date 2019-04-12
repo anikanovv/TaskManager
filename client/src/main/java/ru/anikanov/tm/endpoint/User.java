@@ -9,9 +9,9 @@ import javax.xml.bind.annotation.XmlType;
 
 /**
  * <p>Java class for user complex type.
- * 
+ *
  * <p>The following schema fragment specifies the expected content contained within this class.
- * 
+ *
  * <pre>
  * &lt;complexType name="user"&gt;
  *   &lt;complexContent&gt;
@@ -25,18 +25,15 @@ import javax.xml.bind.annotation.XmlType;
  *   &lt;/complexContent&gt;
  * &lt;/complexType&gt;
  * </pre>
- * 
- * 
  */
 @XmlAccessorType(XmlAccessType.FIELD)
 @XmlType(name = "user", propOrder = {
-    "hashPassword",
-    "name",
-    "role"
+        "hashPassword",
+        "name",
+        "role"
 })
 public class User
-    extends AbstractEntity
-{
+        extends AbstractEntity {
 
     protected String hashPassword;
     protected String name;
@@ -45,11 +42,9 @@ public class User
 
     /**
      * Gets the value of the hashPassword property.
-     * 
-     * @return
-     *     possible object is
-     *     {@link String }
-     *     
+     *
+     * @return possible object is
+     * {@link String }
      */
     public String getHashPassword() {
         return hashPassword;
@@ -57,11 +52,9 @@ public class User
 
     /**
      * Sets the value of the hashPassword property.
-     * 
-     * @param value
-     *     allowed object is
-     *     {@link String }
-     *     
+     *
+     * @param value allowed object is
+     *              {@link String }
      */
     public void setHashPassword(String value) {
         this.hashPassword = value;
@@ -69,11 +62,9 @@ public class User
 
     /**
      * Gets the value of the name property.
-     * 
-     * @return
-     *     possible object is
-     *     {@link String }
-     *     
+     *
+     * @return possible object is
+     * {@link String }
      */
     public String getName() {
         return name;
@@ -81,11 +72,9 @@ public class User
 
     /**
      * Sets the value of the name property.
-     * 
-     * @param value
-     *     allowed object is
-     *     {@link String }
-     *     
+     *
+     * @param value allowed object is
+     *              {@link String }
      */
     public void setName(String value) {
         this.name = value;
@@ -93,11 +82,9 @@ public class User
 
     /**
      * Gets the value of the role property.
-     * 
-     * @return
-     *     possible object is
-     *     {@link Role }
-     *     
+     *
+     * @return possible object is
+     * {@link Role }
      */
     public Role getRole() {
         return role;
@@ -105,11 +92,9 @@ public class User
 
     /**
      * Sets the value of the role property.
-     * 
-     * @param value
-     *     allowed object is
-     *     {@link Role }
-     *     
+     *
+     * @param value allowed object is
+     *              {@link Role }
      */
     public void setRole(Role value) {
         this.role = value;

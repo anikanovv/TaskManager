@@ -9,6 +9,7 @@ public class UserRemoveAllCommand extends AbstractCommand {
     public boolean isSecure() {
         return false;
     }
+
     @Override
     public String getName() {
         return "removeall users";
@@ -21,7 +22,7 @@ public class UserRemoveAllCommand extends AbstractCommand {
 
     @Override
     public void execute() {
-        final UserEndPoint endPoint=bootstrap.getUserEndPoint();
+        final UserEndPoint endPoint = bootstrap.getUserEndPoint();
         endPoint.removeAllUser(bootstrap.getCurrentSession());
     }
 }

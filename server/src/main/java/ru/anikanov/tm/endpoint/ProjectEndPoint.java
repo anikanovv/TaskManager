@@ -19,7 +19,7 @@ import java.util.Objects;
 
 @WebService
 @NoArgsConstructor
-public class ProjectEndPoint/* implements IProjectEndPoint*/ {
+public class ProjectEndPoint {
     @Inject
     private ISessionService sessionService;
     @Inject

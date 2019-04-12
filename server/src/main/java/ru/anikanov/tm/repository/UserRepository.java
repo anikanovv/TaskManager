@@ -10,7 +10,7 @@ import ru.anikanov.tm.entity.User;
 import java.util.List;
 
 @Repository
-public interface UserRep extends EntityRepository<User, String> {
+public interface UserRepository extends EntityRepository<User, String> {
     void persist(@NotNull final User user);
 
     void merge(@NotNull final User u);

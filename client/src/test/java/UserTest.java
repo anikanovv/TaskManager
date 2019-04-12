@@ -1,13 +1,19 @@
 import org.jetbrains.annotations.Nullable;
 import org.junit.Assert;
-import ru.anikanov.tm.endpoint.*;
+import ru.anikanov.tm.endpoint.Session;
+import ru.anikanov.tm.endpoint.SessionEndPoint;
+import ru.anikanov.tm.endpoint.UserDto;
+import ru.anikanov.tm.endpoint.UserEndPoint;
+
+import javax.inject.Inject;
 
 public class UserTest {
-    private UserEndPoint userEndPoint = new UserEndPointService().getUserEndPointPort();
+    @Inject
+    private UserEndPoint userEndPoint;
+    @Inject
+    private SessionEndPoint sessionEndPoint;
 
-    private SessionEndPoint sessionEndPoint = new SessionEndPointService().getSessionEndPointPort();
-
-    Session session;
+    private Session session;
 
     public void signIn() {
         @Nullable final UserDto userDto = userEndPoint.logIn("user", "user");

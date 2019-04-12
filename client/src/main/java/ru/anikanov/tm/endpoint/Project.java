@@ -29,8 +29,6 @@ import java.util.List;
  *   &lt;/complexContent&gt;
  * &lt;/complexType&gt;
  * </pre>
- *
- *
  */
 @XmlAccessorType(XmlAccessType.FIELD)
 @XmlType(name = "project", propOrder = {
@@ -43,8 +41,7 @@ import java.util.List;
         "userId"
 })
 public class Project
-        extends AbstractEntity
-{
+        extends AbstractEntity {
 
     protected String description;
     @XmlSchemaType(name = "dateTime")
@@ -61,10 +58,8 @@ public class Project
     /**
      * Gets the value of the description property.
      *
-     * @return
-     *     possible object is
-     *     {@link String }
-     *
+     * @return possible object is
+     * {@link String }
      */
     public String getDescription() {
         return description;
@@ -73,10 +68,8 @@ public class Project
     /**
      * Sets the value of the description property.
      *
-     * @param value
-     *     allowed object is
-     *     {@link String }
-     *
+     * @param value allowed object is
+     *              {@link String }
      */
     public void setDescription(String value) {
         this.description = value;
@@ -85,10 +78,8 @@ public class Project
     /**
      * Gets the value of the endDate property.
      *
-     * @return
-     *     possible object is
-     *     {@link XMLGregorianCalendar }
-     *
+     * @return possible object is
+     * {@link XMLGregorianCalendar }
      */
     public XMLGregorianCalendar getEndDate() {
         return endDate;
@@ -97,10 +88,8 @@ public class Project
     /**
      * Sets the value of the endDate property.
      *
-     * @param value
-     *     allowed object is
-     *     {@link XMLGregorianCalendar }
-     *
+     * @param value allowed object is
+     *              {@link XMLGregorianCalendar }
      */
     public void setEndDate(XMLGregorianCalendar value) {
         this.endDate = value;
@@ -109,10 +98,8 @@ public class Project
     /**
      * Gets the value of the name property.
      *
-     * @return
-     *     possible object is
-     *     {@link String }
-     *
+     * @return possible object is
+     * {@link String }
      */
     public String getName() {
         return name;
@@ -121,10 +108,8 @@ public class Project
     /**
      * Sets the value of the name property.
      *
-     * @param value
-     *     allowed object is
-     *     {@link String }
-     *
+     * @param value allowed object is
+     *              {@link String }
      */
     public void setName(String value) {
         this.name = value;
@@ -153,10 +138,8 @@ public class Project
     /**
      * Gets the value of the status property.
      *
-     * @return
-     *     possible object is
-     *     {@link Status }
-     *
+     * @return possible object is
+     * {@link Status }
      */
     public Status getStatus() {
         return status;
@@ -165,10 +148,8 @@ public class Project
     /**
      * Sets the value of the status property.
      *
-     * @param value
-     *     allowed object is
-     *     {@link Status }
-     *
+     * @param value allowed object is
+     *              {@link Status }
      */
     public void setStatus(Status value) {
         this.status = value;
@@ -193,8 +174,6 @@ public class Project
      * <p>
      * Objects of the following type(s) are allowed in the list
      * {@link Task }
-     *
-     *
      */
     public List<Task> getTasks() {
         if (tasks == null) {

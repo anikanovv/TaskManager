@@ -26,7 +26,7 @@ public class TaskSortByEndDateCommand extends AbstractCommand {
 
     @Override
     public void execute() throws Exception {
-        final TaskEndPoint endPoint= bootstrap.getTaskEndPoint();
+        final TaskEndPoint endPoint = bootstrap.getTaskEndPoint();
         @Nullable final List<TaskDto> tasks = endPoint.sortTaskByFinishDate(bootstrap.getCurrentSession());
         Objects.requireNonNull(tasks).forEach(System.out::println);
     }

@@ -1,6 +1,5 @@
 import org.apache.deltaspike.testcontrol.api.TestControl;
 import org.apache.deltaspike.testcontrol.api.junit.CdiTestRunner;
-import org.apache.deltaspike.testcontrol.api.mock.DynamicMockManager;
 import org.jetbrains.annotations.Nullable;
 import org.junit.Assert;
 import org.junit.FixMethodOrder;
@@ -18,20 +17,16 @@ import java.util.List;
 @TestControl(startScopes = SessionScoped.class)
 @FixMethodOrder(MethodSorters.NAME_ASCENDING)
 public class ProjectTest {
-
-    private ProjectEndPoint projectService = new ProjectEndPointService().getProjectEndPointPort();
-
-    private UserEndPoint userEndPoint = new UserEndPointService().getUserEndPointPort();
-
-    private SessionEndPoint sessionEndPoint = new SessionEndPointService().getSessionEndPointPort();
-
     @Inject
-    private DynamicMockManager mockManager;
+    private ProjectEndPoint projectService;
+    @Inject
+    private UserEndPoint userEndPoint;
+    @Inject
+    private SessionEndPoint sessionEndPoint;
 
+    private Session session;
 
-    Session session;
-
-    public void signIn() {
+    private void signIn() {
         @Nullable final UserDto userDto = userEndPoint.logIn("user", "user");
         Assert.assertNotNull(userDto);
         session = sessionEndPoint.createSession(userDto.getId());

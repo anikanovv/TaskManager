@@ -14,6 +14,7 @@ import javax.jws.WebService;
 public class SessionEndPoint {
     @Inject
     private ISessionService sessionService;
+
     @WebMethod
     public Session createSession(@WebParam final String userId) {
         return sessionService.persist(userId);

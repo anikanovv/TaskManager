@@ -12,6 +12,7 @@ public class UserReadAllCommand extends AbstractCommand {
     public boolean isSecure() {
         return false;
     }
+
     @Override
     public String getName() {
         return "readall user";
@@ -24,7 +25,7 @@ public class UserReadAllCommand extends AbstractCommand {
 
     @Override
     public void execute() {
-        final UserEndPoint endPoint=bootstrap.getUserEndPoint();
+        final UserEndPoint endPoint = bootstrap.getUserEndPoint();
         final List<UserDto> users = endPoint.findAllUser(bootstrap.getCurrentSession());
         users.forEach(System.out::println);
     }

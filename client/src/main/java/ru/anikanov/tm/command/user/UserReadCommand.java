@@ -10,6 +10,7 @@ public class UserReadCommand extends AbstractCommand {
     public boolean isSecure() {
         return false;
     }
+
     @Override
     public String getName() {
         return "read user";
@@ -22,7 +23,7 @@ public class UserReadCommand extends AbstractCommand {
 
     @Override
     public void execute() {
-        final UserEndPoint endPoint=bootstrap.getUserEndPoint();
+        final UserEndPoint endPoint = bootstrap.getUserEndPoint();
         final String login = bootstrap.getTerminalService().nextLine();
         final UserDto user = endPoint.findOneUser(bootstrap.getCurrentSession(), login);
         System.out.println(user);

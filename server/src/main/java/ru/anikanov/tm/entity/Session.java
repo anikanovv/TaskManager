@@ -25,7 +25,7 @@ public class Session extends AbstractEntity implements Cloneable {
     private String signature;
 
     public Session(@Nullable final String userId, @Nullable final Long timestamp) {
-        this.userId=userId;
+        this.userId = userId;
         this.timestamp = timestamp;
     }
 

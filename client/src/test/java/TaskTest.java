@@ -5,20 +5,22 @@ import org.junit.Test;
 import org.junit.runners.MethodSorters;
 import ru.anikanov.tm.endpoint.*;
 
+import javax.inject.Inject;
 import java.lang.Exception;
 import java.util.List;
 
 @FixMethodOrder(MethodSorters.NAME_ASCENDING)
 public class TaskTest {
-    private TaskEndPoint taskEndPoint = new TaskEndPointService().getTaskEndPointPort();
+    @Inject
+    private TaskEndPoint taskEndPoint;
+    @Inject
+    private UserEndPoint userEndPoint;
+    @Inject
+    private SessionEndPoint sessionEndPoint;
 
-    private UserEndPoint userEndPoint = new UserEndPointService().getUserEndPointPort();
+    private Session session;
 
-    private SessionEndPoint sessionEndPoint = new SessionEndPointService().getSessionEndPointPort();
-
-    Session session;
-
-    public void signIn() {
+    private void signIn() {
         @Nullable final UserDto userDto = userEndPoint.logIn("user", "user");
         Assert.assertNotNull(userDto);
         session = sessionEndPoint.createSession(userDto.getId());

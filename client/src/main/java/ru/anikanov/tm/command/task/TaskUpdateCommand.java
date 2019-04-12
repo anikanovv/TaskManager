@@ -19,9 +19,10 @@ public class TaskUpdateCommand extends AbstractCommand {
     public boolean isSecure() {
         return false;
     }
+
     @Override
     public void execute() {
-        final TaskEndPoint endPoint= bootstrap.getTaskEndPoint();
+        final TaskEndPoint endPoint = bootstrap.getTaskEndPoint();
         final String id = bootstrap.getTerminalService().nextLine();
         final String name = bootstrap.getTerminalService().nextLine();
         System.out.println("Введите через знак ; описание задачи, дату начала задачи, дату окончания задачи");

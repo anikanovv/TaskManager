@@ -19,9 +19,10 @@ public class ProjectDeleteCommand extends AbstractCommand {
     public boolean isSecure() {
         return false;
     }
+
     @Override
     public void execute() {
-        final ProjectEndPoint projectEndPoint= bootstrap.getProjectEndPoint();
+        final ProjectEndPoint projectEndPoint = bootstrap.getProjectEndPoint();
         final String name = bootstrap.getTerminalService().nextLine();
         projectEndPoint.removeProject(bootstrap.getCurrentSession(), name);
     }

@@ -19,9 +19,10 @@ public class TaskRemoveAllCommand extends AbstractCommand {
     public boolean isSecure() {
         return false;
     }
+
     @Override
     public void execute() {
-        final TaskEndPoint endPoint= bootstrap.getTaskEndPoint();
+        final TaskEndPoint endPoint = bootstrap.getTaskEndPoint();
         endPoint.removeAllTask(bootstrap.getCurrentSession());
     }
 }

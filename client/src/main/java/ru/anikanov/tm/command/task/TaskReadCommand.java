@@ -9,6 +9,7 @@ public class TaskReadCommand extends AbstractCommand {
     public boolean isSecure() {
         return false;
     }
+
     @Override
     public String getName() {
         return "read task";
@@ -18,9 +19,10 @@ public class TaskReadCommand extends AbstractCommand {
     public String getDescription() {
         return "command to read task";
     }
+
     @Override
     public void execute() throws Exception {
-        final TaskEndPoint endPoint= bootstrap.getTaskEndPoint();
+        final TaskEndPoint endPoint = bootstrap.getTaskEndPoint();
         final String name = bootstrap.getTerminalService().nextLine();
         System.out.println(endPoint.findTaskByPartOfName(bootstrap.getCurrentSession(), name));
     }

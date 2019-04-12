@@ -39,7 +39,7 @@ public class UserAuthCommand extends AbstractCommand {
             Session session = bootstrap.getSessionEndPoint().createSession(user.getId());
             bootstrap.setCurrentSession(session);
             System.out.println(Objects.requireNonNull(bootstrap.getCurrentSession()).getSignature());
-            if (bootstrap.getUserEndPoint().checkadmin(bootstrap.getCurrentSession())) System.out.println("ADMIN!!!");
+//            if (bootstrap.getUserEndPoint().checkadmin(bootstrap.getCurrentSession())) System.out.println("ADMIN!!!");
         }
     }
 }

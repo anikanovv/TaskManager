@@ -11,8 +11,10 @@ import java.util.Map;
 public interface ServiceLocator {
     @NotNull
     ProjectEndPoint getProjectEndPoint();
+
     @NotNull
     TaskEndPoint getTaskEndPoint();
+
     @NotNull
     UserEndPoint getUserEndPoint();
 
@@ -21,6 +23,7 @@ public interface ServiceLocator {
 
     @NotNull
     DomainEndPoint getDomainEndPoint();
+
     @NotNull
     Map<String, AbstractCommand> getCommandMap();
 

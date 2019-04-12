@@ -22,7 +22,7 @@ public class ProjectFindAllCommand extends AbstractCommand {
 
     @Override
     public void execute() throws Exception {
-        final ProjectEndPoint projectEndPoint= bootstrap.getProjectEndPoint();
+        final ProjectEndPoint projectEndPoint = bootstrap.getProjectEndPoint();
         for (ProjectDto project : projectEndPoint.findAllProject(bootstrap.getCurrentSession())) {
             System.out.println(project.getName());
         }

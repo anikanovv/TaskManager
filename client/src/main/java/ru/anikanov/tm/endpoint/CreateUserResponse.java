@@ -9,9 +9,9 @@ import javax.xml.bind.annotation.XmlType;
 
 /**
  * <p>Java class for createUserResponse complex type.
- * 
+ *
  * <p>The following schema fragment specifies the expected content contained within this class.
- * 
+ *
  * <pre>
  * &lt;complexType name="createUserResponse"&gt;
  *   &lt;complexContent&gt;
@@ -23,12 +23,10 @@ import javax.xml.bind.annotation.XmlType;
  *   &lt;/complexContent&gt;
  * &lt;/complexType&gt;
  * </pre>
- * 
- * 
  */
 @XmlAccessorType(XmlAccessType.FIELD)
 @XmlType(name = "createUserResponse", propOrder = {
-    "_return"
+        "_return"
 })
 public class CreateUserResponse {
 
@@ -37,11 +35,9 @@ public class CreateUserResponse {
 
     /**
      * Gets the value of the return property.
-     * 
-     * @return
-     *     possible object is
-     *     {@link UserDto }
-     *     
+     *
+     * @return possible object is
+     * {@link UserDto }
      */
     public UserDto getReturn() {
         return _return;
@@ -49,11 +45,9 @@ public class CreateUserResponse {
 
     /**
      * Sets the value of the return property.
-     * 
-     * @param value
-     *     allowed object is
-     *     {@link UserDto }
-     *     
+     *
+     * @param value allowed object is
+     *              {@link UserDto }
      */
     public void setReturn(UserDto value) {
         this._return = value;

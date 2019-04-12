@@ -24,6 +24,7 @@ public class TaskEndPoint {
     private ISessionService sessionService;
     @Inject
     private ITaskService taskService;
+
     @Nullable
     @WebMethod
     public TaskDto createTask(@WebParam @NotNull final Session session, @WebParam final String projectId, @WebParam final String name, @WebParam final String description,

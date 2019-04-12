@@ -14,23 +14,32 @@ public interface IProjectEndPoint {
     @WebMethod
     Project createProject(@WebParam @NotNull final Session session, @WebParam final String name, @WebParam final String description,
                           @WebParam final String startDate, @WebParam final String endDate);
+
     @WebMethod
     void updateProject(@WebParam @NotNull final Session session, @WebParam final String id, @WebParam final String name, @WebParam final String description,
                        @WebParam final String startDate, @WebParam final String endDate);
+
     @WebMethod
     void removeProject(@WebParam @NotNull final Session session, @WebParam final String name);
+
     @WebMethod
     void removeAllProject(@WebParam @NotNull final Session session);
+
     @WebMethod
     Project findProjectByPartOfNameProject(@WebParam @NotNull final Session session, @WebParam final String partOfName);
+
     @WebMethod
     Project findProjectByPartOfDescription(@WebParam @NotNull final Session session, @WebParam final String partOfDescription);
+
     @WebMethod
     List<Project> sortProjectByStartDate(@WebParam @NotNull final Session session);
+
     @WebMethod
     List<Project> sortProjectByFinishDate(@WebParam @NotNull final Session session);
+
     @WebMethod
     List<Project> sortProjectByStatus(@WebParam @NotNull final Session session);
+
     @WebMethod
     List<Project> findAllProject(@WebParam @NotNull final Session session);
 }

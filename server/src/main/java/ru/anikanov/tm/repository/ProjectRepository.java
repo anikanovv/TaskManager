@@ -7,7 +7,7 @@ import ru.anikanov.tm.entity.Project;
 import java.util.List;
 
 @Repository
-public interface ProjectRep extends EntityRepository<Project, String> {
+public interface ProjectRepository extends EntityRepository<Project, String> {
     void persist(@NotNull Project project);
 
     void remove(@NotNull Project project);

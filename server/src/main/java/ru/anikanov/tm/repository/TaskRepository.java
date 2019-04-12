@@ -10,7 +10,7 @@ import ru.anikanov.tm.entity.Task;
 import java.util.List;
 
 @Repository
-public interface TaskRep extends EntityRepository<Task, String> {
+public interface TaskRepository extends EntityRepository<Task, String> {
     void persist(@NotNull final Task entity);
 
     void merge(@NotNull final Task task);

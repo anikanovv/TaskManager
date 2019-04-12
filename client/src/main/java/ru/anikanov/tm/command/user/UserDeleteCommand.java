@@ -9,6 +9,7 @@ public class UserDeleteCommand extends AbstractCommand {
     public boolean isSecure() {
         return false;
     }
+
     @Override
     public String getName() {
         return "delete user";
@@ -21,7 +22,7 @@ public class UserDeleteCommand extends AbstractCommand {
 
     @Override
     public void execute() {
-        final UserEndPoint endPoint=bootstrap.getUserEndPoint();
+        final UserEndPoint endPoint = bootstrap.getUserEndPoint();
         final String login = bootstrap.getTerminalService().nextLine();
         endPoint.removeUser(bootstrap.getCurrentSession(), login);
     }

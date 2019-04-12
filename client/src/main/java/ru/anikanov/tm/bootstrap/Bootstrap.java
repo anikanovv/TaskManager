@@ -27,19 +27,14 @@ public class Bootstrap implements ServiceLocator {
     private Session currentSession;
     @Inject
     private ProjectEndPoint projectEndPoint;
-    //    private ProjectEndPoint projectEndPoint=new ProjectEndPointService().getProjectEndPointPort();
     @Inject
     private TaskEndPoint taskEndPoint;
-    //    private TaskEndPoint taskEndPoint=new TaskEndPointService().getTaskEndPointPort();
     @Inject
     private UserEndPoint userEndPoint;
-    //    private UserEndPoint userEndPoint=new UserEndPointService().getUserEndPointPort();
     @Inject
     private SessionEndPoint sessionEndPoint;
-    //    private SessionEndPoint sessionEndPoint = new SessionEndPointService().getSessionEndPointPort();
     @Inject
     private DomainEndPoint domainEndPoint;
-    //    private DomainEndPoint domainEndPoint = new DomainEndPointService().getDomainEndPointPort();
     @Inject
     private ITerminalService terminalService;
     @NotNull

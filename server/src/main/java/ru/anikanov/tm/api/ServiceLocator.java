@@ -7,12 +7,16 @@ public interface ServiceLocator {
 
     @NotNull
     ProjectEndPoint getProjectEndPoint();
+
     @NotNull
     TaskEndPoint getTaskEndPoint();
+
     @NotNull
     UserEndPoint getUserEndPoint();
+
     @NotNull
     SessionEndPoint getSessionEndPoint();
+
     @NotNull
     DomainEndPoint getDomainEndPoint();
 

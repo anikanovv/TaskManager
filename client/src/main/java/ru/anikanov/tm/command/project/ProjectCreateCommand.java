@@ -20,11 +20,12 @@ public class ProjectCreateCommand extends AbstractCommand {
     public boolean isSecure() {
         return false;
     }
+
     @Override
     public void execute() {
         final Session session = bootstrap.getCurrentSession();
         final String name = bootstrap.getTerminalService().nextLine();
-        final ProjectEndPoint projectEndPoint= bootstrap.getProjectEndPoint();
+        final ProjectEndPoint projectEndPoint = bootstrap.getProjectEndPoint();
         System.out.println("Введите через знак ; описание проекта, дату начала проекта, дату окончания проекта");
         final String description = bootstrap.getTerminalService().nextLine();
         final String startDate = bootstrap.getTerminalService().nextLine();

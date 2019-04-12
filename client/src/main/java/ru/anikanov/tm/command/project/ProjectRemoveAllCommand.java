@@ -14,6 +14,7 @@ public class ProjectRemoveAllCommand extends AbstractCommand {
     public String getDescription() {
         return "command to remove all projects";
     }
+
     @Override
     public boolean isSecure() {
         return false;
@@ -22,7 +23,7 @@ public class ProjectRemoveAllCommand extends AbstractCommand {
     @Override
 
     public void execute() {
-        final ProjectEndPoint projectEndPoint= bootstrap.getProjectEndPoint();
+        final ProjectEndPoint projectEndPoint = bootstrap.getProjectEndPoint();
         projectEndPoint.removeAllProject(bootstrap.getCurrentSession());
     }
 }
