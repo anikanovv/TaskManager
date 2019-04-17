@@ -14,7 +14,6 @@ import ru.anikanov.tm.endpoint.*;
 import java.lang.Exception;
 import java.util.HashMap;
 import java.util.Map;
-import java.util.Objects;
 
 @Getter
 @Setter
@@ -51,7 +50,7 @@ public class Bootstrap implements ServiceLocator {
                 commandString = getTerminalService().nextLine().trim();
                 @Nullable AbstractCommand command = getCommandMap().get(commandString);
                 if (command != null)
-                    if ((command.isSecure()) || (!Objects.requireNonNull(Objects.requireNonNull(getCurrentSession()).getUserId()).isEmpty())) {
+                    if ((command.isSecure()) || (!(getCurrentSession()).getUserId().isEmpty())) {
                         try {
                             command.execute();
                         } catch (Exception e) {

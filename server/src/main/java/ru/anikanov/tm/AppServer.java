@@ -1,20 +1,18 @@
 package ru.anikanov.tm;
 
 
-import ru.anikanov.tm.bootstrap.Bootstrap;
+import org.springframework.context.ApplicationContext;
+import org.springframework.context.annotation.AnnotationConfigApplicationContext;
+import org.springframework.stereotype.Component;
+import ru.anikanov.tm.api.ServiceLocator;
+import ru.anikanov.tm.utils.SpringConfig;
 
-import javax.enterprise.context.ApplicationScoped;
-import javax.enterprise.inject.se.SeContainer;
-import javax.enterprise.inject.se.SeContainerInitializer;
-
-@ApplicationScoped
+@Component
 public class AppServer {
 
     public static void main(String[] args) {
-        SeContainerInitializer initializer = SeContainerInitializer.newInstance();
-        initializer.addPackages(AppServer.class);
-        SeContainer container = initializer.initialize();
-        container.select(Bootstrap.class).get().init();
-
+        ApplicationContext applicationContext = new AnnotationConfigApplicationContext(SpringConfig.class);
+        ServiceLocator serviceLocator = applicationContext.getBean(ServiceLocator.class);
+        serviceLocator.init();
     }
 }
