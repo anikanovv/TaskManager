@@ -8,9 +8,9 @@ import javax.xml.bind.annotation.XmlType;
 
 /**
  * <p>Java class for createProject complex type.
- * 
+ *
  * <p>The following schema fragment specifies the expected content contained within this class.
- * 
+ *
  * <pre>
  * &lt;complexType name="createProject"&gt;
  *   &lt;complexContent&gt;
@@ -26,16 +26,14 @@ import javax.xml.bind.annotation.XmlType;
  *   &lt;/complexContent&gt;
  * &lt;/complexType&gt;
  * </pre>
- * 
- * 
  */
 @XmlAccessorType(XmlAccessType.FIELD)
 @XmlType(name = "createProject", propOrder = {
-    "arg0",
-    "arg1",
-    "arg2",
-    "arg3",
-    "arg4"
+        "arg0",
+        "arg1",
+        "arg2",
+        "arg3",
+        "arg4"
 })
 public class CreateProject {
 
@@ -47,11 +45,9 @@ public class CreateProject {
 
     /**
      * Gets the value of the arg0 property.
-     * 
-     * @return
-     *     possible object is
-     *     {@link Session }
-     *     
+     *
+     * @return possible object is
+     * {@link Session }
      */
     public Session getArg0() {
         return arg0;
@@ -59,11 +55,9 @@ public class CreateProject {
 
     /**
      * Sets the value of the arg0 property.
-     * 
-     * @param value
-     *     allowed object is
-     *     {@link Session }
-     *     
+     *
+     * @param value allowed object is
+     *              {@link Session }
      */
     public void setArg0(Session value) {
         this.arg0 = value;
@@ -71,11 +65,9 @@ public class CreateProject {
 
     /**
      * Gets the value of the arg1 property.
-     * 
-     * @return
-     *     possible object is
-     *     {@link String }
-     *     
+     *
+     * @return possible object is
+     * {@link String }
      */
     public String getArg1() {
         return arg1;
@@ -83,11 +75,9 @@ public class CreateProject {
 
     /**
      * Sets the value of the arg1 property.
-     * 
-     * @param value
-     *     allowed object is
-     *     {@link String }
-     *     
+     *
+     * @param value allowed object is
+     *              {@link String }
      */
     public void setArg1(String value) {
         this.arg1 = value;
@@ -95,11 +85,9 @@ public class CreateProject {
 
     /**
      * Gets the value of the arg2 property.
-     * 
-     * @return
-     *     possible object is
-     *     {@link String }
-     *     
+     *
+     * @return possible object is
+     * {@link String }
      */
     public String getArg2() {
         return arg2;
@@ -107,11 +95,9 @@ public class CreateProject {
 
     /**
      * Sets the value of the arg2 property.
-     * 
-     * @param value
-     *     allowed object is
-     *     {@link String }
-     *     
+     *
+     * @param value allowed object is
+     *              {@link String }
      */
     public void setArg2(String value) {
         this.arg2 = value;
@@ -119,11 +105,9 @@ public class CreateProject {
 
     /**
      * Gets the value of the arg3 property.
-     * 
-     * @return
-     *     possible object is
-     *     {@link String }
-     *     
+     *
+     * @return possible object is
+     * {@link String }
      */
     public String getArg3() {
         return arg3;
@@ -131,11 +115,9 @@ public class CreateProject {
 
     /**
      * Sets the value of the arg3 property.
-     * 
-     * @param value
-     *     allowed object is
-     *     {@link String }
-     *     
+     *
+     * @param value allowed object is
+     *              {@link String }
      */
     public void setArg3(String value) {
         this.arg3 = value;
@@ -143,11 +125,9 @@ public class CreateProject {
 
     /**
      * Gets the value of the arg4 property.
-     * 
-     * @return
-     *     possible object is
-     *     {@link String }
-     *     
+     *
+     * @return possible object is
+     * {@link String }
      */
     public String getArg4() {
         return arg4;
@@ -155,11 +135,9 @@ public class CreateProject {
 
     /**
      * Sets the value of the arg4 property.
-     * 
-     * @param value
-     *     allowed object is
-     *     {@link String }
-     *     
+     *
+     * @param value allowed object is
+     *              {@link String }
      */
     public void setArg4(String value) {
         this.arg4 = value;

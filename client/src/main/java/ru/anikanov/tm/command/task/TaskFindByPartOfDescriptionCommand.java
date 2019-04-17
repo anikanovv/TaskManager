@@ -23,7 +23,7 @@ public class TaskFindByPartOfDescriptionCommand extends AbstractCommand {
 
     @Override
     public void execute() throws Exception {
-        final TaskEndPoint endPoint= bootstrap.getTaskEndPoint();
+        final TaskEndPoint endPoint = bootstrap.getTaskEndPoint();
         System.out.println("type description(part of description)");
         @Nullable final String partOfDescription = bootstrap.getTerminalService().nextLine();
 

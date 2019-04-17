@@ -43,7 +43,7 @@ public class Project extends AbstractEntity implements Serializable {
 
     public Project(@Nullable final String name, @Nullable final String description, @Nullable final String startDate,
                    @Nullable final String endDate, @Nullable final String userId) {
-        this.name=name;
+        this.name = name;
         this.description = description;
         setStart(startDate);
         setEnd(endDate);

@@ -23,7 +23,7 @@ public class ProjectFindByPartOfDescriptionCommand extends AbstractCommand {
 
     @Override
     public void execute() throws Exception {
-        final ProjectEndPoint projectEndPoint= bootstrap.getProjectEndPoint();
+        final ProjectEndPoint projectEndPoint = bootstrap.getProjectEndPoint();
         System.out.println("type description(part of description)");
         @Nullable final String partOfDescription = bootstrap.getTerminalService().nextLine();
         @Nullable ProjectDto project = projectEndPoint.findProjectByPartOfNameProject(bootstrap.getCurrentSession(), partOfDescription);

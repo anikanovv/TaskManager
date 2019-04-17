@@ -14,6 +14,7 @@ public class UserUpdateCommand extends AbstractCommand {
     public boolean isSecure() {
         return false;
     }
+
     @Override
     public String getName() {
         return "update user";
@@ -26,7 +27,7 @@ public class UserUpdateCommand extends AbstractCommand {
 
     @Override
     public void execute() {
-        final UserEndPoint endPoint=bootstrap.getUserEndPoint();
+        final UserEndPoint endPoint = bootstrap.getUserEndPoint();
         final String login = bootstrap.getTerminalService().nextLine();
         final String firstName = bootstrap.getTerminalService().nextLine();
         final String lastName = bootstrap.getTerminalService().nextLine();

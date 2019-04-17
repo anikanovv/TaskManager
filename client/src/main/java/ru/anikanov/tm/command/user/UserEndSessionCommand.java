@@ -10,6 +10,7 @@ public class UserEndSessionCommand extends AbstractCommand {
     public boolean isSecure() {
         return false;
     }
+
     @Override
     public String getName() {
         return "endsession user";

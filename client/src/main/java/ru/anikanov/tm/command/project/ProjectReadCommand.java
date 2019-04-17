@@ -19,9 +19,10 @@ public class ProjectReadCommand extends AbstractCommand {
     public boolean isSecure() {
         return false;
     }
+
     @Override
     public void execute() throws Exception {
-        final ProjectEndPoint projectEndPoint= bootstrap.getProjectEndPoint();
+        final ProjectEndPoint projectEndPoint = bootstrap.getProjectEndPoint();
         final String name = bootstrap.getTerminalService().nextLine();
         System.out.println(projectEndPoint.findProjectByPartOfNameProject(bootstrap.getCurrentSession(), name).getName() + " " + projectEndPoint.findProjectByPartOfNameProject(bootstrap.getCurrentSession(), name).getDateBegin());
     }

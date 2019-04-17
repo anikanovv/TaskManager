@@ -18,6 +18,7 @@ public class HelpCommand extends AbstractCommand {
     public boolean isSecure() {
         return true;
     }
+
     @Override
     public void execute() {
         bootstrap.getCommandMap().forEach((k, v) -> System.out.println(v.getName() + " - " + v.getDescription()));

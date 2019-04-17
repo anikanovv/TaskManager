@@ -25,7 +25,7 @@ public class UserUpdatePasswordCommand extends AbstractCommand {
 
     @Override
     public void execute() {
-        final UserEndPoint endPoint=bootstrap.getUserEndPoint();
+        final UserEndPoint endPoint = bootstrap.getUserEndPoint();
         final String login = bootstrap.getTerminalService().nextLine();
         final String oldPass = PasswordHash.makehash(Objects.requireNonNull(bootstrap.getTerminalService().nextLine()));
         final String newPass = PasswordHash.makehash(Objects.requireNonNull(bootstrap.getTerminalService().nextLine()));

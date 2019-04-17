@@ -25,7 +25,7 @@ public class TaskSortByStatusCommand extends AbstractCommand {
 
     @Override
     public void execute() throws Exception {
-        final TaskEndPoint endPoint= bootstrap.getTaskEndPoint();
+        final TaskEndPoint endPoint = bootstrap.getTaskEndPoint();
         @Nullable final List<TaskDto> tasks = endPoint.sortTaskByStatus(bootstrap.getCurrentSession());
         if (tasks != null) {
             tasks.forEach(System.out::println);

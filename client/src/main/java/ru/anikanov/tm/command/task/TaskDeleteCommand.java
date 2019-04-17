@@ -19,9 +19,10 @@ public class TaskDeleteCommand extends AbstractCommand {
     public boolean isSecure() {
         return false;
     }
+
     @Override
     public void execute() {
-        final TaskEndPoint endPoint= bootstrap.getTaskEndPoint();
+        final TaskEndPoint endPoint = bootstrap.getTaskEndPoint();
         final String name = bootstrap.getTerminalService().nextLine();
         endPoint.removeTask(bootstrap.getCurrentSession(), name);
     }
