@@ -2,37 +2,44 @@ import org.jetbrains.annotations.Nullable;
 import org.junit.Assert;
 import org.junit.FixMethodOrder;
 import org.junit.Test;
+import org.junit.runner.RunWith;
 import org.junit.runners.MethodSorters;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.test.context.ContextConfiguration;
+import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import ru.anikanov.tm.endpoint.*;
+import ru.anikanov.tm.utils.SpringConfig;
 
 import java.lang.Exception;
 import java.util.List;
 
+@RunWith(SpringJUnit4ClassRunner.class)
+@ContextConfiguration(classes = {SpringConfig.class})
 @FixMethodOrder(MethodSorters.NAME_ASCENDING)
 public class TaskTest {
-    private TaskEndPoint taskEndPoint = new TaskEndPointService().getTaskEndPointPort();
+    @Autowired
+    private TaskEndPoint taskEndPoint;
+    @Autowired
+    private UserEndPoint userEndPoint;
+    @Autowired
+    private SessionEndPoint sessionEndPoint;
 
-    private UserEndPoint userEndPoint = new UserEndPointService().getUserEndPointPort();
-
-    private SessionEndPoint sessionEndPoint = new SessionEndPointService().getSessionEndPointPort();
-
-    Session session;
+    private Session session;
 
     public void signIn() {
-        @Nullable final UserDto userDto = userEndPoint.logIn("user", "user");
+        @Nullable final UserDto userDto = userEndPoint.logIn("admin", "admin");
         Assert.assertNotNull(userDto);
         session = sessionEndPoint.createSession(userDto.getId());
         Assert.assertNotNull(session);
     }
 
-//    @Test
-  /*  public void test1_persist() {
+    @Test
+    public void test1_persist() {
         signIn();
-        @Nullable final TaskDto task = taskEndPoint.createTask(session,
-                "test", "des", "12.12.2012", "12.12.2012");
+        @Nullable final TaskDto task = taskEndPoint.createTask(session, "test123", "des", "12.12.2012", "12.12.2012", "ee4c7769-f598-4a98-b7d5-4e0ed9601984");
         Assert.assertNotNull(task);
-        Assert.assertEquals("test", task.getName());
-    }*/
+        Assert.assertEquals("test123", task.getName());
+    }
 
 
     @Test

@@ -27,7 +27,7 @@ import javax.xml.bind.annotation.XmlType;
  *   &lt;/complexContent&gt;
  * &lt;/complexType&gt;
  * </pre>
- *
+ * 
  * 
  */
 @XmlAccessorType(XmlAccessType.FIELD)
@@ -170,7 +170,7 @@ public class UpdateProject {
 
     /**
      * Gets the value of the arg5 property.
-     *
+     * 
      * @return
      *     possible object is
      *     {@link String }
@@ -182,7 +182,7 @@ public class UpdateProject {
 
     /**
      * Sets the value of the arg5 property.
-     *
+     * 
      * @param value
      *     allowed object is
      *     {@link String }

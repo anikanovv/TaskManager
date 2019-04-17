@@ -4,13 +4,13 @@ import lombok.Getter;
 import lombok.Setter;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 import ru.anikanov.tm.api.ServiceLocator;
 import ru.anikanov.tm.api.service.ITerminalService;
 import ru.anikanov.tm.command.AbstractCommand;
 import ru.anikanov.tm.endpoint.*;
 
-import javax.enterprise.context.ApplicationScoped;
-import javax.inject.Inject;
 import java.lang.Exception;
 import java.util.HashMap;
 import java.util.Map;
@@ -18,29 +18,25 @@ import java.util.Objects;
 
 @Getter
 @Setter
-@ApplicationScoped
-
+@Component
 public class Bootstrap implements ServiceLocator {
     @Nullable
     private String currentUser;
     @Nullable
     private Session currentSession;
-    @Inject
+    @Autowired
+    private ProjectEndPointService projectEndPointService;
+    @Autowired
     private ProjectEndPoint projectEndPoint;
-    //    private ProjectEndPoint projectEndPoint=new ProjectEndPointService().getProjectEndPointPort();
-    @Inject
+    @Autowired
     private TaskEndPoint taskEndPoint;
-    //    private TaskEndPoint taskEndPoint=new TaskEndPointService().getTaskEndPointPort();
-    @Inject
+    @Autowired
     private UserEndPoint userEndPoint;
-    //    private UserEndPoint userEndPoint=new UserEndPointService().getUserEndPointPort();
-    @Inject
+    @Autowired
     private SessionEndPoint sessionEndPoint;
-    //    private SessionEndPoint sessionEndPoint = new SessionEndPointService().getSessionEndPointPort();
-    @Inject
+    @Autowired
     private DomainEndPoint domainEndPoint;
-    //    private DomainEndPoint domainEndPoint = new DomainEndPointService().getDomainEndPointPort();
-    @Inject
+    @Autowired
     private ITerminalService terminalService;
     @NotNull
     private Map<String, AbstractCommand> commandMap = new HashMap<>();

@@ -28,7 +28,7 @@ import javax.xml.datatype.XMLGregorianCalendar;
  *   &lt;/complexContent&gt;
  * &lt;/complexType&gt;
  * </pre>
- *
+ * 
  * 
  */
 @XmlAccessorType(XmlAccessType.FIELD)
@@ -52,7 +52,7 @@ public class ProjectDto {
 
     /**
      * Gets the value of the dateBegin property.
-     *
+     * 
      * @return
      *     possible object is
      *     {@link XMLGregorianCalendar }
@@ -64,7 +64,7 @@ public class ProjectDto {
 
     /**
      * Sets the value of the dateBegin property.
-     *
+     * 
      * @param value
      *     allowed object is
      *     {@link XMLGregorianCalendar }
@@ -76,7 +76,7 @@ public class ProjectDto {
 
     /**
      * Gets the value of the dateEnd property.
-     *
+     * 
      * @return
      *     possible object is
      *     {@link XMLGregorianCalendar }
@@ -88,7 +88,7 @@ public class ProjectDto {
 
     /**
      * Sets the value of the dateEnd property.
-     *
+     * 
      * @param value
      *     allowed object is
      *     {@link XMLGregorianCalendar }
@@ -100,7 +100,7 @@ public class ProjectDto {
 
     /**
      * Gets the value of the description property.
-     *
+     * 
      * @return
      *     possible object is
      *     {@link String }
@@ -112,7 +112,7 @@ public class ProjectDto {
 
     /**
      * Sets the value of the description property.
-     *
+     * 
      * @param value
      *     allowed object is
      *     {@link String }
@@ -124,7 +124,7 @@ public class ProjectDto {
 
     /**
      * Gets the value of the name property.
-     *
+     * 
      * @return
      *     possible object is
      *     {@link String }
@@ -136,7 +136,7 @@ public class ProjectDto {
 
     /**
      * Sets the value of the name property.
-     *
+     * 
      * @param value
      *     allowed object is
      *     {@link String }
@@ -148,7 +148,7 @@ public class ProjectDto {
 
     /**
      * Gets the value of the status property.
-     *
+     * 
      * @return
      *     possible object is
      *     {@link Status }
@@ -160,7 +160,7 @@ public class ProjectDto {
 
     /**
      * Sets the value of the status property.
-     *
+     * 
      * @param value
      *     allowed object is
      *     {@link Status }

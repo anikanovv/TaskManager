@@ -28,7 +28,7 @@ import javax.xml.bind.annotation.XmlType;
  *   &lt;/complexContent&gt;
  * &lt;/complexType&gt;
  * </pre>
- *
+ * 
  * 
  */
 @XmlAccessorType(XmlAccessType.FIELD)
@@ -52,7 +52,7 @@ public class UserDto {
 
     /**
      * Gets the value of the email property.
-     *
+     * 
      * @return
      *     possible object is
      *     {@link String }
@@ -64,7 +64,7 @@ public class UserDto {
 
     /**
      * Sets the value of the email property.
-     *
+     * 
      * @param value
      *     allowed object is
      *     {@link String }
@@ -76,7 +76,7 @@ public class UserDto {
 
     /**
      * Gets the value of the firstName property.
-     *
+     * 
      * @return
      *     possible object is
      *     {@link String }
@@ -88,7 +88,7 @@ public class UserDto {
 
     /**
      * Sets the value of the firstName property.
-     *
+     * 
      * @param value
      *     allowed object is
      *     {@link String }
@@ -100,7 +100,7 @@ public class UserDto {
 
     /**
      * Gets the value of the id property.
-     *
+     * 
      * @return
      *     possible object is
      *     {@link String }
@@ -112,7 +112,7 @@ public class UserDto {
 
     /**
      * Sets the value of the id property.
-     *
+     * 
      * @param value
      *     allowed object is
      *     {@link String }
@@ -124,7 +124,7 @@ public class UserDto {
 
     /**
      * Gets the value of the lastName property.
-     *
+     * 
      * @return
      *     possible object is
      *     {@link String }
@@ -136,7 +136,7 @@ public class UserDto {
 
     /**
      * Sets the value of the lastName property.
-     *
+     * 
      * @param value
      *     allowed object is
      *     {@link String }
@@ -148,7 +148,7 @@ public class UserDto {
 
     /**
      * Gets the value of the login property.
-     *
+     * 
      * @return
      *     possible object is
      *     {@link String }
@@ -160,7 +160,7 @@ public class UserDto {
 
     /**
      * Sets the value of the login property.
-     *
+     * 
      * @param value
      *     allowed object is
      *     {@link String }
@@ -172,7 +172,7 @@ public class UserDto {
 
     /**
      * Gets the value of the role property.
-     *
+     * 
      * @return
      *     possible object is
      *     {@link Role }
@@ -184,7 +184,7 @@ public class UserDto {
 
     /**
      * Sets the value of the role property.
-     *
+     * 
      * @param value
      *     allowed object is
      *     {@link Role }

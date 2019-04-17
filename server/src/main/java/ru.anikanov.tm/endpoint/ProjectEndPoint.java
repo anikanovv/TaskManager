@@ -3,13 +3,14 @@ package ru.anikanov.tm.endpoint;
 import lombok.NoArgsConstructor;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 import ru.anikanov.tm.api.service.IProjectService;
 import ru.anikanov.tm.api.service.ISessionService;
 import ru.anikanov.tm.dto.ProjectDto;
 import ru.anikanov.tm.entity.Project;
 import ru.anikanov.tm.entity.Session;
 
-import javax.inject.Inject;
 import javax.jws.WebMethod;
 import javax.jws.WebParam;
 import javax.jws.WebService;
@@ -17,20 +18,20 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
+@Service
 @WebService
 @NoArgsConstructor
-public class ProjectEndPoint/* implements IProjectEndPoint*/ {
-    @Inject
+public class ProjectEndPoint {
+    @Autowired
     private ISessionService sessionService;
-    @Inject
+    @Autowired
     private IProjectService projectService;
 
     @WebMethod
     public ProjectDto createProject(@WebParam @NotNull final Session session, @WebParam final String name, @WebParam final String description, @WebParam final String startDate,
                                     @WebParam final String endDate) {
         sessionService.validate(session);
-        Project project = projectService
-                .persist(name, description, startDate, endDate, Objects.requireNonNull(session.getUserId()));
+        Project project = projectService.persist(session.getUserId(), name, description, startDate, endDate);
         return new ProjectDto(project);
     }
 
@@ -39,13 +40,13 @@ public class ProjectEndPoint/* implements IProjectEndPoint*/ {
                               @WebParam final String description, @WebParam final String startDate,
                               @WebParam final String endDate) {
         sessionService.validate(session);
-        projectService.merge(id, name, description, startDate, endDate, Objects.requireNonNull(session.getUserId()));
+        projectService.merge(session.getUserId(), id, name, description, startDate, endDate);
     }
 
     @WebMethod
     public void removeProject(@WebParam @NotNull final Session session, @WebParam final String name) {
         sessionService.validate(session);
-        projectService.remove(name, Objects.requireNonNull(session.getUserId()));
+        projectService.remove(session.getUserId(), name);
     }
 
     @WebMethod
@@ -57,14 +58,14 @@ public class ProjectEndPoint/* implements IProjectEndPoint*/ {
     @WebMethod
     public ProjectDto findProjectByPartOfNameProject(@WebParam @NotNull final Session session, @WebParam final String partOfName) {
         sessionService.validate(session);
-        Project project = projectService.findByPartOfName(partOfName, Objects.requireNonNull(session.getUserId()));
+        Project project = projectService.findByPartOfName(session.getUserId(), partOfName);
         return new ProjectDto(project);
     }
 
     @WebMethod
     public ProjectDto findProjectByPartOfDescription(@WebParam @NotNull final Session session, @WebParam final String partOfDescription) {
         sessionService.validate(session);
-        Project project = projectService.findByPartOfDescription(partOfDescription, Objects.requireNonNull(session.getUserId()));
+        Project project = projectService.findByPartOfDescription(session.getUserId(), partOfDescription);
         return new ProjectDto(project);
     }
 

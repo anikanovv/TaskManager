@@ -124,7 +124,7 @@ public class CreateUser {
 
     /**
      * Gets the value of the arg3 property.
-     *
+     * 
      * @return
      *     possible object is
      *     {@link String }
@@ -136,7 +136,7 @@ public class CreateUser {
 
     /**
      * Sets the value of the arg3 property.
-     *
+     * 
      * @param value
      *     allowed object is
      *     {@link String }
@@ -148,7 +148,7 @@ public class CreateUser {
 
     /**
      * Gets the value of the arg4 property.
-     *
+     * 
      * @return
      *     possible object is
      *     {@link String }
@@ -160,7 +160,7 @@ public class CreateUser {
 
     /**
      * Sets the value of the arg4 property.
-     *
+     * 
      * @param value
      *     allowed object is
      *     {@link String }
@@ -172,7 +172,7 @@ public class CreateUser {
 
     /**
      * Gets the value of the arg5 property.
-     *
+     * 
      * @return
      *     possible object is
      *     {@link Role }
@@ -184,7 +184,7 @@ public class CreateUser {
 
     /**
      * Sets the value of the arg5 property.
-     *
+     * 
      * @param value
      *     allowed object is
      *     {@link Role }

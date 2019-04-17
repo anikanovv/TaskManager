@@ -1,27 +1,23 @@
 package ru.anikanov.tm.service;
 
-import org.apache.deltaspike.jpa.api.transaction.Transactional;
+import lombok.NoArgsConstructor;
 import org.jetbrains.annotations.Nullable;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import ru.anikanov.tm.api.service.ISessionService;
 import ru.anikanov.tm.entity.Session;
-import ru.anikanov.tm.repository.SessionRep;
 import ru.anikanov.tm.repository.SessionRepository;
 import ru.anikanov.tm.utils.SignatureUtil;
 
-import javax.enterprise.context.ApplicationScoped;
-import javax.inject.Inject;
-import javax.persistence.EntityManager;
 import java.util.UUID;
 
+@Service
 @Transactional
-@ApplicationScoped
+@NoArgsConstructor
 public class SessionService implements ISessionService {
-    @Inject
+    @Autowired
     private SessionRepository sessionRepository;
-    @Inject
-    private SessionRep sessionRep;
-    @Inject
-    private EntityManager entityManager;
 
     public Session persist(@Nullable final String userId) {
         if (userId == null || userId.isEmpty()) return null;
@@ -30,24 +26,14 @@ public class SessionService implements ISessionService {
         session.setTimestamp(System.currentTimeMillis());
         session.setUserId(userId);
         session.setSignature(SignatureUtil.sign(session, "salt", 22));
-//        final SessionRepository sessionRepository = new SessionRepository(entityManager);
-//        try {
-//            entityManager.getTransaction().begin();
-        sessionRep.persist(session);
-//            entityManager.getTransaction().commit();
-            return session;
-//        } catch (Exception e) {
-//            entityManager.getTransaction().rollback();
-//            return null;
-//        }
+        sessionRepository.save(session);
+        return session;
     }
 
-    @Override
     public Session findOne(@Nullable final String sessionId) {
 
         if (sessionId == null || sessionId.isEmpty()) return null;
-//        final SessionRepository sessionRepository = new SessionRepository(entityManager);
-        return sessionRep.findOne(sessionId);
+        return sessionRepository.findOne(sessionId);
     }
 
     public boolean validate(@Nullable final Session session) {

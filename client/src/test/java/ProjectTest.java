@@ -1,38 +1,33 @@
-import org.apache.deltaspike.testcontrol.api.TestControl;
-import org.apache.deltaspike.testcontrol.api.junit.CdiTestRunner;
-import org.apache.deltaspike.testcontrol.api.mock.DynamicMockManager;
 import org.jetbrains.annotations.Nullable;
 import org.junit.Assert;
 import org.junit.FixMethodOrder;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.junit.runners.MethodSorters;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.test.context.ContextConfiguration;
+import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import ru.anikanov.tm.endpoint.*;
+import ru.anikanov.tm.utils.SpringConfig;
 
-import javax.enterprise.context.SessionScoped;
-import javax.inject.Inject;
 import java.lang.Exception;
 import java.util.List;
 
-@RunWith(CdiTestRunner.class)
-@TestControl(startScopes = SessionScoped.class)
+@RunWith(SpringJUnit4ClassRunner.class)
+@ContextConfiguration(classes = {SpringConfig.class})
 @FixMethodOrder(MethodSorters.NAME_ASCENDING)
 public class ProjectTest {
+    @Autowired
+    private ProjectEndPoint projectService;
+    @Autowired
+    private UserEndPoint userEndPoint;
+    @Autowired
+    private SessionEndPoint sessionEndPoint;
 
-    private ProjectEndPoint projectService = new ProjectEndPointService().getProjectEndPointPort();
-
-    private UserEndPoint userEndPoint = new UserEndPointService().getUserEndPointPort();
-
-    private SessionEndPoint sessionEndPoint = new SessionEndPointService().getSessionEndPointPort();
-
-    @Inject
-    private DynamicMockManager mockManager;
-
-
-    Session session;
+    private Session session;
 
     public void signIn() {
-        @Nullable final UserDto userDto = userEndPoint.logIn("user", "user");
+        @Nullable final UserDto userDto = userEndPoint.logIn("admin", "admin");
         Assert.assertNotNull(userDto);
         session = sessionEndPoint.createSession(userDto.getId());
         Assert.assertNotNull(session);
@@ -42,9 +37,9 @@ public class ProjectTest {
     public void test1_persist() {
         signIn();
         @Nullable final ProjectDto project = projectService.createProject(session,
-                "newTest", "des", "12.12.2012", "12.12.2012");
+                "newbie", "des", "12.12.2012", "12.12.2012");
         Assert.assertNotNull(project);
-        Assert.assertEquals("newTest", project.getName());
+        Assert.assertEquals("test", project.getName());
     }
 
 
@@ -60,9 +55,9 @@ public class ProjectTest {
     @Test
     public void test3_findOne() {
         signIn();
-        @Nullable final ProjectDto project = projectService.findProjectByPartOfNameProject(session, "test");
+        @Nullable final ProjectDto project = projectService.findProjectByPartOfNameProject(session, "new");
         Assert.assertNotNull(project);
-        Assert.assertEquals("test", project.getName());
+        Assert.assertEquals("newTest", project.getName());
     }
 
     @Test

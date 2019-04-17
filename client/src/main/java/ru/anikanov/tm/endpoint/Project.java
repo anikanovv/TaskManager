@@ -9,9 +9,9 @@ import java.util.List;
 
 /**
  * <p>Java class for project complex type.
- *
+ * 
  * <p>The following schema fragment specifies the expected content contained within this class.
- *
+ * 
  * <pre>
  * &lt;complexType name="project"&gt;
  *   &lt;complexContent&gt;
@@ -30,7 +30,7 @@ import java.util.List;
  * &lt;/complexType&gt;
  * </pre>
  *
- *
+ * 
  */
 @XmlAccessorType(XmlAccessType.FIELD)
 @XmlType(name = "project", propOrder = {
@@ -60,11 +60,11 @@ public class Project
 
     /**
      * Gets the value of the description property.
-     *
+     * 
      * @return
      *     possible object is
      *     {@link String }
-     *
+     *     
      */
     public String getDescription() {
         return description;
@@ -72,11 +72,11 @@ public class Project
 
     /**
      * Sets the value of the description property.
-     *
+     * 
      * @param value
      *     allowed object is
      *     {@link String }
-     *
+     *     
      */
     public void setDescription(String value) {
         this.description = value;
@@ -84,11 +84,11 @@ public class Project
 
     /**
      * Gets the value of the endDate property.
-     *
+     * 
      * @return
      *     possible object is
      *     {@link XMLGregorianCalendar }
-     *
+     *     
      */
     public XMLGregorianCalendar getEndDate() {
         return endDate;
@@ -96,11 +96,11 @@ public class Project
 
     /**
      * Sets the value of the endDate property.
-     *
+     * 
      * @param value
      *     allowed object is
      *     {@link XMLGregorianCalendar }
-     *
+     *     
      */
     public void setEndDate(XMLGregorianCalendar value) {
         this.endDate = value;
@@ -108,11 +108,11 @@ public class Project
 
     /**
      * Gets the value of the name property.
-     *
+     * 
      * @return
      *     possible object is
      *     {@link String }
-     *
+     *     
      */
     public String getName() {
         return name;
@@ -120,11 +120,11 @@ public class Project
 
     /**
      * Sets the value of the name property.
-     *
+     * 
      * @param value
      *     allowed object is
      *     {@link String }
-     *
+     *     
      */
     public void setName(String value) {
         this.name = value;
@@ -133,8 +133,10 @@ public class Project
     /**
      * Gets the value of the startDate property.
      *
-     * @return possible object is
-     * {@link XMLGregorianCalendar }
+     * @return
+     *     possible object is
+     *     {@link XMLGregorianCalendar }
+     *     
      */
     public XMLGregorianCalendar getStartDate() {
         return startDate;
@@ -143,8 +145,10 @@ public class Project
     /**
      * Sets the value of the startDate property.
      *
-     * @param value allowed object is
-     *              {@link XMLGregorianCalendar }
+     * @param value
+     *     allowed object is
+     *     {@link XMLGregorianCalendar }
+     *     
      */
     public void setStartDate(XMLGregorianCalendar value) {
         this.startDate = value;
@@ -152,11 +156,11 @@ public class Project
 
     /**
      * Gets the value of the status property.
-     *
+     * 
      * @return
      *     possible object is
      *     {@link Status }
-     *
+     *     
      */
     public Status getStatus() {
         return status;
@@ -164,11 +168,11 @@ public class Project
 
     /**
      * Sets the value of the status property.
-     *
+     * 
      * @param value
      *     allowed object is
      *     {@link Status }
-     *
+     *     
      */
     public void setStatus(Status value) {
         this.status = value;
@@ -176,25 +180,25 @@ public class Project
 
     /**
      * Gets the value of the tasks property.
-     *
+     * 
      * <p>
      * This accessor method returns a reference to the live list,
      * not a snapshot. Therefore any modification you make to the
      * returned list will be present inside the JAXB object.
      * This is why there is not a <CODE>set</CODE> method for the tasks property.
-     *
+     * 
      * <p>
      * For example, to add a new item, do as follows:
      * <pre>
      *    getTasks().add(newItem);
      * </pre>
      *
-     *
+     * 
      * <p>
      * Objects of the following type(s) are allowed in the list
      * {@link Task }
      *
-     *
+     * 
      */
     public List<Task> getTasks() {
         if (tasks == null) {
@@ -206,8 +210,10 @@ public class Project
     /**
      * Gets the value of the userId property.
      *
-     * @return possible object is
-     * {@link String }
+     * @return
+     *     possible object is
+     *     {@link String }
+     *     
      */
     public String getUserId() {
         return userId;
@@ -216,8 +222,10 @@ public class Project
     /**
      * Sets the value of the userId property.
      *
-     * @param value allowed object is
-     *              {@link String }
+     * @param value
+     *     allowed object is
+     *     {@link String }
+     *     
      */
     public void setUserId(String value) {
         this.userId = value;

@@ -1,26 +1,13 @@
 package ru.anikanov.tm.repository;
 
-import org.jetbrains.annotations.Nullable;
+import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Query;
+import org.springframework.data.repository.query.Param;
 import ru.anikanov.tm.entity.Session;
 
-import javax.inject.Inject;
-import javax.persistence.EntityManager;
+public interface SessionRepository extends JpaRepository<Session, String> {
+    Session save(Session session);
 
-public class SessionRepository {
-    private EntityManager entityManager;
-
-    @Inject
-    public SessionRepository(EntityManager entityManager) {
-        this.entityManager = entityManager;
-    }
-
-    public Session persist(Session session) {
-        entityManager.persist(session);
-        return session;
-    }
-
-    @Nullable
-    public Session findOne(String sessionId) {
-        return entityManager.find(Session.class, sessionId);
-    }
+    @Query("SELECT session FROM Session session WHERE session.id = :id")
+    Session findOne(@Param("id") String id);
 }

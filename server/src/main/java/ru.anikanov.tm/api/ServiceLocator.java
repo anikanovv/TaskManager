@@ -16,4 +16,6 @@ public interface ServiceLocator {
     @NotNull
     DomainEndPoint getDomainEndPoint();
 
+    void init();
+
 }

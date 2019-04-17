@@ -3,13 +3,14 @@ package ru.anikanov.tm.endpoint;
 import lombok.NoArgsConstructor;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 import ru.anikanov.tm.api.service.ISessionService;
 import ru.anikanov.tm.api.service.ITaskService;
 import ru.anikanov.tm.dto.TaskDto;
 import ru.anikanov.tm.entity.Session;
 import ru.anikanov.tm.entity.Task;
 
-import javax.inject.Inject;
 import javax.jws.WebMethod;
 import javax.jws.WebParam;
 import javax.jws.WebService;
@@ -17,19 +18,21 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
+@Service
 @WebService
 @NoArgsConstructor
 public class TaskEndPoint {
-    @Inject
+    @Autowired
     private ISessionService sessionService;
-    @Inject
+    @Autowired
     private ITaskService taskService;
+
     @Nullable
     @WebMethod
     public TaskDto createTask(@WebParam @NotNull final Session session, @WebParam final String projectId, @WebParam final String name, @WebParam final String description,
                               @WebParam final String startDate, @WebParam final String endDate) {
         sessionService.validate(session);
-        Task task = taskService.persist(projectId, name, description, startDate, endDate, Objects.requireNonNull(session.getUserId()));
+        Task task = taskService.persist(session.getUserId(), projectId, name, description, startDate, endDate);
         return new TaskDto(task);
     }
 
@@ -38,14 +41,14 @@ public class TaskEndPoint {
                            @WebParam final String startDate, @WebParam final String endDate) {
         sessionService.validate(session);
         taskService
-                .merge(taskId, name, description, startDate, endDate, Objects.requireNonNull(session.getUserId()));
+                .merge(session.getUserId(), taskId, name, description, startDate, endDate);
     }
 
     @WebMethod
     public void removeTask(@WebParam @NotNull final Session session, @WebParam final String name) {
         sessionService.validate(session);
         taskService
-                .remove(name, Objects.requireNonNull(session.getUserId()));
+                .remove(session.getUserId(), name);
     }
 
     @WebMethod
@@ -103,7 +106,7 @@ public class TaskEndPoint {
     @WebMethod
     public TaskDto findTaskByPartOfName(@WebParam @NotNull final Session session, @WebParam @NotNull final String partOfName) {
         sessionService.validate(session);
-        Task task = taskService.findByPartOfName(partOfName, Objects.requireNonNull(session.getUserId()));
+        Task task = taskService.findByPartOfName(session.getUserId(), partOfName);
         return new TaskDto(task);
     }
 
@@ -111,7 +114,7 @@ public class TaskEndPoint {
     @WebMethod
     public TaskDto findTaskByPartOfDescription(@WebParam @NotNull final Session session, @WebParam @NotNull final String partOfDescription) {
         sessionService.validate(session);
-        Task task = taskService.findByPartOfDescription(partOfDescription, Objects.requireNonNull(session.getUserId()));
+        Task task = taskService.findByPartOfDescription(session.getUserId(), partOfDescription);
         return new TaskDto(task);
     }
 }

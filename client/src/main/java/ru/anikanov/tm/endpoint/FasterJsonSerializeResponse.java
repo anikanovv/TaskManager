@@ -9,9 +9,9 @@ import javax.xml.bind.annotation.XmlType;
 
 /**
  * <p>Java class for fasterJsonSerializeResponse complex type.
- *
+ * 
  * <p>The following schema fragment specifies the expected content contained within this class.
- *
+ * 
  * <pre>
  * &lt;complexType name="fasterJsonSerializeResponse"&gt;
  *   &lt;complexContent&gt;
@@ -24,7 +24,7 @@ import javax.xml.bind.annotation.XmlType;
  * &lt;/complexType&gt;
  * </pre>
  *
- *
+ * 
  */
 @XmlAccessorType(XmlAccessType.FIELD)
 @XmlType(name = "fasterJsonSerializeResponse", propOrder = {
@@ -38,8 +38,10 @@ public class FasterJsonSerializeResponse {
     /**
      * Gets the value of the return property.
      *
-     * @return possible object is
-     * {@link Domain }
+     * @return
+     *     possible object is
+     *     {@link Domain }
+     *     
      */
     public Domain getReturn() {
         return _return;
@@ -48,8 +50,10 @@ public class FasterJsonSerializeResponse {
     /**
      * Sets the value of the return property.
      *
-     * @param value allowed object is
-     *              {@link Domain }
+     * @param value
+     *     allowed object is
+     *     {@link Domain }
+     *     
      */
     public void setReturn(Domain value) {
         this._return = value;

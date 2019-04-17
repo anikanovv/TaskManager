@@ -10,9 +10,9 @@ import javax.xml.datatype.XMLGregorianCalendar;
 
 /**
  * <p>Java class for task complex type.
- *
+ * 
  * <p>The following schema fragment specifies the expected content contained within this class.
- *
+ * 
  * <pre>
  * &lt;complexType name="task"&gt;
  *   &lt;complexContent&gt;
@@ -33,7 +33,7 @@ import javax.xml.datatype.XMLGregorianCalendar;
  * &lt;/complexType&gt;
  * </pre>
  *
- *
+ * 
  */
 @XmlAccessorType(XmlAccessType.FIELD)
 @XmlType(name = "task", propOrder = {
@@ -67,8 +67,10 @@ public class Task
     /**
      * Gets the value of the description property.
      *
-     * @return possible object is
-     * {@link String }
+     * @return
+     *     possible object is
+     *     {@link String }
+     *     
      */
     public String getDescription() {
         return description;
@@ -77,8 +79,10 @@ public class Task
     /**
      * Sets the value of the description property.
      *
-     * @param value allowed object is
-     *              {@link String }
+     * @param value
+     *     allowed object is
+     *     {@link String }
+     *     
      */
     public void setDescription(String value) {
         this.description = value;
@@ -134,11 +138,11 @@ public class Task
 
     /**
      * Gets the value of the name property.
-     *
+     * 
      * @return
      *     possible object is
      *     {@link String }
-     *
+     *     
      */
     public String getName() {
         return name;
@@ -147,8 +151,10 @@ public class Task
     /**
      * Sets the value of the name property.
      *
-     * @param value allowed object is
-     *              {@link String }
+     * @param value
+     *     allowed object is
+     *     {@link String }
+     *     
      */
     public void setName(String value) {
         this.name = value;
@@ -156,11 +162,11 @@ public class Task
 
     /**
      * Gets the value of the projectId property.
-     *
+     * 
      * @return
      *     possible object is
      *     {@link String }
-     *
+     *     
      */
     public String getProjectId() {
         return projectId;

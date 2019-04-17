@@ -1,37 +1,36 @@
 package ru.anikanov.tm.bootstrap;
 
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 import org.jetbrains.annotations.NotNull;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 import ru.anikanov.tm.api.ServiceLocator;
 import ru.anikanov.tm.endpoint.*;
 
-import javax.enterprise.context.ApplicationScoped;
-import javax.inject.Inject;
 import javax.xml.ws.Endpoint;
 
 @Getter
 @Setter
-@ApplicationScoped
+@Component
+@NoArgsConstructor
 public class Bootstrap implements ServiceLocator {
-    @Inject
+    @Autowired
     @NotNull
     private ProjectEndPoint projectEndPoint;
-    @Inject
+    @Autowired
     @NotNull
     private TaskEndPoint taskEndPoint;
-    @Inject
+    @Autowired
     @NotNull
     private UserEndPoint userEndPoint;
-    @Inject
+    @Autowired
     @NotNull
     private SessionEndPoint sessionEndPoint;
-    @Inject
+    @Autowired
     @NotNull
     private DomainEndPoint domainEndPoint;
-
-    public Bootstrap() {
-    }
 
     public void init() {
         Endpoint.publish("http://localhost:8080/ProjectEndpoint?wsdl", projectEndPoint);

@@ -127,7 +127,7 @@ public class UpdateUser {
 
     /**
      * Gets the value of the arg3 property.
-     *
+     * 
      * @return
      *     possible object is
      *     {@link String }
@@ -139,7 +139,7 @@ public class UpdateUser {
 
     /**
      * Sets the value of the arg3 property.
-     *
+     * 
      * @param value
      *     allowed object is
      *     {@link String }
@@ -151,7 +151,7 @@ public class UpdateUser {
 
     /**
      * Gets the value of the arg4 property.
-     *
+     * 
      * @return
      *     possible object is
      *     {@link String }
@@ -163,7 +163,7 @@ public class UpdateUser {
 
     /**
      * Sets the value of the arg4 property.
-     *
+     * 
      * @param value
      *     allowed object is
      *     {@link String }
@@ -175,7 +175,7 @@ public class UpdateUser {
 
     /**
      * Gets the value of the arg5 property.
-     *
+     * 
      * @return
      *     possible object is
      *     {@link Role }
@@ -187,7 +187,7 @@ public class UpdateUser {
 
     /**
      * Sets the value of the arg5 property.
-     *
+     * 
      * @param value
      *     allowed object is
      *     {@link Role }
@@ -199,7 +199,7 @@ public class UpdateUser {
 
     /**
      * Gets the value of the arg6 property.
-     *
+     * 
      * @return
      *     possible object is
      *     {@link String }
@@ -211,7 +211,7 @@ public class UpdateUser {
 
     /**
      * Sets the value of the arg6 property.
-     *
+     * 
      * @param value
      *     allowed object is
      *     {@link String }

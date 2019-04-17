@@ -32,4 +32,6 @@ public interface ServiceLocator {
 
     void setCurrentSession(@Nullable final Session session);
 
+    void init(@Nullable final Class[] classes);
+
 }

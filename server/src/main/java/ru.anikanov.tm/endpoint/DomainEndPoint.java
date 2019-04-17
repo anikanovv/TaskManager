@@ -2,19 +2,21 @@ package ru.anikanov.tm.endpoint;
 
 import lombok.NoArgsConstructor;
 import org.jetbrains.annotations.NotNull;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 import ru.anikanov.tm.api.service.IDomainService;
 import ru.anikanov.tm.entity.Domain;
 import ru.anikanov.tm.entity.Session;
 
-import javax.inject.Inject;
 import javax.jws.WebMethod;
 import javax.jws.WebParam;
 import javax.jws.WebService;
 
+@Service
 @WebService
 @NoArgsConstructor
 public class DomainEndPoint {
-    @Inject
+    @Autowired
     private IDomainService domainService;
 
 

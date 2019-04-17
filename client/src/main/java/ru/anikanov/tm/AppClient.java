@@ -1,7 +1,9 @@
 package ru.anikanov.tm;
 
 import org.jetbrains.annotations.NotNull;
-import ru.anikanov.tm.bootstrap.Bootstrap;
+import org.springframework.context.ApplicationContext;
+import org.springframework.context.annotation.AnnotationConfigApplicationContext;
+import ru.anikanov.tm.api.ServiceLocator;
 import ru.anikanov.tm.command.AbstractCommand;
 import ru.anikanov.tm.command.load.*;
 import ru.anikanov.tm.command.project.*;
@@ -10,8 +12,7 @@ import ru.anikanov.tm.command.system.ExitCommand;
 import ru.anikanov.tm.command.system.HelpCommand;
 import ru.anikanov.tm.command.task.*;
 import ru.anikanov.tm.command.user.*;
-
-import javax.enterprise.inject.se.SeContainerInitializer;
+import ru.anikanov.tm.utils.SpringConfig;
 
 public class AppClient {
     @NotNull
@@ -30,8 +31,11 @@ public class AppClient {
             LoadFasterJsonCommand.class, LoadFasterXmlCommand.class};
 
     public static void main(final String[] args) {
-        SeContainerInitializer.newInstance()
+      /*  SeContainerInitializer.newInstance()
                 .addPackages(AppClient.class).initialize()
-                .select(Bootstrap.class).get().init(CLASSES);
+                .select(Bootstrap.class).get().init(CLASSES);*/
+        ApplicationContext applicationContext = new AnnotationConfigApplicationContext(SpringConfig.class);
+        ServiceLocator serviceLocator = applicationContext.getBean(ServiceLocator.class);
+        serviceLocator.init(CLASSES);
     }
 }

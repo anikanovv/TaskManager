@@ -45,6 +45,7 @@ public class ObjectFactory {
 
     /**
      * Create an instance of {@link Domain }
+     * 
      */
     public Domain createDomain() {
         return new Domain();
@@ -140,7 +141,7 @@ public class ObjectFactory {
 
     /**
      * Create an instance of {@link Project }
-     *
+     * 
      */
     public Project createProject() {
         return new Project();
@@ -148,6 +149,7 @@ public class ObjectFactory {
 
     /**
      * Create an instance of {@link Task }
+     * 
      */
     public Task createTask() {
         return new Task();
@@ -155,6 +157,7 @@ public class ObjectFactory {
 
     /**
      * Create an instance of {@link JAXBElement }{@code <}{@link Domain }{@code >}}
+     * 
      */
     @XmlElementDecl(namespace = "http://endpoint.tm.anikanov.ru/", name = "Domain")
     public JAXBElement<Domain> createDomain(Domain value) {
@@ -163,7 +166,7 @@ public class ObjectFactory {
 
     /**
      * Create an instance of {@link JAXBElement }{@code <}{@link FasterJsonSerialize }{@code >}}
-     *
+     * 
      */
     @XmlElementDecl(namespace = "http://endpoint.tm.anikanov.ru/", name = "fasterJsonSerialize")
     public JAXBElement<FasterJsonSerialize> createFasterJsonSerialize(FasterJsonSerialize value) {

@@ -1,8 +1,8 @@
 package ru.anikanov.tm.api.repository;
 
-import org.apache.ibatis.annotations.Param;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
+import org.springframework.data.repository.query.Param;
 import ru.anikanov.tm.entity.Task;
 
 import java.util.List;

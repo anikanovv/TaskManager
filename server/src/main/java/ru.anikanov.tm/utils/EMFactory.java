@@ -1,6 +1,5 @@
 package ru.anikanov.tm.utils;
 
-import org.apache.deltaspike.jpa.api.transaction.TransactionScoped;
 import org.hibernate.boot.Metadata;
 import org.hibernate.boot.MetadataSources;
 import org.hibernate.boot.registry.StandardServiceRegistry;
@@ -12,7 +11,6 @@ import ru.anikanov.tm.entity.Session;
 import ru.anikanov.tm.entity.Task;
 import ru.anikanov.tm.entity.User;
 
-import javax.enterprise.inject.Produces;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import java.util.HashMap;
@@ -43,8 +41,6 @@ public class EMFactory {
         return metadata.getSessionFactoryBuilder().build();
     }
 
-    @Produces
-    @TransactionScoped
     public EntityManager getEntityManager() {
         return factory().createEntityManager();
     }

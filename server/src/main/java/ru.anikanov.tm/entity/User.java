@@ -6,6 +6,7 @@ import lombok.Setter;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 import ru.anikanov.tm.enumeration.Role;
+import ru.anikanov.tm.utils.PasswordHashUtil;
 
 import javax.persistence.*;
 import java.util.List;
@@ -46,7 +47,7 @@ public class User extends AbstractEntity {
         this.firstName = firstName;
         this.lastName = lastName;
         this.email = email;
-        this.hashPassword = password;
+        this.hashPassword = PasswordHashUtil.md5(password);
     }
 
     public String getRoleName() {

@@ -4,6 +4,8 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.dataformat.xml.XmlMapper;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 import ru.anikanov.tm.api.service.IDomainService;
 import ru.anikanov.tm.api.service.IProjectService;
 import ru.anikanov.tm.api.service.ITaskService;
@@ -13,8 +15,6 @@ import ru.anikanov.tm.entity.Project;
 import ru.anikanov.tm.entity.Session;
 import ru.anikanov.tm.entity.Task;
 
-import javax.enterprise.context.ApplicationScoped;
-import javax.inject.Inject;
 import javax.xml.bind.JAXBContext;
 import javax.xml.bind.JAXBException;
 import javax.xml.bind.Marshaller;
@@ -22,14 +22,14 @@ import java.io.*;
 import java.util.List;
 import java.util.Objects;
 
-@ApplicationScoped
+@Service
 
 public class DomainService implements IDomainService {
-    @Inject
+    @Autowired
     private IUserService userService;
-    @Inject
+    @Autowired
     private IProjectService projectService;
-    @Inject
+    @Autowired
     private ITaskService taskService;
 
     public void fasterJson(@NotNull final Session session) {

@@ -1,66 +1,25 @@
 package ru.anikanov.tm.repository;
 
-import lombok.NoArgsConstructor;
 import org.jetbrains.annotations.NotNull;
-import org.jetbrains.annotations.Nullable;
-import ru.anikanov.tm.api.repository.IUserRepository;
+import org.springframework.data.jpa.repository.JpaRepository;
 import ru.anikanov.tm.entity.User;
-import ru.anikanov.tm.utils.PasswordHashUtil;
 
-import javax.enterprise.context.ApplicationScoped;
-import javax.inject.Inject;
-import javax.persistence.EntityManager;
 import java.util.List;
+import java.util.Optional;
 
-@ApplicationScoped
-@NoArgsConstructor
-public class UserRepository extends AbstractRepository implements IUserRepository {
-    private EntityManager entityManager;
+public interface UserRepository extends JpaRepository<User, String> {
 
-    @Inject
-    public UserRepository(EntityManager entityManager) {
-        this.entityManager = entityManager;
-    }
-    @NotNull
-    public User persist(@NotNull final User user) {
-        entityManager.persist(user);
-        return user;
-    }
+    User save(@NotNull final User user);
 
-    public User merge(@NotNull final User u) {
-        entityManager.merge(u);
-        return u;
-    }
+    void delete(@NotNull final User user);
 
-    @Nullable
-    public User findOne(@NotNull final String id) {
-        return entityManager.find(User.class, id);
-    }
+    Optional<User> findById(@NotNull final String id);
 
-    @Nullable
-    public List<User> findAll() {
-        return entityManager.createQuery("Select user from User user")
-                .getResultList();
-    }
+    List<User> findAll();
 
-    public void remove(@NotNull final User user) {
-        entityManager.remove(user);
-    }
+    void deleteAll();
 
-    public void removeAll() {
-        entityManager.createQuery("Delete user from User user").executeUpdate();
-    }
+    User findByName(@NotNull final String login);
 
-    public User findByName(@NotNull final String login) {
-        return (User) entityManager.createQuery("SELECT u FROM User u WHERE u.name = :login")
-                .setParameter("login", login)
-                .getSingleResult();
-    }
-
-    public User logIn(@NotNull final String login, @NotNull final String password) {
-        return (User) entityManager.createQuery("SELECT u FROM User u WHERE u.name = :login AND u.hashPassword = :password")
-                .setParameter("login", login)
-                .setParameter("password", PasswordHashUtil.md5(password))
-                .getSingleResult();
-    }
+    User findByNameAndHashPassword(@NotNull final String login, @NotNull final String password);
 }
