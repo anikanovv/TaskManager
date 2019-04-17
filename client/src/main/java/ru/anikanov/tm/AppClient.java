@@ -31,9 +31,6 @@ public class AppClient {
             LoadFasterJsonCommand.class, LoadFasterXmlCommand.class};
 
     public static void main(final String[] args) {
-      /*  SeContainerInitializer.newInstance()
-                .addPackages(AppClient.class).initialize()
-                .select(Bootstrap.class).get().init(CLASSES);*/
         ApplicationContext applicationContext = new AnnotationConfigApplicationContext(SpringConfig.class);
         ServiceLocator serviceLocator = applicationContext.getBean(ServiceLocator.class);
         serviceLocator.init(CLASSES);
