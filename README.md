@@ -25,11 +25,7 @@
 | - removeall tasks  | удалить все задачи  |
 | - read task  | читать информацию о задаче  |
 | - readall tasks  |  читать информацию о всех задачах  |
-### ТРЕБОВАНИЯ К SOFTWARE:
-* IntelliJ IDEA Community version 
-* Java 8
-### ОПИСАНИЕ СТЕКА ТЕХНОЛОГИЙ:
-* Java SE 
+
 ### ИМЯ РАЗРАБОТЧИКА И КОНТАКТЫ:
 * Аниканов Владислав Алексеевич
 * mail: anikanov.vlad@gmail.com
